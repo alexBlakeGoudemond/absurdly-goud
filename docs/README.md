@@ -98,8 +98,8 @@ The website currently contains a `rel="me"` link to the owner's GitHub profile:
 
 ```html
     <a href="https://github.com/alexBlakeGoudemond" rel="me">
-        github.com/alexBlakeGoudemond
-    </a>
+    github.com/alexBlakeGoudemond
+</a>
 ```
 
 This establishes the intended relationship:
@@ -134,3 +134,41 @@ to DNS caching. This did not affect the public DNS configuration.
 
 The site was successfully verified from a mobile device using mobile data, confirming that the public site resolves
 correctly.
+
+# IndieWeb: h-card
+
+A **h-card** is a machine-readable "business card" for a person or organization.
+
+It uses **Microformats** — CSS classes added to normal HTML — to tell software who you are.
+
+```html
+
+<div class="h-card">
+    <p class="p-name">Alex Blake-Goudemond</p>
+
+    <a class="u-url" href="https://absurdlygoud.com">
+        absurdlygoud.com
+    </a>
+
+    <a class="u-url" href="https://github.com/alexBlakeGoudemond" rel="me">
+        GitHub
+    </a>
+</div>
+```
+
+## Common properties
+
+- `h-card` → identifies the overall card
+- `p-name` → person's name
+- `u-url` → URL associated with the person
+- `u-photo` → person's photo
+- `p-note` → description/note
+
+### Mental model
+
+```text
+rel="me"  → "What other websites represent me?"
+h-card    → "Who am I?"
+```
+
+The goal is for **humans to see a normal webpage while software can understand the identity information**.
