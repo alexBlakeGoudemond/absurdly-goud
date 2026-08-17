@@ -1,0 +1,20 @@
+index.html
+  h_1197a506f6c7d6 6,9,17-22
+  h_1197a506f6c7d6 12,23,29
+README.md
+  h_1197a506f6c7d6 8
+docs/README.md
+  h_1197a506f6c7d6 3,13-44,56,76,86,94,98,100,102-105,108,110-113,120,122-124,126,128-142,145-157,160-163,165-167,169,175-176,180-188,190-191,195-197,203,210,216-217,221-246
+  h_1197a506f6c7d6 57-58,87-89,114-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "63776b809614e4ed6a24c4ee42ae5e06d566cd6b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
