@@ -1,0 +1,26 @@
+docs/README.md
+  s_df09b503200416::t_674c0230895e4c 67-70
+  s_df09b503200416::t_4aca8742f2843c 64-66
+  s_df09b503200416::t_764c916cc10252 71-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a224c64c777eaa3195cee38a4b864446faff8a05",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_df09b503200416": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1786933753312",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
