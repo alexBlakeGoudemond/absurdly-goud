@@ -97,7 +97,7 @@ https://absurdlygoud.com
 The website currently contains a `rel="me"` link to the owner's GitHub profile:
 
 ```html
-    <a href="https://github.com/alexBlakeGoudemond" rel="me">
+<a href="https://github.com/alexBlakeGoudemond" rel="me">
     github.com/alexBlakeGoudemond
 </a>
 ```
