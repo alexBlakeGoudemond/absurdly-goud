@@ -1,1 +1,4 @@
 /.idea/
+
+# jekyll's generated output directory
+/_site/
