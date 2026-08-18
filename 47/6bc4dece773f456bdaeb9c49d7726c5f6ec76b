@@ -1,0 +1,22 @@
+_layouts/default.html
+  h_1197a506f6c7d6 1-15
+Makefile
+  h_1197a506f6c7d6 6
+docs/JEKYL_README.md
+  h_1197a506f6c7d6 62-89
+_config.yml
+  h_1197a506f6c7d6 2-5
+index.md
+  h_1197a506f6c7d6 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "476bc4dece773f456bdaeb9c49d7726c5f6ec76b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
