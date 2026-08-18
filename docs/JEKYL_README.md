@@ -59,3 +59,31 @@ Jekyll has two separate jobs
 
 GitHub Pages can build Jekyll sites for you remotely. Ruby isn't required just to have a Jekyll-powered GitHub Pages
 website. However installing it is recommended as it helps with local development and debugging.
+
+## Jekyll Files Explained
+
+### _config.yml
+
+site-wide configuration object for Jekyll.
+
+It describes things that apply to the website as a whole:
+```bash
+_config.yml
+     │
+     ├── Site identity
+     ├── Build behaviour
+     ├── Plugins
+     ├── Defaults
+     ├── Markdown settings
+     └── Custom variables
+              │
+              ▼
+          Jekyll
+              │
+              ▼
+       every generated page
+```
+
+### _layout
+
+TBD
