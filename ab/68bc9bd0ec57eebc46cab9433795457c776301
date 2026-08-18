@@ -1,0 +1,19 @@
+about.md
+  h_1197a506f6c7d6 1-10
+Makefile
+  h_1197a506f6c7d6 8-10
+_layouts/default.html
+  h_1197a506f6c7d6 12-20,22
+  h_1197a506f6c7d6 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ab68bc9bd0ec57eebc46cab9433795457c776301",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
