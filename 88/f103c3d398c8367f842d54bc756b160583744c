@@ -1,0 +1,18 @@
+docker/ruby/Dockerfile
+  h_1197a506f6c7d6 1
+Gemfile
+  h_1197a506f6c7d6 1-3
+docker/compose.yaml
+  h_1197a506f6c7d6 1-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "88f103c3d398c8367f842d54bc756b160583744c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
