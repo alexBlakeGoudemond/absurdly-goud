@@ -1,0 +1,14 @@
+docs/JEKYL_README.md
+  h_1197a506f6c7d6 1-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "f844636971983f7d429bf4812c48ce500c501403",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
