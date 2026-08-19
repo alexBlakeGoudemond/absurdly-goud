@@ -1,5 +1,7 @@
 # Jekyll README
 
+Jekyll generates the pages into [`/_site`](#_site).
+
 ## Jekyll Use Case
 
 Jekyll takes Markdown, HTML, and templates and generates a static website.
@@ -79,7 +81,7 @@ _config.yml
        generated pages
 ```
 
-### `_layouts/`
+### `/_layouts/`
 
 Contains templates used by pages.
 
@@ -107,6 +109,18 @@ The layout can insert the page's content using:
 
 This allows multiple pages to share the same HTML structure.
 
+### `/_posts/` and `/posts/`
+
+Think of `_posts/` as a content database, whereas `posts/` is the website directory:
+
+```bash
+_posts/              ← Jekyll's special post collection
+    hello-world.md
+
+posts/               ← website directory
+    index.md
+```
+
 ### `index.md`
 
 The homepage content.
@@ -120,9 +134,9 @@ title: Home
 ---
 ```
 
-### `about.md`
+### `/about/`
 
-A separate page.
+A separate directory containing the about page.
 
 It can use the same layout:
 
@@ -130,10 +144,9 @@ It can use the same layout:
 ---
 layout: default
 title: About
+permalink: /about/
 ---
 ```
-
-Jekyll generates the pages into `_site/`.
 
 ### `_site/`
 
