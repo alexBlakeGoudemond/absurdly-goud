@@ -10,6 +10,11 @@
     </header>
 
     <div class="e-content">
+        {% assign post_media = "/media/post/"
+            | append: page.date | date: "%Y/%m/%d/"
+            | append: page.slug
+            | append: "/" %}
+
         {{ content }}
     </div>
 

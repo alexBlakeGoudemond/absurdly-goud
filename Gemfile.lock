@@ -309,6 +309,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jekyll-paginate
 
 BUNDLED WITH
    2.5.22

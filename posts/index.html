@@ -1,0 +1,57 @@
+---
+layout: default
+title: Posts
+---
+
+<div class="h-feed">
+
+  <h1 class="p-name">{{ page.title }}</h1>
+
+  {% for post in paginator.posts %}
+
+  <article class="h-entry">
+
+    <h2 class="p-name">
+      <a class="u-url" href="{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h2>
+
+    <time class="dt-published"
+          datetime="{{ post.date | date_to_xmlschema }}">
+      {{ post.date | date: "%d %B %Y" }}
+    </time>
+
+    <div class="p-summary">
+      {{ post.excerpt }}
+    </div>
+
+  </article>
+
+  {% endfor %}
+
+  {% if paginator.total_pages > 1 %}
+
+  <nav class="pagination" aria-label="Posts pagination">
+
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}">
+      ← Newer posts
+    </a>
+    {% endif %}
+
+    <span>
+            Page {{ paginator.page }} of {{ paginator.total_pages }}
+        </span>
+
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}">
+      Older posts →
+    </a>
+    {% endif %}
+
+  </nav>
+
+  {% endif %}
+
+</div>

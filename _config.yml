@@ -5,6 +5,8 @@ url: "https://absurdlygoud.com"
 
 repository: alexBlakeGoudemond/absurdly-goud
 
+permalink: /:year/:month/:day/:title/
+
 exclude:
   - docker/
   - docs/
@@ -13,3 +15,9 @@ exclude:
   - LICENSE
   - Makefile
   - README.md
+
+plugins:
+  - jekyll-paginate
+
+paginate: 10
+paginate_path: "/posts/page:num/"
