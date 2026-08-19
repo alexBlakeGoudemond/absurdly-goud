@@ -2,3 +2,6 @@
 
 # jekyll's generated output directory
 /_site/
+
+# Additional AI Resources: https://github.com/alexBlakeGoudemond/ai-playbook
+/.ai-playbook/
