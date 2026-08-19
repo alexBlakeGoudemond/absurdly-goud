@@ -15,4 +15,5 @@ I set the pagination to one post per page and this is what I see:
 {% include image.html
     src="pagination-test-screenshot.png"
     alt="Screenshot showing the pagination test"
+    title="Pagination test"
 %}
