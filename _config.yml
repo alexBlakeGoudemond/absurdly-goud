@@ -13,6 +13,7 @@ exclude:
   - .ai-playbook/
   - docker/
   - docs/
+  - absurdly-goud-obsidian/
   - AGENTS.md
   - Gemfile
   - Gemfile.lock

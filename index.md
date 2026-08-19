@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: "Home"
 ---
 
 <div class="h-card">
@@ -25,3 +25,5 @@ title: Home
         GitHub
     </a>
 </div>
+
+{% include home_fragment.md %}
