@@ -1,0 +1,24 @@
+_layouts/post.html
+  h_1197a506f6c7d6 1-16
+docs/JEKYLL_README.md
+  h_1197a506f6c7d6 3-4,84,112-123,137,139,147
+about/index.md
+  h_1197a506f6c7d6 1-11
+posts/index.md
+  h_1197a506f6c7d6 1-31
+_layouts/default.html
+  h_1197a506f6c7d6 15-16
+_posts/2026-08-19-hello-world.md
+  h_1197a506f6c7d6 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "1eb4b65726caa2ce92996939f4335942037134ab",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
