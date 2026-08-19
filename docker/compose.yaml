@@ -9,6 +9,7 @@ services:
 
     volumes:
       - ..:/site
+      - ai_playbook_stub:/site/.ai-playbook:ro
 
     ports:
       - "4000:4000"
@@ -16,3 +17,6 @@ services:
     command: >
       bash -c "bundle install &&
       bundle exec jekyll serve --host 0.0.0.0 --livereload"
+
+volumes:
+  ai_playbook_stub: {}
