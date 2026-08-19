@@ -1,0 +1,21 @@
+_layouts/default.html
+  h_1197a506f6c7d6 8-9
+_posts/2026-08-19-pagination-test.md
+  h_1197a506f6c7d6 18
+assets/css/style.css
+  h_1197a506f6c7d6 1-15
+_includes/image.html
+  h_1197a506f6c7d6 1-2,6-11
+  h_1197a506f6c7d6 3-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "671db6a3a09200d51ba2f2567646c9db87d781ac",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
