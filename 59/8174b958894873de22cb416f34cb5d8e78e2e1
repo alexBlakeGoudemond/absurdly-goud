@@ -1,0 +1,16 @@
+AGENTS.md
+  h_1197a506f6c7d6 1-11
+_config.yml
+  h_1197a506f6c7d6 13,16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "598174b958894873de22cb416f34cb5d8e78e2e1",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
