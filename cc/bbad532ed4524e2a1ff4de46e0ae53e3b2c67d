@@ -1,0 +1,15 @@
+docs/JEKYLL_README.md
+  h_1197a506f6c7d6 16-18,20-21,86-87,97-130,136,166-169,173-192,212,220-229,244,252-270,280,288-321,344,350,361,423-425
+  h_1197a506f6c7d6 131-135,170-172
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ccbbad532ed4524e2a1ff4de46e0ae53e3b2c67d",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
