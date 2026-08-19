@@ -1,0 +1,30 @@
+_config.yml
+  h_1197a506f6c7d6 8-9,18-23
+Gemfile
+  h_1197a506f6c7d6 4
+  h_1197a506f6c7d6 3
+_posts/2026-08-19-pagination-test.md
+  h_1197a506f6c7d6 1-14
+posts/index.html
+  h_1197a506f6c7d6 6,8,10,12-17,22,25-26,29-55,57
+_layouts/post.html
+  h_1197a506f6c7d6 13-17
+docs/JEKYLL_README.md
+  h_1197a506f6c7d6 3,7,18-21,23-24,28,39-42,94,100-101,121,123,125,127-184,187-229,245,257-271,276-277,281-292,296-298
+  h_1197a506f6c7d6 293
+_includes/image.html
+  h_1197a506f6c7d6 1
+Gemfile.lock
+  h_1197a506f6c7d6 312
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "8df360a055801f429040d36a39b4131df4cd7ba5",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
