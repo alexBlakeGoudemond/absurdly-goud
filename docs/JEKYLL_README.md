@@ -13,8 +13,12 @@ A Jekyll site can look like this:
 ```text
 absurdly-goud/
 ├── _config.yml
+├── _includes/
+│   ├── header.html
+│   └── image.html
 ├── _layouts/
-│   └── default.html
+│   ├── default.html
+│   └── post.html
 ├── _posts/
 │   └── 2026-08-19-hello-world.md
 ├── posts/
@@ -79,7 +83,8 @@ _config.yml
      │
      ├── Site identity
      ├── Build configuration
-     ├── Plugins
+     ├── Pagination
+     ├── Excerpt configuration
      └── Custom variables
               │
               ▼
@@ -87,6 +92,46 @@ _config.yml
               │
               ▼
        generated pages
+```
+
+For example, this project uses:
+
+```yaml
+permalink: /:year/:month/:day/:title/
+
+excerpt_separator: <!--more-->
+
+paginate: 10
+paginate_path: "/posts/page:num/"
+```
+
+### `/_includes/`
+
+Contains reusable HTML/Liquid fragments.
+
+For example:
+
+```text
+_includes/
+├── header.html
+└── image.html
+```
+
+The shared site header is included by the default layout:
+
+```liquid
+{% include header.html %}
+```
+
+This means the navigation only needs to be defined in one place.
+
+The image include provides a convenient way to generate predictable post image URLs:
+
+```liquid
+{% include image.html
+   src="pagination-test-screenshot.png"
+   alt="Screenshot showing the pagination test"
+%}
 ```
 
 ### `/_layouts/`
@@ -118,6 +163,33 @@ The layout can insert the page's content using:
 
 This allows multiple pages to share the same HTML structure.
 
+#### Layout inheritance
+
+The `post` layout uses the `default` layout:
+
+```yaml
+---
+layout: default
+---
+```
+
+This means posts automatically inherit the site's document structure and shared header.
+
+The relationship is:
+
+```text
+post.md
+   │
+   ▼
+post.html
+   │
+   ▼
+default.html
+   │
+   ├── header.html
+   └── {{ content }}
+```
+
 ### `/_posts/`
 
 Contains blog posts recognised by Jekyll's built-in `posts` collection.
@@ -137,12 +209,22 @@ site.posts
 
 `site.posts` is sorted newest → oldest by default.
 
-The filename also provides the post's date and helps Jekyll generate its permalink.
+The filename provides the post's date and helps Jekyll generate its permalink.
 
 For this site, posts are published at:
 
 ```text
 /2026/08/19/hello-world/
+```
+
+A post can use the `post` layout:
+
+```yaml
+---
+layout: post
+title: "Hello World"
+date: 2026-08-19
+---
 ```
 
 ### `/posts/`
@@ -159,12 +241,31 @@ posts/               ← website page
 └── index.html
 ```
 
-`posts/index.html` displays the posts using Jekyll's paginator:
+`posts/index.html` displays posts using Jekyll's paginator:
 
 ```liquid
 {% for post in paginator.posts %}
     ...
 {% endfor %}
+```
+
+The archive uses Microformats2:
+
+```text
+h-feed
+└── h-entry
+    ├── p-name
+    ├── dt-published
+    └── p-summary
+```
+
+The individual post uses:
+
+```text
+h-entry
+├── p-name
+├── dt-published
+└── e-content
 ```
 
 Pagination is configured in `_config.yml`.
@@ -176,12 +277,46 @@ paginate: 10
 paginate_path: "/posts/page:num/"
 ```
 
-This produces:
+This produces pages such as:
 
 ```text
 /posts/
 /posts/page2/
 /posts/page3/
+```
+
+### Post Excerpts
+
+The post archive displays a short preview using:
+
+```liquid
+{{ post.excerpt }}
+```
+
+This project uses an explicit excerpt separator:
+
+```yaml
+excerpt_separator: <!--more-->
+```
+
+A post can therefore define exactly where its preview ends:
+
+```markdown
+This is the introduction to my post.
+
+<!--more-->
+
+This is the rest of the post.
+```
+
+The archive displays the content before `<!--more-->`, while the individual post displays the complete content.
+
+The archive marks the preview as a Microformats2 `p-summary`:
+
+```html
+<div class="p-summary">
+    {{ post.excerpt }}
+</div>
 ```
 
 ### Post Images
@@ -206,15 +341,13 @@ This gives each post a predictable media directory:
 /media/2026/08/19/pagination-test/
 ```
 
-The project uses a small Jekyll include to generate the image URL automatically.
-
-`_includes/image.html`:
+The project uses `_includes/image.html` to generate the image URL automatically:
 
 ```html
 <img class="u-photo" src="/media/{{ page.date | date: '%Y/%m/%d' }}/{{ page.slug }}/{{ include.src }}" alt="{{ include.alt }}">
 ```
 
-A post can then include an image without having to repeat its date and slug:
+A post can then include an image without repeating its date and slug:
 
 ```liquid
 {% include image.html
@@ -225,7 +358,7 @@ A post can then include an image without having to repeat its date and slug:
 
 Jekyll generates the final image URL from the post's date, slug, and image filename.
 
-The `u-photo` class also marks the image as a Microformats2 photo belonging to the post's `h-entry`.
+The `u-photo` class marks the image as a Microformats2 photo belonging to the post's `h-entry`.
 
 ### `index.md`
 
@@ -287,7 +420,9 @@ _site/
 ├── 2026/
 │   └── 08/
 │       └── 19/
-│           └── hello-world/
+│           ├── hello-world/
+│           │   └── index.html
+│           └── pagination-test/
 │               └── index.html
 └── media/
     └── ...
