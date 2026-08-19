@@ -1,0 +1,11 @@
+<figure>
+    <img
+            class="u-photo"
+            src="/media/{{ page.date | date: '%Y/%m/%d' }}/{{ page.slug }}/{{ include.src }}"
+            alt="{{ include.alt }}"
+    >
+
+    {% if include.title %}
+    <figcaption>{{ include.title }}</figcaption>
+    {% endif %}
+</figure>

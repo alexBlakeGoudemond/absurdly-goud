@@ -1,0 +1,15 @@
+figure {
+    margin: 1.5rem 0;
+}
+.u-photo {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #630b0b;
+    border-radius: 4px;
+}
+
+figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}

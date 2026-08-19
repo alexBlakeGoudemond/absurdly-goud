@@ -4,3 +4,22 @@ description: Alex Blake-Goudemond's personal website
 url: "https://absurdlygoud.com"
 
 repository: alexBlakeGoudemond/absurdly-goud
+
+excerpt_separator: <!--more-->
+
+permalink: /:year/:month/:day/:title/
+
+exclude:
+  - docker/
+  - docs/
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - Makefile
+  - README.md
+
+plugins:
+  - jekyll-paginate
+
+paginate: 10
+paginate_path: "/posts/page:num/"
