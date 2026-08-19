@@ -1,0 +1,28 @@
+_config.yml
+  h_1197a506f6c7d6 13,16
+AGENTS.md
+  h_1197a506f6c7d6 1-11
+docker/compose.yaml
+  s_92d0197c7d3670::t_c320683c3c162a 17-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "5a4b4202f47f6d4408b77989b9533bb0ae59758e",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_92d0197c7d3670": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4d378806-b64f-411b-86e3-082bcc34aa43",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
