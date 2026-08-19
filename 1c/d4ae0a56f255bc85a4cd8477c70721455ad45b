@@ -1,0 +1,14 @@
+_config.yml
+  h_1197a506f6c7d6 6-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "1cd4ae0a56f255bc85a4cd8477c70721455ad45b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
