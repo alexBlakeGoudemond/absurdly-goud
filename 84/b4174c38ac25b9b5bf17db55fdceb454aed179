@@ -1,0 +1,19 @@
+_posts/2026-08-19-hello-world.md
+  h_1197a506f6c7d6 10-13
+  h_1197a506f6c7d6 9
+_posts/2026-08-19-pagination-test.md
+  h_1197a506f6c7d6 9-13
+_config.yml
+  h_1197a506f6c7d6 8-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "84b4174c38ac25b9b5bf17db55fdceb454aed179",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
