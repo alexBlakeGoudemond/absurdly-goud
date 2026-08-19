@@ -1,0 +1,68 @@
+.gitignore
+  h_1197a506f6c7d6 8-13
+docker/compose.yaml
+  s_92d0197c7d3670::t_9a05939672c522 19
+  s_92d0197c7d3670::t_47c5ee04593bbe 18,20
+scripts/obsidian_to_jekyll.py
+  s_92d0197c7d3670::t_faba2dcf43128b 205-215,220-228,230,232,260-271,337,342,345,347-355,359,364,392-394,396-398,400,403,406-415
+  s_92d0197c7d3670::t_dbbf4505f532e8 395
+  s_92d0197c7d3670::t_141f873e23cd70 229,231,233-259
+  s_92d0197c7d3670::t_336f374810d67e 327-334
+  s_92d0197c7d3670::t_8caebf5ee2d837 1,13-19,21-23,25-26,34-36,38-40,42,44-46,48,116-117,120,122-124,126-130,132-136,138,146,149,151-155,157-162,164,167,169-170,203-204,356,358,361-363,366-370,405,416-417,419-421
+  s_92d0197c7d3670::t_c59d2cf7e2a398 273,275-276
+  s_92d0197c7d3670::t_200e194a012316 2-12,20,24,27-33,37,41,43,47,49-115,118-119,121,125,131,137,139-145,147-148,150,156,163,165-166,168,171-202,399,401-402,404,418
+  s_92d0197c7d3670::t_988ea5cbb92e41 216-219
+  s_92d0197c7d3670::t_33fef4b8ddc46e 357,360,365,371-391
+  s_92d0197c7d3670::t_d5d324e491fd48 272,274,277-326,335-336,338-341,343-344,346
+index.md
+  s_92d0197c7d3670::t_516507f730a1c9 3
+  s_92d0197c7d3670::t_ebc8b426adacde 27-28
+  s_92d0197c7d3670::t_24abb6ab34e3a6 29
+_includes/about_fragment.md
+  s_92d0197c7d3670::t_dd5d1f4d7c3ff9 1-11
+about/index.md
+  s_92d0197c7d3670::t_516507f730a1c9 7
+_includes/home_fragment.md
+  s_92d0197c7d3670::t_dd5d1f4d7c3ff9 1-11
+absurdly-goud-obsidian/home/home.md
+  s_b0abe15b0c68aa::t_7adf8eac9a647f 1
+  s_b0abe15b0c68aa::t_2132ea094d7f7a 2-4
+  h_1197a506f6c7d6 5
+_config.yml
+  s_92d0197c7d3670::t_ded54dc3d8d730 16
+.github/workflows/obsidian-export-deploy.yml
+  s_92d0197c7d3670::t_a9c655aefe3851 1-45
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 1-5
+home/home.md
+  s_92d0197c7d3670::t_b2d02fb98f0a56 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "0bce724602374782e328963671b0e1eaf1a774d6",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_92d0197c7d3670": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4d378806-b64f-411b-86e3-082bcc34aa43",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_b0abe15b0c68aa": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787168535888",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
