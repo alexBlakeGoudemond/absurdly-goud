@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
 
   jekyll:
@@ -9,10 +11,12 @@ services:
 
     volumes:
       - ..:/site
+      - ai_playbook_stub:/site/.ai-playbook:ro
 
     ports:
       - "4000:4000"
 
-    command: >
-      bash -c "bundle install &&
-      bundle exec jekyll serve --host 0.0.0.0 --livereload"
+    command: ["/usr/local/bin/entrypoint.sh"]
+
+volumes:
+  ai_playbook_stub: {}

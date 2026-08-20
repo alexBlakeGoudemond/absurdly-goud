@@ -10,8 +10,11 @@ excerpt_separator: <!--more-->
 permalink: /:year/:month/:day/:title/
 
 exclude:
+  - .ai-playbook/
   - docker/
   - docs/
+  - absurdly-goud-obsidian/
+  - AGENTS.md
   - Gemfile
   - Gemfile.lock
   - LICENSE

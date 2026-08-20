@@ -1,9 +1,8 @@
 ---
 layout: post
-title: "Pagination Test"
+title: Pagination Test
 date: 2026-08-19
 ---
-
 Hello, IndieWeb!
 
 This is my pagination test. Below I include a screenshot showing what it looks like
