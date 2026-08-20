@@ -60,10 +60,10 @@ jobs:
       - name: Build site with Jekyll
         run: bundle exec jekyll build --source site_src --config _config.yml --destination site
 
-      - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to gh-pages using peaceiris/actions-gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./site
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          allow_empty_commit: false
