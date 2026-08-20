@@ -1,0 +1,18 @@
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 4,6,9
+absurdly-goud-obsidian/posts/2026/08/2026-08-19-pagination-test.md
+  h_1197a506f6c7d6 6,8,12-18
+absurdly-goud-obsidian/posts/2026/08/2026-08-20-obsidian-test.md
+  h_1197a506f6c7d6 6,10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a7dd37fb158c8c2760a55bf57c5991e6b74bb23c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
