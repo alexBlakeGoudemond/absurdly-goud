@@ -1,0 +1,58 @@
+name: Convert -> Build -> Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Cache Ruby gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile.lock') }}
+
+      - name: Install Bundler & Gems
+        run: |
+          gem install bundler
+          bundle config set path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run Obsidian -> Jekyll converter
+        run: python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out site_src
+
+      - name: Build site with Jekyll
+        run: bundle exec jekyll build --source site_src --config _config.yml --destination site
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
