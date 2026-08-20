@@ -278,6 +278,15 @@ def ensure_generated_pages(src_root: Path, dst_root: Path):
         index_root.write_text(fm + hcard + body, encoding='utf8')
         print(f'Wrote root index.md at {index_root} (home page)')
 
+        # generate a simple posts index so /posts/ is available
+        posts_dir = dst_root / 'posts'
+        posts_dir.mkdir(parents=True, exist_ok=True)
+        posts_index = posts_dir / 'index.md'
+        posts_fm = "---\nlayout: default\ntitle: \"Posts\"\npermalink: /posts/\n---\n\n"
+        posts_body = "{% for post in site.posts %}\n- [{{ post.title }}]({{ post.url }}) — {{ post.date | date: \"%Y-%m-%d\" }}\n{% endfor %}\n"
+        posts_index.write_text(posts_fm + posts_body, encoding='utf8')
+        print(f'Wrote posts index at {posts_index}')
+
 
 def sync_to_repo(temp_out: Path, repo_root: Path):
     dst_root = repo_root / 'site_src'
