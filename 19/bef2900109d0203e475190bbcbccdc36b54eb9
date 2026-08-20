@@ -1,0 +1,45 @@
+scripts/watch_and_build.py
+  s_9280db76281b7b::t_330ed48de7c011 1-114
+README.md
+  s_9280db76281b7b::t_ee8afb4a333d94 13-32
+scripts/obsidian_to_jekyll.py
+  s_9280db76281b7b::t_2eccd056327b32 347
+  s_9280db76281b7b::t_4bb8bc6e4856f4 280
+  s_9280db76281b7b::t_dd8680beae5e7c 313
+  s_9280db76281b7b::t_7688f7ace77e28 219-220,228
+  s_9280db76281b7b::t_4e7ddf04fd835a 232,251-268
+  s_9280db76281b7b::t_6c9678270dffce 247-248
+  s_9280db76281b7b::t_08d9896a767ee5 339-341
+  s_9280db76281b7b::t_2325dd72efc274 209-217
+  s_9280db76281b7b::t_242dc60d5ddad5 218,387-388
+  s_9280db76281b7b::t_0d5343e2f01db2 358
+docker/compose.yaml
+  s_9280db76281b7b::t_940e98a2331b18 1-2
+  s_9280db76281b7b::t_7f2c3f6267f636 20
+  s_9280db76281b7b::t_124fde3f0fa6f7 23
+index.md
+  s_9280db76281b7b::t_f04eef92d1c124 29-35
+scripts/dev.ps1
+  s_9280db76281b7b::t_026cb5ebe5db02 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "19bef2900109d0203e475190bbcbccdc36b54eb9",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_9280db76281b7b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "e0f1191d-da18-4438-a40f-f8b08de020c0",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
