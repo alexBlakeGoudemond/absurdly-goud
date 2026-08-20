@@ -1,0 +1,19 @@
+.github/workflows/convert-build-deploy.yml
+  s_9280db76281b7b::t_3113ef4405c38d 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "bf897a71e71b3c92eb0428d14d129562944678d4",
+  "prompts": {},
+  "sessions": {
+    "s_9280db76281b7b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "e0f1191d-da18-4438-a40f-f8b08de020c0",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
