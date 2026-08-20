@@ -60,6 +60,10 @@ jobs:
       - name: Build site with Jekyll
         run: bundle exec jekyll build --source site_src --config _config.yml --destination site
 
+      - name: Write CNAME into built site
+        run: |
+          echo "absurdlygoud.com" > site/CNAME
+
       - name: Deploy to gh-pages using peaceiris/actions-gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
