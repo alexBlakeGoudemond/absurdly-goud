@@ -17,7 +17,6 @@ from pathlib import Path
 import shutil
 import re
 import os
-import json
 from datetime import datetime
 
 WIKILINK_RE = re.compile(r"!\?\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
@@ -40,7 +39,6 @@ def copy_vault(vault: Path, out: Path):
         for n in names:
             if n == '.obsidian' or n == '.git':
                 ignored.add(n)
-            # avoid following absolute symlinks (ai-playbook)
             if n == '.ai-playbook':
                 ignored.add(n)
         return ignored
@@ -49,23 +47,19 @@ def copy_vault(vault: Path, out: Path):
 
 
 def copy_repo_templates(repo_root: Path, out: Path):
-    # Copy _layouts, _includes, assets, media into out
     for name in ["_layouts", "_includes", "assets", "media", "_sass"]:
         src = repo_root / name
         if src.exists():
             dst = out / name
-            # use copytree with dirs_exist_ok when available
             try:
                 shutil.copytree(src, dst, dirs_exist_ok=True)
             except TypeError:
-                # older shutil without dirs_exist_ok
                 if dst.exists():
                     shutil.rmtree(dst)
                 shutil.copytree(src, dst)
 
 
 def read_front_matter_date(text: str):
-    # very small parser: look for 'date:' in top YAML block
     if text.lstrip().startswith('---'):
         parts = text.split('---', 2)
         if len(parts) >= 2:
@@ -73,7 +67,6 @@ def read_front_matter_date(text: str):
             for line in fm.splitlines():
                 m = DATE_IN_FM.match(line.strip())
                 if m:
-                    # try parse date
                     try:
                         return datetime.fromisoformat(m.group(1).strip())
                     except Exception:
@@ -87,15 +80,12 @@ def read_front_matter_date(text: str):
 def ensure_front_matter(md_path: Path, ensure_layout: str = None, title_override: str = None):
     txt = md_path.read_text(encoding='utf8')
     if txt.lstrip().startswith('---'):
-        # optionally ensure layout exists
-        if ensure_layout:
-            # naive insertion if layout missing
-            if 'layout:' not in txt.split('---', 2)[1]:
-                parts = txt.split('---', 2)
-                parts[1] = parts[1].strip() + f"\nlayout: {ensure_layout}\n"
-                md_path.write_text('---' + parts[1] + '---' + (parts[2] if len(parts) > 2 else ''), encoding='utf8')
+        if ensure_layout and 'layout:' not in txt.split('---', 2)[1]:
+            parts = txt.split('---', 2)
+            parts[1] = parts[1].strip() + f"\nlayout: {ensure_layout}\n"
+            md_path.write_text('---' + parts[1] + '---' + (parts[2] if len(parts) > 2 else ''), encoding='utf8')
         return
-    # find first heading
+
     title = None
     for line in txt.splitlines():
         s = line.strip()
@@ -116,8 +106,6 @@ def ensure_front_matter(md_path: Path, ensure_layout: str = None, title_override
 
 
 def find_target_file(out: Path, name: str):
-    """Search the exported out tree for a file matching name (case-insensitive, ignoring extension)."""
-    # exact match first
     candidates = list(out.rglob(name + '.*'))
     if candidates:
         return candidates[0]
@@ -137,12 +125,10 @@ def convert_wikilinks_in_text(text: str, src_file: Path, out: Path):
         tgt = find_target_file(out, target)
         if tgt:
             rel = Path(os.path.relpath(tgt, out))
-            # If target is markdown, link to .html
             if tgt.suffix.lower() in ['.md', '.markdown']:
                 rel_out = rel.with_suffix('.html')
             else:
                 rel_out = rel
-            # compute relative URL from src_file in out
             try:
                 src_rel = Path(os.path.relpath(src_file, out))
                 url = Path(os.path.relpath(rel_out, start=src_rel.parent)).as_posix()
@@ -150,19 +136,16 @@ def convert_wikilinks_in_text(text: str, src_file: Path, out: Path):
                 url = rel_out.as_posix()
             if is_image:
                 return f'![{display}]({url})'
-            else:
-                return f'[{display}]({url})'
-        else:
-            slug = slugify(target)
-            if is_image:
-                return f'![{display}]({slug})'
-            return f'[{display}]({slug})'
+            return f'[{display}]({url})'
+        slug = slugify(target)
+        if is_image:
+            return f'![{display}]({slug})'
+        return f'[{display}]({slug})'
     return WIKILINK_RE.sub(repl, text)
 
 
 def process_markdown_files(out: Path):
     for md in out.rglob('*.md'):
-        # ensure front matter (use default layout if present)
         ensure_front_matter(md, ensure_layout='default')
         text = md.read_text(encoding='utf8')
         new_text = convert_wikilinks_in_text(text, md, out)
@@ -176,7 +159,6 @@ def normalize_posts(out: Path):
         return
     for md in posts_root.rglob('*.md'):
         stem = md.stem
-        # if starts with YYYY-MM-DD, skip
         if re.match(r'^\d{4}-\d{2}-\d{2}', stem):
             continue
         txt = md.read_text(encoding='utf8')
@@ -186,7 +168,6 @@ def normalize_posts(out: Path):
         date_str = dt.strftime('%Y-%m-%d')
         new_name = f"{date_str}-{slugify(stem)}.md"
         new_path = md.with_name(new_name)
-        # if collision, append a counter
         i = 1
         while new_path.exists():
             new_path = md.with_name(f"{date_str}-{slugify(stem)}-{i}.md")
@@ -202,38 +183,26 @@ def remove_html_files(out: Path):
             pass
 
 
-def sync_to_repo(temp_out: Path, repo_root: Path):
-    """Copy processed files from temp_out into the repo's Jekyll locations.
-    This overwrites files in the working tree but does not commit.
-    """
-    dst_root = repo_root / 'site_src'
+def find_home_source(src_root: Path):
+    home_candidates = [
+        src_root / 'home' / 'home.md',
+        src_root / 'home' / 'index.md',
+        src_root / 'index.md',
+        src_root / 'home.md',
+        src_root / 'index_fragment.md',
+    ]
+    for c in home_candidates:
+        if c.exists():
+            return c
+    return None
+
+
+def ensure_generated_pages(src_root: Path, dst_root: Path):
     dst_root.mkdir(parents=True, exist_ok=True)
 
-    # ensure dirs inside site_src
-    (dst_root / '_posts').mkdir(parents=True, exist_ok=True)
-    (dst_root / 'about').mkdir(parents=True, exist_ok=True)
-    (dst_root / '_includes').mkdir(parents=True, exist_ok=True)
-    (dst_root / 'media').mkdir(parents=True, exist_ok=True)
-    (dst_root / 'assets').mkdir(parents=True, exist_ok=True)
-
-    # copy posts: replace site_src/_posts with vault posts
-    dst_posts_root = dst_root / '_posts'
-    if dst_posts_root.exists():
-        shutil.rmtree(dst_posts_root)
-    src_posts = temp_out / '_posts'
-    if src_posts.exists():
-        for p in src_posts.rglob('*'):
-            if p.is_file():
-                rel = p.relative_to(src_posts)
-                dst = dst_root / '_posts' / rel
-                dst.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(p, dst)
-
-    # process about: prefer creating a full page from vault about content (about/index.md)
-    src_about = temp_out / 'about'
+    src_about = src_root / 'about'
     about_fragment = None
     if src_about.exists():
-        # prefer about/index.md or about/about.md or first md inside about/
         candidates = [src_about / 'index.md', src_about / 'about.md']
         for c in candidates:
             if c.exists():
@@ -244,7 +213,6 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             if md_files:
                 about_fragment = md_files[0]
         if about_fragment:
-            # write a full about page at site_src/about/index.md using fragment body
             about_dir = dst_root / 'about'
             about_dir.mkdir(parents=True, exist_ok=True)
             index_about = about_dir / 'index.md'
@@ -258,7 +226,7 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
                     body = parts[2]
                     for line in fm_block.splitlines():
                         if line.strip().lower().startswith('title:'):
-                            title = line.split(':', 1)[1].strip().strip('"\'"')
+                            title = line.split(':', 1)[1].strip().strip("\"'")
                             break
             fm = "---\nlayout: default\n"
             if title:
@@ -266,37 +234,8 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             fm += "permalink: /about/\n---\n\n"
             index_about.write_text(fm + body, encoding='utf8')
             print(f'Wrote about page at {index_about}')
-    else:
-        # no about in vault; leave existing repo about alone
-        pass
 
-    # copy media and assets
-    for name in ['media', 'assets']:
-        src = temp_out / name
-        if src.exists():
-            for p in src.rglob('*'):
-                if p.is_file():
-                    rel = p.relative_to(src)
-                    dst = dst_root / name / rel
-                    dst.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(p, dst)
-
-    # Determine home candidate (where vault keeps the home content)
-    # Prefer vault/home/home.md (or home/index.md) as the site home source
-    home_candidates = [
-        temp_out / 'home' / 'home.md',
-        temp_out / 'home' / 'index.md',
-        temp_out / 'index.md',
-        temp_out / 'home.md',
-        temp_out / 'index_fragment.md',
-    ]
-    home_src = None
-    for c in home_candidates:
-        if c.exists():
-            home_src = c
-            break
-
-    # If we found a home source, write it to repo_root/index.md with infra h-card prepended
+    home_src = find_home_source(src_root)
     if home_src:
         txt = home_src.read_text(encoding='utf8')
         body = txt
@@ -308,7 +247,7 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
                 body = parts[2]
                 for line in fm_block.splitlines():
                     if line.strip().lower().startswith('title:'):
-                        title = line.split(':', 1)[1].strip().strip('\"\'')
+                        title = line.split(':', 1)[1].strip().strip("\"'")
                         break
         index_root = dst_root / 'index.md'
         fm = "---\nlayout: default\n"
@@ -336,22 +275,54 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             '    </a>\n'
             '</div>\n\n'
         )
-        # write home page as a full page (index.md) so it behaves like about/posts
         index_root.write_text(fm + hcard + body, encoding='utf8')
         print(f'Wrote root index.md at {index_root} (home page)')
 
-    # copy other top-level markdown pages (except the home_src which we've handled)
+
+def sync_to_repo(temp_out: Path, repo_root: Path):
+    dst_root = repo_root / 'site_src'
+    dst_root.mkdir(parents=True, exist_ok=True)
+
+    (dst_root / '_posts').mkdir(parents=True, exist_ok=True)
+    (dst_root / 'about').mkdir(parents=True, exist_ok=True)
+    (dst_root / '_includes').mkdir(parents=True, exist_ok=True)
+    (dst_root / 'media').mkdir(parents=True, exist_ok=True)
+    (dst_root / 'assets').mkdir(parents=True, exist_ok=True)
+
+    dst_posts_root = dst_root / '_posts'
+    if dst_posts_root.exists():
+        shutil.rmtree(dst_posts_root)
+    src_posts = temp_out / '_posts'
+    if src_posts.exists():
+        for p in src_posts.rglob('*'):
+            if p.is_file():
+                rel = p.relative_to(src_posts)
+                dst = dst_root / '_posts' / rel
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(p, dst)
+
+    ensure_generated_pages(temp_out, dst_root)
+
+    for name in ['media', 'assets']:
+        src = temp_out / name
+        if src.exists():
+            for p in src.rglob('*'):
+                if p.is_file():
+                    rel = p.relative_to(src)
+                    dst = dst_root / name / rel
+                    dst.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(p, dst)
+
+    home_src = find_home_source(temp_out)
     for p in temp_out.glob('*.md'):
         if home_src and p.samefile(home_src):
             continue
         dst = dst_root / p.name
         shutil.copy2(p, dst)
 
-    # copy other directories (pages) at top-level, excluding special dirs
     skip_dirs = {'_posts', 'about', 'media', 'assets', '_includes', '.obsidian', 'home'}
     for d in temp_out.iterdir():
         if d.is_dir() and d.name not in skip_dirs:
-            # copy contents into repo root/d
             for p in d.rglob('*'):
                 if p.is_file():
                     rel = p.relative_to(d)
@@ -378,7 +349,6 @@ def main():
     repo_root = Path(__file__).resolve().parents[1] if repo_root == Path('.') else repo_root
 
     if out_dir:
-        # generate-only mode: write processed site source into out_dir and exit
         out = Path(out_dir)
         if out.exists():
             shutil.rmtree(out)
@@ -392,10 +362,11 @@ def main():
         normalize_posts(out)
         print('Processing markdown files (front-matter, wikilinks)')
         process_markdown_files(out)
+        print('Generating Jekyll entry pages')
+        ensure_generated_pages(out, out)
         print('Generation complete.')
         return
 
-    # Default behavior: sync processed content into repo root
     temp_out = repo_root / '.obsidian_export_tmp'
     if temp_out.exists():
         shutil.rmtree(temp_out)
@@ -415,7 +386,6 @@ def main():
     print('Syncing processed content into repository root')
     sync_to_repo(temp_out, repo_root)
 
-    # cleanup
     try:
         shutil.rmtree(temp_out)
     except Exception:

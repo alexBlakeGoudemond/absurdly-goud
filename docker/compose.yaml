@@ -16,8 +16,7 @@ services:
     ports:
       - "4000:4000"
 
-    command: >
-      bash -lc "python3 scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out /site/site_src && bundle install && bundle exec jekyll serve --source /site/site_src --config /site/_config.yml --destination /site/_site --host 0.0.0.0 --livereload"
+    command: ["/usr/local/bin/entrypoint.sh"]
 
 volumes:
   ai_playbook_stub: {}

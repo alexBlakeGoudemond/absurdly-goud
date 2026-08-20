@@ -28,4 +28,4 @@ Start-Process -FilePath (Get-Command python).Source -ArgumentList $watchArgs -Wi
 
 Write-Host "Starting Jekyll server (foreground). Ctrl+C to stop both server+watcher."
 # If you use bundler, this will call the project's Gemfile. Adjust as needed.
-& bundle exec jekyll serve --livereload
+& bundle exec jekyll serve --source site_src --config _config.yml --destination site --livereload
