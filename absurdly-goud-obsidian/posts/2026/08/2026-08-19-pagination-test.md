@@ -3,9 +3,16 @@ layout: post
 title: Pagination Test
 date: 2026-08-19
 ---
+Hello, IndieWeb!
 
-This is a note I produced using Obsidian - just focussing on the MarkDown Note
+This is my pagination test. Below I include a screenshot showing what it looks like
 
 <!--more-->
 
-I have restructured the repository so that I can easily make notes in Obsidian and then it builds happily with Jekyll. Thinking long term about how I want to use posts like this
+I set the pagination to one post per page and this is what I see:
+
+{% include image.html
+    src="pagination-test-screenshot.png"
+    alt="Screenshot showing the pagination test"
+    title="Pagination test"
+%}
