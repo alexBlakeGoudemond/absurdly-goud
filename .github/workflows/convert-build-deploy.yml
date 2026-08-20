@@ -43,8 +43,19 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run Obsidian -> Jekyll converter
-        run: python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out site_src
+      - name: Prepare site_src (run converter or use committed site_src)
+        run: |
+          echo "Repository root files:"
+          ls -la
+          if [ -d absurdly-goud-obsidian ]; then
+            echo "Found vault 'absurdly-goud-obsidian' — running converter..."
+            python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out site_src
+          elif [ -d site_src ]; then
+            echo "No vault found, but committed site_src exists — using it as-is."
+          else
+            echo "ERROR: No 'absurdly-goud-obsidian' vault and no committed 'site_src' directory.\nEither commit the vault, commit generated site_src, or update the workflow to fetch the vault from a secure location."
+            exit 1
+          fi
 
       - name: Build site with Jekyll
         run: bundle exec jekyll build --source site_src --config _config.yml --destination site
