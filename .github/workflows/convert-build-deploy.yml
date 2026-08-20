@@ -61,7 +61,7 @@ jobs:
         run: bundle exec jekyll build --source site_src --config _config.yml --destination site
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./site
 
