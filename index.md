@@ -26,4 +26,10 @@ title: "Home"
     </a>
 </div>
 
-{% include home_fragment.md %}
+
+
+# Home
+
+Hi, I'm Alex Blake-Goudemond.
+
+This is my little corner of the web!

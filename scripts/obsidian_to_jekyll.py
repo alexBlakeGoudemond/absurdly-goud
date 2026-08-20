@@ -206,15 +206,18 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
     """Copy processed files from temp_out into the repo's Jekyll locations.
     This overwrites files in the working tree but does not commit.
     """
-    # ensure dirs
-    (repo_root / '_posts').mkdir(parents=True, exist_ok=True)
-    (repo_root / 'about').mkdir(parents=True, exist_ok=True)
-    (repo_root / '_includes').mkdir(parents=True, exist_ok=True)
-    (repo_root / 'media').mkdir(parents=True, exist_ok=True)
-    (repo_root / 'assets').mkdir(parents=True, exist_ok=True)
+    dst_root = repo_root / 'site_src'
+    dst_root.mkdir(parents=True, exist_ok=True)
 
-    # copy posts: replace repo _posts with vault posts
-    dst_posts_root = repo_root / '_posts'
+    # ensure dirs inside site_src
+    (dst_root / '_posts').mkdir(parents=True, exist_ok=True)
+    (dst_root / 'about').mkdir(parents=True, exist_ok=True)
+    (dst_root / '_includes').mkdir(parents=True, exist_ok=True)
+    (dst_root / 'media').mkdir(parents=True, exist_ok=True)
+    (dst_root / 'assets').mkdir(parents=True, exist_ok=True)
+
+    # copy posts: replace site_src/_posts with vault posts
+    dst_posts_root = dst_root / '_posts'
     if dst_posts_root.exists():
         shutil.rmtree(dst_posts_root)
     src_posts = temp_out / '_posts'
@@ -222,11 +225,11 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
         for p in src_posts.rglob('*'):
             if p.is_file():
                 rel = p.relative_to(src_posts)
-                dst = repo_root / '_posts' / rel
+                dst = dst_root / '_posts' / rel
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(p, dst)
 
-    # process about: create an include fragment from vault about content and write repo/about/index.md wrapper
+    # process about: prefer creating a full page from vault about content (about/index.md)
     src_about = temp_out / 'about'
     about_fragment = None
     if src_about.exists():
@@ -241,19 +244,28 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             if md_files:
                 about_fragment = md_files[0]
         if about_fragment:
-            includes_dir = repo_root / '_includes'
-            includes_dir.mkdir(parents=True, exist_ok=True)
-            dst_inc = includes_dir / 'about_fragment.md'
-            shutil.copy2(about_fragment, dst_inc)
-            print(f'Copied about fragment to {dst_inc}')
-            # write wrapper at repo/about/index.md
-            about_dir = repo_root / 'about'
+            # write a full about page at site_src/about/index.md using fragment body
+            about_dir = dst_root / 'about'
             about_dir.mkdir(parents=True, exist_ok=True)
             index_about = about_dir / 'index.md'
-            fm = "---\nlayout: default\ntitle: About\npermalink: /about/\n---\n\n"
-            include_line = "{% include about_fragment.md %}\n"
-            index_about.write_text(fm + include_line, encoding='utf8')
-            print(f'Wrote repo about wrapper at {index_about}')
+            txt = about_fragment.read_text(encoding='utf8')
+            body = txt
+            title = 'About'
+            if txt.lstrip().startswith('---'):
+                parts = txt.split('---', 2)
+                if len(parts) >= 3:
+                    fm_block = parts[1]
+                    body = parts[2]
+                    for line in fm_block.splitlines():
+                        if line.strip().lower().startswith('title:'):
+                            title = line.split(':', 1)[1].strip().strip('"\'"')
+                            break
+            fm = "---\nlayout: default\n"
+            if title:
+                fm += f"title: \"{title}\"\n"
+            fm += "permalink: /about/\n---\n\n"
+            index_about.write_text(fm + body, encoding='utf8')
+            print(f'Wrote about page at {index_about}')
     else:
         # no about in vault; leave existing repo about alone
         pass
@@ -265,7 +277,7 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             for p in src.rglob('*'):
                 if p.is_file():
                     rel = p.relative_to(src)
-                    dst = repo_root / name / rel
+                    dst = dst_root / name / rel
                     dst.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(p, dst)
 
@@ -298,7 +310,7 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
                     if line.strip().lower().startswith('title:'):
                         title = line.split(':', 1)[1].strip().strip('\"\'')
                         break
-        index_root = repo_root / 'index.md'
+        index_root = dst_root / 'index.md'
         fm = "---\nlayout: default\n"
         if title:
             fm += f"title: \"{title}\"\n"
@@ -324,20 +336,15 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             '    </a>\n'
             '</div>\n\n'
         )
-        # copy home source into _includes as a fragment and create a root index.md that includes it
-        includes_dir = repo_root / '_includes'
-        includes_dir.mkdir(parents=True, exist_ok=True)
-        dst_inc = includes_dir / 'home_fragment.md'
-        shutil.copy2(home_src, dst_inc)
-        print(f'Copied home fragment to {dst_inc}')
-        index_root.write_text(fm + hcard + "{% include home_fragment.md %}\n", encoding='utf8')
-        print(f'Wrote root index.md at {index_root} (includes home_fragment.md)')
+        # write home page as a full page (index.md) so it behaves like about/posts
+        index_root.write_text(fm + hcard + body, encoding='utf8')
+        print(f'Wrote root index.md at {index_root} (home page)')
 
     # copy other top-level markdown pages (except the home_src which we've handled)
     for p in temp_out.glob('*.md'):
         if home_src and p.samefile(home_src):
             continue
-        dst = repo_root / p.name
+        dst = dst_root / p.name
         shutil.copy2(p, dst)
 
     # copy other directories (pages) at top-level, excluding special dirs
@@ -348,7 +355,7 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
             for p in d.rglob('*'):
                 if p.is_file():
                     rel = p.relative_to(d)
-                    dst = repo_root / d.name / rel
+                    dst = dst_root / d.name / rel
                     dst.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(p, dst)
 
@@ -377,10 +384,10 @@ def main():
             shutil.rmtree(out)
         print(f'Generating site source from {vault} -> {out}')
         copy_vault(vault, out)
+        print('Removing pre-generated HTML files from vault copy (keep source only)')
+        remove_html_files(out)
         print('Copying repo templates/includes/assets into output')
         copy_repo_templates(repo_root, out)
-        print('Removing pre-generated HTML files (keep source only)')
-        remove_html_files(out)
         print('Normalizing posts filenames')
         normalize_posts(out)
         print('Processing markdown files (front-matter, wikilinks)')
