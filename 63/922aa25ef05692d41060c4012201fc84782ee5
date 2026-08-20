@@ -1,0 +1,50 @@
+docker/entrypoint.sh
+  s_9280db76281b7b::t_2580f29ed1cea7 1-14
+Makefile
+  h_1197a506f6c7d6 8-10
+docker/compose.yaml
+  s_9280db76281b7b::t_321593a7670bb3 19
+index.md
+  s_9280db76281b7b::t_93c2dc3f4178c8 6
+.gitignore
+  s_9280db76281b7b::t_3bbfc43e939892 4
+docs/JEKYLL_README.md
+  s_9280db76281b7b::t_20e4207cebd681 41
+  s_9280db76281b7b::t_587b181d63cd23 412
+  s_9280db76281b7b::t_3a53be8a5e7cfd 431
+  s_9280db76281b7b::t_ea7d5e22064122 405
+  s_9280db76281b7b::t_92a2abf195f123 3
+  s_9280db76281b7b::t_427f9f8281c587 400
+docker/ruby/Dockerfile
+  s_9280db76281b7b::t_58adb11a0103f8 1-9,15-17
+  s_9280db76281b7b::t_14d142813b3120 10-14
+scripts/dev.ps1
+  s_9280db76281b7b::t_ce1d09206eca74 31
+scripts/obsidian_to_jekyll.py
+  s_9280db76281b7b::t_90c27f31f0e911 250
+  s_9280db76281b7b::t_76083b92f54ff8 186-197,200-201,203,238,315
+  s_9280db76281b7b::t_bfe8f062051f51 281-314,316
+  s_9280db76281b7b::t_682fe5cb300e45 83-86,88,139-143,365-366
+  s_9280db76281b7b::t_42ab6230a156f1 229
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "63922aa25ef05692d41060c4012201fc84782ee5",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_9280db76281b7b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "e0f1191d-da18-4438-a40f-f8b08de020c0",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
