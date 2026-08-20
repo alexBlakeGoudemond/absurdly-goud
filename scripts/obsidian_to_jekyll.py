@@ -154,7 +154,10 @@ def process_markdown_files(out: Path):
 
 
 def normalize_posts(out: Path):
+    # Support both _posts and posts in the vault
     posts_root = out / '_posts'
+    if not posts_root.exists():
+        posts_root = out / 'posts'
     if not posts_root.exists():
         return
     for md in posts_root.rglob('*.md'):
@@ -301,12 +304,25 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
     dst_posts_root = dst_root / '_posts'
     if dst_posts_root.exists():
         shutil.rmtree(dst_posts_root)
+    # Accept either _posts or posts in the vault; prefer _posts
     src_posts = temp_out / '_posts'
+    if not src_posts.exists():
+        alt = temp_out / 'posts'
+        if alt.exists():
+            src_posts = alt
     if src_posts.exists():
         for p in src_posts.rglob('*'):
             if p.is_file():
-                rel = p.relative_to(src_posts)
-                dst = dst_root / '_posts' / rel
+                # place posts directly under site_src/_posts (Jekyll expects files in _posts root)
+                dst = dst_root / '_posts' / p.name
+                # avoid overwriting collisions
+                if dst.exists():
+                    base = dst.stem
+                    ext = dst.suffix
+                    i = 1
+                    while dst.exists():
+                        dst = dst_root / '_posts' / f"{base}-{i}{ext}"
+                        i += 1
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(p, dst)
 
@@ -329,7 +345,7 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
         dst = dst_root / p.name
         shutil.copy2(p, dst)
 
-    skip_dirs = {'_posts', 'about', 'media', 'assets', '_includes', '.obsidian', 'home'}
+    skip_dirs = {'_posts', 'posts', 'about', 'media', 'assets', '_includes', '.obsidian', 'home'}
     for d in temp_out.iterdir():
         if d.is_dir() and d.name not in skip_dirs:
             for p in d.rglob('*'):
@@ -371,6 +387,29 @@ def main():
         normalize_posts(out)
         print('Processing markdown files (front-matter, wikilinks)')
         process_markdown_files(out)
+        # Ensure posts are copied into out/_posts (flattened) so Jekyll recognizes them
+        dst_posts_root = out / '_posts'
+        if dst_posts_root.exists():
+            shutil.rmtree(dst_posts_root)
+        src_posts = out / '_posts'
+        if not src_posts.exists():
+            alt = out / 'posts'
+            if alt.exists():
+                src_posts = alt
+        if src_posts.exists():
+            dst_posts_root.mkdir(parents=True, exist_ok=True)
+            for p in src_posts.rglob('*'):
+                if p.is_file():
+                    dst = dst_posts_root / p.name
+                    if dst.exists():
+                        base = dst.stem
+                        ext = dst.suffix
+                        i = 1
+                        while dst.exists():
+                            dst = dst_posts_root / f"{base}-{i}{ext}"
+                            i += 1
+                    shutil.copy2(p, dst)
+
         print('Generating Jekyll entry pages')
         ensure_generated_pages(out, out)
         print('Generation complete.')
