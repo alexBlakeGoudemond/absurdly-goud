@@ -12,10 +12,10 @@ Jekyll requires the resources in a specific format:
 - `_config.yml`
 - [Pages](https://jekyllrb.com/docs/pages/) ; standalone files
 - [Posts](https://jekyllrb.com/docs/posts/) ; blog files
-- [Drafts]()
-- [Layout Files]()
+- [Drafts](https://jekyllrb.com/docs/posts/#drafts) ; unpublished posts
+- [Layout Files](https://jekyllrb.com/docs/step-by-step/08-blogging/#layout) ; template to be reused
 - [Data Files](https://jekyllrb.com/docs/datafiles/) ; data stored as YAML
-- [Includes Files]()
+- [Includes Files](https://jekyllrb.com/docs/liquid/tags/#includes) ; fragment to be reused as an atomic item
 
 Also, posts support Front Matter; which can use the following key-value properties:
 - `layout` ; use this layout
@@ -44,7 +44,17 @@ Note that site-design concepts can also be used with Jekyll and Liquid, controll
 > [Front Matter Defaults](https://jekyllrb.com/docs/configuration/front-matter-defaults/) can also be setup in `_config.yaml`
 > `Front Matter Tags` can build up an index across your site
 > [Front Matter Categories](https://jekyllrb.com/docs/posts/#categories)  group posts together
-> [Collections]() allow grouping anything together, instead of just bundling posts with `categories`
+> [Collections](https://jekyllrb.com/docs/step-by-step/09-collections/) allow grouping anything together, instead of just bundling posts with `categories`
+
+## GitHub Pages
+
+GitHub Pages is GitHub's static website hosting service. It takes static files such as HTML, CSS, JavaScript, and images and makes them available as a website.
+
+GitHub Pages can be configured to publish the contents of a specific **branch** and directory. A branch called `gh-pages` is commonly used for this purpose, but `gh-pages` is **not** a special GitHub Pages feature. It is simply a normal Git branch that we have configured GitHub Pages to publish.
+
+GitHub Actions allows us to execute code on a GitHub-hosted virtual machine. This lets us automate tasks such as converting content, building Jekyll, and deploying the resulting files.
+
+GitHub-hosted runners are provided by GitHub and consume **GitHub Actions minutes** from the account's included usage/quota.
 
 ## Having Notes in Obsidian Vault
 
