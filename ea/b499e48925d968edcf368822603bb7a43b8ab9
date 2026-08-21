@@ -1,0 +1,30 @@
+scripts/obsidian_to_jekyll.py
+  s_1e3bdda992a42a::t_dd90267230ea5b 339,341,346,362,367
+  s_1e3bdda992a42a::t_ac25e2356e4d0e 415-417,422,430
+  s_1e3bdda992a42a::t_f73b0a928bcc2b 440-443
+  s_1e3bdda992a42a::t_399473e1bf5b73 408,411-412
+  s_1e3bdda992a42a::t_3650f5d886b94a 505
+  s_1e3bdda992a42a::t_d1b8cd8c35ceec 427-429
+  s_1e3bdda992a42a::t_7aafc8c9d0c5ef 524
+  s_1e3bdda992a42a::t_1f5b792da6e0f4 424-425,433-435,449-464
+  s_1e3bdda992a42a::t_b923b5b94ec42b 378-393,401-405
+  s_1e3bdda992a42a::t_b5a2002d68d343 300,311,336,338,340,342-345,347-361,363-366,368-373,377,406-407
+  s_1e3bdda992a42a::t_028f0d9923b295 394-400
+  s_1e3bdda992a42a::t_95248df5d18bc8 523
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "eab499e48925d968edcf368822603bb7a43b8ab9",
+  "prompts": {},
+  "sessions": {
+    "s_1e3bdda992a42a": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "61b5b780-026d-4bdf-9f47-4d3b6aa99ca9",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
