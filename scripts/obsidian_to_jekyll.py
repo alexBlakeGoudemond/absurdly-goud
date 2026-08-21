@@ -37,9 +37,7 @@ def copy_vault(vault: Path, out: Path):
     def ignore_fn(directory, names):
         ignored = set()
         for n in names:
-            if n == '.obsidian' or n == '.git':
-                ignored.add(n)
-            if n == '.ai-playbook':
+            if n in ['.obsidian', '.git', '.ai-playbook']:
                 ignored.add(n)
         return ignored
 
@@ -141,6 +139,7 @@ def convert_wikilinks_in_text(text: str, src_file: Path, out: Path):
         if is_image:
             return f'![{display}]({slug})'
         return f'[{display}]({slug})'
+
     return WIKILINK_RE.sub(repl, text)
 
 
@@ -200,9 +199,35 @@ def find_home_source(src_root: Path):
     return None
 
 
-def ensure_generated_pages(src_root: Path, dst_root: Path):
-    dst_root.mkdir(parents=True, exist_ok=True)
+def split_front_matter(text: str, default_title: str):
+    body = text
+    title = default_title
+    if text.lstrip().startswith('---'):
+        parts = text.split('---', 2)
+        if len(parts) >= 3:
+            fm_block = parts[1]
+            body = parts[2]
+            for line in fm_block.splitlines():
+                if line.strip().lower().startswith('title:'):
+                    title = line.split(':', 1)[1].strip().strip("\"'")
+                    break
+    return body, title
 
+
+def write_generated_page(dst_path: Path, src_file: Path, default_title: str, permalink: str = None, prefix: str = ''):
+    txt = src_file.read_text(encoding='utf8')
+    body, title = split_front_matter(txt, default_title)
+    fm = "---\nlayout: default\n"
+    if title:
+        fm += f"title: \"{title}\"\n"
+    if permalink:
+        fm += f"permalink: {permalink}\n"
+    fm += "---\n\n"
+    dst_path.write_text(fm + prefix + body, encoding='utf8')
+    print(f'Wrote page at {dst_path}')
+
+
+def generate_about_page(src_root: Path, dst_root: Path):
     src_about = src_root / 'about'
     about_fragment = None
     if src_about.exists():
@@ -215,127 +240,113 @@ def ensure_generated_pages(src_root: Path, dst_root: Path):
             md_files = list(src_about.rglob('*.md'))
             if md_files:
                 about_fragment = md_files[0]
-        if about_fragment:
-            about_dir = dst_root / 'about'
-            about_dir.mkdir(parents=True, exist_ok=True)
-            txt = about_fragment.read_text(encoding='utf8')
-            for candidate in about_dir.iterdir():
-                if candidate.name == 'index.md':
-                    continue
-                if candidate.is_file() or candidate.is_symlink():
-                    candidate.unlink()
-            index_about = about_dir / 'index.md'
-            txt = about_fragment.read_text(encoding='utf8')
-            body = txt
-            title = 'About'
-            if txt.lstrip().startswith('---'):
-                parts = txt.split('---', 2)
-                if len(parts) >= 3:
-                    fm_block = parts[1]
-                    body = parts[2]
-                    for line in fm_block.splitlines():
-                        if line.strip().lower().startswith('title:'):
-                            title = line.split(':', 1)[1].strip().strip("\"'")
-                            break
-            fm = "---\nlayout: default\n"
-            if title:
-                fm += f"title: \"{title}\"\n"
-            fm += "permalink: /about/\n---\n\n"
-            index_about.write_text(fm + body, encoding='utf8')
-            print(f'Wrote about page at {index_about}')
 
+    if not about_fragment:
+        return
+
+    about_text = about_fragment.read_text(encoding='utf8')
+    about_dir = dst_root / 'about'
+    about_dir.mkdir(parents=True, exist_ok=True)
+    for candidate in about_dir.iterdir():
+        if candidate.name == 'index.md':
+            continue
+        if candidate.is_file() or candidate.is_symlink():
+            candidate.unlink()
+    about_index = about_dir / 'index.md'
+    body, title = split_front_matter(about_text, 'About')
+    fm = "---\nlayout: default\n"
+    if title:
+        fm += f"title: \"{title}\"\n"
+    fm += "permalink: /about/\n---\n\n"
+    about_index.write_text(fm + body, encoding='utf8')
+    print(f'Wrote about page at {about_index}')
+
+
+def generate_home_and_posts_pages(src_root: Path, dst_root: Path):
     home_src = find_home_source(src_root)
-    if home_src:
-        txt = home_src.read_text(encoding='utf8')
-        body = txt
-        title = 'Home'
-        if txt.lstrip().startswith('---'):
-            parts = txt.split('---', 2)
-            if len(parts) >= 3:
-                fm_block = parts[1]
-                body = parts[2]
-                for line in fm_block.splitlines():
-                    if line.strip().lower().startswith('title:'):
-                        title = line.split(':', 1)[1].strip().strip("\"'")
-                        break
-        index_root = dst_root / 'index.md'
-        fm = "---\nlayout: default\n"
-        if title:
-            fm += f"title: \"{title}\"\n"
-        fm += "---\n\n"
-        hcard = (
-            '<div class="h-card">\n'
-            '    <p class="p-name">\n'
-            '        Alex Blake-Goudemond\n'
-            '    </p>\n\n'
-            '    <a class="u-url"\n'
-            '       href="https://alexblakegoudemond.com"\n'
-            '       rel="me">\n'
-            '        alexblakegoudemond.com\n'
-            '    </a>\n\n'
-            '    <a class="u-url"\n'
-            '       href="https://absurdlygoud.com">\n'
-            '        absurdlygoud.com\n'
-            '    </a>\n\n'
-            '    <a class="u-url"\n'
-            '       href="https://github.com/alexBlakeGoudemond"\n'
-            '       rel="me">\n'
-            '        GitHub\n'
-            '    </a>\n'
-            '</div>\n\n'
-        )
-        index_root.write_text(fm + hcard + body, encoding='utf8')
-        print(f'Wrote root index.md at {index_root} (home page)')
+    if not home_src:
+        return
 
-        # generate a simple posts index so /posts/ is available
-        posts_dir = dst_root / 'posts'
-        posts_dir.mkdir(parents=True, exist_ok=True)
-        posts_index = posts_dir / 'index.md'
-        posts_fm = "---\nlayout: default\ntitle: \"Posts\"\npermalink: /posts/\n---\n\n"
-        posts_body = "{% for post in site.posts %}\n- [{{ post.title }}]({{ post.url }}) — {{ post.date | date: \"%Y-%m-%d\" }}\n{% endfor %}\n"
-        posts_index.write_text(posts_fm + posts_body, encoding='utf8')
-        print(f'Wrote posts index at {posts_index}')
+    body, title = split_front_matter(home_src.read_text(encoding='utf8'), 'Home')
+    index_root = dst_root / 'index.md'
+    fm = "---\nlayout: default\n"
+    if title:
+        fm += f"title: \"{title}\"\n"
+    fm += "---\n\n"
+    hcard = (
+        '<div class="h-card">\n'
+        '    <p class="p-name">\n'
+        '        Alex Blake-Goudemond\n'
+        '    </p>\n\n'
+        '    <a class="u-url"\n'
+        '       href="https://alexblakegoudemond.com"\n'
+        '       rel="me">\n'
+        '        alexblakegoudemond.com\n'
+        '    </a>\n\n'
+        '    <a class="u-url"\n'
+        '       href="https://absurdlygoud.com">\n'
+        '        absurdlygoud.com\n'
+        '    </a>\n\n'
+        '    <a class="u-url"\n'
+        '       href="https://github.com/alexBlakeGoudemond"\n'
+        '       rel="me">\n'
+        '        GitHub\n'
+        '    </a>\n'
+        '</div>\n\n'
+    )
+    index_root.write_text(fm + hcard + body, encoding='utf8')
+    print(f'Wrote root index.md at {index_root} (home page)')
+
+    posts_dir = dst_root / 'posts'
+    posts_dir.mkdir(parents=True, exist_ok=True)
+    posts_index = posts_dir / 'index.md'
+    posts_fm = "---\nlayout: default\ntitle: \"Posts\"\npermalink: /posts/\n---\n\n"
+    posts_body = "{% for post in site.posts %}\n- [{{ post.title }}]({{ post.url }}) — {{ post.date | date: \"%Y-%m-%d\" }}\n{% endfor %}\n"
+    posts_index.write_text(posts_fm + posts_body, encoding='utf8')
+    print(f'Wrote posts index at {posts_index}')
 
 
-def sync_to_repo(temp_out: Path, repo_root: Path):
-    dst_root = repo_root / 'site_src'
+def ensure_generated_pages(src_root: Path, dst_root: Path):
     dst_root.mkdir(parents=True, exist_ok=True)
+    generate_about_page(src_root, dst_root)
+    generate_home_and_posts_pages(src_root, dst_root)
 
-    (dst_root / '_posts').mkdir(parents=True, exist_ok=True)
-    (dst_root / 'about').mkdir(parents=True, exist_ok=True)
-    (dst_root / '_includes').mkdir(parents=True, exist_ok=True)
-    (dst_root / 'media').mkdir(parents=True, exist_ok=True)
-    (dst_root / 'assets').mkdir(parents=True, exist_ok=True)
 
+def ensure_repo_dirs(dst_root: Path):
+    for name in ['_posts', 'about', '_includes', 'media', 'assets']:
+        (dst_root / name).mkdir(parents=True, exist_ok=True)
+
+
+def copy_post_files(src_root: Path, dst_root: Path):
     dst_posts_root = dst_root / '_posts'
     if dst_posts_root.exists():
         shutil.rmtree(dst_posts_root)
-    # Accept either _posts or posts in the vault; prefer _posts
-    src_posts = temp_out / '_posts'
+    dst_posts_root.mkdir(parents=True, exist_ok=True)
+
+    src_posts = src_root / '_posts'
     if not src_posts.exists():
-        alt = temp_out / 'posts'
+        alt = src_root / 'posts'
         if alt.exists():
             src_posts = alt
-    if src_posts.exists():
-        for p in src_posts.rglob('*'):
-            if p.is_file():
-                # place posts directly under site_src/_posts (Jekyll expects files in _posts root)
-                dst = dst_root / '_posts' / p.name
-                # avoid overwriting collisions
-                if dst.exists():
-                    base = dst.stem
-                    ext = dst.suffix
-                    i = 1
-                    while dst.exists():
-                        dst = dst_root / '_posts' / f"{base}-{i}{ext}"
-                        i += 1
-                dst.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(p, dst)
+    if not src_posts.exists():
+        return
 
-    ensure_generated_pages(temp_out, dst_root)
+    for p in src_posts.rglob('*'):
+        if p.is_file():
+            dst = dst_posts_root / p.name
+            if dst.exists():
+                base = dst.stem
+                ext = dst.suffix
+                i = 1
+                while dst.exists():
+                    dst = dst_posts_root / f"{base}-{i}{ext}"
+                    i += 1
+            shutil.copy2(p, dst)
 
+
+def copy_media_and_assets(src_root: Path, dst_root: Path):
     for name in ['media', 'assets']:
-        src = temp_out / name
+        src = src_root / name
         if src.exists():
             for p in src.rglob('*'):
                 if p.is_file():
@@ -344,15 +355,19 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
                     dst.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(p, dst)
 
-    home_src = find_home_source(temp_out)
-    for p in temp_out.glob('*.md'):
+
+def copy_root_markdown(src_root: Path, dst_root: Path):
+    home_src = find_home_source(src_root)
+    for p in src_root.glob('*.md'):
         if home_src and p.samefile(home_src):
             continue
         dst = dst_root / p.name
         shutil.copy2(p, dst)
 
+
+def copy_other_dirs(src_root: Path, dst_root: Path):
     skip_dirs = {'_posts', 'posts', 'about', 'media', 'assets', '_includes', '.obsidian', 'home'}
-    for d in temp_out.iterdir():
+    for d in src_root.iterdir():
         if d.is_dir() and d.name not in skip_dirs:
             for p in d.rglob('*'):
                 if p.is_file():
@@ -360,6 +375,59 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
                     dst = dst_root / d.name / rel
                     dst.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(p, dst)
+
+
+def sync_to_repo(temp_out: Path, repo_root: Path):
+    dst_root = repo_root / 'site_src'
+    dst_root.mkdir(parents=True, exist_ok=True)
+    ensure_repo_dirs(dst_root)
+    copy_post_files(temp_out, dst_root)
+    ensure_generated_pages(temp_out, dst_root)
+    copy_media_and_assets(temp_out, dst_root)
+    copy_root_markdown(temp_out, dst_root)
+    copy_other_dirs(temp_out, dst_root)
+
+
+def generate_site_source(vault: Path, repo_root: Path, out: Path):
+    print(f'Generating site source from {vault} -> {out}')
+    copy_vault(vault, out)
+    print('Removing pre-generated HTML files from vault copy (keep source only)')
+    remove_html_files(out)
+    print('Copying repo templates/includes/assets into output')
+    copy_repo_templates(repo_root, out)
+    print('Normalizing posts filenames')
+    normalize_posts(out)
+    print('Processing markdown files (front-matter, wikilinks)')
+    process_markdown_files(out)
+    print('Ensuring generated Jekyll entry pages exist')
+    ensure_generated_pages(out, out)
+    print('Flattening posts into out/_posts for Jekyll recognition')
+    copy_post_files(out, out)
+    print('Generation complete.')
+
+
+def export_to_repo(vault: Path, repo_root: Path):
+    temp_out = repo_root / '.obsidian_export_tmp'
+    if temp_out.exists():
+        shutil.rmtree(temp_out)
+
+    print(f'Copying vault {vault} -> {temp_out}')
+    copy_vault(vault, temp_out)
+    print('Removing pre-generated HTML files (keep source only)')
+    remove_html_files(temp_out)
+    print('Normalizing posts filenames')
+    normalize_posts(temp_out)
+    print('Processing markdown files (front-matter, wikilinks)')
+    process_markdown_files(temp_out)
+    print('Syncing processed content into repository root')
+    sync_to_repo(temp_out, repo_root)
+
+    try:
+        shutil.rmtree(temp_out)
+    except Exception:
+        pass
+
+    print('Export complete.')
 
 
 def main():
@@ -385,69 +453,10 @@ def main():
         out = Path(out_dir)
         if out.exists():
             shutil.rmtree(out)
-        print(f'Generating site source from {vault} -> {out}')
-        copy_vault(vault, out)
-        print('Removing pre-generated HTML files from vault copy (keep source only)')
-        remove_html_files(out)
-        print('Copying repo templates/includes/assets into output')
-        copy_repo_templates(repo_root, out)
-        print('Normalizing posts filenames')
-        normalize_posts(out)
-        print('Processing markdown files (front-matter, wikilinks)')
-        process_markdown_files(out)
-        # Ensure posts are copied into out/_posts (flattened) so Jekyll recognizes them
-        dst_posts_root = out / '_posts'
-        if dst_posts_root.exists():
-            shutil.rmtree(dst_posts_root)
-        src_posts = out / '_posts'
-        if not src_posts.exists():
-            alt = out / 'posts'
-            if alt.exists():
-                src_posts = alt
-        if src_posts.exists():
-            dst_posts_root.mkdir(parents=True, exist_ok=True)
-            for p in src_posts.rglob('*'):
-                if p.is_file():
-                    dst = dst_posts_root / p.name
-                    if dst.exists():
-                        base = dst.stem
-                        ext = dst.suffix
-                        i = 1
-                        while dst.exists():
-                            dst = dst_posts_root / f"{base}-{i}{ext}"
-                            i += 1
-                    shutil.copy2(p, dst)
-
-        print('Generating Jekyll entry pages')
-        ensure_generated_pages(out, out)
-        print('Generation complete.')
+        generate_site_source(vault, repo_root, out)
         return
 
-    temp_out = repo_root / '.obsidian_export_tmp'
-    if temp_out.exists():
-        shutil.rmtree(temp_out)
-
-    print(f'Copying vault {vault} -> {temp_out}')
-    copy_vault(vault, temp_out)
-
-    print('Removing pre-generated HTML files (keep source only)')
-    remove_html_files(temp_out)
-
-    print('Normalizing posts filenames')
-    normalize_posts(temp_out)
-
-    print('Processing markdown files (front-matter, wikilinks)')
-    process_markdown_files(temp_out)
-
-    print('Syncing processed content into repository root')
-    sync_to_repo(temp_out, repo_root)
-
-    try:
-        shutil.rmtree(temp_out)
-    except Exception:
-        pass
-
-    print('Export complete.')
+    export_to_repo(vault, repo_root)
 
 
 if __name__ == '__main__':
