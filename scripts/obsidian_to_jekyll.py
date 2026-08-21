@@ -75,13 +75,39 @@ def read_front_matter_date(text: str):
     return None
 
 
+def _title_from_filename_stem(stem: str) -> str:
+    """Convert a filename stem into a human-friendly title.
+
+    Examples:
+    - "2026-08-19-hello-world" -> "Hello World"
+    - "2026-08-19_Hello_World" -> "Hello World"
+    - "my-note" -> "My Note"
+    """
+    # Strip leading date prefix YYYY-MM-DD- if present
+    s = re.sub(r'^\d{4}-\d{2}-\d{2}-?', '', stem)
+    s = s.replace('-', ' ').replace('_', ' ')
+    s = re.sub(r'\s+', ' ', s).strip()
+    return s.title() if s else stem
+
+
 def ensure_front_matter(md_path: Path, ensure_layout: str = None, title_override: str = None):
     txt = md_path.read_text(encoding='utf8')
     if txt.lstrip().startswith('---'):
-        if ensure_layout and 'layout:' not in txt.split('---', 2)[1]:
+        fm_block = txt.split('---', 2)[1]
+        # inject layout or slug if missing in an existing front-matter block
+        changed = False
+        filename_slug = slugify(re.sub(r'^\d{4}-\d{2}-\d{2}-?', '', md_path.stem))
+        if ensure_layout and 'layout:' not in fm_block:
+            fm_block = fm_block.strip() + f"\nlayout: {ensure_layout}\n"
+            changed = True
+        if 'slug:' not in fm_block:
+            fm_block = fm_block.strip() + f"\nslug: {filename_slug}\n"
+            changed = True
+        if changed:
             parts = txt.split('---', 2)
-            parts[1] = parts[1].strip() + f"\nlayout: {ensure_layout}\n"
-            md_path.write_text('---' + parts[1] + '---' + (parts[2] if len(parts) > 2 else ''), encoding='utf8')
+            rest = parts[2] if len(parts) > 2 else ''
+            # Preserve existing front-matter block but ensure proper newlines
+            md_path.write_text('---\n' + fm_block.strip() + '\n---\n' + rest.lstrip('\n'), encoding='utf8')
         return
 
     title = None
@@ -94,9 +120,18 @@ def ensure_front_matter(md_path: Path, ensure_layout: str = None, title_override
         title = md_path.stem
     if title_override:
         title = title_override
-    mtime = datetime.fromtimestamp(md_path.stat().st_mtime)
-    date = mtime.strftime('%Y-%m-%d %H:%M:%S')
-    fm = f"---\ntitle: \"{title}\"\ndate: {date}\n"
+
+    # Prefer date from filename prefix YYYY-MM-DD when present so site sorts posts correctly
+    m = re.match(r'^(\d{4}-\d{2}-\d{2})', md_path.stem)
+    if m:
+        date = f"{m.group(1)} 00:00:00"
+    else:
+        mtime = datetime.fromtimestamp(md_path.stat().st_mtime)
+        date = mtime.strftime('%Y-%m-%d %H:%M:%S')
+
+    formatted_title = _title_from_filename_stem(title)
+    filename_slug = slugify(re.sub(r'^\d{4}-\d{2}-\d{2}-?', '', md_path.stem))
+    fm = f"---\ntitle: \"{formatted_title}\"\ndate: {date}\nslug: {filename_slug}\n"
     if ensure_layout:
         fm += f"layout: {ensure_layout}\n"
     fm += "---\n\n"
@@ -318,30 +353,39 @@ def ensure_repo_dirs(dst_root: Path):
 
 
 def copy_post_files(src_root: Path, dst_root: Path):
+    """Copy any posts found in _posts/ and posts/ into dst_root/_posts.
+
+    If both source folders exist, merge their contents. This avoids silently
+    preferring an empty _posts/ over a populated posts/ tree (which previously
+    left dst_root/_posts empty and made Jekyll's site.posts empty).
+    """
     dst_posts_root = dst_root / '_posts'
     if dst_posts_root.exists():
         shutil.rmtree(dst_posts_root)
     dst_posts_root.mkdir(parents=True, exist_ok=True)
 
-    src_posts = src_root / '_posts'
-    if not src_posts.exists():
-        alt = src_root / 'posts'
-        if alt.exists():
-            src_posts = alt
-    if not src_posts.exists():
+    src_dirs = []
+    p1 = src_root / '_posts'
+    p2 = src_root / 'posts'
+    if p1.exists():
+        src_dirs.append(p1)
+    if p2.exists():
+        src_dirs.append(p2)
+    if not src_dirs:
         return
 
-    for p in src_posts.rglob('*'):
-        if p.is_file():
-            dst = dst_posts_root / p.name
-            if dst.exists():
-                base = dst.stem
-                ext = dst.suffix
-                i = 1
-                while dst.exists():
-                    dst = dst_posts_root / f"{base}-{i}{ext}"
-                    i += 1
-            shutil.copy2(p, dst)
+    for src_posts in src_dirs:
+        for p in src_posts.rglob('*'):
+            if p.is_file():
+                dst = dst_posts_root / p.name
+                if dst.exists():
+                    base = dst.stem
+                    ext = dst.suffix
+                    i = 1
+                    while dst.exists():
+                        dst = dst_posts_root / f"{base}-{i}{ext}"
+                        i += 1
+                shutil.copy2(p, dst)
 
 
 def copy_media_and_assets(src_root: Path, dst_root: Path):

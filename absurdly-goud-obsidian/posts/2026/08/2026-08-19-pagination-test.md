@@ -1,6 +1,3 @@
----
-title: Pagination Test
----
 Hello, IndieWeb!
 
 This is my pagination test. Below I include a screenshot showing what it looks like

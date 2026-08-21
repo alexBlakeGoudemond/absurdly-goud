@@ -1,6 +1,3 @@
----
-title: Obsidian Test
----
 This is a note I produced using Obsidian - just focussing on the MarkDown Note
 
 <!--more-->

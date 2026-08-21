@@ -1,7 +1,6 @@
 # Goals
 - [ ] all images should be in assets, not media
 - [ ] Add a tray (sidebar) across all pages called disclaimer: showing what I have done and why - particularly around AI usage
-- [ ] FrontMatter default/ script to add layout to posts for name
 - [ ] Custom 404 Page
 - [ ] Guestbook
 - [ ] Consider a [Jekyll theme](https://jekyllrb.com/docs/themes/#installing-a-theme)
@@ -18,5 +17,6 @@
 - [ ] Do I need watchdog in the scripts?
 
 # Achievements
-- [x] Purchase Domains
-- [x] Produce Static Site Website and connect to the IndieWeb
+- [x] FrontMatter default/ script to add layout to posts for name (2026-08-21)
+- [x] Purchase Domains (2026-08-17)
+- [x] Produce Static Site Website and connect to the IndieWeb (2026-08-17)
