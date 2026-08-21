@@ -1,0 +1,28 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 13,27-29,31-36,38,41
+scripts/python-watchdog/watch_and_build.py
+  h_1197a506f6c7d6 3,80
+scripts/obsidian_to_jekyll_old.py
+  s_92d0197c7d3670::t_dc5028a408b5fd 1-507
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "071752f5eb1435938ca747678738c31bb657b381",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_92d0197c7d3670": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "4d378806-b64f-411b-86e3-082bcc34aa43",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
