@@ -1,6 +1,6 @@
 """
 Watch the Obsidian vault and re-run the converter when markdown files change.
-Usage: python scripts\watch_and_build.py -v ../absurdly-goud-obsidian -c scripts/obsidian_to_jekyll.py
+Usage: python scripts\watch_and_build.py -v ../absurdly-goud-obsidian -c scripts/obsidian_to_jekyll_old.py
 
 Requires: watchdog (pip install watchdog)
 """
@@ -77,7 +77,7 @@ class DebounceHandler(FileSystemEventHandler):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('-v', '--vault', default='absurdly-goud-obsidian', help='Path to obsidian vault (watched)')
-    p.add_argument('-c', '--converter', default='scripts/obsidian_to_jekyll.py', help='Path to converter script')
+    p.add_argument('-c', '--converter', default='scripts/obsidian_to_jekyll_old.py', help='Path to converter script')
     p.add_argument('-d', '--debounce', type=float, default=0.8, help='Debounce seconds')
     args = p.parse_args()
 
