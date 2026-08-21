@@ -1,7 +1,5 @@
 ---
-layout: post
 title: Pagination Test
-date: 2026-08-19
 ---
 Hello, IndieWeb!
 
