@@ -1,0 +1,17 @@
+_config.yml
+  h_1197a506f6c7d6 28-35,39-49
+  h_1197a506f6c7d6 36-38,50
+absurdly-goud-obsidian/posts/2026/08/2026-08-19-hello-world.md
+  h_1197a506f6c7d6 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "2f5c41ae242227fb64f0bd0da4dd2f2327b47a09",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
