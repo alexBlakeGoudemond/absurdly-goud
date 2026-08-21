@@ -218,6 +218,12 @@ def ensure_generated_pages(src_root: Path, dst_root: Path):
         if about_fragment:
             about_dir = dst_root / 'about'
             about_dir.mkdir(parents=True, exist_ok=True)
+            txt = about_fragment.read_text(encoding='utf8')
+            for candidate in about_dir.iterdir():
+                if candidate.name == 'index.md':
+                    continue
+                if candidate.is_file() or candidate.is_symlink():
+                    candidate.unlink()
             index_about = about_dir / 'index.md'
             txt = about_fragment.read_text(encoding='utf8')
             body = txt
@@ -357,10 +363,12 @@ def sync_to_repo(temp_out: Path, repo_root: Path):
 
 
 def main():
-    p = argparse.ArgumentParser(description='Export Obsidian vault to a Jekyll-friendly source tree and write into repo or output dir')
+    p = argparse.ArgumentParser(
+        description='Export Obsidian vault to a Jekyll-friendly source tree and write into repo or output dir')
     p.add_argument('--vault', default='absurdly-goud-obsidian')
     p.add_argument('--out-root', default='.')
-    p.add_argument('--out', default=None, help='If provided, generate the site source into this directory and do NOT sync into the repo')
+    p.add_argument('--out', default=None,
+                   help='If provided, generate the site source into this directory and do NOT sync into the repo')
     args = p.parse_args()
 
     vault = Path(args.vault)
