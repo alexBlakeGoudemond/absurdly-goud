@@ -25,21 +25,33 @@ def main():
 
     copy_obsidian_vault(obsidian_vault_location, output_location)
 
+    include_items = ['assets', 'CNAME', 'posts', '_includes', 'layouts', '_config.yaml' ,'index.md']
+    for source_item in source_location.iterdir():
+        source_item_name = source_item.name
+        if source_item_name not in include_items:
+            continue
+        print(f"Copying '{source_item_name}' to '{output_location}/{source_item_name}'")
+        if source_item.is_dir():
+            shutil.copytree(source_item, output_location / source_item_name)
+        else:
+            shutil.copy2(source_item, output_location / source_item_name)
+
+
 
 def copy_obsidian_vault(obsidian_vault_location, output_location):
-    ignored_directories = ['.obsidian']
-    print(f"ignored_directories: '{ignored_directories}'")
+    ignored_items = ['.obsidian']
+    print(f"ignored_items: '{ignored_items}'")
     for vault_item in obsidian_vault_location.iterdir():
-        directory_name = vault_item.name
-        if directory_name in ignored_directories:
+        vault_item_name = vault_item.name
+        if vault_item_name in ignored_items:
             continue
-        match directory_name:
+        match vault_item_name:
             case 'posts':
-                print(f"Copying '{directory_name}' to '{output_location}/_posts'")
+                print(f"Copying '{vault_item_name}' to '{output_location}/_posts'")
                 shutil.copytree(vault_item, output_location / '_posts')
             case _:
-                print(f"Copying '{directory_name}' to '{output_location}/{directory_name}'")
-                shutil.copytree(vault_item, output_location / directory_name)
+                print(f"Copying '{vault_item_name}' to '{output_location}/{vault_item_name}'")
+                shutil.copytree(vault_item, output_location / vault_item_name)
 
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:

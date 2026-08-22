@@ -49,7 +49,7 @@ jobs:
           ls -la
           if [ -d absurdly-goud-obsidian ]; then
             echo "Found vault 'absurdly-goud-obsidian' — running converter..."
-            python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out site_src
+            python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out-dir site_src
           elif [ -d site_src ]; then
             echo "No vault found, but committed site_src exists — using it as-is."
           else

@@ -4,7 +4,7 @@ This repository treats the Obsidian vault (absurdly-goud-obsidian) as the single
 workflow at `.github/workflows/convert-build-deploy.yml` does the following on pushes to `main` (or manual dispatch):
 
 - Runs the Obsidian -> Jekyll converter:
-  `python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out site_src`
+  `python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out-dir site_src`
 - Installs Ruby gems with Bundler and builds the site from `site_src` using Jekyll
 - Uploads the generated `site/` and deploys via GitHub Pages
 

@@ -17,6 +17,6 @@
 - [ ] Do I need watchdog in the scripts?
 
 # Achievements
-- [x] FrontMatter default/ script to add layout to posts for name (2026-08-21)
+- [ ] FrontMatter default/ script to add layout to posts for name (2026-08-21)
 - [x] Purchase Domains (2026-08-17)
 - [x] Produce Static Site Website and connect to the IndieWeb (2026-08-17)

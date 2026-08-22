@@ -5,7 +5,7 @@ set -euo pipefail
 # This script runs inside the jekyll container where /site is the repo root (mounted).
 
 echo "Running Obsidian -> Jekyll converter..."
-python3 scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out /site/site_src || true
+python3 scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out-dir /site/site_src || true
 
 echo "Building site (one-off)..."
 bundle exec jekyll build --source /site/site_src --config /site/_config.yml --destination /site/site || true
