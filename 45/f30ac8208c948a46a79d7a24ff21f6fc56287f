@@ -1,0 +1,28 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 6,31-37,39-41,44-45,47-55
+  s_a070d8e4357f3a::t_073332a491ce0d 46
+  s_a070d8e4357f3a::t_edec589100dfa9 56
+  s_a070d8e4357f3a::t_73db1835840bce 57
+  h_1197a506f6c7d6 15,27-28,30,38,42-43,60,69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "45f30ac8208c948a46a79d7a24ff21f6fc56287f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a070d8e4357f3a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787340321187",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
