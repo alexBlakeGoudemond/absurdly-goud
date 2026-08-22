@@ -6,36 +6,51 @@ import shutil
 
 
 def main():
-    p = argparse.ArgumentParser(
+    argument_parser = argparse.ArgumentParser(
         description='Export Obsidian vault to a Jekyll-friendly source tree and write into repo or output dir')
-    p.add_argument('--vault', default='absurdly-goud-obsidian')
-    p.add_argument('--out-root', default='.')
-    p.add_argument('--out', default='site_src',
+    argument_parser.add_argument('--vault', default='absurdly-goud-obsidian')
+    argument_parser.add_argument('--src-root', default='.')
+    argument_parser.add_argument('--out-dir', default='site_src',
                    help='If provided, generate the site source into this directory and do NOT sync into the repo')
-    args = p.parse_args()
+    arguments = argument_parser.parse_args()
 
-    vault = Path(args.vault)
-    repo_root = Path(args.out_root)
-    out_dir = args.out
+    obsidian_vault_location, output_location, source_location = extract_command_line_arguments(arguments)
 
-    if not vault.exists():
-        print(f'Vault path {vault} does not exist. Nothing to do.')
+    if not obsidian_vault_location.exists():
+        print(f"Vault path '{obsidian_vault_location}' does not exist. Nothing to do.")
         return
 
-    repo_root = Path(__file__).resolve().parents[1] if repo_root == Path('.') else repo_root
+    if output_location.exists():
+        shutil.rmtree(output_location)
 
-    out = Path(out_dir)
-    if out.exists():
-        shutil.rmtree(out)
+    copy_obsidian_vault(obsidian_vault_location, output_location)
 
-    def ignore_fn(directory, names):
-        ignored = set()
-        for n in names:
-            if n in ['.obsidian', '.git', '.ai-playbook']:
-                ignored.add(n)
-        return ignored
 
-    shutil.copytree(vault, out, ignore=ignore_fn)
+def copy_obsidian_vault(obsidian_vault_location, output_location):
+    ignored_directories = ['.obsidian']
+    print(f"ignored_directories: '{ignored_directories}'")
+    for vault_item in obsidian_vault_location.iterdir():
+        directory_name = vault_item.name
+        if directory_name in ignored_directories:
+            continue
+        match directory_name:
+            case 'posts':
+                print(f"Copying '{directory_name}' to '{output_location}/_posts'")
+                shutil.copytree(vault_item, output_location / '_posts')
+            case _:
+                print(f"Copying '{directory_name}' to '{output_location}/{directory_name}'")
+                shutil.copytree(vault_item, output_location / directory_name)
+
+
+def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
+    obsidian_vault_location = Path(args.vault)
+    output_location = Path(args.out_dir)
+    if args.src_root == Path("."):
+        source_location = Path(__file__).resolve().parents[1]
+    else:
+        source_location = Path(args.src_root)
+    return obsidian_vault_location, output_location, source_location
+
 
 if __name__ == '__main__':
     main()
