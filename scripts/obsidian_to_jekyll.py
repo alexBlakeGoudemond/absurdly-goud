@@ -160,14 +160,8 @@ class ObsidianToJekyllConverter:
         for vault_item in self.obsidian_vault_location.iterdir():
             if vault_item.name in self.IGNORED_VAULT_ITEMS:
                 continue
-            match vault_item.name:
-                case 'posts':
-                    print(f"Copying '{vault_item.name}' to '{self.output_location}/_posts'")
-                    shutil.copytree(vault_item, self.output_location / '_posts')
-                case _:
-                    print(f"Copying '{vault_item.name}' to '{self.output_location}/{vault_item.name}'")
-                    shutil.copytree(vault_item, self.output_location / vault_item.name)
-
+            dest_name = '_posts' if vault_item.name == 'posts' else vault_item.name
+            self.sync_tree(vault_item, self.output_location / dest_name)
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
     obsidian_vault_location = Path(args.vault)
