@@ -34,15 +34,21 @@ class ObsidianToJekyllConverter:
         self.new_manifest: dict = {}
         self.changed_dest_paths: list[Path] = []
 
+    def begin_run(self) -> None:
+        """Load the on-disk manifest and reset per-run tracking state.
+        Called at the start of run(), and reusable directly in tests
+        to simulate a second, separate invocation of the converter."""
+        self.old_manifest = load_manifest(self.manifest_path)
+        self.new_manifest = {}
+        self.changed_dest_paths = []
+
     def run(self) -> None:
         if not self.obsidian_vault_location.exists():
             print(f"Vault path '{self.obsidian_vault_location}' does not exist. Requires vault to be present.")
             return
 
         self.output_location.mkdir(parents=True, exist_ok=True)
-        self.old_manifest = load_manifest(self.manifest_path)
-        self.new_manifest = {}
-        self.changed_dest_paths = []
+        self.begin_run()
 
         self.copy_vault_resources()
         self.copy_jekyll_resources()
