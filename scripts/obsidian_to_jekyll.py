@@ -6,6 +6,7 @@ import shutil
 import re
 from textwrap import dedent
 
+
 def main():
     argument_parser = argparse.ArgumentParser(
         description='Export Obsidian vault to a Jekyll-friendly source tree and write into repo or output dir')
@@ -26,9 +27,22 @@ def main():
 
     copy_vault_resources(obsidian_vault_location, output_location)
     copy_jekyll_resources(source_location, output_location)
+    add_frontmatter_to_markdown_files(output_location)
+    collect_images_in_assets_directory(output_location)
 
-    # recursive glob (rglob) will find all markdown files for us
+
+def collect_images_in_assets_directory(output_location):
+    for image_file in output_location.rglob('*.png'):
+        output_image_path = Path(output_location / 'assets/images/')
+        if not output_image_path.is_dir():
+            output_image_path.mkdir(parents=True, exist_ok=True)
+        print(f"moving image '{image_file}' to '{output_image_path}'")
+        shutil.move(image_file, output_image_path)
+
+
+def add_frontmatter_to_markdown_files(output_location: Path):
     ignored_frontmatter_files = ['index.md', 'home.md']
+    # recursive glob (rglob) will find all markdown files for us
     for markdown_file in output_location.rglob('*.md'):
         if markdown_file.name in ignored_frontmatter_files:
             continue
@@ -54,8 +68,9 @@ def add_frontmatter_to_file(markdown_file, file_layout='default', include_permal
     """).lstrip('\n')
     if 'permalink: \n' in frontmatter:
         frontmatter = frontmatter.replace('permalink: \n', '')
-    print(f"Adding frontmatter to '{file_path}':\n{frontmatter}")
+    # print(f"Adding frontmatter to '{file_path}':\n{frontmatter}")
     file_path.write_text(frontmatter + file_content, encoding="utf-8")
+
 
 def extract_title_from_file_name(file_name: str) -> str:
     filename_with_leading_timestamp = re.compile(r'^\d{4}-\d{2}-\d{2}-')
