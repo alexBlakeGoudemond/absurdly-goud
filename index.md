@@ -3,4 +3,6 @@ layout: default
 title: "Home"
 ---
 
-{% include_relative site_src/index.md %}
+# Home
+
+{% include_relative home/home.md %}

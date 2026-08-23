@@ -23,7 +23,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "Starting watcher in background..."
-$watchArgs = 'scripts\watch_and_build.py -v .\absurdly-goud-obsidian -c scripts\obsidian_to_jekyll.py'
+$watchArgs = 'scripts\python-watchdog\watch_and_build.py -v .\absurdly-goud-obsidian -c scripts\obsidian_to_jekyll.py'
 Start-Process -FilePath (Get-Command python).Source -ArgumentList $watchArgs -WindowStyle Hidden
 
 Write-Host "Starting Jekyll server (foreground). Ctrl+C to stop both server+watcher."

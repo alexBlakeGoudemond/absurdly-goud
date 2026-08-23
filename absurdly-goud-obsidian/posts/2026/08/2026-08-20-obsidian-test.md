@@ -1,8 +1,3 @@
----
-layout: post
-title: Obsidian Test
-date: 2026-08-20
----
 This is a note I produced using Obsidian - just focussing on the MarkDown Note
 
 <!--more-->

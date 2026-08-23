@@ -26,3 +26,25 @@ plugins:
 
 paginate: 10
 paginate_path: "/posts/page:num/"
+
+# default frontmatter for all
+defaults:
+
+  # anything inside posts gets this layout frontmatter
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+  # set the page.author liquid variable for all files
+  - scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      author: "alexBlakeGoudemond"
+
+  # all files in the assets/images folder have frontmatter variable `image` set to true
+  - scope:
+      path: "assets/images"
+    values:
+      image: true
