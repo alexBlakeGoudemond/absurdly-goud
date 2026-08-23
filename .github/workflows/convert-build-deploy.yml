@@ -58,7 +58,7 @@ jobs:
           fi
 
       - name: Build site with Jekyll
-        run: bundle exec jekyll build --source site_src --config _config.yml --destination site
+        run: bundle exec jekyll build --source site_src --config _config.yml --destination _site
 
       - name: Write CNAME into built site
         run: |
@@ -68,7 +68,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          publish_dir: ./_site
           publish_branch: gh-pages
           allow_empty_commit: false
 

@@ -1,13 +1,12 @@
 /.idea/
 
-# jekyll's generated output directory
-/site/
-
 # Additional AI Resources: https://github.com/alexBlakeGoudemond/ai-playbook
 /.ai-playbook/
 
 # Obsidian Vault config
 /absurdly-goud-obsidian/.obsidian/
 
+# jekyll's generated output directory
+/_site/
 # additional generated code for Jekyll and local dev to use
 /site_src/

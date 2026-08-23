@@ -1,6 +1,6 @@
 # Jekyll README
 
-Jekyll takes source content and templates and generates a static website into [`/site`](#site).
+Jekyll takes source content and templates and generates a static website into [`/_site`](#site).
 
 ## Jekyll Use Case
 
