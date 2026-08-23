@@ -21,7 +21,6 @@
 - [ ] figure out 88x31 buttons
 	- [ ] https://petrapixel.neocities.org/indiewebdb/ eg button for svg?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
-- [ ] Do I need watchdog in the scripts?
 
 # Achievements
 - [x] all images should be in assets, not media (2026-08-23)

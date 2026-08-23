@@ -7,11 +7,11 @@ services:
       context: ..
       dockerfile: docker/ruby/Dockerfile
 
-    working_dir: /site
+    working_dir: /workbench
 
     volumes:
-      - ..:/site
-      - ai_playbook_stub:/site/.ai-playbook:ro
+      - ..:/workbench
+      - ai_playbook_stub:/workbench/.ai-playbook:ro
 
     ports:
       - "4000:4000"

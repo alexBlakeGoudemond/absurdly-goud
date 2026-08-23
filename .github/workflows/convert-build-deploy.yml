@@ -49,7 +49,7 @@ jobs:
           ls -la
           if [ -d absurdly-goud-obsidian ]; then
             echo "Found vault 'absurdly-goud-obsidian' — running converter..."
-            python scripts/obsidian_to_jekyll.py --vault absurdly-goud-obsidian --out-dir site_src
+            python -m scripts.obsidian_to_jekyll --vault absurdly-goud-obsidian --out-dir site_src
           elif [ -d site_src ]; then
             echo "No vault found, but committed site_src exists — using it as-is."
           else
@@ -58,17 +58,17 @@ jobs:
           fi
 
       - name: Build site with Jekyll
-        run: bundle exec jekyll build --source site_src --config _config.yml --destination site
+        run: bundle exec jekyll build --source site_src --config _config.yml --destination _site
 
       - name: Write CNAME into built site
         run: |
-          echo "absurdlygoud.com" > site/CNAME
+          echo "absurdlygoud.com" > _site/CNAME
 
       - name: Deploy to gh-pages using peaceiris/actions-gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          publish_dir: ./_site
           publish_branch: gh-pages
           allow_empty_commit: false
 
