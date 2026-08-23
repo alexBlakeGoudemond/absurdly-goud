@@ -28,17 +28,18 @@ def main():
     copy_vault_resources(obsidian_vault_location, output_location)
     copy_jekyll_resources(source_location, output_location)
     add_frontmatter_to_markdown_files(output_location)
-    collect_images_in_assets_directory(output_location)
+    collect_images_in_assets_directory(obsidian_vault_location, output_location)
 
 
-def collect_images_in_assets_directory(output_location):
+# not ideal - need to look at caching later
+def collect_images_in_assets_directory(obsidian_vault_location: Path, output_location: Path):
     output_image_path = Path(output_location / 'assets/images/')
     if output_image_path.is_dir():
         shutil.rmtree(output_image_path)
     output_image_path.mkdir(parents=True, exist_ok=True)
-    for image_file in output_location.rglob('*.png'):
-        print(f"moving image '{image_file}' to '{output_image_path}'")
-        shutil.move(image_file, output_image_path)
+    for image_file in obsidian_vault_location.rglob('*.png'):
+        print(f"Copying image '{image_file}' to '{output_image_path}'")
+        shutil.copy(image_file, output_image_path)
 
 
 def add_frontmatter_to_markdown_files(output_location: Path):
