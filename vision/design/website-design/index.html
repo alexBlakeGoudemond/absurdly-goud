@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>website-design | ABsurdly Goud</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/posts/">Posts</a>
+    </nav>
+</header>
+
+<main>
+    <h1 id="how-does-this-website-work">How does this website work?</h1>
+
+<p>This site uses <a href="https://jekyllrb.com/">Jekyll</a> to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a <code class="language-plaintext highlighter-rouge">site</code> directory (browser-ready HTML)</p>
+
+<p>On-top of this - this website uses <a href="https://obsidian.md/">Obsidian</a> to produce and easily maintain notes. To get this working with Jekyll, script and GitHub Actions are used.</p>
+
+<h2 id="jekyll-overview">Jekyll Overview</h2>
+
+<p>Jekyll supports <a href="https://shopify.dev/docs/api/liquid">Liquid</a> as well as other helpful structures (for example <a href="https://jekyllrb.com/docs/step-by-step/07-assets/#sass">SASS</a>)</p>
+
+<p>Jekyll requires the resources in a specific format:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_config.yml</code></li>
+  <li><a href="https://jekyllrb.com/docs/pages/">Pages</a> ; standalone files</li>
+  <li><a href="https://jekyllrb.com/docs/posts/">Posts</a> ; blog files</li>
+  <li><a href="https://jekyllrb.com/docs/posts/#drafts">Drafts</a> ; unpublished posts</li>
+  <li><a href="https://jekyllrb.com/docs/step-by-step/08-blogging/#layout">Layout Files</a> ; template to be reused</li>
+  <li><a href="https://jekyllrb.com/docs/datafiles/">Data Files</a> ; data stored as YAML</li>
+  <li><a href="https://jekyllrb.com/docs/liquid/tags/#includes">Includes Files</a> ; fragment to be reused as an atomic item</li>
+</ul>
+
+<p>Also, posts support Front Matter; which can use the following key-value properties:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">layout</code> ; use this layout</li>
+  <li><code class="language-plaintext highlighter-rouge">permalink</code> ;  custom defined URL structure</li>
+  <li><code class="language-plaintext highlighter-rouge">published</code> ; boolean controlling if post shows when <code class="language-plaintext highlighter-rouge">site</code> is generated</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;customVariables&gt;</code> ; to be used in Liquid Syntax</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;preDefinedVariables&gt;</code> ;  ready-to-use variables
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">date</code> ;  override date from name of the post</li>
+      <li><code class="language-plaintext highlighter-rouge">category</code> / <code class="language-plaintext highlighter-rouge">categories</code> ; place notes in specific directories</li>
+      <li><code class="language-plaintext highlighter-rouge">tags</code> ; sticker collecting posts</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">category</code> / <code class="language-plaintext highlighter-rouge">categories</code> ;  collect posts into a directory</li>
+  <li><code class="language-plaintext highlighter-rouge">tag</code> / <code class="language-plaintext highlighter-rouge">tags</code> ; stickers attached to posts to categorize them</li>
+</ul>
+
+<p>Note that site-design concepts can also be used with Jekyll and Liquid, controlled by CSS</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sidebar</code></li>
+  <li><code class="language-plaintext highlighter-rouge">navbar</code></li>
+  <li><code class="language-plaintext highlighter-rouge">header</code></li>
+  <li><code class="language-plaintext highlighter-rouge">footer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">hamburger menu</code></li>
+  <li><code class="language-plaintext highlighter-rouge">breadcrumbs</code></li>
+</ul>
+
+<blockquote>
+  <p>[!Important]
+Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and <code class="language-plaintext highlighter-rouge">categories</code> are part of its posts system and so the Liquid variables `` may not contain the about.md page</p>
+</blockquote>
+
+<blockquote>
+  <p>[!Note] Helpful Insights 
+<a href="https://jekyllrb.com/docs/configuration/front-matter-defaults/">Front Matter Defaults</a> can also be setup in <code class="language-plaintext highlighter-rouge">_config.yaml</code>
+<code class="language-plaintext highlighter-rouge">Front Matter Tags</code> can build up an index across your site
+<a href="https://jekyllrb.com/docs/posts/#categories">Front Matter Categories</a>  group posts together
+<a href="https://jekyllrb.com/docs/step-by-step/09-collections/">Collections</a> allow grouping anything together, instead of just bundling posts with <code class="language-plaintext highlighter-rouge">categories</code></p>
+</blockquote>
+
+<h2 id="github-pages">GitHub Pages</h2>
+
+<p>GitHub Pages is GitHub’s static website hosting service. It takes static files such as HTML, CSS, JavaScript, and images and makes them available as a website.</p>
+
+<p>GitHub Pages can be configured to publish the contents of a specific <strong>branch</strong> and directory. A branch called <code class="language-plaintext highlighter-rouge">gh-pages</code> is commonly used for this purpose, but <code class="language-plaintext highlighter-rouge">gh-pages</code> is <strong>not</strong> a special GitHub Pages feature. It is simply a normal Git branch that we have configured GitHub Pages to publish.</p>
+
+<p>GitHub Actions allows us to execute code on a GitHub-hosted virtual machine. This lets us automate tasks such as converting content, building Jekyll, and deploying the resulting files.</p>
+
+<p>GitHub-hosted runners are provided by GitHub and consume <strong>GitHub Actions minutes</strong> from the account’s included usage/quota.</p>
+
+<h2 id="having-notes-in-obsidian-vault">Having Notes in Obsidian Vault</h2>
+
+<p>I want to be able to easily produce notes, and have the infrastructure just work around me. To achieve this - I created an obsidian vault which contains the notes themselves. Jekyll doesn’t understand this structure, so I use scripts to convert the content into a structure Jekyll does understand before it runs.</p>
+
+<p>This script runs when I test locally via docker as well as in GitHub Actions for the publication to the site. It produces a directory <code class="language-plaintext highlighter-rouge">site_src</code>. Jekyll is then told to use that generated directory to prepare the <code class="language-plaintext highlighter-rouge">site</code> directory as per normal</p>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 ABsurdly Goud. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
