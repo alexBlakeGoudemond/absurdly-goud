@@ -32,10 +32,11 @@ def main():
 
 
 def collect_images_in_assets_directory(output_location):
+    output_image_path = Path(output_location / 'assets/images/')
+    if output_image_path.is_dir():
+        shutil.rmtree(output_image_path)
+    output_image_path.mkdir(parents=True, exist_ok=True)
     for image_file in output_location.rglob('*.png'):
-        output_image_path = Path(output_location / 'assets/images/')
-        if not output_image_path.is_dir():
-            output_image_path.mkdir(parents=True, exist_ok=True)
         print(f"moving image '{image_file}' to '{output_image_path}'")
         shutil.move(image_file, output_image_path)
 
