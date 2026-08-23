@@ -1,0 +1,17 @@
+absurdly-goud-obsidian/posts/2026/08/2026-08-23-caching-test.md
+  h_1197a506f6c7d6 7-9
+  h_1197a506f6c7d6 5-6
+_config.yml
+  h_1197a506f6c7d6 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "3bf17c54713c1fac207559d9cc8bd6c3163534d5",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
