@@ -59,7 +59,7 @@ def extract_title_from_file_name(file_name: str) -> str:
 
 
 def copy_jekyll_resources(source_location: Path, output_location: Path):
-    included_items = ['assets', 'CNAME', 'posts', '_includes', 'layouts', '_config.yaml', 'index.md']
+    included_items = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md']
     for source_item in source_location.iterdir():
         source_item_name = source_item.name
         if source_item_name not in included_items:
