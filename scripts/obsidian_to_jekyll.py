@@ -76,7 +76,7 @@ def add_frontmatter_to_file(markdown_file, file_layout='default', include_permal
 
 def extract_title_from_file_name(file_name: str) -> str:
     filename_with_leading_timestamp = re.compile(r'^\d{4}-\d{2}-\d{2}-')
-    filename_ending_in_md = re.compile(r'.md')
+    filename_ending_in_md = re.compile(r'\.md$')
     file_title = filename_with_leading_timestamp.sub('', file_name)
     file_title = filename_ending_in_md.sub('', file_title)
     return file_title
