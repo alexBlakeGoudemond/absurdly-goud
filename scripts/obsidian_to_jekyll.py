@@ -32,22 +32,29 @@ def main():
     for markdown_file in output_location.rglob('*.md'):
         if markdown_file.name in ignored_frontmatter_files:
             continue
-        print(f"Adding frontmatter to '{markdown_file}'")
-        add_frontmatter_to_file(markdown_file)
+        if markdown_file.name == 'about.md':
+            add_frontmatter_to_file(markdown_file, include_permalink=True)
+        else:
+            add_frontmatter_to_file(markdown_file)
 
 
-def add_frontmatter_to_file(markdown_file, file_layout='default'):
+def add_frontmatter_to_file(markdown_file, file_layout='default', include_permalink=False):
     file_title = extract_title_from_file_name(markdown_file.name)
     file_path = Path(markdown_file)
     file_content = file_path.read_text(encoding="utf-8")
+    file_permalink = f"/{file_title}/" if include_permalink else ""
 
     frontmatter = dedent(f"""
         ---
         layout: {file_layout}
         title: {file_title}
+        permalink: {file_permalink}
         ---
         
-    """)
+    """).lstrip('\n')
+    if 'permalink: \n' in frontmatter:
+        frontmatter = frontmatter.replace('permalink: \n', '')
+    print(f"Adding frontmatter to '{file_path}':\n{frontmatter}")
     file_path.write_text(frontmatter + file_content, encoding="utf-8")
 
 def extract_title_from_file_name(file_name: str) -> str:
