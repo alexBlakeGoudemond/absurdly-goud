@@ -24,7 +24,11 @@
 
 <!--more-->
 
-<p>Instead of deleting the entire <code class="language-plaintext highlighter-rouge">site_src</code> directory and then re-copying, I am instead using a cache strategy. If the <code class="language-plaintext highlighter-rouge">sha256</code> of a file changed, the <code class="language-plaintext highlighter-rouge">name</code> of the file changed or the file was deleted - only then should it be updated in the remote destination - the rest remains as is.</p>
+<p>Instead of deleting the entire <code class="language-plaintext highlighter-rouge">site_src</code> directory and then re-copying, I am instead using a cache strategy. If the
+<code class="language-plaintext highlighter-rouge">sha256</code> of a file changed, the <code class="language-plaintext highlighter-rouge">name</code> of the file changed or the file was deleted - only then should it be updated in
+the remote destination - the rest remains as is. Right now this benefits Local Development only as GitHub-hosted Actions
+runners are <strong>ephemeral</strong> — nothing persists between workflow runs unless explicitly cached. Can always bring this in
+later to GitHub Pages</p>
 
 </main>
 
