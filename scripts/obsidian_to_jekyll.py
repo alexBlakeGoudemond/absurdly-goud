@@ -5,6 +5,10 @@ from pathlib import Path
 import shutil
 import re
 from textwrap import dedent
+from scripts.website_manifest import (
+    sha256,
+    create_manifest_entry
+)
 
 
 def main():
@@ -22,13 +26,14 @@ def main():
         print(f"Vault path '{obsidian_vault_location}' does not exist. Nothing to do.")
         return
 
-    if output_location.exists():
-        shutil.rmtree(output_location)
+    if not output_location.exists():
+        output_location.mkdir(parents=True, exist_ok=True)
 
     copy_vault_resources(obsidian_vault_location, output_location)
     copy_jekyll_resources(source_location, output_location)
-    add_frontmatter_to_markdown_files(output_location)
     collect_images_in_assets_directory(obsidian_vault_location, output_location)
+
+    # generate manifest of all files in output_location
 
 
 # not ideal - need to look at caching later
@@ -109,6 +114,7 @@ def copy_vault_resources(obsidian_vault_location: Path, output_location: Path):
             case _:
                 print(f"Copying '{vault_item_name}' to '{output_location}/{vault_item_name}'")
                 shutil.copytree(vault_item, output_location / vault_item_name)
+    add_frontmatter_to_markdown_files(output_location)
 
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
