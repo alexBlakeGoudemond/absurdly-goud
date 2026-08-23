@@ -1,0 +1,33 @@
+scripts/python-watchdog/watch_and_build.py
+  s_a070d8e4357f3a::t_ba71dc87fcefaa 80
+  s_9280db76281b7b::t_7db68f56147ab3 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "8d0fc7478e21ce5b4f4ec0fdbf83c8da9e63f49e",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_9280db76281b7b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "e0f1191d-da18-4438-a40f-f8b08de020c0",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_a070d8e4357f3a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787340321187",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
