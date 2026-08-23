@@ -1,0 +1,37 @@
+docker/ruby/Dockerfile
+  s_a070d8e4357f3a::t_0e14981fa75d79 11
+  h_1197a506f6c7d6 15
+  h_1197a506f6c7d6 8
+docker/entrypoint.sh
+  h_1197a506f6c7d6 5,8,11
+docker/compose.yaml
+  h_1197a506f6c7d6 10,13-14
+  h_1197a506f6c7d6 22
+docs/JEKYLL_README.md
+  h_1197a506f6c7d6 3
+.gitignore
+  h_1197a506f6c7d6 9-10
+.github/workflows/convert-build-deploy.yml
+  h_1197a506f6c7d6 61,71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "f75c5b45a346d32bc7d17caca61d6bc84e6dd9ed",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a070d8e4357f3a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787340321187",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
