@@ -24,7 +24,7 @@ exclude:
 plugins:
   - jekyll-paginate
 
-paginate: 10
+paginate: 3
 paginate_path: "/posts/page:num/"
 
 # default frontmatter for all
