@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 import shutil
 import re
-
+from textwrap import dedent
 
 def main():
     argument_parser = argparse.ArgumentParser(
@@ -28,7 +28,11 @@ def main():
     copy_jekyll_resources(source_location, output_location)
 
     # recursive glob (rglob) will find all markdown files for us
+    ignored_frontmatter_files = ['index.md', 'home.md']
     for markdown_file in output_location.rglob('*.md'):
+        if markdown_file.name in ignored_frontmatter_files:
+            continue
+        print(f"Adding frontmatter to '{markdown_file}'")
         add_frontmatter_to_file(markdown_file)
 
 
@@ -37,12 +41,13 @@ def add_frontmatter_to_file(markdown_file, file_layout='default'):
     file_path = Path(markdown_file)
     file_content = file_path.read_text(encoding="utf-8")
 
-    frontmatter = f"""---
-layout: {file_layout}
-title: {file_title}
----
-
-"""
+    frontmatter = dedent(f"""
+        ---
+        layout: {file_layout}
+        title: {file_title}
+        ---
+        
+    """)
     file_path.write_text(frontmatter + file_content, encoding="utf-8")
 
 def extract_title_from_file_name(file_name: str) -> str:
