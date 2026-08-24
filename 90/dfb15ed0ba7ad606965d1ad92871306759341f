@@ -1,0 +1,58 @@
+assets/badges/github-pages-button.svg
+  h_1197a506f6c7d6 1
+assets/css/style.css
+  h_1197a506f6c7d6 69-82
+assets/badges/obsidian-button.svg
+  h_1197a506f6c7d6 1
+_data/badges.yml
+  h_1197a506f6c7d6 2-5
+  h_1197a506f6c7d6 1,27
+assets/badges/jekyll-button.svg
+  h_1197a506f6c7d6 1
+assets/badges/indiewebcamp-button.svg
+  h_1197a506f6c7d6 1
+Makefile
+  h_1197a506f6c7d6 13
+  h_1197a506f6c7d6 12
+_includes/aside/aside-common.html
+  s_a070d8e4357f3a::t_8516b7e2d17252 32-35
+  h_1197a506f6c7d6 3-9,13-31,39-41
+  h_1197a506f6c7d6 10-12,36-38
+assets/badges/microformats-button.svg
+  h_1197a506f6c7d6 1
+absurdly-goud-obsidian/vision/progress/website-progress.md
+  s_a09a2067912f0f::t_6eddcbc8311dfa 3
+absurdly-goud-obsidian/home/home.md
+  h_1197a506f6c7d6 3-27
+assets/badges/disclaimer-ai-assisted-button.svg
+  h_1197a506f6c7d6 1-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "90dfb15ed0ba7ad606965d1ad92871306759341f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a070d8e4357f3a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787340321187",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_a09a2067912f0f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9acbfc97-e8b1-48f3-a671-70537e2f806f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
