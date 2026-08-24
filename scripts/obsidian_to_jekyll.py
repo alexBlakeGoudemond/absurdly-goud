@@ -16,6 +16,33 @@ from scripts.website_manifest import (
 MANIFEST_FILENAME = ".manifest.json"
 
 
+def process_image_notation_in_markdown_file(markdown_file: Path) -> None:
+    """Convert Obsidian-style image notation ![Alt text](image.png) to Jekyll include notation."""
+    content = markdown_file.read_text(encoding="utf-8")
+    markdown_image_pattern = r'!\[(.+)\]\((.+)\)'
+    all_matches = re.findall(markdown_image_pattern, content)
+    for match in all_matches:
+        image_alt_text = match[0]
+        image_name = match[1]
+        jekyll_image_includes_notation = (
+            convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name, image_alt_text))
+        content = content.replace(f"![{image_alt_text}]({image_name})", jekyll_image_includes_notation)
+    markdown_file.write_text(content, encoding="utf-8")
+
+
+def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name: str, image_alt_text: str) -> str:
+    opening_brace = '{%'
+    closing_brace = '%}'
+    jekyll_image_layout_notation = f"""
+        {opening_brace} include image.html
+            src="{image_name}"
+            alt="{image_alt_text}"
+            title="{image_alt_text}"
+        {closing_brace}
+        """
+    return dedent(jekyll_image_layout_notation)
+
+
 class ObsidianToJekyllConverter:
     """Syncs an Obsidian vault + Jekyll scaffold into a Jekyll-ready source tree,
     using a content-hash manifest to skip unchanged files on repeat runs."""
@@ -52,9 +79,9 @@ class ObsidianToJekyllConverter:
 
         self.copy_vault_resources()
         self.copy_jekyll_resources()
-        self.collect_images_in_assets_directory()
+        self.copy_vault_images_into_assets_directory()
 
-        self.add_frontmatter_to_markdown_files()
+        self.parse_markdown_files_for_jekyll()
         self.prune_stale_files()
         save_manifest(self.manifest_path, self.new_manifest)
 
@@ -84,10 +111,12 @@ class ObsidianToJekyllConverter:
         self.new_manifest[source_key] = create_manifest_entry(source_path, dest_path)
         self.changed_dest_paths.append(dest_path)
 
-    def sync_tree(self, source_dir: Path, dest_dir: Path) -> None:
+    def sync_tree(self, source_dir: Path, dest_dir: Path, exclude_suffixes: set[str] = frozenset()) -> None:
         """Walk source_dir recursively, syncing each file individually."""
         for source_path in source_dir.rglob("*"):
             if source_path.is_dir():
+                continue
+            if source_path.suffix.lower() in exclude_suffixes:
                 continue
             relative = source_path.relative_to(source_dir)
             self.sync_file(source_path, dest_dir / relative)
@@ -101,13 +130,13 @@ class ObsidianToJekyllConverter:
                 print(f"Removing stale file: '{stale_path}'")
                 stale_path.unlink()
 
-    def collect_images_in_assets_directory(self) -> None:
+    def copy_vault_images_into_assets_directory(self) -> None:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
         for image_file in self.obsidian_vault_location.rglob('*.png'):
             self.sync_file(image_file, output_image_path / image_file.name)
 
-    def add_frontmatter_to_markdown_files(self) -> None:
+    def parse_markdown_files_for_jekyll(self) -> None:
         """Only inject frontmatter into files actually (re)written this run —
         prevents double-prepending frontmatter onto cache-hit files."""
         for dest_path in self.changed_dest_paths:
@@ -119,6 +148,7 @@ class ObsidianToJekyllConverter:
                 self.add_frontmatter_to_file(dest_path, include_permalink=True)
             else:
                 self.add_frontmatter_to_file(dest_path)
+            process_image_notation_in_markdown_file(dest_path)
 
     @staticmethod
     def add_frontmatter_to_file(markdown_file: Path, file_layout='default', include_permalink=False) -> None:
@@ -129,7 +159,7 @@ class ObsidianToJekyllConverter:
         frontmatter = dedent(f"""
             ---
             layout: {file_layout}
-            title: {file_title}
+            title: "{file_title}"
             permalink: {file_permalink}
             ---
 
@@ -160,8 +190,12 @@ class ObsidianToJekyllConverter:
         for vault_item in self.obsidian_vault_location.iterdir():
             if vault_item.name in self.IGNORED_VAULT_ITEMS:
                 continue
-            dest_name = '_posts' if vault_item.name == 'posts' else vault_item.name
-            self.sync_tree(vault_item, self.output_location / dest_name)
+            if vault_item.name == 'posts':
+                image_suffixes = {'.png', '.jpg', '.jpeg', '.gif'}
+                self.sync_tree(vault_item, self.output_location / '_posts', exclude_suffixes=image_suffixes)
+            else:
+                self.sync_tree(vault_item, self.output_location / vault_item.name)
+
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
     obsidian_vault_location = Path(args.vault)

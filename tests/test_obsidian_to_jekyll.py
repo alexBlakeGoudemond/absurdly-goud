@@ -2,12 +2,15 @@ import unittest
 import argparse
 import tempfile
 from pathlib import Path
+from textwrap import dedent
 
 from scripts import obsidian_to_jekyll
 from scripts.obsidian_to_jekyll import (
     extract_command_line_arguments,
     ObsidianToJekyllConverter,
     save_manifest,
+    convert_markdown_image_notation_to_jekyll_includes_image_notation,
+    process_image_notation_in_markdown_file,
 )
 
 
@@ -181,9 +184,10 @@ class TestCopyJekyllResources(unittest.TestCase):
 
 
 class TestCopyVaultResources(unittest.TestCase):
-    """NOTE: copy_vault_resources currently uses shutil.copytree, not sync_tree —
-    it isn't idempotent and will raise FileExistsError on a recurring run against
-    a non-empty output dir. Covers first-time setup only until it's switched to sync_tree."""
+    """copy_vault_resources uses sync_tree, so it's idempotent across recurring runs.
+    Images inside posts/ are excluded here because Jekyll fails to build any binary
+    file placed under _posts (it tries to parse every file there as UTF-8 front
+    matter); images belong in assets/images instead, via collect_images_in_assets_directory."""
 
     def setUp(self):
         self.tmp_dir = tempfile.TemporaryDirectory()
@@ -218,6 +222,108 @@ class TestCopyVaultResources(unittest.TestCase):
         self.converter.copy_vault_resources()
 
         self.assertTrue((self.converter.output_location / "about" / "about.md").exists())
+
+    def test_images_in_posts_directory_are_excluded(self):
+        # Jekyll tries to read every file under _posts as UTF-8 front matter and
+        # blows up on binary content, so image assets must never land there.
+        posts_dir = self.converter.obsidian_vault_location / "posts" / "2026" / "08"
+        posts_dir.mkdir(parents=True)
+        (posts_dir / "screenshot.png").write_bytes(b"\x89PNG\r\n\x1a\nfake-bytes")
+
+        self.converter.copy_vault_resources()
+
+        self.assertFalse((self.converter.output_location / "_posts" / "2026" / "08" / "screenshot.png").exists())
+
+    def test_other_image_extensions_in_posts_are_also_excluded(self):
+        posts_dir = self.converter.obsidian_vault_location / "posts"
+        posts_dir.mkdir()
+        (posts_dir / "photo.jpg").write_bytes(b"fake-jpg")
+        (posts_dir / "photo.jpeg").write_bytes(b"fake-jpeg")
+        (posts_dir / "photo.gif").write_bytes(b"fake-gif")
+
+        self.converter.copy_vault_resources()
+
+        output_posts = self.converter.output_location / "_posts"
+        self.assertFalse((output_posts / "photo.jpg").exists())
+        self.assertFalse((output_posts / "photo.jpeg").exists())
+        self.assertFalse((output_posts / "photo.gif").exists())
+
+    def test_markdown_alongside_excluded_image_in_posts_is_still_copied(self):
+        posts_dir = self.converter.obsidian_vault_location / "posts"
+        posts_dir.mkdir()
+        (posts_dir / "screenshot.png").write_bytes(b"fake-bytes")
+        (posts_dir / "entry.md").write_text("body text", encoding="utf-8")
+
+        self.converter.copy_vault_resources()
+
+        self.assertTrue((self.converter.output_location / "_posts" / "entry.md").exists())
+        self.assertFalse((self.converter.output_location / "_posts" / "screenshot.png").exists())
+
+    def test_images_outside_posts_directory_are_not_excluded(self):
+        # exclude_suffixes is only applied to the posts/ -> _posts sync; other
+        # top-level vault directories should copy images through untouched.
+        gallery_dir = self.converter.obsidian_vault_location / "gallery"
+        gallery_dir.mkdir()
+        (gallery_dir / "picture.png").write_bytes(b"fake-bytes")
+
+        self.converter.copy_vault_resources()
+
+        self.assertTrue((self.converter.output_location / "gallery" / "picture.png").exists())
+
+    def test_recurring_run_is_idempotent(self):
+        posts_dir = self.converter.obsidian_vault_location / "posts"
+        posts_dir.mkdir()
+        (posts_dir / "hello.md").write_text("hi", encoding="utf-8")
+        self.converter.copy_vault_resources()  # first-time setup
+
+        start_next_run(self.converter)  # recurring setup: persist + reload from disk
+        self.converter.copy_vault_resources()  # should not raise, nothing changed
+
+        self.assertEqual(self.converter.changed_dest_paths, [])
+        self.assertTrue((self.converter.output_location / "_posts" / "hello.md").exists())
+
+
+class TestSyncTree(unittest.TestCase):
+    """Unit coverage for sync_tree's exclude_suffixes parameter, independent of
+    how copy_vault_resources happens to use it."""
+
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        self.converter = make_converter(Path(self.tmp_dir.name))
+        self.converter.begin_run()
+
+    def test_no_exclusions_by_default(self):
+        source_dir = self.converter.obsidian_vault_location / "src"
+        source_dir.mkdir()
+        (source_dir / "image.png").write_bytes(b"bytes")
+        dest_dir = self.converter.output_location / "dest"
+
+        self.converter.sync_tree(source_dir, dest_dir)
+
+        self.assertTrue((dest_dir / "image.png").exists())
+
+    def test_excluded_suffix_is_skipped(self):
+        source_dir = self.converter.obsidian_vault_location / "src"
+        source_dir.mkdir()
+        (source_dir / "image.png").write_bytes(b"bytes")
+        (source_dir / "notes.md").write_text("hi", encoding="utf-8")
+        dest_dir = self.converter.output_location / "dest"
+
+        self.converter.sync_tree(source_dir, dest_dir, exclude_suffixes={".png"})
+
+        self.assertFalse((dest_dir / "image.png").exists())
+        self.assertTrue((dest_dir / "notes.md").exists())
+
+    def test_exclusion_matches_case_insensitively(self):
+        source_dir = self.converter.obsidian_vault_location / "src"
+        source_dir.mkdir()
+        (source_dir / "image.PNG").write_bytes(b"bytes")
+        dest_dir = self.converter.output_location / "dest"
+
+        self.converter.sync_tree(source_dir, dest_dir, exclude_suffixes={".png"})
+
+        self.assertFalse((dest_dir / "image.PNG").exists())
 
 
 class TestSyncFile(unittest.TestCase):
@@ -323,7 +429,7 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
     def test_png_is_copied_to_assets_images(self):
         (self.converter.obsidian_vault_location / "photo.png").write_bytes(b"fake-png-bytes")
 
-        self.converter.collect_images_in_assets_directory()
+        self.converter.copy_vault_images_into_assets_directory()
 
         dest = self.converter.output_location / "assets" / "images" / "photo.png"
         self.assertTrue(dest.exists())
@@ -332,7 +438,7 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
     def test_non_png_files_are_ignored(self):
         (self.converter.obsidian_vault_location / "notes.md").write_text("hello", encoding="utf-8")
 
-        self.converter.collect_images_in_assets_directory()
+        self.converter.copy_vault_images_into_assets_directory()
 
         self.assertFalse((self.converter.output_location / "assets" / "images" / "notes.md").exists())
 
@@ -341,28 +447,28 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
         nested_dir.mkdir(parents=True)
         (nested_dir / "screenshot.png").write_bytes(b"nested-bytes")
 
-        self.converter.collect_images_in_assets_directory()
+        self.converter.copy_vault_images_into_assets_directory()
 
         dest = self.converter.output_location / "assets" / "images" / "screenshot.png"
         self.assertTrue(dest.exists())
 
     def test_unchanged_image_is_skipped_on_recurring_run(self):
         (self.converter.obsidian_vault_location / "photo.png").write_bytes(b"same-bytes")
-        self.converter.collect_images_in_assets_directory()  # first-time setup
+        self.converter.copy_vault_images_into_assets_directory()  # first-time setup
 
         start_next_run(self.converter)  # recurring setup
-        self.converter.collect_images_in_assets_directory()
+        self.converter.copy_vault_images_into_assets_directory()
 
         self.assertEqual(self.converter.changed_dest_paths, [])
 
     def test_changed_image_is_recopied_on_recurring_run(self):
         image = self.converter.obsidian_vault_location / "photo.png"
         image.write_bytes(b"original-bytes")
-        self.converter.collect_images_in_assets_directory()
+        self.converter.copy_vault_images_into_assets_directory()
 
         start_next_run(self.converter)
         image.write_bytes(b"updated-bytes")
-        self.converter.collect_images_in_assets_directory()
+        self.converter.copy_vault_images_into_assets_directory()
 
         dest = self.converter.output_location / "assets" / "images" / "photo.png"
         self.assertEqual(dest.read_bytes(), b"updated-bytes")
@@ -384,7 +490,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("# Hello", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
@@ -395,7 +501,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("About me", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", result)
@@ -406,7 +512,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
             dest.write_text("original content", encoding="utf-8")
             self.converter.changed_dest_paths = [dest]
 
-            self.converter.add_frontmatter_to_markdown_files()
+            self.converter.parse_markdown_files_for_jekyll()
 
             self.assertEqual(dest.read_text(encoding="utf-8"), "original content")
 
@@ -415,7 +521,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("body {}", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         self.assertEqual(dest.read_text(encoding="utf-8"), "body {}")
 
@@ -427,7 +533,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text(original, encoding="utf-8")
         self.converter.changed_dest_paths = []  # nothing changed this run
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         self.assertEqual(dest.read_text(encoding="utf-8"), original)
 
@@ -438,11 +544,63 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest_b.write_text("B", encoding="utf-8")
         self.converter.changed_dest_paths = [dest_a, dest_b]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         self.assertIn("title: post-a", dest_a.read_text(encoding="utf-8"))
         self.assertIn("title: post-b", dest_b.read_text(encoding="utf-8"))
 
+    def test_markdown_image_notation_gets_converted_to_jekyll_includes_file(self):
+        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation('image.png', 'Alt text')
+        expected_syntax = """
+        {% include image.html
+            src="image.png"
+            alt="Alt text"
+            title="Alt text"
+        %}
+        """
+        self.assertEqual(dedent(expected_syntax), actual_syntax)
+
+    def test_process_one_markdown_image_yields_one_jekyll_includes_syntax_in_file(self):
+        dest = self.converter.output_location / "post.md"
+        dest.write_text("![Alt text](image.png)", encoding="utf-8")
+        self.converter.changed_dest_paths = [dest]
+
+        process_image_notation_in_markdown_file(dest)
+
+        result = dest.read_text(encoding="utf-8")
+        expected_syntax = """
+        {% include image.html
+            src="image.png"
+            alt="Alt text"
+            title="Alt text"
+        %}
+        """
+        self.assertIn(dedent(expected_syntax), result)
+
+    def test_process_two_markdown_image_yields_two_jekyll_includes_syntax_in_file(self):
+        dest = self.converter.output_location / "post.md"
+        dest.write_text("![Alt text 1](image1.png)\n![Alt text 2](image2.png)", encoding="utf-8")
+        self.converter.changed_dest_paths = [dest]
+
+        process_image_notation_in_markdown_file(dest)
+
+        result = dest.read_text(encoding="utf-8")
+        expected_syntax_1 = """
+            {% include image.html
+                src="image1.png"
+                alt="Alt text 1"
+                title="Alt text 1"
+            %}
+            """
+        expected_syntax_2 = """
+            {% include image.html
+                src="image2.png"
+                alt="Alt text 2"
+                title="Alt text 2"
+            %}
+            """
+        self.assertIn(dedent(expected_syntax_1), result)
+        self.assertIn(dedent(expected_syntax_2), result)
 
 if __name__ == '__main__':
     unittest.main()
