@@ -1,0 +1,38 @@
+scripts/obsidian_to_jekyll.py
+  s_c1282aacd7700a::t_c1fb0249aae567 19
+  s_c1282aacd7700a::t_01688b738b13e3 25-26
+  h_1197a506f6c7d6 27-32
+  s_c1282aacd7700a::t_8e040737817fd6 20-24
+  h_1197a506f6c7d6 135-136
+tests/test_obsidian_to_jekyll.py
+  s_c1282aacd7700a::t_191c8b00c6661c 461,463,467,477-500
+  h_1197a506f6c7d6 501
+  s_c1282aacd7700a::t_2db4d7e589468b 465
+  s_c1282aacd7700a::t_18771e77ac436f 460
+  s_c1282aacd7700a::t_bb398f37c6c0b5 462
+  s_c1282aacd7700a::t_75c81ff58fa18c 464
+  s_c1282aacd7700a::t_6524cebcef38b1 466
+  s_c1282aacd7700a::t_a94a0a21343a70 468-470,474-476
+  h_1197a506f6c7d6 13,471-473
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "a7b4181d9982e856e9d543561b046e1fe081e39e",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c1282aacd7700a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787596532668",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
