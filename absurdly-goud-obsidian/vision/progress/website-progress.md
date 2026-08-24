@@ -1,4 +1,5 @@
 # Goals
+- [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] markdown syntax for images mapped to include syntax for jekyll
 	- [ ] Review excerpts and how to make nicer in MD

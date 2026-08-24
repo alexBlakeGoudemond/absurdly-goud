@@ -1,3 +1,39 @@
+.page-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 280px; /* content flexes, aside fixed width */
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+main {
+    min-width: 0; /* prevents content from overflowing grid track (important for text/code blocks) */
+    border: 1px solid #630b0b;
+    border-radius: 4px;
+}
+
+aside {
+    min-width: 0;
+    border: 1px solid #630b0b;
+    border-radius: 4px;
+}
+
+/* Stack on smaller screens */
+@media (max-width: 768px) {
+    .page-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    aside {
+        order: 2; /* aside drops below content on mobile */
+    }
+
+    main {
+        order: 1;
+    }
+}
+
 figure {
     margin: 1.5rem 0;
 }
