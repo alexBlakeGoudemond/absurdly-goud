@@ -1,7 +1,19 @@
 <div class="badges">
-    {% for badge in site.data.badges %}
-    <a href="{{ badge.url }}" target="_blank" rel="noopener">
-        <img src="{{ badge.image | relative_url }}" alt="{{ badge.alt }}" class="badge-img">
+    This site was built with the following:
+    {% for built_with_badge in site.data.badges.built_with %}
+    <a href="{{ built_with_badge.url }}" target="_blank" rel="noopener">
+        <img src="{{ built_with_badge.image | relative_url }}"
+             alt="{{ built_with_badge.alt }}"
+             class="badge-img">
+    </a>
+    {% endfor %}
+
+    This site is part of the following:
+    {% for part_of_badge in site.data.badges.part_of %}
+    <a href="{{ part_of_badge.url }}" target="_blank" rel="noopener">
+        <img src="{{ part_of_badge.image | relative_url }}"
+             alt="{{ part_of_badge.alt }}"
+             class="badge-img">
     </a>
     {% endfor %}
 </div>
