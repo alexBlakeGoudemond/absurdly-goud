@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Home | ABsurdly Goud</title>
+    <title>add-markdown-image-notation-convenience | ABsurdly Goud</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -21,66 +21,41 @@
 
 <div class="page-wrapper">
     <main>
-        <h1 id="home">Home</h1>
+        <p>Because I am using Obsidian to produce posts etc, I would prefer to create content using the Markdown syntax I know. I have now gotten it to play nice with Jekyll Includes Syntax</p>
 
-<p>Hi, I’m Alex Blake-Goudemond.</p>
+<!--more-->
 
-<p>This is my little corner of the web! Watch this space as I will be updating it as I can 🥳</p>
+<p>Jekyll requires a specific structure for includes docs:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">figure</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">img</span>
+            <span class="n">class</span><span class="o">=</span><span class="s">"u-photo"</span>
+            <span class="n">src</span><span class="o">=</span><span class="s">"/assets/images/image1.png"</span>
+            <span class="n">alt</span><span class="o">=</span><span class="s">"Alt text 1"</span>
+    <span class="o">&gt;</span>
 
-<h2 id="ai-usage">AI Usage</h2>
+    
+    <span class="o">&lt;</span><span class="n">figcaption</span><span class="o">&gt;</span><span class="n">Alt</span> <span class="n">text</span> <span class="mi">1</span><span class="o">&lt;/</span><span class="n">figcaption</span><span class="o">&gt;</span>
+    
+<span class="o">&lt;/</span><span class="n">figure</span><span class="o">&gt;</span>
+</code></pre></div></div>
 
-<p>I am a developer who does use Artificial Intelligence (AI) - and I focus on using it responsibly. I own and take
-accountability for all the work I generate - and if an AI helps, then I give attribution to both of us.</p>
+<p>Whereas the Markdown syntax is simpler:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;figure&gt;</span>
+    &lt;img
+            class="u-photo"
+            src="/assets/images/image1.png"
+            alt="Alt text 1"
+<span class="gt">    &gt;</span><span class="sb">
 
-<blockquote>
-  <p>NOTE:</p>
+    
+    &lt;figcaption&gt;Alt text 1&lt;/figcaption&gt;
+    
+</span><span class="nt">&lt;/figure&gt;</span>
 
-  <p>I am perfectly capable of writing <strong>CR@P CODE MYSELF</strong>! I do not <em>require</em> an AI to write cr@p code on my behalf 😏</p>
+</code></pre></div></div>
 
-  <p>The AI helps me get places faster ⚡, and I am able to speed up my learning along the way.</p>
-</blockquote>
-
-<p>I use AI to do the following:</p>
-
-<ul>
-  <li>Help me learn and onboard with tools I am not familiar with (Jekyll, GitHub Pages, etc)</li>
-  <li>Help me debug when I am tired of squeezing my rubber duck(s)</li>
-  <li>Help me fast-track boilerplate tasks that I know I could do myself - and want done faster</li>
-</ul>
-
-<p>The AI tools I have used so far:</p>
-
-<ul>
-  <li>GitHub Copilot (In the IDE)</li>
-  <li>ChatGPT (in the Browser)</li>
-  <li>Claude (as a dedicated Application)</li>
-</ul>
-
-<p>I recognize:</p>
-
-<ul>
-  <li>Data provided in prompts to AI tools is likely to be used as training data</li>
-  <li>There is a good chance (despite promises being made against it) that data the AI interacts with during a prompt can be
-used as training data</li>
-  <li>AI is a really good next-word-predictor and as such, mimics what it has heard in the past without ever <em>TRULY</em>
-understanding</li>
-  <li>Passing off AI code as my own without attribution is deceitful, and I will not do that - hence the disclaimer button</li>
-</ul>
-
-<p>Comments:</p>
-
-<ul>
-  <li>If my code exists in the public domain, I cannot detect/stop AI being used on it
-    <ul>
-      <li>As such, I am not going to police AI on my site – I will instead focus on what I like and consider AI to help me
-when relevant</li>
-    </ul>
-  </li>
-  <li>If an AI tool has been trained on a super large dataset, it can help me detect conventions and patterns used by a
-majority. I can then follow up on those things when solving problems</li>
-  <li>If AI disappears / becomes unavailable (or becomes <strong>sh!tt!er</strong>), I owe it to myself and my peers that I can operate
-without it; aware that it will be slower</li>
-</ul>
+<p>With the changes brought into the <code class="language-plaintext highlighter-rouge">obsidian_to_jekyll</code> script, the conversion from Markdown Image Notation to Jekyll Includes Notation just works!</p>
 
     </main>
 
