@@ -159,7 +159,7 @@ class ObsidianToJekyllConverter:
         frontmatter = dedent(f"""
             ---
             layout: {file_layout}
-            title: {file_title}
+            title: "{file_title}"
             permalink: {file_permalink}
             ---
 
