@@ -1,0 +1,20 @@
+tests/test_obsidian_to_jekyll.py
+  h_1197a506f6c7d6 390,401,412,421,433,444
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 84,137,149
+absurdly-goud-obsidian/posts/2026/08/2026-08-19-pagination-test.md
+  h_1197a506f6c7d6 9
+absurdly-goud-obsidian/posts/2026/08/2026-08-24-aside-and-buttons.md
+  h_1197a506f6c7d6 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "2e00bc55fd06da0a57f2d186f05ea1178f2d42b6",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
