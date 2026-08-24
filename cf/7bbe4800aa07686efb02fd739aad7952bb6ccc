@@ -1,0 +1,45 @@
+tests/test_obsidian_to_jekyll.py
+  h_1197a506f6c7d6 12,450-456
+  s_c1282aacd7700a::t_a0c414f8203a4a 448
+  s_c1282aacd7700a::t_c36b2285ccfeec 449
+  h_1197a506f6c7d6 5,457
+scripts/obsidian_to_jekyll.py
+  s_c1282aacd7700a::t_2606bb94012fdb 20
+  s_c1282aacd7700a::t_0327ae31e616d0 21
+  h_1197a506f6c7d6 19,22-31,121-124,183
+absurdly-goud-obsidian/vision/design/website-inspiration.md
+  s_a09a2067912f0f::t_c8d41ecf4a5fb0 7
+absurdly-goud-obsidian/vision/progress/website-progress.md
+  s_a09a2067912f0f::t_d4ea7f77a514ee 3-4,30
+absurdly-goud-obsidian/home/home.md
+  h_1197a506f6c7d6 12,18-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "cf7bbe4800aa07686efb02fd739aad7952bb6ccc",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a09a2067912f0f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9acbfc97-e8b1-48f3-a671-70537e2f806f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_c1282aacd7700a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787596532668",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
