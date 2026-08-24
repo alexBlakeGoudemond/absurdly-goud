@@ -58,9 +58,12 @@ figcaption {
 }
 
 .badge-img {
-    display: block;
     width: 88px;
     height: 31px;
-    border: 1px solid #333;
-    image-rendering: pixelated; /* keeps small gif badges crisp, not blurry */
+    border-radius: 2px; /* subtle rounding, optional */
+    transition: transform 0.15s ease;
+}
+
+.badge-img:hover {
+    transform: scale(1.05); /* small hover pop */
 }
