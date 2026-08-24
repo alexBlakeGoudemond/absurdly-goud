@@ -6,8 +6,4 @@ This is my pagination test. Below I include a screenshot showing what it looks l
 
 I set the pagination to one post per page and this is what I see:
 
-{% include image.html
-    src="pagination-test-screenshot.png"
-    alt="Screenshot showing the pagination test"
-    title="Pagination test"
-%}
+![Screenshot showing the pagination test](pagination-test-screenshot.png)

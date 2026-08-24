@@ -387,7 +387,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("# Hello", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
@@ -398,7 +398,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("About me", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", result)
@@ -409,7 +409,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
             dest.write_text("original content", encoding="utf-8")
             self.converter.changed_dest_paths = [dest]
 
-            self.converter.add_frontmatter_to_markdown_files()
+            self.converter.parse_markdown_files_for_jekyll()
 
             self.assertEqual(dest.read_text(encoding="utf-8"), "original content")
 
@@ -418,7 +418,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("body {}", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         self.assertEqual(dest.read_text(encoding="utf-8"), "body {}")
 
@@ -430,7 +430,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text(original, encoding="utf-8")
         self.converter.changed_dest_paths = []  # nothing changed this run
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         self.assertEqual(dest.read_text(encoding="utf-8"), original)
 
@@ -441,7 +441,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest_b.write_text("B", encoding="utf-8")
         self.converter.changed_dest_paths = [dest_a, dest_b]
 
-        self.converter.add_frontmatter_to_markdown_files()
+        self.converter.parse_markdown_files_for_jekyll()
 
         self.assertIn("title: post-a", dest_a.read_text(encoding="utf-8"))
         self.assertIn("title: post-b", dest_b.read_text(encoding="utf-8"))

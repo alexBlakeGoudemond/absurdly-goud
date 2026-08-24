@@ -81,7 +81,7 @@ class ObsidianToJekyllConverter:
         self.copy_jekyll_resources()
         self.collect_images_in_assets_directory()
 
-        self.add_frontmatter_to_markdown_files()
+        self.parse_markdown_files_for_jekyll()
         self.prune_stale_files()
         save_manifest(self.manifest_path, self.new_manifest)
 
@@ -132,12 +132,9 @@ class ObsidianToJekyllConverter:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
         for image_file in self.obsidian_vault_location.rglob('*.png'):
-            # jekyll_image_includes_notation = convert_markdown_image_notation_to_jekyll_includes_image_notation(
-            # print(f"jekyll_image_includes_notation: {jekyll_image_includes_notation}")
-            # convert_markdown_image_notation_to_jekyll_includes_notation()
             self.sync_file(image_file, output_image_path / image_file.name)
 
-    def add_frontmatter_to_markdown_files(self) -> None:
+    def parse_markdown_files_for_jekyll(self) -> None:
         """Only inject frontmatter into files actually (re)written this run —
         prevents double-prepending frontmatter onto cache-hit files."""
         for dest_path in self.changed_dest_paths:
@@ -149,6 +146,7 @@ class ObsidianToJekyllConverter:
                 self.add_frontmatter_to_file(dest_path, include_permalink=True)
             else:
                 self.add_frontmatter_to_file(dest_path)
+            process_image_notation_in_markdown_file(dest_path)
 
     @staticmethod
     def add_frontmatter_to_file(markdown_file: Path, file_layout='default', include_permalink=False) -> None:
