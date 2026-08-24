@@ -1,0 +1,48 @@
+assets/badges/obsidian-button.svg
+  h_1197a506f6c7d6 1-151
+assets/css/style.css
+  h_1197a506f6c7d6 3,5-6
+assets/badges/jekyll-button.svg
+  h_1197a506f6c7d6 1-91
+assets/badges/microformats-button.svg
+  h_1197a506f6c7d6 1-32
+_data/badges.yml
+  s_a070d8e4357f3a::t_1976ec47a34cae 1-13
+  h_1197a506f6c7d6 15-17,22
+  s_a070d8e4357f3a::t_4351cc7a10c582 14
+  h_1197a506f6c7d6 18-21
+assets/badges/indiewebcamp-button.svg
+  h_1197a506f6c7d6 2-7,13,23-24
+  s_a070d8e4357f3a::t_28d824c0360889 19-22
+  s_a070d8e4357f3a::t_8db116eacbfe1e 14-18
+  h_1197a506f6c7d6 1,8-12,25-36
+_includes/aside/aside-common.html
+  s_a070d8e4357f3a::t_3c18b51c1c1d13 4-6
+  s_a070d8e4357f3a::t_6f4582939d62c7 12-15
+  h_1197a506f6c7d6 2,10-11
+  s_a070d8e4357f3a::t_abc81f4a3122b7 16
+  h_1197a506f6c7d6 3,7-9
+assets/badges/github-pages-button.svg
+  h_1197a506f6c7d6 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "8a6b6e4d1a9397e934a2f79ea6d0a5ece5105351",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a070d8e4357f3a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787340321187",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
