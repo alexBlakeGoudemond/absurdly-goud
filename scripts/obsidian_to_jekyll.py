@@ -16,6 +16,20 @@ from scripts.website_manifest import (
 MANIFEST_FILENAME = ".manifest.json"
 
 
+def process_image_notation_in_markdown_file(markdown_file: Path) -> None:
+    """Convert Obsidian-style image notation ![Alt text](image.png) to Jekyll include notation."""
+    content = markdown_file.read_text(encoding="utf-8")
+    markdown_image_pattern = r'!\[(.+)\]\((.+)\)'
+    all_matches = re.findall(markdown_image_pattern, content)
+    for match in all_matches:
+        image_alt_text = match[0]
+        image_name = match[1]
+        jekyll_image_includes_notation = (
+            convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name, image_alt_text))
+        content = content.replace(f"![{image_alt_text}]({image_name})", jekyll_image_includes_notation)
+    markdown_file.write_text(content, encoding="utf-8")
+
+
 def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name: str, image_alt_text: str) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
@@ -118,9 +132,8 @@ class ObsidianToJekyllConverter:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
         for image_file in self.obsidian_vault_location.rglob('*.png'):
-            jekyll_image_includes_notation = convert_markdown_image_notation_to_jekyll_includes_image_notation(
-                image_file)
-            print(f"jekyll_image_includes_notation: {jekyll_image_includes_notation}")
+            # jekyll_image_includes_notation = convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            # print(f"jekyll_image_includes_notation: {jekyll_image_includes_notation}")
             # convert_markdown_image_notation_to_jekyll_includes_notation()
             self.sync_file(image_file, output_image_path / image_file.name)
 

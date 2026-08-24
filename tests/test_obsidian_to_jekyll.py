@@ -10,6 +10,7 @@ from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     save_manifest,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
+    process_image_notation_in_markdown_file,
 )
 
 
@@ -455,6 +456,48 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         %}
         """
         self.assertEqual(dedent(expected_syntax), actual_syntax)
+
+    def test_process_one_markdown_image_yields_one_jekyll_includes_syntax_in_file(self):
+        dest = self.converter.output_location / "post.md"
+        dest.write_text("![Alt text](image.png)", encoding="utf-8")
+        self.converter.changed_dest_paths = [dest]
+
+        process_image_notation_in_markdown_file(dest)
+
+        result = dest.read_text(encoding="utf-8")
+        expected_syntax = """
+        {% include image.html
+            src="image.png"
+            alt="Alt text"
+            title="Alt text"
+        %}
+        """
+        self.assertIn(dedent(expected_syntax), result)
+
+    def test_process_two_markdown_image_yields_two_jekyll_includes_syntax_in_file(self):
+        dest = self.converter.output_location / "post.md"
+        dest.write_text("![Alt text 1](image1.png)\n![Alt text 2](image2.png)", encoding="utf-8")
+        self.converter.changed_dest_paths = [dest]
+
+        process_image_notation_in_markdown_file(dest)
+
+        result = dest.read_text(encoding="utf-8")
+        expected_syntax_1 = """
+            {% include image.html
+                src="image1.png"
+                alt="Alt text 1"
+                title="Alt text 1"
+            %}
+            """
+        expected_syntax_2 = """
+            {% include image.html
+                src="image2.png"
+                alt="Alt text 2"
+                title="Alt text 2"
+            %}
+            """
+        self.assertIn(dedent(expected_syntax_1), result)
+        self.assertIn(dedent(expected_syntax_2), result)
 
 if __name__ == '__main__':
     unittest.main()
