@@ -3,3 +3,4 @@ The following websites were discovered by exploring [random websites](https://xn
 - [brennan.day](https://brennan.day/)
 - [jelloeater.me](https://jelloeater.me/now/)
 - [Thamara Kandabada](https://thamara.co.uk/)
+- [juni-personal](https://juni-mp4.bearblog.dev/)

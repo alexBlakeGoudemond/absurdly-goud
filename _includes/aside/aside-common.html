@@ -1,0 +1,42 @@
+<div class="badges">
+
+    <div class="badge-section">
+        <p>This site was built with the following:</p>
+        <div class="badge-row">
+            {% for built_with_badge in site.data.badges.built_with %}
+            <a href="{{ built_with_badge.url }}" target="_blank" rel="noopener">
+                <img src="{{ built_with_badge.image | relative_url }}"
+                     alt="{{ built_with_badge.alt }}"
+                     class="badge-img">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>This site is part of the following:</p>
+        <div class="badge-row">
+            {% for part_of_badge in site.data.badges.part_of %}
+            <a href="{{ part_of_badge.url }}" target="_blank" rel="noopener">
+                <img src="{{ part_of_badge.image | relative_url }}"
+                     alt="{{ part_of_badge.alt }}"
+                     class="badge-img">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>Disclaimer:</p>
+        <div class="badge-row">
+            {% for disclaimer_badge in site.data.badges.disclaimer %}
+            <a href="{{ disclaimer_badge.url }}" target="_blank" rel="noopener">
+                <img src="{{ disclaimer_badge.image | relative_url }}"
+                     alt="{{ disclaimer_badge.alt }}"
+                     class="badge-img">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
