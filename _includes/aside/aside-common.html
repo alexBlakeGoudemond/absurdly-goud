@@ -1,3 +1,7 @@
-<div>
-    this is the aside-common section!
+<div class="badges">
+    {% for badge in site.data.badges %}
+    <a href="{{ badge.url }}" target="_blank" rel="noopener">
+        <img src="{{ badge.image | relative_url }}" alt="{{ badge.alt }}" class="badge-img">
+    </a>
+    {% endfor %}
 </div>

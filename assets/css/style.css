@@ -49,3 +49,18 @@ figcaption {
     margin-top: 0.5rem;
     font-size: 0.9rem;
 }
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.badge-img {
+    display: block;
+    width: 88px;
+    height: 31px;
+    border: 1px solid #333;
+    image-rendering: pixelated; /* keeps small gif badges crisp, not blurry */
+}
