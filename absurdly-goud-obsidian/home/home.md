@@ -9,7 +9,7 @@ accountability for all the work I generate - and if an AI helps, then I give att
 
 > NOTE:
 >
-> I am perfectly capable of writing **CR@P CODE MYSELF**! I do _require_ need an AI to write cr@p code on my behalf 😏
+> I am perfectly capable of writing **CR@P CODE MYSELF**! I do not _require_ need an AI to write cr@p code on my behalf 😏
 >
 > The AI helps me get places faster ⚡, and I am able to speed up my learning along the way.
 
