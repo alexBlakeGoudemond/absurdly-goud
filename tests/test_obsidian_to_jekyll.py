@@ -2,12 +2,14 @@ import unittest
 import argparse
 import tempfile
 from pathlib import Path
+from textwrap import dedent
 
 from scripts import obsidian_to_jekyll
 from scripts.obsidian_to_jekyll import (
     extract_command_line_arguments,
     ObsidianToJekyllConverter,
     save_manifest,
+    convert_markdown_image_notation_to_jekyll_includes_image_notation,
 )
 
 
@@ -443,6 +445,16 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         self.assertIn("title: post-a", dest_a.read_text(encoding="utf-8"))
         self.assertIn("title: post-b", dest_b.read_text(encoding="utf-8"))
 
+    def test_markdown_image_notation_gets_converted_to_jekyll_includes_file(self):
+        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation('image.png', 'Alt text')
+        expected_syntax = """
+        {% include image.html
+            src="image.png"
+            alt="Alt text"
+            title="Alt text"
+        %}
+        """
+        self.assertEqual(dedent(expected_syntax), actual_syntax)
 
 if __name__ == '__main__':
     unittest.main()

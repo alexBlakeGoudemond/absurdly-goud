@@ -9,14 +9,14 @@ accountability for all the work I generate - and if an AI helps, then I give att
 
 > NOTE:
 >
-> I am perfectly capable of writing **CR@P CODE MYSELF**! I do not _require_ need an AI to write cr@p code on my behalf 😏
+> I am perfectly capable of writing **CR@P CODE MYSELF**! I do not _require_ an AI to write cr@p code on my behalf 😏
 >
 > The AI helps me get places faster ⚡, and I am able to speed up my learning along the way.
 
 I use AI to do the following:
 
-- Help me learn and onboard with tools I am not familiar with (Jekyll, GitHub Pages)
-- Help me debug when I am tired of squeezing my rubber duck
+- Help me learn and onboard with tools I am not familiar with (Jekyll, GitHub Pages, etc)
+- Help me debug when I am tired of squeezing my rubber duck(s)
 - Help me fast-track boilerplate tasks that I know I could do myself - and want done faster
 
 The AI tools I have used so far:

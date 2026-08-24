@@ -16,6 +16,19 @@ from scripts.website_manifest import (
 MANIFEST_FILENAME = ".manifest.json"
 
 
+def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name: str, image_alt_text: str) -> str:
+    opening_brace = '{%'
+    closing_brace = '%}'
+    jekyll_image_layout_notation = f"""
+        {opening_brace} include image.html
+            src="{image_name}"
+            alt="{image_alt_text}"
+            title="{image_alt_text}"
+        {closing_brace}
+        """
+    return dedent(jekyll_image_layout_notation)
+
+
 class ObsidianToJekyllConverter:
     """Syncs an Obsidian vault + Jekyll scaffold into a Jekyll-ready source tree,
     using a content-hash manifest to skip unchanged files on repeat runs."""
@@ -105,6 +118,10 @@ class ObsidianToJekyllConverter:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
         for image_file in self.obsidian_vault_location.rglob('*.png'):
+            jekyll_image_includes_notation = convert_markdown_image_notation_to_jekyll_includes_image_notation(
+                image_file)
+            print(f"jekyll_image_includes_notation: {jekyll_image_includes_notation}")
+            # convert_markdown_image_notation_to_jekyll_includes_notation()
             self.sync_file(image_file, output_image_path / image_file.name)
 
     def add_frontmatter_to_markdown_files(self) -> None:
@@ -162,6 +179,7 @@ class ObsidianToJekyllConverter:
                 continue
             dest_name = '_posts' if vault_item.name == 'posts' else vault_item.name
             self.sync_tree(vault_item, self.output_location / dest_name)
+
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
     obsidian_vault_location = Path(args.vault)
