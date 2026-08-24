@@ -1,0 +1,17 @@
+tests/test_obsidian_to_jekyll.py
+  h_1197a506f6c7d6 187-190,226-327,432,441,450,457,460,467,471
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 82,114,119,133,193-197
+  h_1197a506f6c7d6 120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "e47fd9aaf87622754ea9e9f7b2d85f1853e357b9",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
