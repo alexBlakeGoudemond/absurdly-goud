@@ -79,7 +79,7 @@ class ObsidianToJekyllConverter:
 
         self.copy_vault_resources()
         self.copy_jekyll_resources()
-        self.collect_images_in_assets_directory()
+        self.copy_vault_images_into_assets_directory()
 
         self.parse_markdown_files_for_jekyll()
         self.prune_stale_files()
@@ -111,10 +111,12 @@ class ObsidianToJekyllConverter:
         self.new_manifest[source_key] = create_manifest_entry(source_path, dest_path)
         self.changed_dest_paths.append(dest_path)
 
-    def sync_tree(self, source_dir: Path, dest_dir: Path) -> None:
+    def sync_tree(self, source_dir: Path, dest_dir: Path, exclude_suffixes: set[str] = frozenset()) -> None:
         """Walk source_dir recursively, syncing each file individually."""
         for source_path in source_dir.rglob("*"):
             if source_path.is_dir():
+                continue
+            if source_path.suffix.lower() in exclude_suffixes:
                 continue
             relative = source_path.relative_to(source_dir)
             self.sync_file(source_path, dest_dir / relative)
@@ -128,7 +130,7 @@ class ObsidianToJekyllConverter:
                 print(f"Removing stale file: '{stale_path}'")
                 stale_path.unlink()
 
-    def collect_images_in_assets_directory(self) -> None:
+    def copy_vault_images_into_assets_directory(self) -> None:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
         for image_file in self.obsidian_vault_location.rglob('*.png'):
@@ -188,8 +190,11 @@ class ObsidianToJekyllConverter:
         for vault_item in self.obsidian_vault_location.iterdir():
             if vault_item.name in self.IGNORED_VAULT_ITEMS:
                 continue
-            dest_name = '_posts' if vault_item.name == 'posts' else vault_item.name
-            self.sync_tree(vault_item, self.output_location / dest_name)
+            if vault_item.name == 'posts':
+                image_suffixes = {'.png', '.jpg', '.jpeg', '.gif'}
+                self.sync_tree(vault_item, self.output_location / '_posts', exclude_suffixes=image_suffixes)
+            else:
+                self.sync_tree(vault_item, self.output_location / vault_item.name)
 
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
