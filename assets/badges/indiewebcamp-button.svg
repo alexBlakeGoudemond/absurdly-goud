@@ -1,3 +1,4 @@
+<!-- Original Source: https://indieweb.org/File:indiewebcamp-button.svg -->
 <svg width="80" height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 15">
     <rect x="1" y="1" width="78" height="13" fill="white" stroke-width="2" stroke="#666" rx="6"/>
     <g transform="translate(1.85, 0.25) scale(0.95)">

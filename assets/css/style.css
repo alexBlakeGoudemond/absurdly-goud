@@ -67,3 +67,17 @@ figcaption {
 .badge-img:hover {
     transform: scale(1.05); /* small hover pop */
 }
+
+.badge-section {
+    margin-bottom: 1rem;
+}
+
+.badge-section p {
+    margin-bottom: 0.25rem;
+}
+
+.badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
