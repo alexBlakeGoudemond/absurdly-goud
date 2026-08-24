@@ -13,9 +13,13 @@
 
 {% include header.html %}
 
-<main>
-    {{ content }}
-</main>
+<div class="page-wrapper">
+    <main>
+        {{ content }}
+    </main>
+
+    {% include aside.html %}
+</div>
 
 {% include footer.html %}
 

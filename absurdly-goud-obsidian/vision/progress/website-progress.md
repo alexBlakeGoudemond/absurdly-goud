@@ -3,6 +3,7 @@
 	- [ ] markdown syntax for images mapped to include syntax for jekyll
 	- [ ] Review excerpts and how to make nicer in MD
 	- [ ] wikilinks and mentions in other notes
+	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
 	- [ ] handle existing frontmatter?
 	- [ ] titles in frontmatter to be quoted

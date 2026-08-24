@@ -1,0 +1,8 @@
+<aside>
+    {% if page.aside == "toc" %}
+        {% include aside/aside-toc.html %}
+    {% else %}
+        <!-- render nothing -->
+    {% endif %}
+    {% include aside/aside-common.html %}
+</aside>
