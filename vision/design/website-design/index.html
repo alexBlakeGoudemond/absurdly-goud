@@ -19,8 +19,9 @@
     </nav>
 </header>
 
-<main>
-    <h1 id="how-does-this-website-work">How does this website work?</h1>
+<div class="page-wrapper">
+    <main>
+        <h1 id="how-does-this-website-work">How does this website work?</h1>
 
 <p>This site uses <a href="https://jekyllrb.com/">Jekyll</a> to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a <code class="language-plaintext highlighter-rouge">site</code> directory (browser-ready HTML)</p>
 
@@ -97,7 +98,74 @@ Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and 
 
 <p>This script runs when I test locally via docker as well as in GitHub Actions for the publication to the site. It produces a directory <code class="language-plaintext highlighter-rouge">site_src</code>. Jekyll is then told to use that generated directory to prepare the <code class="language-plaintext highlighter-rouge">site</code> directory as per normal</p>
 
-</main>
+    </main>
+
+    <aside>
+    
+        <!-- render nothing -->
+    
+    <div class="badges">
+
+    <div class="badge-section">
+        <p>This site was built with the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://jekyllrb.com" target="_blank" rel="noopener">
+                <img src="/assets/badges/jekyll-button.svg"
+                     alt="Built with Jekyll"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://pages.github.com/" target="_blank" rel="noopener">
+                <img src="/assets/badges/github-pages-button.svg"
+                     alt="Built with GitHub Pages"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://obsidian.md/" target="_blank" rel="noopener">
+                <img src="/assets/badges/obsidian-button.svg"
+                     alt="Built with Obsidian"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://microformats.org/" target="_blank" rel="noopener">
+                <img src="/assets/badges/microformats-button.svg"
+                     alt="Built with Microformats"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>This site is part of the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://indieweb.org" target="_blank" rel="noopener">
+                <img src="/assets/badges/indiewebcamp-button.svg"
+                     alt="Part of the IndieWeb"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>Disclaimer:</p>
+        <div class="badge-row">
+            
+            <a href="/#ai-usage/" target="_blank" rel="noopener">
+                <img src="/assets/badges/disclaimer-ai-assisted-button.svg"
+                     alt="Disclaimer AI assisted site"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+</div>
+</aside>
+</div>
 
 <footer>
   <p>&copy; 2026 ABsurdly Goud. All rights reserved.</p>

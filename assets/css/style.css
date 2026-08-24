@@ -1,3 +1,38 @@
+.page-wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 2rem;
+
+    padding: 1rem 2rem;
+}
+
+main {
+    min-width: 0; /* prevents content from overflowing grid track (important for text/code blocks) */
+    border: 1px solid #630b0b;
+    border-radius: 4px;
+}
+
+aside {
+    min-width: 0;
+    border: 1px solid #630b0b;
+    border-radius: 4px;
+}
+
+/* Stack on smaller screens */
+@media (max-width: 768px) {
+    .page-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    aside {
+        order: 2; /* aside drops below content on mobile */
+    }
+
+    main {
+        order: 1;
+    }
+}
+
 figure {
     margin: 1.5rem 0;
 }
@@ -12,4 +47,37 @@ figure {
 figcaption {
     margin-top: 0.5rem;
     font-size: 0.9rem;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+.badge-img {
+    width: 88px;
+    height: 31px;
+    border-radius: 2px; /* subtle rounding, optional */
+    transition: transform 0.15s ease;
+}
+
+.badge-img:hover {
+    transform: scale(1.05); /* small hover pop */
+}
+
+.badge-section {
+    margin-bottom: 1rem;
+}
+
+.badge-section p {
+    margin-bottom: 0.25rem;
+}
+
+.badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
 }
