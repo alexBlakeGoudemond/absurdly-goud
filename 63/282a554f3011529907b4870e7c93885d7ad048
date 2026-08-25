@@ -1,0 +1,50 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 18-20,22-30,32-85,87-88
+  s_c1282aacd7700a::t_b21efcc9b77d60 209
+  h_1197a506f6c7d6 86
+tests/test_obsidian_to_jekyll.py
+  s_c1282aacd7700a::t_ae42ffd24638ac 612-613,615,690-697
+  s_c1282aacd7700a::t_32ba3efa247986 614,636-640
+  s_c1282aacd7700a::t_031e99bb948987 624-628
+  s_c1282aacd7700a::t_6ebdd21877752f 660-665
+  s_c1282aacd7700a::t_a5f727d4704099 648-652
+  s_c1282aacd7700a::t_934b7945e1f30b 609-611
+  s_c1282aacd7700a::t_ad9f2597cb4509 616-618,621-623
+  s_c1282aacd7700a::t_655e3df9d7a769 629-631,633-635
+  s_c1282aacd7700a::t_1ff75784725325 641-643,645-647
+  s_c1282aacd7700a::t_1b98f880007fc2 653-655,657-659
+  s_c1282aacd7700a::t_88bf4372fe2a97 666-668,687-689
+  s_c1282aacd7700a::t_47c2a6b982d221 698-700
+  h_1197a506f6c7d6 14,606-608,619-620,632,644,656,669-686,701-711
+absurdly-goud-obsidian/vision/progress/website-progress.md
+  s_a09a2067912f0f::t_d2a6775366d41a 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "63282a554f3011529907b4870e7c93885d7ad048",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a09a2067912f0f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9acbfc97-e8b1-48f3-a671-70537e2f806f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_c1282aacd7700a": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787596532668",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
