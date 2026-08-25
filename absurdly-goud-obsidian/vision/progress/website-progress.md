@@ -5,7 +5,6 @@
 - [ ] correctly link disclaimer-ai-assisted to section in HOME
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] Review excerpts and how to make nicer in MD
-	- [ ] wikilinks and mentions in other notes
 	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
 	- [ ] handle existing frontmatter?
@@ -25,6 +24,7 @@
 
 # Achievements
 - [x] Extra obsidian to jekyll script features:
+	- [x] wikilinks and mentions in other notes (2026-08-25)
 	- [x] converting images should NOT run inside codeblocks (2026-08-25)
 	- [x] titles in frontmatter to be quoted (2026-08-24)
 	- [x] markdown syntax for images mapped to include syntax for jekyll (2026-08-24)

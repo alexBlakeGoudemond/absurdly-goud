@@ -72,10 +72,58 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
     """Convert Obsidian-style notations to formats that Jekyll recognizes"""
     print(f"processing markdown for '{markdown_file.name}'")
     content = markdown_file.read_text(encoding="utf-8")
-    new_content = escape_markdown_codeblocks_for_jekyll(content)
-    new_content = convert_wikilinks_to_jekyll_layout(new_content, note_path_lookup)
+    # Wikilinks first, while the raw ``` fences are still intact, so example
+    # wikilinks inside code samples/inline code can be skipped rather than
+    # resolved as if they were real links.
+    new_content = convert_wikilinks_outside_code(content, note_path_lookup)
+    new_content = escape_markdown_codeblocks_for_jekyll(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
+
+
+def convert_wikilinks_outside_code(content: str, note_path_lookup: dict[str, str]) -> str:
+    """
+    Applies convert_wikilinks_to_jekyll_layout only to text outside fenced '```'
+    code blocks and inline `code` spans, mirroring how images are already
+    kept out of code regions. Without this, a documentation example like
+    `` `[[...]]` `` or a ```markdown sample containing [[Note]] gets treated
+    as a real link and fails lookup.
+    """
+    lines = content.split('\n')
+    output_lines = []
+    in_fence = False
+    fence_marker = None
+
+    for line in lines:
+        fence_match = MARKDOWN_FENCE_PATTERN.match(line)
+        if fence_match:
+            marker = fence_match.group(2)
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker
+            elif marker == fence_marker:
+                in_fence = False
+            output_lines.append(line)
+            continue
+
+        if in_fence:
+            output_lines.append(line)
+        else:
+            output_lines.append(convert_wikilinks_in_line_outside_inline_code(line, note_path_lookup))
+
+    return '\n'.join(output_lines)
+
+
+def convert_wikilinks_in_line_outside_inline_code(line: str, note_path_lookup: dict[str, str]) -> str:
+    """Converts wikilinks on a single line, skipping anything inside `inline code` spans."""
+    segments = []
+    last_end = 0
+    for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
+        segments.append(convert_wikilinks_to_jekyll_layout(line[last_end:code_match.start()], note_path_lookup))
+        segments.append(code_match.group(0))  # leave inline code untouched
+        last_end = code_match.end()
+    segments.append(convert_wikilinks_to_jekyll_layout(line[last_end:], note_path_lookup))
+    return ''.join(segments)
 
 
 def slugify(text: str) -> str:
