@@ -1,6 +1,6 @@
 Because I am using Obsidian to produce posts etc, I would prefer to create content using the Markdown syntax I know. I have now gotten it to play nice with Jekyll Includes Syntax
 
-<!--more-->
+---more---
 
 Jekyll requires a specific structure for includes docs:
 ```python
