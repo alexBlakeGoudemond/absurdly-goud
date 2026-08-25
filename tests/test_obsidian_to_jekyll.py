@@ -10,7 +10,7 @@ from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     save_manifest,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
-    process_image_notation_in_markdown_file,
+    process_markdown_for_jekyll,
 )
 
 
@@ -94,7 +94,7 @@ class TestAddFrontmatterToFile(unittest.TestCase):
 
         result = md_file.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
-        self.assertIn("title: hello-world", result)
+        self.assertIn("title: \"hello-world\"", result)
         self.assertIn("# Hello World", result)
 
     def test_permalink_included_when_requested(self):
@@ -494,7 +494,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
-        self.assertIn("title: hello-world", result)
+        self.assertIn("title: \"hello-world\"", result)
 
     def test_about_md_gets_permalink(self):
         dest = self.converter.output_location / "about.md"
@@ -546,8 +546,8 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
 
         self.converter.parse_markdown_files_for_jekyll()
 
-        self.assertIn("title: post-a", dest_a.read_text(encoding="utf-8"))
-        self.assertIn("title: post-b", dest_b.read_text(encoding="utf-8"))
+        self.assertIn("title: \"post-a\"", dest_a.read_text(encoding="utf-8"))
+        self.assertIn("title: \"post-b\"", dest_b.read_text(encoding="utf-8"))
 
     def test_markdown_image_notation_gets_converted_to_jekyll_includes_file(self):
         actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation('image.png', 'Alt text')
@@ -565,7 +565,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("![Alt text](image.png)", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        process_image_notation_in_markdown_file(dest)
+        process_markdown_for_jekyll(dest)
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax = """
@@ -582,7 +582,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("![Alt text 1](image1.png)\n![Alt text 2](image2.png)", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        process_image_notation_in_markdown_file(dest)
+        process_markdown_for_jekyll(dest)
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax_1 = """
