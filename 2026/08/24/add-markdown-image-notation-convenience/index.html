@@ -26,33 +26,17 @@
 <!--more-->
 
 <p>Jekyll requires a specific structure for includes docs:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">figure</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">img</span>
-            <span class="n">class</span><span class="o">=</span><span class="s">"u-photo"</span>
-            <span class="n">src</span><span class="o">=</span><span class="s">"/assets/images/image1.png"</span>
-            <span class="n">alt</span><span class="o">=</span><span class="s">"Alt text 1"</span>
-    <span class="o">&gt;</span>
 
-    
-    <span class="o">&lt;</span><span class="n">figcaption</span><span class="o">&gt;</span><span class="n">Alt</span> <span class="n">text</span> <span class="mi">1</span><span class="o">&lt;/</span><span class="n">figcaption</span><span class="o">&gt;</span>
-    
-<span class="o">&lt;/</span><span class="n">figure</span><span class="o">&gt;</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">image</span><span class="p">.</span><span class="n">html</span>  
+    <span class="n">src</span><span class="o">=</span><span class="s">"image1.png"</span>
+    <span class="n">alt</span><span class="o">=</span><span class="s">"Alt text 1"</span>
+    <span class="n">title</span><span class="o">=</span><span class="s">"Alt text 1"</span>
+<span class="o">%</span><span class="p">}</span>
 </code></pre></div></div>
 
 <p>Whereas the Markdown syntax is simpler:</p>
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="nt">&lt;figure&gt;</span>
-    &lt;img
-            class="u-photo"
-            src="/assets/images/image1.png"
-            alt="Alt text 1"
-<span class="gt">    &gt;</span><span class="sb">
 
-    
-    &lt;figcaption&gt;Alt text 1&lt;/figcaption&gt;
-    
-</span><span class="nt">&lt;/figure&gt;</span>
-
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Alt text 1</span><span class="p">](</span><span class="sx">image1.png</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>With the changes brought into the <code class="language-plaintext highlighter-rouge">obsidian_to_jekyll</code> script, the conversion from Markdown Image Notation to Jekyll Includes Notation just works!</p>
