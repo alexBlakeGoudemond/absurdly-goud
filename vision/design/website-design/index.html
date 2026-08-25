@@ -27,6 +27,39 @@
 
 <p>On-top of this - this website uses <a href="https://obsidian.md/">Obsidian</a> to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.</p>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────────────────────┐   ┌──────────────────────┐
+│   Jekyll Resources   │   │    Obsidian Vault    │
+│                      │   │                      │
+│ _layouts / _data /   │   │ notes / posts /      │
+│ _includes / css / ...│   │ projects / etc.      │
+└──────────┬───────────┘   └──────────┬───────────┘
+           │                          │
+           │──────────────────────────┘
+           │
+           │ python script generates the 
+           │ 'source files' for the static website
+           │
+           ↓
+┌──────────────────────┐
+│      site_src        │
+│                      │
+│ Jekyll-ready content │
+└──────────┬───────────┘
+           │ used as 'input' for Jekyll
+           ↓
+        Jekyll
+           │ generates 'output'
+           ↓
+┌──────────────────────┐
+│        _site         │
+│                      │
+│     static html      │
+└──────────┬───────────┘
+           │ 
+           ↓
+      GitHub Pages
+</code></pre></div></div>
+
 <h2 id="jekyll-overview">Jekyll Overview</h2>
 
 <blockquote>
