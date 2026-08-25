@@ -19,6 +19,19 @@ MARKDOWN_FENCE_PATTERN = re.compile(r'^(\s*)(```|~~~)(\S*)\s*$')
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 MARKDOWN_INLINE_CODE_PATTERN = re.compile(r'`[^`]*`')
 
+# Matches Obsidian wikilinks: [[NoteName#NoteSubSection|AltText]]
+# Both #NoteSubSection and |AltText are optional.
+WIKILINK_PATTERN = re.compile(
+    r"""
+    \[\[
+        (?P<note>[^\]#|]+)             # NoteName            (required)
+        (?: \# (?P<section>[^\]|]+) )? # #NoteSubSection     (optional)
+        (?: \| (?P<alt>[^\]]+) )?      # |AltText            (optional)
+    \]\]
+    """,
+    re.VERBOSE,
+)
+
 
 def convert_markdown_syntax_to_jekyll_syntax(markdown_file: Path) -> None:
     process_markdown_for_jekyll(markdown_file)
@@ -33,8 +46,32 @@ def process_markdown_for_jekyll(markdown_file: Path) -> None:
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
 
+
+def slugify(text: str) -> str:
+    """Mimics kramdown's auto-generated heading anchors: lowercase, spaces to hyphens."""
+    return text.strip().lower().replace(" ", "-")
+
+
 def convert_wikilinks_to_jekyll_layout(content: str) -> str:
-    return content
+    """
+    Converts Obsidian-style wikilinks into a Jekyll {% link %} layout.
+
+    [[Note]]                       -> [Note]({% link Note.md %})
+    [[Note#Sub Section]]           -> [Note]({% link Note.md %}#sub-section)
+    [[Note|Alt Text]]              -> [Alt Text]({% link Note.md %})
+    [[Note#Sub Section|Alt Text]]  -> [Alt Text]({% link Note.md %}#sub-section)
+    """
+
+    def replace(match: re.Match) -> str:
+        note, section, alt = match.groupdict().values()
+
+        link_text = alt.strip() if alt else note.strip()
+        anchor = f"#{slugify(section)}" if section else ""
+
+        return f"[{link_text}]({{% link {note.strip()}.md %}}{anchor})"
+
+    return WIKILINK_PATTERN.sub(replace, content)
+
 
 def escape_markdown_codeblocks_for_jekyll(content: str) -> str:
     lines = content.split('\n')
