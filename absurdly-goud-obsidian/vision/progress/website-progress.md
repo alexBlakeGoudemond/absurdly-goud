@@ -1,11 +1,7 @@
 # Goals
 - [ ] screenshots always show as changed in cache
-- [ ] ai-usage not being linked to with button
-- [ ] ai-usage to leverage excerpt into another note/post
-- [ ] correctly link disclaimer-ai-assisted to section in HOME
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] Review excerpts and how to make nicer in MD
-	- [ ] wikilinks and mentions in other notes
 	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
 	- [ ] handle existing frontmatter?
@@ -24,7 +20,12 @@
 - [ ] what makes this website an IndieWeb site? (h-ref?)
 
 # Achievements
+- [x] AI Usages:
+	- [x] correctly link disclaimer-ai-assisted to section in HOME (2026-08-25)
+	- [x] ai-usage not being linked to with button (2026-08-25)
+	- [x] ai-usage to leverage excerpt into another note/post (2026-08-25)
 - [x] Extra obsidian to jekyll script features:
+	- [x] wikilinks and mentions in other notes (2026-08-25)
 	- [x] converting images should NOT run inside codeblocks (2026-08-25)
 	- [x] titles in frontmatter to be quoted (2026-08-24)
 	- [x] markdown syntax for images mapped to include syntax for jekyll (2026-08-24)

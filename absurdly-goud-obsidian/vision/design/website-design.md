@@ -2,9 +2,11 @@
 
 This site uses [Jekyll](https://jekyllrb.com/) to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a `site` directory (browser-ready HTML)
 
-On-top of this - this website uses [Obsidian](https://obsidian.md/) to produce and easily maintain notes. To get this working with Jekyll, script and GitHub Actions are used.
+On-top of this - this website uses [Obsidian](https://obsidian.md/) to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.
 
 ## Jekyll Overview
+
+> Below is a high level overview of this tool, as well as a condensed cheat sheet for myself when I am working on upgrades!
 
 Jekyll supports [Liquid](https://shopify.dev/docs/api/liquid) as well as other helpful structures (for example [SASS](https://jekyllrb.com/docs/step-by-step/07-assets/#sass))
 
@@ -38,7 +40,7 @@ Note that site-design concepts can also be used with Jekyll and Liquid, controll
 - `breadcrumbs`
 
 > [!Important]
-> Front Matter `tags` and `categories` are part of its posts system and so the Liquid variables `{{ site.tags.about }}` may not contain the about.md page
+> Front Matter `tags` and `categories` are part of Jekyll's posts system and so the Liquid variables `{{ site.tags.about }}` may not contain the about.md page
 
 > [!Note] Helpful Insights 
 > [Front Matter Defaults](https://jekyllrb.com/docs/configuration/front-matter-defaults/) can also be setup in `_config.yaml`
@@ -54,10 +56,15 @@ GitHub Pages can be configured to publish the contents of a specific **branch** 
 
 GitHub Actions allows us to execute code on a GitHub-hosted virtual machine. This lets us automate tasks such as converting content, building Jekyll, and deploying the resulting files.
 
-GitHub-hosted runners are provided by GitHub and consume **GitHub Actions minutes** from the account's included usage/quota.
+GitHub-hosted runners are provided by GitHub and consume **GitHub Actions minutes** from the account's included usage/quota. 
+
+> [!Important] 
+> GitHub Pages are free for public repositories. In this way, I am not paying for hosting!
 
 ## Having Notes in Obsidian Vault
 
-I want to be able to easily produce notes, and have the infrastructure just work around me. To achieve this - I created an obsidian vault which contains the notes themselves. Jekyll doesn't understand this structure, so I use scripts to convert the content into a structure Jekyll does understand before it runs.
+I want to be able to easily produce content, and have the infrastructure just work around me. To achieve this - I created an obsidian vault which contains the notes themselves. Jekyll doesn't understand this structure, so I use scripts to convert the content into a structure Jekyll does understand before it runs.
 
 This script runs when I test locally via docker as well as in GitHub Actions for the publication to the site. It produces a directory `site_src`. Jekyll is then told to use that generated directory to prepare the `site` directory as per normal
+
+I 

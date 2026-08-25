@@ -19,19 +19,148 @@ MARKDOWN_FENCE_PATTERN = re.compile(r'^(\s*)(```|~~~)(\S*)\s*$')
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 MARKDOWN_INLINE_CODE_PATTERN = re.compile(r'`[^`]*`')
 
+# Matches Obsidian wikilinks: [[NoteName#NoteSubSection|AltText]]
+# Both #NoteSubSection and |AltText are optional.
+WIKILINK_PATTERN = re.compile(
+    r"""
+    \[\[
+        (?P<note>[^\]#|]+)             # NoteName            (required)
+        (?: \# (?P<section>[^\]|]+) )? # #NoteSubSection     (optional)
+        (?: \| (?P<alt>[^\]]+) )?      # |AltText            (optional)
+    \]\]
+    """,
+    re.VERBOSE,
+)
 
-def convert_markdown_syntax_to_jekyll_syntax(markdown_file: Path) -> None:
-    process_markdown_for_jekyll(markdown_file)
+
+def build_note_path_lookup(root: Path) -> dict[str, str]:
+    """
+    Scans `root` (the OUTPUT tree, i.e. self.output_location, not the vault)
+    and builds a lookup of note name -> path relative to root, using forward
+    slashes so it can be dropped straight into a {% link %} tag.
+
+    Must run against the output tree because copy_vault_resources() renames
+    the vault's posts/ folder to _posts/ on the way out — resolving against
+    the vault would produce links pointing at a path that no longer exists.
+
+    Assumes note names are unique across the vault, mirroring how Obsidian
+    itself resolves [[wikilinks]] (by basename, regardless of folder).
+    """
+    lookup: dict[str, str] = {}
+
+    for md_file in root.rglob("*.md"):
+        note_name = md_file.stem
+        relative_path = md_file.relative_to(root).as_posix()
+
+        if note_name in lookup:
+            raise ValueError(
+                f"Duplicate note name '{note_name}' found at both "
+                f"'{lookup[note_name]}' and '{relative_path}'. "
+                "Wikilink resolution requires unique note names across the site."
+            )
+
+        lookup[note_name] = relative_path
+
+    return lookup
 
 
-def process_markdown_for_jekyll(markdown_file: Path) -> None:
-    """Convert Obsidian-style image notation ![Alt text](image.png) to Jekyll include
-    notation, skipping any text inside fenced code blocks or inline code spans, and
-    wrapping every fenced code block in {% raw %} so Liquid doesn't try to parse it."""
+def convert_markdown_syntax_to_jekyll_syntax(markdown_file: Path, note_path_lookup: dict[str, str]) -> None:
+    process_markdown_for_jekyll(markdown_file, note_path_lookup)
+
+
+def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str, str]) -> None:
+    """Convert Obsidian-style notations to formats that Jekyll recognizes"""
+    print(f"processing markdown for '{markdown_file.name}'")
     content = markdown_file.read_text(encoding="utf-8")
-    new_content = escape_markdown_codeblocks_for_jekyll(content)
+    # Wikilinks first, while the raw ``` fences are still intact, so example
+    # wikilinks inside code samples/inline code can be skipped rather than
+    # resolved as if they were real links.
+    new_content = convert_wikilinks_outside_code(content, note_path_lookup)
+    new_content = escape_markdown_codeblocks_for_jekyll(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
+
+
+def convert_wikilinks_outside_code(content: str, note_path_lookup: dict[str, str]) -> str:
+    """
+    Applies convert_wikilinks_to_jekyll_layout only to text outside fenced '```'
+    code blocks and inline `code` spans, mirroring how images are already
+    kept out of code regions. Without this, a documentation example like
+    `` `[[...]]` `` or a ```markdown sample containing [[Note]] gets treated
+    as a real link and fails lookup.
+    """
+    lines = content.split('\n')
+    output_lines = []
+    in_fence = False
+    fence_marker = None
+
+    for line in lines:
+        fence_match = MARKDOWN_FENCE_PATTERN.match(line)
+        if fence_match:
+            marker = fence_match.group(2)
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker
+            elif marker == fence_marker:
+                in_fence = False
+            output_lines.append(line)
+            continue
+
+        if in_fence:
+            output_lines.append(line)
+        else:
+            output_lines.append(convert_wikilinks_in_line_outside_inline_code(line, note_path_lookup))
+
+    return '\n'.join(output_lines)
+
+
+def convert_wikilinks_in_line_outside_inline_code(line: str, note_path_lookup: dict[str, str]) -> str:
+    """Converts wikilinks on a single line, skipping anything inside `inline code` spans."""
+    segments = []
+    last_end = 0
+    for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
+        segments.append(convert_wikilinks_to_jekyll_layout(line[last_end:code_match.start()], note_path_lookup))
+        segments.append(code_match.group(0))  # leave inline code untouched
+        last_end = code_match.end()
+    segments.append(convert_wikilinks_to_jekyll_layout(line[last_end:], note_path_lookup))
+    return ''.join(segments)
+
+
+def slugify(text: str) -> str:
+    """Mimics kramdown's auto-generated heading anchors: lowercase, spaces to hyphens."""
+    return text.strip().lower().replace(" ", "-")
+
+
+def convert_wikilinks_to_jekyll_layout(content: str, note_path_lookup: dict[str, str]) -> str:
+    """
+    Converts Obsidian-style wikilinks into a Jekyll {% link %} layout, resolving
+    each note name to its real path in the output tree via note_path_lookup
+    (see build_note_path_lookup).
+
+    [[Note]]                       -> [Note]({% link path/to/Note.md %})
+    [[Note#Sub Section]]           -> [Note]({% link path/to/Note.md %}#sub-section)
+    [[Note|Alt Text]]              -> [Alt Text]({% link path/to/Note.md %})
+    [[Note#Sub Section|Alt Text]]  -> [Alt Text]({% link path/to/Note.md %}#sub-section)
+    """
+
+    def replace(match: re.Match) -> str:
+        note, section, alt = match.groupdict().values()
+        note = note.strip()
+
+        try:
+            note_path = note_path_lookup[note]
+        except KeyError:
+            raise ValueError(
+                f"Wikilink references unknown note '{note}'. "
+                "Check the note exists in the vault/output tree and the lookup is current."
+            ) from None
+
+        link_text = alt.strip() if alt else note
+        anchor = f"#{slugify(section)}" if section else ""
+
+        return f"[{link_text}]({{% link {note_path} %}}{anchor})"
+
+    return WIKILINK_PATTERN.sub(replace, content)
 
 
 def escape_markdown_codeblocks_for_jekyll(content: str) -> str:
@@ -139,7 +268,13 @@ class ObsidianToJekyllConverter:
         self.copy_jekyll_resources()
         self.copy_vault_images_into_assets_directory()
 
-        self.parse_markdown_files_for_jekyll()
+        # Built AFTER all copying so it reflects the final output tree
+        # (e.g. posts/ -> _posts/), and covers every note, not just
+        # the ones changed this run, since an unchanged note may still
+        # be a valid wikilink target for a changed one.
+        note_path_lookup = build_note_path_lookup(self.output_location)
+
+        self.parse_markdown_files_for_jekyll(note_path_lookup)
         self.prune_stale_files()
         save_manifest(self.manifest_path, self.new_manifest)
 
@@ -194,19 +329,21 @@ class ObsidianToJekyllConverter:
         for image_file in self.obsidian_vault_location.rglob('*.png'):
             self.sync_file(image_file, output_image_path / image_file.name)
 
-    def parse_markdown_files_for_jekyll(self) -> None:
+    def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
         """Only inject frontmatter into files actually (re)written this run —
         prevents double-prepending frontmatter onto cache-hit files."""
         for dest_path in self.changed_dest_paths:
             if dest_path.suffix != '.md':
                 continue
+
             if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
-                continue
-            if dest_path.name == 'about.md':
+                print(f"Skipping adding of frontmatter to '{dest_path.name}'")
+            elif dest_path.name == 'about.md':
                 self.add_frontmatter_to_file(dest_path, include_permalink=True)
             else:
                 self.add_frontmatter_to_file(dest_path)
-            convert_markdown_syntax_to_jekyll_syntax(dest_path)
+
+            convert_markdown_syntax_to_jekyll_syntax(dest_path, note_path_lookup)
 
     @staticmethod
     def add_frontmatter_to_file(markdown_file: Path, file_layout='default', include_permalink=False) -> None:
