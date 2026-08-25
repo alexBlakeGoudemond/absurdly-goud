@@ -14,3 +14,7 @@ Then the script should convert it into a form that Jekyll requires -  a redirect
 ```
 
 Testing between posts - this should link [[2026-08-24-aside-and-buttons]]
+
+Testing between posts and about - this should link [[about#AI Usage|AI Usage]]
+
+Testing hyperlinks: [Jekyll](https://jekyllrb.com/)
