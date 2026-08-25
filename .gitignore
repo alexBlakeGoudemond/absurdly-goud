@@ -10,3 +10,6 @@
 /_site/
 # additional generated code for Jekyll and local dev to use
 /site_src/
+
+# Obsidian Vault excalidraw Libraries
+/absurdly-goud-obsidian/Excalidraw/Libraries/

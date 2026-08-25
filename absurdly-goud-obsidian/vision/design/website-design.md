@@ -4,6 +4,40 @@ This site uses [Jekyll](https://jekyllrb.com/) to produce a ready-to-serve stati
 
 On-top of this - this website uses [Obsidian](https://obsidian.md/) to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.
 
+```
+┌──────────────────────┐   ┌──────────────────────┐
+│   Jekyll Resources   │   │    Obsidian Vault    │
+│                      │   │                      │
+│ _layouts / _data /   │   │ notes / posts /      │
+│ _includes / css / ...│   │ projects / etc.      │
+└──────────┬───────────┘   └──────────┬───────────┘
+           │                          │
+           │──────────────────────────┘
+           │
+           │ python script generates the 
+           │ 'source files' for the static website
+           │
+           ↓
+┌──────────────────────┐
+│      site_src        │
+│                      │
+│ Jekyll-ready content │
+└──────────┬───────────┘
+           │ used as 'input' for Jekyll
+           ↓
+        Jekyll
+           │ generates 'output'
+           ↓
+┌──────────────────────┐
+│        _site         │
+│                      │
+│     static html      │
+└──────────┬───────────┘
+           │ 
+           ↓
+      GitHub Pages
+```
+
 ## Jekyll Overview
 
 > Below is a high level overview of this tool, as well as a condensed cheat sheet for myself when I am working on upgrades!

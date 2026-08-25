@@ -1,4 +1,7 @@
 # Goals
+- [ ] Posts have last_modified_at frontmatter
+- [ ] soundboard for easy use
+- [ ] Light mode and Dark mode?
 - [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] Review excerpts and how to make nicer in MD
