@@ -25,9 +25,13 @@
 
 <p>This site uses <a href="https://jekyllrb.com/">Jekyll</a> to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a <code class="language-plaintext highlighter-rouge">site</code> directory (browser-ready HTML)</p>
 
-<p>On-top of this - this website uses <a href="https://obsidian.md/">Obsidian</a> to produce and easily maintain notes. To get this working with Jekyll, script and GitHub Actions are used.</p>
+<p>On-top of this - this website uses <a href="https://obsidian.md/">Obsidian</a> to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.</p>
 
 <h2 id="jekyll-overview">Jekyll Overview</h2>
+
+<blockquote>
+  <p>Below is a high level overview of this tool, as well as a condensed cheat sheet for myself when I am working on upgrades!</p>
+</blockquote>
 
 <p>Jekyll supports <a href="https://shopify.dev/docs/api/liquid">Liquid</a> as well as other helpful structures (for example <a href="https://jekyllrb.com/docs/step-by-step/07-assets/#sass">SASS</a>)</p>
 
@@ -71,7 +75,7 @@
 
 <blockquote>
   <p>[!Important]
-Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and <code class="language-plaintext highlighter-rouge">categories</code> are part of its posts system and so the Liquid variables `` may not contain the about.md page</p>
+Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and <code class="language-plaintext highlighter-rouge">categories</code> are part of Jekyll’s posts system and so the Liquid variables `` may not contain the about.md page</p>
 </blockquote>
 
 <blockquote>
@@ -92,11 +96,18 @@ Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and 
 
 <p>GitHub-hosted runners are provided by GitHub and consume <strong>GitHub Actions minutes</strong> from the account’s included usage/quota.</p>
 
+<blockquote>
+  <p>[!Important] 
+GitHub Pages are free for public repositories. In this way, I am not paying for hosting!</p>
+</blockquote>
+
 <h2 id="having-notes-in-obsidian-vault">Having Notes in Obsidian Vault</h2>
 
-<p>I want to be able to easily produce notes, and have the infrastructure just work around me. To achieve this - I created an obsidian vault which contains the notes themselves. Jekyll doesn’t understand this structure, so I use scripts to convert the content into a structure Jekyll does understand before it runs.</p>
+<p>I want to be able to easily produce content, and have the infrastructure just work around me. To achieve this - I created an obsidian vault which contains the notes themselves. Jekyll doesn’t understand this structure, so I use scripts to convert the content into a structure Jekyll does understand before it runs.</p>
 
 <p>This script runs when I test locally via docker as well as in GitHub Actions for the publication to the site. It produces a directory <code class="language-plaintext highlighter-rouge">site_src</code>. Jekyll is then told to use that generated directory to prepare the <code class="language-plaintext highlighter-rouge">site</code> directory as per normal</p>
+
+<p>I</p>
 
     </main>
 
@@ -154,7 +165,7 @@ Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and 
         <p>Disclaimer:</p>
         <div class="badge-row">
             
-            <a href="/#ai-usage/" target="_blank" rel="noopener">
+            <a href="/about#ai-usage/" target="_blank" rel="noopener">
                 <img src="/assets/badges/disclaimer-ai-assisted-button.svg"
                      alt="Disclaimer AI assisted site"
                      class="badge-img">

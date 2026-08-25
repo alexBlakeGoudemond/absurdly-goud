@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>add-markdown-image-notation-convenience | ABsurdly Goud</title>
+    <title>Posts | ABsurdly Goud</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -21,26 +21,59 @@
 
 <div class="page-wrapper">
     <main>
-        <p>Because I am using Obsidian to produce posts etc, I would prefer to create content using the Markdown syntax I know. I have now gotten it to play nice with Jekyll Includes Syntax</p>
+        <div class="h-feed">
 
-<!--more-->
+  <h1 class="p-name">Posts</h1>
 
-<p>Jekyll requires a specific structure for includes docs:</p>
+  
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">image</span><span class="p">.</span><span class="n">html</span>  
-    <span class="n">src</span><span class="o">=</span><span class="s">"image1.png"</span>
-    <span class="n">alt</span><span class="o">=</span><span class="s">"Alt text 1"</span>
-    <span class="n">title</span><span class="o">=</span><span class="s">"Alt text 1"</span>
-<span class="o">%</span><span class="p">}</span>
-</code></pre></div></div>
+  <article class="h-entry">
 
-<p>Whereas the Markdown syntax is simpler:</p>
+    <h2 class="p-name">
+      <a class="u-url" href="/2026/08/19/hello-world/">
+        hello-world
+      </a>
+    </h2>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Alt text 1</span><span class="p">](</span><span class="sx">image1.png</span><span class="p">)</span>
-</code></pre></div></div>
+    <time class="dt-published"
+          datetime="2026-08-19T00:00:00+00:00">
+      19 August 2026
+    </time>
 
-<p>With the changes brought into the <code class="language-plaintext highlighter-rouge">obsidian_to_jekyll</code> script, the conversion from Markdown Image Notation to Jekyll Includes Notation just works!</p>
+    <div class="p-summary">
+      <p>Hello, IndieWeb!</p>
 
+<p>This is my first post.</p>
+
+
+      <a class="u-url" href="/2026/08/19/hello-world/"><i>click me to continue reading ...</i></a>
+    </div>
+
+  </article>
+
+  
+
+  
+
+  <nav class="pagination" aria-label="Posts pagination">
+
+    
+    <a href="/posts/page2/">
+      ← Newer posts
+    </a>
+    
+
+    <span>
+            Page 3 of 3
+        </span>
+
+    
+
+  </nav>
+
+  
+
+</div>
     </main>
 
     <aside>

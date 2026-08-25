@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>add-markdown-image-notation-convenience | ABsurdly Goud</title>
+    <title>testing-wikilinks | ABsurdly Goud</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -21,25 +21,27 @@
 
 <div class="page-wrapper">
     <main>
-        <p>Because I am using Obsidian to produce posts etc, I would prefer to create content using the Markdown syntax I know. I have now gotten it to play nice with Jekyll Includes Syntax</p>
+        <h1 id="testing-wikilinks">Testing Wikilinks</h1>
+
+<p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
 
 <!--more-->
 
-<p>Jekyll requires a specific structure for includes docs:</p>
+<p>If I have a wikilink like this:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">image</span><span class="p">.</span><span class="n">html</span>  
-    <span class="n">src</span><span class="o">=</span><span class="s">"image1.png"</span>
-    <span class="n">alt</span><span class="o">=</span><span class="s">"Alt text 1"</span>
-    <span class="n">title</span><span class="o">=</span><span class="s">"Alt text 1"</span>
-<span class="o">%</span><span class="p">}</span>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[Note#Sub Section|Alt Text]]
 </code></pre></div></div>
 
-<p>Whereas the Markdown syntax is simpler:</p>
+<p>Then the script should convert it into a form that Jekyll requires -  a redirect syntax called a link like this:</p>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Alt text 1</span><span class="p">](</span><span class="sx">image1.png</span><span class="p">)</span>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nv">Alt Text</span><span class="p">](</span><span class="sx">{%</span> link path/to/Note.md %}#sub-section)
 </code></pre></div></div>
 
-<p>With the changes brought into the <code class="language-plaintext highlighter-rouge">obsidian_to_jekyll</code> script, the conversion from Markdown Image Notation to Jekyll Includes Notation just works!</p>
+<p>Testing between posts - this should link <a href="/2026/08/24/aside-and-buttons/">2026-08-24-aside-and-buttons</a></p>
+
+<p>Testing between posts and about - this should link <a href="/about/#ai-usage">AI Usage</a></p>
+
+<p>Testing hyperlinks: <a href="https://jekyllrb.com/">Jekyll</a></p>
 
     </main>
 
