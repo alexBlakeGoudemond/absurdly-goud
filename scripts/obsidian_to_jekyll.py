@@ -33,6 +33,8 @@ def process_markdown_for_jekyll(markdown_file: Path) -> None:
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
 
+def convert_wikilinks_to_jekyll_layout(content: str) -> str:
+    return content
 
 def escape_markdown_codeblocks_for_jekyll(content: str) -> str:
     lines = content.split('\n')

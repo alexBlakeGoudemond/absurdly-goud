@@ -5,6 +5,7 @@ from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
     escape_markdown_codeblocks_for_jekyll,
+    convert_wikilinks_to_jekyll_layout,
 )
 
 
@@ -23,7 +24,7 @@ class TestExtractTitleFromFileName(unittest.TestCase):
         self.assertEqual(title, "home.mdx")
 
 
-class TestMarkdownImageNotationConversion(unittest.TestCase):
+class TestCreateJekyllImageLayout(unittest.TestCase):
 
     def test_markdown_image_notation_gets_converted_to_jekyll_includes_file(self):
         actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation('image.png', 'Alt text')
@@ -142,6 +143,49 @@ class TestEscapeMarkdownCodeblocksAndImageNotationConversion(unittest.TestCase):
 
         self.assertIn("{% include image.html", result)
         self.assertIn("{% endraw %}", result)
+
+
+class TestWikilinksConvertedToJekyllLayout(unittest.TestCase):
+
+    def test_wikilinks_are_converted_to_jekyll_layout(self):
+        content1 = "[[LinkedNote]]"
+        content2 = "[[linked-note]]"
+
+        result1 = convert_wikilinks_to_jekyll_layout(content1)
+        result2 = convert_wikilinks_to_jekyll_layout(content2)
+
+        self.assertIn("[LinkedNote]({% link LinkedNote.md %})", result1)
+        self.assertIn("[linked-note]({% link linked-note.md %})", result2)
+
+    def test_wikilinks_with_subsections_are_converted_to_jekyll_layout(self):
+        content1 = "[[LinkedNote#The Subsection]]"
+        content2 = "[[linked-note#The Subsection]]"
+
+        result1 = convert_wikilinks_to_jekyll_layout(content1)
+        result2 = convert_wikilinks_to_jekyll_layout(content2)
+
+        self.assertIn("[LinkedNote]({% link LinkedNote.md %}#the-subsection)", result1)
+        self.assertIn("[linked-note]({% link linked-note.md %}#the-subsection)", result2)
+
+    def test_wikilinks_with_alt_text_are_converted_to_jekyll_layout(self):
+        content1 = "[[LinkedNote|A Summary]]"
+        content2 = "[[linked-note|a summary]]"
+
+        result1 = convert_wikilinks_to_jekyll_layout(content1)
+        result2 = convert_wikilinks_to_jekyll_layout(content2)
+
+        self.assertIn("[A Summary]({% link LinkedNote.md %})", result1)
+        self.assertIn("[a summary]({% link linked-note.md %})", result2)
+
+    def test_wikilinks_with_alt_text_with_subsections_are_converted_to_jekyll_layout(self):
+        content1 = "[[LinkedNote#The Subsection|A Summary]]"
+        content2 = "[[linked-note#The Subsection|a summary]]"
+
+        result1 = convert_wikilinks_to_jekyll_layout(content1)
+        result2 = convert_wikilinks_to_jekyll_layout(content2)
+
+        self.assertIn("[A Summary]({% link LinkedNote.md %}#the-subsection)", result1)
+        self.assertIn("[a summary]({% link linked-note.md %}#the-subsection)", result2)
 
 
 if __name__ == '__main__':
