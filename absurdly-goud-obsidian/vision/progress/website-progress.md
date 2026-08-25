@@ -8,6 +8,7 @@
 	- [ ] wikilinks and mentions in other notes
 	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
+	- [ ] converting images should NOT run inside codeblocks
 	- [ ] handle existing frontmatter?
 	- [ ] posts without timestamp in name should have timestamp auto added
 - [ ] Custom 404 Page

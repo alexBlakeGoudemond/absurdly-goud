@@ -15,19 +15,77 @@ from scripts.website_manifest import (
 
 MANIFEST_FILENAME = ".manifest.json"
 
+MARKDOWN_FENCE_PATTERN = re.compile(r'^(\s*)(```|~~~)(\S*)\s*$')
+MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
+MARKDOWN_INLINE_CODE_PATTERN = re.compile(r'`[^`]*`')
 
-def process_image_notation_in_markdown_file(markdown_file: Path) -> None:
-    """Convert Obsidian-style image notation ![Alt text](image.png) to Jekyll include notation."""
+
+def convert_markdown_syntax_to_jekyll_syntax(markdown_file: Path) -> None:
+    process_markdown_for_jekyll(markdown_file)
+
+
+def process_markdown_for_jekyll(markdown_file: Path) -> None:
+    """Convert Obsidian-style image notation ![Alt text](image.png) to Jekyll include
+    notation, skipping any text inside fenced code blocks or inline code spans, and
+    wrapping every fenced code block in {% raw %} so Liquid doesn't try to parse it."""
     content = markdown_file.read_text(encoding="utf-8")
-    markdown_image_pattern = r'!\[(.+)\]\((.+)\)'
-    all_matches = re.findall(markdown_image_pattern, content)
-    for match in all_matches:
-        image_alt_text = match[0]
-        image_name = match[1]
-        jekyll_image_includes_notation = (
-            convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name, image_alt_text))
-        content = content.replace(f"![{image_alt_text}]({image_name})", jekyll_image_includes_notation)
-    markdown_file.write_text(content, encoding="utf-8")
+    new_content = escape_markdown_codeblocks_for_jekyll(content)
+    if new_content != content:
+        markdown_file.write_text(new_content, encoding="utf-8")
+
+
+def escape_markdown_codeblocks_for_jekyll(content: str) -> str:
+    lines = content.split('\n')
+    output_lines = []
+    in_fence = False
+    fence_marker = None
+
+    for line in lines:
+        fence_match = MARKDOWN_FENCE_PATTERN.match(line)
+        if fence_match:
+            marker = fence_match.group(2)
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker
+                output_lines.append('{% raw %}')
+                output_lines.append(line)
+            elif marker == fence_marker:
+                in_fence = False
+                output_lines.append(line)
+                output_lines.append('{% endraw %}')
+            else:
+                output_lines.append(line)
+            continue
+
+        if in_fence:
+            output_lines.append(line)
+        else:
+            output_lines.append(convert_images_outside_inline_code(line))
+
+    return '\n'.join(output_lines)
+
+
+def convert_images_outside_inline_code(line: str) -> str:
+    """Convert image syntax on a line, skipping anything inside `inline code` spans."""
+    segments = []
+    last_end = 0
+    for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
+        segments.append(replace_images_in_segment(line[last_end:code_match.start()]))
+        segments.append(code_match.group(0))  # leave inline code untouched
+        last_end = code_match.end()
+    segments.append(replace_images_in_segment(line[last_end:]))
+    return ''.join(segments)
+
+
+def replace_images_in_segment(segment: str) -> str:
+    def replace(match: re.Match) -> str:
+        image_alt_text = match.group(1)
+        image_name = match.group(2)
+        return convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            image_name, image_alt_text
+        )
+
+    return MARKDOWN_IMAGE_PATTERN.sub(replace, segment)
 
 
 def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name: str, image_alt_text: str) -> str:
@@ -148,7 +206,7 @@ class ObsidianToJekyllConverter:
                 self.add_frontmatter_to_file(dest_path, include_permalink=True)
             else:
                 self.add_frontmatter_to_file(dest_path)
-            process_image_notation_in_markdown_file(dest_path)
+            convert_markdown_syntax_to_jekyll_syntax(dest_path)
 
     @staticmethod
     def add_frontmatter_to_file(markdown_file: Path, file_layout='default', include_permalink=False) -> None:
