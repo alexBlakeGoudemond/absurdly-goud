@@ -1,0 +1,14 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 22-34,49-54,56-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "6f1c37c838a745b674f0ba8e031d553d04e4816c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
