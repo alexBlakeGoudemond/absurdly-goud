@@ -25,6 +25,7 @@
 
 # Achievements
 - [x] Extra obsidian to jekyll script features:
+	- [x] converting images should NOT run inside codeblocks (2026-08-25)
 	- [x] titles in frontmatter to be quoted (2026-08-24)
 	- [x] markdown syntax for images mapped to include syntax for jekyll (2026-08-24)
 - [x] Add a tray (sidebar) across all pages called disclaimer: showing what I have done and why - particularly around AI usage (2026-08-24)
