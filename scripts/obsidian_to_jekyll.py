@@ -235,9 +235,9 @@ class ObsidianToJekyllConverter:
     using a content-hash manifest to skip unchanged files on repeat runs."""
 
     IGNORED_VAULT_ITEMS = ['.obsidian', 'website-whiteboard.excalidraw']
-    INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data']
+    INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data', 'vision']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md']
-    PERMALINK_FILES = ['about.md', 'vision.md']
+    PERMALINK_FILES = ['about.md']
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
