@@ -1,33 +1,33 @@
 # _data/nav.yml
-- title: home
+- title: Home
   url: /
-- title: about
+- title: About
   url: /about/
-- title: vision
+- title: Vision
   url: /vision/
   children:
-    - title: design
+    - title: Design
       url: /vision/design/
-    - title: progress
+    - title: Progress
       url: /vision/progress/
-    - title: whiteboard
+    - title: Whiteboard
       url: /vision/whiteboard/
-#- title: writing
+#- title: Writing
 #  url: /writing/
 #  children:
-#    - title: posts
+#    - title: Posts
 #      url: /writing/posts/
-#    - title: notebook
+#    - title: Notebook
 #      url: /writing/notebook/
-#- title: playground
+#- title: Playground
 #  url: /playground/
 #  children:
-#    - title: projects
+#    - title: Projects
 #      url: /playground/projects/
-#    - title: fun Stuff
+#    - title: Fun Stuff
 #      url: /playground/fun-stuff/
-#- title: community
+#- title: Community
 #  url: /community/
 #  children:
-#    - title: guestbook
+#    - title: Guestbook
 #      url: /community/guestbook/

@@ -1,7 +1,7 @@
 ---
 layout: section
-title: "vision"
-section: vision
+title: "Vision"
+section: Vision
 permalink: /vision/
 ---
 
