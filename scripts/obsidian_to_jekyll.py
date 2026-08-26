@@ -234,9 +234,10 @@ class ObsidianToJekyllConverter:
     """Syncs an Obsidian vault + Jekyll scaffold into a Jekyll-ready source tree,
     using a content-hash manifest to skip unchanged files on repeat runs."""
 
-    IGNORED_VAULT_ITEMS = ['.obsidian']
+    IGNORED_VAULT_ITEMS = ['.obsidian', 'website-whiteboard.excalidraw']
     INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md']
+    PERMALINK_FILES = ['about.md', 'vision.md']
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
@@ -338,7 +339,7 @@ class ObsidianToJekyllConverter:
 
             if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
                 print(f"Skipping adding of frontmatter to '{dest_path.name}'")
-            elif dest_path.name == 'about.md':
+            elif dest_path.name in self.PERMALINK_FILES:
                 self.add_frontmatter_to_file(dest_path, include_permalink=True)
             else:
                 self.add_frontmatter_to_file(dest_path)

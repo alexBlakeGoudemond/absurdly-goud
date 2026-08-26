@@ -1,10 +1,11 @@
 # Goals
+- [ ] `---more---` showing after excerpt
+- [ ] vision not working
 - [ ] Posts have last_modified_at frontmatter
 - [ ] soundboard for easy use
 - [ ] Light mode and Dark mode?
 - [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
-	- [ ] Review excerpts and how to make nicer in MD
 	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
 	- [ ] handle existing frontmatter?
@@ -18,6 +19,8 @@
 - [ ] consider a Notebook section
 - [ ] hits in the aside?
 - [ ] projects tab?
+- [ ] parallax background?
+- [ ] build version? or last updated date
 - [ ] figure out 88x31 buttons
 	- [ ] https://petrapixel.neocities.org/indiewebdb/ eg button for svg?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
@@ -28,6 +31,7 @@
 	- [x] ai-usage not being linked to with button (2026-08-25)
 	- [x] ai-usage to leverage excerpt into another note/post (2026-08-25)
 - [x] Extra obsidian to jekyll script features:
+	- [x] Review excerpts and how to make nicer in MD (20260825)
 	- [x] wikilinks and mentions in other notes (2026-08-25)
 	- [x] converting images should NOT run inside codeblocks (2026-08-25)
 	- [x] titles in frontmatter to be quoted (2026-08-24)
