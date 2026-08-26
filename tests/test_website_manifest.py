@@ -79,7 +79,7 @@ class TestLoadManifest(unittest.TestCase):
 
     def test_loads_valid_manifest_from_disk(self):
         manifest_path = self.tmp_path / "manifest.json"
-        data = {"vault/home.md": {"dest": "index.md", "sha256": "abc123"}}
+        data = {"vault/home.md": {"dest": "vision.md", "sha256": "abc123"}}
         manifest_path.write_text(json.dumps(data), encoding="utf-8")
 
         result = load_manifest(manifest_path)
@@ -112,7 +112,7 @@ class TestSaveManifest(unittest.TestCase):
 
     def test_writes_manifest_to_disk(self):
         manifest_path = self.tmp_path / "manifest.json"
-        data = {"vault/home.md": {"dest": "index.md", "sha256": "abc123"}}
+        data = {"vault/home.md": {"dest": "vision.md", "sha256": "abc123"}}
 
         save_manifest(manifest_path, data)
 

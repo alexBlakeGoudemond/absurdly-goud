@@ -293,7 +293,7 @@ class ObsidianToJekyllConverter:
     IGNORED_VAULT_ITEMS = ['.obsidian', 'website-whiteboard.excalidraw']
     INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data',
                              'vision']
-    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md']
+    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
     SECTION_FOLDERS = ['vision']
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
