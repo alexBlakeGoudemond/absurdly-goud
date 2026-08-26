@@ -1,26 +1,30 @@
 import unittest
+import tempfile
+from pathlib import Path
+
 from textwrap import dedent
 
 from scripts.obsidian_to_jekyll import (
-    ObsidianToJekyllConverter,
+    extract_title_from_file_name,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
     escape_markdown_codeblocks_for_jekyll,
     convert_wikilinks_to_jekyll_layout,
+    build_note_path_lookup
 )
 
 
 class TestExtractTitleFromFileName(unittest.TestCase):
 
     def test_strips_date_prefix_and_extension(self):
-        title = ObsidianToJekyllConverter.extract_title_from_file_name("2026-08-19-hello-world.md")
+        title = extract_title_from_file_name("2026-08-19-hello-world.md")
         self.assertEqual(title, "hello-world")
 
     def test_no_date_prefix_still_strips_extension(self):
-        title = ObsidianToJekyllConverter.extract_title_from_file_name("about.md")
+        title = extract_title_from_file_name("about.md")
         self.assertEqual(title, "about")
 
     def test_non_md_extension_is_untouched(self):
-        title = ObsidianToJekyllConverter.extract_title_from_file_name("home.mdx")
+        title = extract_title_from_file_name("home.mdx")
         self.assertEqual(title, "home.mdx")
 
 
@@ -87,6 +91,7 @@ class TestEscapeMarkdownCodeblocksForJekyll(unittest.TestCase):
 
 
 class TestEscapeMarkdownCodeblocksAndImageNotationConversion(unittest.TestCase):
+
     def test_image_syntax_inside_fenced_block_is_not_converted(self):
         content = dedent("""
         ```
@@ -147,12 +152,23 @@ class TestEscapeMarkdownCodeblocksAndImageNotationConversion(unittest.TestCase):
 
 class TestWikilinksConvertedToJekyllLayout(unittest.TestCase):
 
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        tmp_path = Path(self.tmp_dir.name)
+
+        # Create the notes these tests expect to resolve against
+        (tmp_path / "LinkedNote.md").write_text("")
+        (tmp_path / "linked-note.md").write_text("")
+
+        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+
     def test_wikilinks_are_converted_to_jekyll_layout(self):
         content1 = "[[LinkedNote]]"
         content2 = "[[linked-note]]"
 
-        result1 = convert_wikilinks_to_jekyll_layout(content1)
-        result2 = convert_wikilinks_to_jekyll_layout(content2)
+        result1 = convert_wikilinks_to_jekyll_layout(content1, self.note_lookup)
+        result2 = convert_wikilinks_to_jekyll_layout(content2, self.note_lookup)
 
         self.assertIn("[LinkedNote]({% link LinkedNote.md %})", result1)
         self.assertIn("[linked-note]({% link linked-note.md %})", result2)
@@ -161,8 +177,8 @@ class TestWikilinksConvertedToJekyllLayout(unittest.TestCase):
         content1 = "[[LinkedNote#The Subsection]]"
         content2 = "[[linked-note#The Subsection]]"
 
-        result1 = convert_wikilinks_to_jekyll_layout(content1)
-        result2 = convert_wikilinks_to_jekyll_layout(content2)
+        result1 = convert_wikilinks_to_jekyll_layout(content1, self.note_lookup)
+        result2 = convert_wikilinks_to_jekyll_layout(content2, self.note_lookup)
 
         self.assertIn("[LinkedNote]({% link LinkedNote.md %}#the-subsection)", result1)
         self.assertIn("[linked-note]({% link linked-note.md %}#the-subsection)", result2)
@@ -171,8 +187,8 @@ class TestWikilinksConvertedToJekyllLayout(unittest.TestCase):
         content1 = "[[LinkedNote|A Summary]]"
         content2 = "[[linked-note|a summary]]"
 
-        result1 = convert_wikilinks_to_jekyll_layout(content1)
-        result2 = convert_wikilinks_to_jekyll_layout(content2)
+        result1 = convert_wikilinks_to_jekyll_layout(content1, self.note_lookup)
+        result2 = convert_wikilinks_to_jekyll_layout(content2, self.note_lookup)
 
         self.assertIn("[A Summary]({% link LinkedNote.md %})", result1)
         self.assertIn("[a summary]({% link linked-note.md %})", result2)
@@ -181,8 +197,8 @@ class TestWikilinksConvertedToJekyllLayout(unittest.TestCase):
         content1 = "[[LinkedNote#The Subsection|A Summary]]"
         content2 = "[[linked-note#The Subsection|a summary]]"
 
-        result1 = convert_wikilinks_to_jekyll_layout(content1)
-        result2 = convert_wikilinks_to_jekyll_layout(content2)
+        result1 = convert_wikilinks_to_jekyll_layout(content1, self.note_lookup)
+        result2 = convert_wikilinks_to_jekyll_layout(content2, self.note_lookup)
 
         self.assertIn("[A Summary]({% link LinkedNote.md %}#the-subsection)", result1)
         self.assertIn("[a summary]({% link linked-note.md %}#the-subsection)", result2)

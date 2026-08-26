@@ -1,0 +1,37 @@
+# _data/nav.yml
+- title: Home
+  url: /
+- title: About
+  url: /about/
+- title: Vision
+  url: /vision/
+  children:
+    - title: Vision Home
+      url: /vision/
+    - title: Design
+      url: /vision/design/website-design/
+    - title: Inspiration
+      url: /vision/design/website-inspiration/
+    - title: Progress
+      url: /vision/progress/website-progress/
+    - title: Whiteboard
+      url: /vision/whiteboard/website-whiteboard/
+#- title: Writing
+#  url: /writing/
+#  children:
+#    - title: Posts
+#      url: /writing/posts/
+#    - title: Notebook
+#      url: /writing/notebook/
+#- title: Playground
+#  url: /playground/
+#  children:
+#    - title: Projects
+#      url: /playground/projects/
+#    - title: Fun Stuff
+#      url: /playground/fun-stuff/
+#- title: Community
+#  url: /community/
+#  children:
+#    - title: Guestbook
+#      url: /community/guestbook/

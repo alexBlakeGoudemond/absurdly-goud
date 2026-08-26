@@ -2,7 +2,7 @@
 
 In Obsidian I am using wikilinks like this `[[...]]` and it should now just work with Jekyll due to the conversion script!
 
----more---
+<!--more-->
 
 If I have a wikilink like this:
 ```markdown
