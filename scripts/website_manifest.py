@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import json
 import hashlib
-
+import json
 from pathlib import Path
 
 

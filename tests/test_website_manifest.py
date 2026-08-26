@@ -1,7 +1,7 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
-import tempfile
 
 from scripts.website_manifest import (
     sha256,
@@ -51,6 +51,15 @@ class ManifestCreation(unittest.TestCase):
         modified_hash = sha256(test_file)
 
         self.assertNotEqual(original_hash, modified_hash)
+
+    def test_hashing_missing_file_raises_file_not_found(self):
+        # Documents current behaviour: sha256 does not swallow a missing
+        # source file, it propagates FileNotFoundError from open(). Callers
+        # syncing a file that vanished mid-run should expect this to raise.
+        missing_file = self.tmp_path / "does_not_exist.txt"
+
+        with self.assertRaises(FileNotFoundError):
+            sha256(missing_file)
 
     def test_creating_manifest_entry_should_return_correct_structure(self):
         test_file = self.tmp_path / "test.txt"
