@@ -1,0 +1,16 @@
+vision/vision.md
+  h_1197a506f6c7d6 3-4
+_data/nav.yml
+  h_1197a506f6c7d6 2,4,6,9,11,13,15,18,20,22,25,27,29,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "936966e3a9d4f06bc0fab8b1129a5a507050cd28",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
