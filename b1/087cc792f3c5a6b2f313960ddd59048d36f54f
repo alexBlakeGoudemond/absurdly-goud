@@ -1,0 +1,27 @@
+absurdly-goud-obsidian/vision/progress/website-progress.md
+  h_1197a506f6c7d6 4,30
+  s_a09a2067912f0f::t_4208da469e5521 3,5-6,31-32
+absurdly-goud-obsidian/vision/design/website-design.md
+  s_a09a2067912f0f::t_95aef36a3c840a 102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "b1087cc792f3c5a6b2f313960ddd59048d36f54f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a09a2067912f0f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9acbfc97-e8b1-48f3-a671-70537e2f806f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
