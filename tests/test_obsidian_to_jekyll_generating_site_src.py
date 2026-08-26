@@ -7,7 +7,7 @@ from textwrap import dedent
 import test_helpers
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
-    convert_markdown_image_notation_to_jekyll_includes_image_notation,
+    build_note_path_lookup,
     save_manifest,
     process_markdown_for_jekyll,
 )
@@ -29,13 +29,14 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
+        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
 
     def test_changed_markdown_file_gets_frontmatter(self):
         dest = self.converter.output_location / "hello-world.md"
         dest.write_text("# Hello", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll()
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
@@ -46,7 +47,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         dest.write_text("About me", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll()
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", result)
@@ -76,6 +77,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         self.addCleanup(self.tmp_dir.cleanup)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
+        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
 
     def test_ignored_files_are_skipped(self):
         for name in self.converter.IGNORED_FRONTMATTER_FILES:
@@ -83,7 +85,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
             dest.write_text("original content", encoding="utf-8")
             self.converter.changed_dest_paths = [dest]
 
-            self.converter.parse_markdown_files_for_jekyll()
+            self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
             self.assertEqual(dest.read_text(encoding="utf-8"), "original content")
 
@@ -92,7 +94,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest.write_text("body {}", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll()
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         self.assertEqual(dest.read_text(encoding="utf-8"), "body {}")
 
@@ -104,7 +106,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest.write_text(original, encoding="utf-8")
         self.converter.changed_dest_paths = []  # nothing changed this run
 
-        self.converter.parse_markdown_files_for_jekyll()
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         self.assertEqual(dest.read_text(encoding="utf-8"), original)
 
@@ -115,7 +117,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest_b.write_text("B", encoding="utf-8")
         self.converter.changed_dest_paths = [dest_a, dest_b]
 
-        self.converter.parse_markdown_files_for_jekyll()
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         self.assertIn("title: \"post-a\"", dest_a.read_text(encoding="utf-8"))
         self.assertIn("title: \"post-b\"", dest_b.read_text(encoding="utf-8"))
@@ -128,6 +130,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
+        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
 
 
     def test_process_one_markdown_image_yields_one_jekyll_includes_syntax_in_file(self):
@@ -135,7 +138,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         dest.write_text("![Alt text](image.png)", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        process_markdown_for_jekyll(dest)
+        process_markdown_for_jekyll(dest, self.note_lookup)
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax = """
@@ -152,7 +155,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         dest.write_text("![Alt text 1](image1.png)\n![Alt text 2](image2.png)", encoding="utf-8")
         self.converter.changed_dest_paths = [dest]
 
-        process_markdown_for_jekyll(dest)
+        process_markdown_for_jekyll(dest, self.note_lookup)
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax_1 = """
