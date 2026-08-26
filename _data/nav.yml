@@ -6,12 +6,16 @@
 - title: Vision
   url: /vision/
   children:
+    - title: Vision Home
+      url: /vision/
     - title: Design
-      url: /vision/design/
+      url: /vision/design/website-design/
+    - title: Inspiration
+      url: /vision/design/website-inspiration/
     - title: Progress
-      url: /vision/progress/
+      url: /vision/progress/website-progress/
     - title: Whiteboard
-      url: /vision/whiteboard/
+      url: /vision/whiteboard/website-whiteboard/
 #- title: Writing
 #  url: /writing/
 #  children:

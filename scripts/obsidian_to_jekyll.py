@@ -294,12 +294,12 @@ def extract_title_from_file_name(file_name: str) -> str:
     filename_with_leading_timestamp = re.compile(r'^\d{4}-\d{2}-\d{2}-')
     filename_ending_in_md = re.compile(r'\.md$')
     filename_excalidraw_infix = re.compile(r'\.excalidraw$')
-    filename_website_prefix = re.compile(r'^website-')
+    # filename_website_prefix = re.compile(r'^website-')
 
     file_title = filename_with_leading_timestamp.sub('', file_name)
     file_title = filename_ending_in_md.sub('', file_title)
     file_title = filename_excalidraw_infix.sub('', file_title)
-    file_title = filename_website_prefix.sub('', file_title)
+    # file_title = filename_website_prefix.sub('', file_title)
     return file_title
 
 
