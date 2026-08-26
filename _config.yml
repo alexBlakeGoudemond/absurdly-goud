@@ -5,7 +5,7 @@ url: "https://absurdlygoud.com"
 
 repository: alexBlakeGoudemond/absurdly-goud
 
-excerpt_separator: ---more---
+excerpt_separator: <!--more-->
 
 permalink: /:year/:month/:day/:title/
 

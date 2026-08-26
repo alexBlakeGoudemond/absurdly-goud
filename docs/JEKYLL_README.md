@@ -99,7 +99,7 @@ For example, this project uses:
 ```yaml
 permalink: /:year/:month/:day/:title/
 
-excerpt_separator: ---more---
+excerpt_separator: <!--more-->
 
 paginate: 10
 paginate_path: "/posts/page:num/"
@@ -296,7 +296,7 @@ The post archive displays a short preview using:
 This project uses an explicit excerpt separator:
 
 ```yaml
-excerpt_separator: ---more---
+excerpt_separator: <!--more-->
 ```
 
 A post can therefore define exactly where its preview ends:
@@ -304,12 +304,12 @@ A post can therefore define exactly where its preview ends:
 ```markdown
 This is the introduction to my post.
 
----more---
+<!--more-->
 
 This is the rest of the post.
 ```
 
-The archive displays the content before `---more---`, while the individual post displays the complete content.
+The archive displays the content before `<!--more-->`, while the individual post displays the complete content.
 
 The archive marks the preview as a Microformats2 `p-summary`:
 
