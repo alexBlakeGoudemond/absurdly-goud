@@ -10,6 +10,7 @@ from scripts.obsidian_to_jekyll import (
     build_note_path_lookup,
     save_manifest,
     process_markdown_for_jekyll,
+    add_frontmatter_to_file,
 )
 
 
@@ -56,7 +57,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         md_file = self.tmp_path / "post.md"
         md_file.write_text("Post body", encoding="utf-8")
 
-        ObsidianToJekyllConverter.add_frontmatter_to_file(md_file)
+        add_frontmatter_to_file(md_file)
 
         result = md_file.read_text(encoding="utf-8")
         self.assertNotIn("permalink:", result)
@@ -65,7 +66,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         md_file = self.tmp_path / "post.md"
         md_file.write_text("Body", encoding="utf-8")
 
-        ObsidianToJekyllConverter.add_frontmatter_to_file(md_file, file_layout="post")
+        add_frontmatter_to_file(md_file, file_layout="post")
 
         result = md_file.read_text(encoding="utf-8")
         self.assertIn("layout: post", result)

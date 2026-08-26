@@ -230,14 +230,40 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name
     return dedent(jekyll_image_layout_notation)
 
 
+def add_frontmatter_to_file(markdown_file: Path, file_layout='default', include_permalink=False) -> None:
+    file_title = extract_title_from_file_name(markdown_file.name)
+    file_content = markdown_file.read_text(encoding="utf-8")
+    file_permalink = f"/{file_title}/" if include_permalink else ""
+
+    frontmatter = dedent(f"""
+            ---
+            layout: {file_layout}
+            title: "{file_title}"
+            permalink: {file_permalink}
+            ---
+
+        """).lstrip('\n')
+    if 'permalink: \n' in frontmatter:
+        frontmatter = frontmatter.replace('permalink: \n', '')
+    markdown_file.write_text(frontmatter + file_content, encoding="utf-8")
+
+
+def extract_title_from_file_name(file_name: str) -> str:
+    filename_with_leading_timestamp = re.compile(r'^\d{4}-\d{2}-\d{2}-')
+    filename_ending_in_md = re.compile(r'\.md$')
+    file_title = filename_with_leading_timestamp.sub('', file_name)
+    file_title = filename_ending_in_md.sub('', file_title)
+    return file_title
+
+
 class ObsidianToJekyllConverter:
     """Syncs an Obsidian vault + Jekyll scaffold into a Jekyll-ready source tree,
     using a content-hash manifest to skip unchanged files on repeat runs."""
 
     IGNORED_VAULT_ITEMS = ['.obsidian', 'website-whiteboard.excalidraw']
-    INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data', 'vision']
+    INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data',
+                             'vision']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md']
-    PERMALINK_FILES = ['about.md']
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
@@ -339,38 +365,12 @@ class ObsidianToJekyllConverter:
 
             if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
                 print(f"Skipping adding of frontmatter to '{dest_path.name}'")
-            elif dest_path.name in self.PERMALINK_FILES:
-                self.add_frontmatter_to_file(dest_path, include_permalink=True)
+            elif dest_path.name in ['about.md']:
+                add_frontmatter_to_file(dest_path, include_permalink=True)
             else:
-                self.add_frontmatter_to_file(dest_path)
+                add_frontmatter_to_file(dest_path)
 
             convert_markdown_syntax_to_jekyll_syntax(dest_path, note_path_lookup)
-
-    @staticmethod
-    def add_frontmatter_to_file(markdown_file: Path, file_layout='default', include_permalink=False) -> None:
-        file_title = ObsidianToJekyllConverter.extract_title_from_file_name(markdown_file.name)
-        file_content = markdown_file.read_text(encoding="utf-8")
-        file_permalink = f"/{file_title}/" if include_permalink else ""
-
-        frontmatter = dedent(f"""
-            ---
-            layout: {file_layout}
-            title: "{file_title}"
-            permalink: {file_permalink}
-            ---
-
-        """).lstrip('\n')
-        if 'permalink: \n' in frontmatter:
-            frontmatter = frontmatter.replace('permalink: \n', '')
-        markdown_file.write_text(frontmatter + file_content, encoding="utf-8")
-
-    @staticmethod
-    def extract_title_from_file_name(file_name: str) -> str:
-        filename_with_leading_timestamp = re.compile(r'^\d{4}-\d{2}-\d{2}-')
-        filename_ending_in_md = re.compile(r'\.md$')
-        file_title = filename_with_leading_timestamp.sub('', file_name)
-        file_title = filename_ending_in_md.sub('', file_title)
-        return file_title
 
     def copy_jekyll_resources(self) -> None:
         for source_item in self.source_location.iterdir():

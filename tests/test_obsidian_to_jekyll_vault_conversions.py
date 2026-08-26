@@ -5,7 +5,7 @@ from pathlib import Path
 from textwrap import dedent
 
 from scripts.obsidian_to_jekyll import (
-    ObsidianToJekyllConverter,
+    extract_title_from_file_name,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
     escape_markdown_codeblocks_for_jekyll,
     convert_wikilinks_to_jekyll_layout,
@@ -16,15 +16,15 @@ from scripts.obsidian_to_jekyll import (
 class TestExtractTitleFromFileName(unittest.TestCase):
 
     def test_strips_date_prefix_and_extension(self):
-        title = ObsidianToJekyllConverter.extract_title_from_file_name("2026-08-19-hello-world.md")
+        title = extract_title_from_file_name("2026-08-19-hello-world.md")
         self.assertEqual(title, "hello-world")
 
     def test_no_date_prefix_still_strips_extension(self):
-        title = ObsidianToJekyllConverter.extract_title_from_file_name("about.md")
+        title = extract_title_from_file_name("about.md")
         self.assertEqual(title, "about")
 
     def test_non_md_extension_is_untouched(self):
-        title = ObsidianToJekyllConverter.extract_title_from_file_name("home.mdx")
+        title = extract_title_from_file_name("home.mdx")
         self.assertEqual(title, "home.mdx")
 
 
