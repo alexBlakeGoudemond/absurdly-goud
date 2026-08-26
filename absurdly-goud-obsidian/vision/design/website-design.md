@@ -1,6 +1,6 @@
 # How does this website work?
 
-This site uses [Jekyll](https://jekyllrb.com/) to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a `site` directory (browser-ready HTML)
+This site uses [Jekyll](https://jekyllrb.com/) to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a `site` directory (browser-ready HTML) Jekyll uses [kramdown](https://kramdown.gettalong.org/quickref.html) as its default Markdown Processor
 
 On-top of this - this website uses [Obsidian](https://obsidian.md/) to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.
 

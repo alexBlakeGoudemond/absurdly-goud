@@ -1,8 +1,7 @@
 # Goals
 - [ ] `---more---` showing after excerpt
 - [ ] explanation on what the website is for
-- [ ] vision section not working
-	- [ ] `[!note]` syntax to be supported in HTML
+- [ ] `[!note]` syntax to be supported in HTML
 - [ ] revise scripts and split into responsibilities
 - [ ] Posts have last_modified_at frontmatter
 - [ ] soundboard for easy use
@@ -30,6 +29,7 @@
 - [ ] blog:
 	- [ ] buttons
 	- [ ] why indie web?
+- [ ] Get GitHub Pages to use caching?
 
 # Achievements
 - [x] AI Usages:

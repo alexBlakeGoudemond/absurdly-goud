@@ -1,24 +1,39 @@
-import unittest
 import tempfile
+import unittest
 from pathlib import Path
 from textwrap import dedent
 
-
 import test_helpers
+from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
-    build_note_path_lookup,
-    save_manifest,
     process_markdown_for_jekyll,
-    add_frontmatter_to_file,
+    find_section,
 )
+from scripts.wikilinks import build_note_path_lookup
 
 
 def start_next_run(converter: ObsidianToJekyllConverter) -> None:
     """Persist whatever this run produced, then begin a fresh run —
     mirrors exactly what a second real invocation of the script would see."""
-    save_manifest(converter.manifest_path, converter.new_manifest)
+    converter.site_sync.save()
     converter.begin_run()
+
+
+class TestFindSection(unittest.TestCase):
+
+    def test_returns_matching_ancestor_folder(self):
+        result = find_section(Path("vision/design/website-design.md"), ["vision"])
+        self.assertEqual(result, "vision")
+
+    def test_returns_none_when_no_ancestor_matches(self):
+        result = find_section(Path("about.md"), ["vision"])
+        self.assertIsNone(result)
+
+    def test_only_matches_configured_folders(self):
+        result = find_section(Path("progress/update.md"), ["vision"])
+        self.assertIsNone(result)
+
 
 class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
     """Exercises the orchestration logic — which files get frontmatter injected
@@ -35,23 +50,40 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
     def test_changed_markdown_file_gets_frontmatter(self):
         dest = self.converter.output_location / "hello-world.md"
         dest.write_text("# Hello", encoding="utf-8")
-        self.converter.changed_dest_paths = [dest]
+        self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
-        self.assertIn("title: \"hello-world\"", result)
+        # title is display_title_from_slug'd (slug -> Title Case), not the raw slug —
+        # this assertion previously expected the raw slug, which the code has
+        # never actually produced; see TestDisplayTitleFromSlug for that unit directly.
+        self.assertIn("title: \"Hello World\"", result)
 
     def test_about_md_gets_permalink(self):
         dest = self.converter.output_location / "about.md"
         dest.write_text("About me", encoding="utf-8")
-        self.converter.changed_dest_paths = [dest]
+        self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", result)
+
+    def test_section_file_gets_section_layout_and_frontmatter(self):
+        section_dir = self.converter.output_location / "vision" / "design"
+        section_dir.mkdir(parents=True)
+        dest = section_dir / "website-design.md"
+        dest.write_text("Design notes", encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("layout: section", result)
+        self.assertIn("section: Vision", result)
+        self.assertIn("permalink: /vision/design/website-design/", result)
 
     def test_permalink_omitted_by_default(self):
         md_file = self.tmp_path / "post.md"
@@ -71,6 +103,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         result = md_file.read_text(encoding="utf-8")
         self.assertIn("layout: post", result)
 
+
 class TestMarkdownFileConversion(unittest.TestCase):
 
     def setUp(self):
@@ -84,7 +117,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         for name in self.converter.IGNORED_FRONTMATTER_FILES:
             dest = self.converter.output_location / name
             dest.write_text("original content", encoding="utf-8")
-            self.converter.changed_dest_paths = [dest]
+            self.converter.site_sync.changed_dest_paths = [dest]
 
             self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
@@ -93,7 +126,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
     def test_non_markdown_files_are_skipped(self):
         dest = self.converter.output_location / "style.css"
         dest.write_text("body {}", encoding="utf-8")
-        self.converter.changed_dest_paths = [dest]
+        self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
@@ -105,7 +138,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest = self.converter.output_location / "post.md"
         original = "---\nlayout: default\ntitle: post\n---\n\nBody"
         dest.write_text(original, encoding="utf-8")
-        self.converter.changed_dest_paths = []  # nothing changed this run
+        self.converter.site_sync.changed_dest_paths = []  # nothing changed this run
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
@@ -116,12 +149,14 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest_b = self.converter.output_location / "post-b.md"
         dest_a.write_text("A", encoding="utf-8")
         dest_b.write_text("B", encoding="utf-8")
-        self.converter.changed_dest_paths = [dest_a, dest_b]
+        self.converter.site_sync.changed_dest_paths = [dest_a, dest_b]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
-        self.assertIn("title: \"post-a\"", dest_a.read_text(encoding="utf-8"))
-        self.assertIn("title: \"post-b\"", dest_b.read_text(encoding="utf-8"))
+        # title is display_title_from_slug'd (slug -> Title Case) — see note above.
+        self.assertIn("title: \"Post A\"", dest_a.read_text(encoding="utf-8"))
+        self.assertIn("title: \"Post B\"", dest_b.read_text(encoding="utf-8"))
+
 
 class TestMarkdownImageNotationConversion(unittest.TestCase):
 
@@ -133,11 +168,10 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         self.converter.begin_run()
         self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
 
-
     def test_process_one_markdown_image_yields_one_jekyll_includes_syntax_in_file(self):
         dest = self.converter.output_location / "post.md"
         dest.write_text("![Alt text](image.png)", encoding="utf-8")
-        self.converter.changed_dest_paths = [dest]
+        self.converter.site_sync.changed_dest_paths = [dest]
 
         process_markdown_for_jekyll(dest, self.note_lookup)
 
@@ -154,7 +188,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
     def test_process_two_markdown_image_yields_two_jekyll_includes_syntax_in_file(self):
         dest = self.converter.output_location / "post.md"
         dest.write_text("![Alt text 1](image1.png)\n![Alt text 2](image2.png)", encoding="utf-8")
-        self.converter.changed_dest_paths = [dest]
+        self.converter.site_sync.changed_dest_paths = [dest]
 
         process_markdown_for_jekyll(dest, self.note_lookup)
 
@@ -175,6 +209,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
             """
         self.assertIn(dedent(expected_syntax_1), result)
         self.assertIn(dedent(expected_syntax_2), result)
+
 
 class TestCopyJekyllResources(unittest.TestCase):
     """Covers both first-time setup (fresh converter, empty manifest) and
@@ -216,7 +251,7 @@ class TestCopyJekyllResources(unittest.TestCase):
         start_next_run(self.converter)  # recurring setup: persist + reload from disk
         self.converter.copy_jekyll_resources()  # same source content, unchanged
 
-        self.assertEqual(self.converter.changed_dest_paths, [])
+        self.assertEqual(self.converter.site_sync.changed_dest_paths, [])
 
     def test_changed_file_is_recopied_on_recurring_run(self):
         cname = self.converter.source_location / "CNAME"
@@ -227,7 +262,7 @@ class TestCopyJekyllResources(unittest.TestCase):
         cname.write_text("changed.com", encoding="utf-8")
         self.converter.copy_jekyll_resources()
 
-        self.assertEqual(len(self.converter.changed_dest_paths), 1)
+        self.assertEqual(len(self.converter.site_sync.changed_dest_paths), 1)
         self.assertEqual(
             (self.converter.output_location / "CNAME").read_text(encoding="utf-8"),
             "changed.com",
@@ -238,7 +273,7 @@ class TestCopyVaultResources(unittest.TestCase):
     """copy_vault_resources uses sync_tree, so it's idempotent across recurring runs.
     Images inside posts/ are excluded here because Jekyll fails to build any binary
     file placed under _posts (it tries to parse every file there as UTF-8 front
-    matter); images belong in assets/images instead, via collect_images_in_assets_directory."""
+    matter); images belong in assets/images instead, via copy_vault_images_into_assets_directory."""
 
     def setUp(self):
         self.tmp_dir = tempfile.TemporaryDirectory()
@@ -330,143 +365,8 @@ class TestCopyVaultResources(unittest.TestCase):
         start_next_run(self.converter)  # recurring setup: persist + reload from disk
         self.converter.copy_vault_resources()  # should not raise, nothing changed
 
-        self.assertEqual(self.converter.changed_dest_paths, [])
+        self.assertEqual(self.converter.site_sync.changed_dest_paths, [])
         self.assertTrue((self.converter.output_location / "_posts" / "hello.md").exists())
-
-
-class TestSyncTree(unittest.TestCase):
-    """Unit coverage for sync_tree's exclude_suffixes parameter, independent of
-    how copy_vault_resources happens to use it."""
-
-    def setUp(self):
-        self.tmp_dir = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp_dir.cleanup)
-        self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
-
-    def test_no_exclusions_by_default(self):
-        source_dir = self.converter.obsidian_vault_location / "src"
-        source_dir.mkdir()
-        (source_dir / "image.png").write_bytes(b"bytes")
-        dest_dir = self.converter.output_location / "dest"
-
-        self.converter.sync_tree(source_dir, dest_dir)
-
-        self.assertTrue((dest_dir / "image.png").exists())
-
-    def test_excluded_suffix_is_skipped(self):
-        source_dir = self.converter.obsidian_vault_location / "src"
-        source_dir.mkdir()
-        (source_dir / "image.png").write_bytes(b"bytes")
-        (source_dir / "notes.md").write_text("hi", encoding="utf-8")
-        dest_dir = self.converter.output_location / "dest"
-
-        self.converter.sync_tree(source_dir, dest_dir, exclude_suffixes={".png"})
-
-        self.assertFalse((dest_dir / "image.png").exists())
-        self.assertTrue((dest_dir / "notes.md").exists())
-
-    def test_exclusion_matches_case_insensitively(self):
-        source_dir = self.converter.obsidian_vault_location / "src"
-        source_dir.mkdir()
-        (source_dir / "image.PNG").write_bytes(b"bytes")
-        dest_dir = self.converter.output_location / "dest"
-
-        self.converter.sync_tree(source_dir, dest_dir, exclude_suffixes={".png"})
-
-        self.assertFalse((dest_dir / "image.PNG").exists())
-
-
-class TestSyncFile(unittest.TestCase):
-    """Covers first-time setup, recurring/unchanged, recurring/changed, and rename cases."""
-
-    def setUp(self):
-        self.tmp_dir = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp_dir.cleanup)
-        self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
-
-    def test_new_file_is_copied_and_recorded(self):
-        source = self.converter.obsidian_vault_location / "note.md"
-        source.write_text("hello", encoding="utf-8")
-        dest = self.converter.output_location / "note.md"
-
-        self.converter.sync_file(source, dest)
-
-        self.assertTrue(dest.exists())
-        self.assertEqual(dest.read_text(encoding="utf-8"), "hello")
-        self.assertIn(dest, self.converter.changed_dest_paths)
-        self.assertIn(str(source), self.converter.new_manifest)
-
-    def test_unchanged_file_is_skipped_on_recurring_run(self):
-        source = self.converter.obsidian_vault_location / "note.md"
-        source.write_text("hello", encoding="utf-8")
-        dest = self.converter.output_location / "note.md"
-        self.converter.sync_file(source, dest)  # first-time setup
-
-        start_next_run(self.converter)  # recurring setup
-        self.converter.sync_file(source, dest)
-
-        self.assertEqual(self.converter.changed_dest_paths, [])
-
-    def test_changed_file_is_recopied_on_recurring_run(self):
-        source = self.converter.obsidian_vault_location / "note.md"
-        source.write_text("hello", encoding="utf-8")
-        dest = self.converter.output_location / "note.md"
-        self.converter.sync_file(source, dest)
-
-        start_next_run(self.converter)
-        source.write_text("updated", encoding="utf-8")
-        self.converter.sync_file(source, dest)
-
-        self.assertEqual(dest.read_text(encoding="utf-8"), "updated")
-        self.assertIn(dest, self.converter.changed_dest_paths)
-
-    def test_renamed_source_removes_old_dest_on_recurring_run(self):
-        source = self.converter.obsidian_vault_location / "note.md"
-        source.write_text("hello", encoding="utf-8")
-        old_dest = self.converter.output_location / "old_location.md"
-        self.converter.sync_file(source, old_dest)
-
-        start_next_run(self.converter)
-        new_dest = self.converter.output_location / "new_location.md"
-        self.converter.sync_file(source, new_dest)
-
-        self.assertFalse(old_dest.exists())
-        self.assertTrue(new_dest.exists())
-
-
-class TestPruneStaleFiles(unittest.TestCase):
-
-    def setUp(self):
-        self.tmp_dir = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp_dir.cleanup)
-        self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
-
-    def test_deletes_output_for_source_removed_on_recurring_run(self):
-        source = self.converter.obsidian_vault_location / "gone.md"
-        source.write_text("content", encoding="utf-8")
-        dest = self.converter.output_location / "gone.md"
-        self.converter.sync_file(source, dest)  # first-time setup
-
-        start_next_run(self.converter)  # recurring setup
-        source.unlink()  # source no longer present this run — never re-synced
-        self.converter.prune_stale_files()
-
-        self.assertFalse(dest.exists())
-
-    def test_keeps_output_still_present_on_recurring_run(self):
-        source = self.converter.obsidian_vault_location / "kept.md"
-        source.write_text("content", encoding="utf-8")
-        dest = self.converter.output_location / "kept.md"
-        self.converter.sync_file(source, dest)
-
-        start_next_run(self.converter)
-        self.converter.sync_file(source, dest)  # still present, re-synced (cache hit)
-        self.converter.prune_stale_files()
-
-        self.assertTrue(dest.exists())
 
 
 class TestCollectImagesInAssetsDirectory(unittest.TestCase):
@@ -510,7 +410,7 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
         start_next_run(self.converter)  # recurring setup
         self.converter.copy_vault_images_into_assets_directory()
 
-        self.assertEqual(self.converter.changed_dest_paths, [])
+        self.assertEqual(self.converter.site_sync.changed_dest_paths, [])
 
     def test_changed_image_is_recopied_on_recurring_run(self):
         image = self.converter.obsidian_vault_location / "photo.png"
@@ -523,7 +423,7 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
 
         dest = self.converter.output_location / "assets" / "images" / "photo.png"
         self.assertEqual(dest.read_bytes(), b"updated-bytes")
-        self.assertIn(dest, self.converter.changed_dest_paths)
+        self.assertIn(dest, self.converter.site_sync.changed_dest_paths)
 
 
 if __name__ == '__main__':

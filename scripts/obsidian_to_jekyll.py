@@ -1,73 +1,23 @@
 #!/usr/bin/env python3
+"""
+ENTRYPOINT. CLI argument handling + ObsidianToJekyllConverter: orchestrates
+syncing an Obsidian vault and Jekyll scaffold into a Jekyll-ready source tree.
+
+This module should only ever coordinate the pieces below — the actual
+conversion/sync logic lives in the imported modules, so each stays testable
+and understandable on its own.
+"""
 
 import argparse
 from pathlib import Path
-import shutil
-import re
-from textwrap import dedent
 
-from scripts.website_manifest import (
-    sha256,
-    create_manifest_entry,
-    load_manifest,
-    save_manifest,
-)
+from scripts.codeblock_escaping import escape_markdown_codeblocks_for_jekyll
+from scripts.jekyll_frontmatter import add_frontmatter_to_file
+from scripts.markdown_images import convert_images_outside_code
+from scripts.site_sync import SiteSync
+from scripts.wikilinks import build_note_path_lookup, convert_wikilinks_outside_code
 
 MANIFEST_FILENAME = ".manifest.json"
-
-MARKDOWN_FENCE_PATTERN = re.compile(r'^(\s*)(```|~~~)(\S*)\s*$')
-MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
-MARKDOWN_INLINE_CODE_PATTERN = re.compile(r'`[^`]*`')
-
-# Matches Obsidian wikilinks: [[NoteName#NoteSubSection|AltText]]
-# Both #NoteSubSection and |AltText are optional.
-WIKILINK_PATTERN = re.compile(
-    r"""
-    \[\[
-        (?P<note>[^\]#|]+)             # NoteName            (required)
-        (?: \# (?P<section>[^\]|]+) )? # #NoteSubSection     (optional)
-        (?: \| (?P<alt>[^\]]+) )?      # |AltText            (optional)
-    \]\]
-    """,
-    re.VERBOSE,
-)
-
-EXISTING_FRONTMATTER_PATTERN = re.compile(r'\A---\n.*?\n---\n', re.DOTALL)
-
-
-def build_note_path_lookup(root: Path) -> dict[str, str]:
-    """
-    Scans `root` (the OUTPUT tree, i.e. self.output_location, not the vault)
-    and builds a lookup of note name -> path relative to root, using forward
-    slashes so it can be dropped straight into a {% link %} tag.
-
-    Must run against the output tree because copy_vault_resources() renames
-    the vault's posts/ folder to _posts/ on the way out — resolving against
-    the vault would produce links pointing at a path that no longer exists.
-
-    Assumes note names are unique across the vault, mirroring how Obsidian
-    itself resolves [[wikilinks]] (by basename, regardless of folder).
-    """
-    lookup: dict[str, str] = {}
-
-    for md_file in root.rglob("*.md"):
-        note_name = md_file.stem
-        relative_path = md_file.relative_to(root).as_posix()
-
-        if note_name in lookup:
-            raise ValueError(
-                f"Duplicate note name '{note_name}' found at both "
-                f"'{lookup[note_name]}' and '{relative_path}'. "
-                "Wikilink resolution requires unique note names across the site."
-            )
-
-        lookup[note_name] = relative_path
-
-    return lookup
-
-
-def convert_markdown_syntax_to_jekyll_syntax(markdown_file: Path, note_path_lookup: dict[str, str]) -> None:
-    process_markdown_for_jekyll(markdown_file, note_path_lookup)
 
 
 def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str, str]) -> None:
@@ -76,239 +26,51 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
     content = markdown_file.read_text(encoding="utf-8")
     # Wikilinks first, while the raw ``` fences are still intact, so example
     # wikilinks inside code samples/inline code can be skipped rather than
-    # resolved as if they were real links.
+    # resolved as if they were real links. The same reasoning applies to images.
+    # Raw-tag wrapping runs last since it only adds lines around fences and
+    # doesn't need to see already-converted content.
     new_content = convert_wikilinks_outside_code(content, note_path_lookup)
+    new_content = convert_images_outside_code(new_content)
     new_content = escape_markdown_codeblocks_for_jekyll(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
 
 
-def convert_wikilinks_outside_code(content: str, note_path_lookup: dict[str, str]) -> str:
+def find_section(dest_path: Path, section_folders: list[str]) -> str | None:
     """
-    Applies convert_wikilinks_to_jekyll_layout only to text outside fenced '```'
-    code blocks and inline `code` spans, mirroring how images are already
-    kept out of code regions. Without this, a documentation example like
-    `` `[[...]]` `` or a ```markdown sample containing [[Note]] gets treated
-    as a real link and fails lookup.
+    Returns the entry in `section_folders` that `dest_path` lives under, if
+    any (searches all ancestors). For example, each of the files below will
+    be part of the section `vision`:
+    ```
+    |-- vision/
+        |-- design/
+            |-- website-design.md
+            |-- website-inspiration.md
+        |-- progress/
+            |-- website-progress.md
+        |-- whiteboard/
+            |-- website-whiteboard.excalidraw.md
+    ```
     """
-    lines = content.split('\n')
-    output_lines = []
-    in_fence = False
-    fence_marker = None
-
-    for line in lines:
-        fence_match = MARKDOWN_FENCE_PATTERN.match(line)
-        if fence_match:
-            marker = fence_match.group(2)
-            if not in_fence:
-                in_fence = True
-                fence_marker = marker
-            elif marker == fence_marker:
-                in_fence = False
-            output_lines.append(line)
-            continue
-
-        if in_fence:
-            output_lines.append(line)
-        else:
-            output_lines.append(convert_wikilinks_in_line_outside_inline_code(line, note_path_lookup))
-
-    return '\n'.join(output_lines)
-
-
-def convert_wikilinks_in_line_outside_inline_code(line: str, note_path_lookup: dict[str, str]) -> str:
-    """Converts wikilinks on a single line, skipping anything inside `inline code` spans."""
-    segments = []
-    last_end = 0
-    for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
-        segments.append(convert_wikilinks_to_jekyll_layout(line[last_end:code_match.start()], note_path_lookup))
-        segments.append(code_match.group(0))  # leave inline code untouched
-        last_end = code_match.end()
-    segments.append(convert_wikilinks_to_jekyll_layout(line[last_end:], note_path_lookup))
-    return ''.join(segments)
-
-
-def slugify(text: str) -> str:
-    """Mimics kramdown's auto-generated heading anchors: lowercase, spaces to hyphens."""
-    return text.strip().lower().replace(" ", "-")
-
-
-def convert_wikilinks_to_jekyll_layout(content: str, note_path_lookup: dict[str, str]) -> str:
-    """
-    Converts Obsidian-style wikilinks into a Jekyll {% link %} layout, resolving
-    each note name to its real path in the output tree via note_path_lookup
-    (see build_note_path_lookup).
-
-    [[Note]]                       -> [Note]({% link path/to/Note.md %})
-    [[Note#Sub Section]]           -> [Note]({% link path/to/Note.md %}#sub-section)
-    [[Note|Alt Text]]              -> [Alt Text]({% link path/to/Note.md %})
-    [[Note#Sub Section|Alt Text]]  -> [Alt Text]({% link path/to/Note.md %}#sub-section)
-    """
-
-    def replace(match: re.Match) -> str:
-        note, section, alt = match.groupdict().values()
-        note = note.strip()
-
-        try:
-            note_path = note_path_lookup[note]
-        except KeyError:
-            raise ValueError(
-                f"Wikilink references unknown note '{note}'. "
-                "Check the note exists in the vault/output tree and the lookup is current."
-            ) from None
-
-        link_text = alt.strip() if alt else note
-        anchor = f"#{slugify(section)}" if section else ""
-
-        return f"[{link_text}]({{% link {note_path} %}}{anchor})"
-
-    return WIKILINK_PATTERN.sub(replace, content)
-
-
-def escape_markdown_codeblocks_for_jekyll(content: str) -> str:
-    lines = content.split('\n')
-    output_lines = []
-    in_fence = False
-    fence_marker = None
-
-    for line in lines:
-        fence_match = MARKDOWN_FENCE_PATTERN.match(line)
-        if fence_match:
-            marker = fence_match.group(2)
-            if not in_fence:
-                in_fence = True
-                fence_marker = marker
-                output_lines.append('{% raw %}')
-                output_lines.append(line)
-            elif marker == fence_marker:
-                in_fence = False
-                output_lines.append(line)
-                output_lines.append('{% endraw %}')
-            else:
-                output_lines.append(line)
-            continue
-
-        if in_fence:
-            output_lines.append(line)
-        else:
-            output_lines.append(convert_images_outside_inline_code(line))
-
-    return '\n'.join(output_lines)
-
-
-def convert_images_outside_inline_code(line: str) -> str:
-    """Convert image syntax on a line, skipping anything inside `inline code` spans."""
-    segments = []
-    last_end = 0
-    for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
-        segments.append(replace_images_in_segment(line[last_end:code_match.start()]))
-        segments.append(code_match.group(0))  # leave inline code untouched
-        last_end = code_match.end()
-    segments.append(replace_images_in_segment(line[last_end:]))
-    return ''.join(segments)
-
-
-def replace_images_in_segment(segment: str) -> str:
-    def replace(match: re.Match) -> str:
-        image_alt_text = match.group(1)
-        image_name = match.group(2)
-        return convert_markdown_image_notation_to_jekyll_includes_image_notation(
-            image_name, image_alt_text
-        )
-
-    return MARKDOWN_IMAGE_PATTERN.sub(replace, segment)
-
-
-def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name: str, image_alt_text: str) -> str:
-    opening_brace = '{%'
-    closing_brace = '%}'
-    jekyll_image_layout_notation = f"""
-        {opening_brace} include image.html
-            src="{image_name}"
-            alt="{image_alt_text}"
-            title="{image_alt_text}"
-        {closing_brace}
-        """
-    return dedent(jekyll_image_layout_notation)
-
-
-def build_frontmatter(file_layout: str, title: str, permalink: str = "", section: str | None = None) -> str:
-    lines = ["---", f"layout: {file_layout}", f'title: "{title}"']
-    if section:
-        lines.append(f"section: {section}")
-    if permalink:
-        lines.append(f"permalink: {permalink}")
-    lines.append("---")
-    lines.append("")
-    lines.append("")
-    return "\n".join(lines)
-
-
-def build_permalink(markdown_file: Path, file_title: str, section: str | None) -> str:
-    if section is None:
-        return f"/{file_title.lower()}/"
-
-    subfolder = markdown_file.parent.name.lower()
-    slug = file_title.lower()
-
-    # If the cleaned filename matches its own folder (e.g. website-design.md
-    # in design/), treat it as that folder's index page rather than stuttering
-    # the URL (/vision/design/ instead of /vision/design/design/).
-    if slug == subfolder:
-        return f"/{section.lower()}/{subfolder}/"
-    return f"/{section.lower()}/{subfolder}/{slug}/"
-
-
-def strip_existing_frontmatter(content: str) -> str:
-    """Obsidian plugins (e.g. Excalidraw) often prepend their own YAML
-    frontmatter block. Jekyll tolerates only one frontmatter block per file,
-    so strip any pre-existing block before prepending ours — otherwise
-    kramdown hits a second '---' fence and the raw YAML leaks into the
-    rendered page body."""
-    return EXISTING_FRONTMATTER_PATTERN.sub('', content, count=1)
-
-
-def display_title_from_slug(file_title: str) -> str:
-    """Turns a hyphenated slug into a readable page title, e.g.
-    'website-inspiration' -> 'Inspiration', 'my-cool-note' -> 'My Cool Note'."""
-    return file_title.replace('-', ' ').title()
-
-
-def add_frontmatter_to_file(markdown_file: Path,
-                            file_layout='default',
-                            include_permalink=False,
-                            section: str | None = None) -> None:
-    file_title = extract_title_from_file_name(markdown_file.name)
-    file_content = strip_existing_frontmatter(markdown_file.read_text(encoding="utf-8"))
-
-    file_permalink = ""
-    if include_permalink:
-        file_permalink = build_permalink(markdown_file, file_title, section)
-
-    frontmatter = build_frontmatter(file_layout, display_title_from_slug(file_title), file_permalink, section)
-    markdown_file.write_text(frontmatter + file_content, encoding="utf-8")
-
-
-def extract_title_from_file_name(file_name: str) -> str:
-    """Only retain the important parts of the filename"""
-    filename_with_leading_timestamp = re.compile(r'^\d{4}-\d{2}-\d{2}-')
-    filename_ending_in_md = re.compile(r'\.md$')
-    filename_excalidraw_infix = re.compile(r'\.excalidraw$')
-    # filename_website_prefix = re.compile(r'^website-')
-
-    file_title = filename_with_leading_timestamp.sub('', file_name)
-    file_title = filename_ending_in_md.sub('', file_title)
-    file_title = filename_excalidraw_infix.sub('', file_title)
-    # file_title = filename_website_prefix.sub('', file_title)
-    return file_title
+    for part in dest_path.parts:
+        if part in section_folders:
+            return part
+    return None
 
 
 class ObsidianToJekyllConverter:
-    """Syncs an Obsidian vault + Jekyll scaffold into a Jekyll-ready source tree,
-    using a content-hash manifest to skip unchanged files on repeat runs."""
+    """Syncs an Obsidian vault and Jekyll scaffold into a Jekyll-ready source tree,
+    using a content-hash manifest (via SiteSync) to skip unchanged files on repeat runs."""
 
     IGNORED_VAULT_ITEMS = ['.obsidian', 'website-whiteboard.excalidraw']
-    INCLUDED_JEKYLL_ITEMS = ['assets', 'CNAME', 'posts', '_includes', '_layouts', '_config.yaml', 'index.md', '_data',
+    INCLUDED_JEKYLL_ITEMS = ['CNAME',
+                             '_config.yaml',
+                             'index.md',
+                             'assets',
+                             'posts',
+                             '_includes',
+                             '_layouts',
+                             '_data',
                              'vision']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
     SECTION_FOLDERS = ['vision']
@@ -317,19 +79,13 @@ class ObsidianToJekyllConverter:
         self.obsidian_vault_location = obsidian_vault_location
         self.output_location = output_location
         self.source_location = source_location
-        self.manifest_path = output_location / MANIFEST_FILENAME
-
-        self.old_manifest: dict = {}
-        self.new_manifest: dict = {}
-        self.changed_dest_paths: list[Path] = []
+        self.site_sync = SiteSync(output_location / MANIFEST_FILENAME)
 
     def begin_run(self) -> None:
-        """Load the on-disk manifest and reset per-run tracking state.
-        Called at the start of run(), and reusable directly in tests
-        to simulate a second, separate invocation of the converter."""
-        self.old_manifest = load_manifest(self.manifest_path)
-        self.new_manifest = {}
-        self.changed_dest_paths = []
+        """Reset per-run sync tracking state (loads the on-disk manifest).
+        Called at the start of run(), and reusable directly in tests to
+        simulate a second, separate invocation of the converter."""
+        self.site_sync.begin_run()
 
     def run(self) -> None:
         if not self.obsidian_vault_location.exists():
@@ -350,62 +106,17 @@ class ObsidianToJekyllConverter:
         note_path_lookup = build_note_path_lookup(self.output_location)
 
         self.parse_markdown_files_for_jekyll(note_path_lookup)
-        self.prune_stale_files()
-        save_manifest(self.manifest_path, self.new_manifest)
-
-    def sync_file(self, source_path: Path, dest_path: Path) -> None:
-        """Copy source_path to dest_path only if content changed since last run.
-        Manifest is keyed by SOURCE path so renames (same source, new dest) are detectable."""
-        source_key = str(source_path)
-        current_hash = sha256(source_path)
-        old_entry = self.old_manifest.get(source_key)
-
-        # has a rename/move occurred?
-        if old_entry and old_entry["dest"] != str(dest_path):
-            stale_path = Path(old_entry["dest"])
-            if stale_path.exists():
-                print(f"Removing stale (renamed) file: '{stale_path}'")
-                stale_path.unlink()
-            old_entry = None
-
-        # are the contents unchanged?
-        if old_entry and old_entry["sha256"] == current_hash and dest_path.exists():
-            self.new_manifest[source_key] = old_entry
-            return
-
-        dest_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source_path, dest_path)
-        print(f"Synced (changed): '{source_path}' -> '{dest_path}'")
-        self.new_manifest[source_key] = create_manifest_entry(source_path, dest_path)
-        self.changed_dest_paths.append(dest_path)
-
-    def sync_tree(self, source_dir: Path, dest_dir: Path, exclude_suffixes: set[str] = frozenset()) -> None:
-        """Walk source_dir recursively, syncing each file individually."""
-        for source_path in source_dir.rglob("*"):
-            if source_path.is_dir():
-                continue
-            if source_path.suffix.lower() in exclude_suffixes:
-                continue
-            relative = source_path.relative_to(source_dir)
-            self.sync_file(source_path, dest_dir / relative)
-
-    def prune_stale_files(self) -> None:
-        """Delete any output file whose source no longer exists in the new manifest."""
-        stale_keys = self.old_manifest.keys() - self.new_manifest.keys()
-        for source_key in stale_keys:
-            stale_path = Path(self.old_manifest[source_key]["dest"])
-            if stale_path.exists():
-                print(f"Removing stale file: '{stale_path}'")
-                stale_path.unlink()
+        self.site_sync.prune_stale_files()
+        self.site_sync.save()
 
     def copy_vault_images_into_assets_directory(self) -> None:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
         for image_file in self.obsidian_vault_location.rglob('*.png'):
-            self.sync_file(image_file, output_image_path / image_file.name)
+            self.site_sync.sync_file(image_file, output_image_path / image_file.name)
 
     def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
-        for dest_path in self.changed_dest_paths:
+        for dest_path in self.site_sync.changed_dest_paths:
             if dest_path.suffix != '.md':
                 continue
 
@@ -414,8 +125,8 @@ class ObsidianToJekyllConverter:
             elif dest_path.name in ['about.md']:
                 add_frontmatter_to_file(dest_path,
                                         include_permalink=True)
-            elif self.is_part_of_a_section(dest_path):
-                section_root = self.is_part_of_a_section(dest_path)
+            elif find_section(dest_path, self.SECTION_FOLDERS):
+                section_root = find_section(dest_path, self.SECTION_FOLDERS)
                 add_frontmatter_to_file(dest_path,
                                         file_layout='section',
                                         section=section_root.capitalize(),
@@ -423,27 +134,7 @@ class ObsidianToJekyllConverter:
             else:
                 add_frontmatter_to_file(dest_path)
 
-            convert_markdown_syntax_to_jekyll_syntax(dest_path, note_path_lookup)
-
-    def is_part_of_a_section(self, dest_path: Path) -> str | None:
-        """
-        Returns the SECTION_FOLDERS entry this file lives under, if any (searches all ancestors).
-        For example, each of the files below will be part of the section `vision`
-        ```
-        |-- vision/
-            |-- design/
-                |-- website-design.md
-                |-- website-inspiration.md
-            |-- progress/
-                |-- website-progress.md
-            |-- whiteboard/
-                |-- website-whiteboard.excalidraw.md
-        ```
-        """
-        for part in dest_path.parts:
-            if part in self.SECTION_FOLDERS:
-                return part
-        return None
+            process_markdown_for_jekyll(dest_path, note_path_lookup)
 
     def copy_jekyll_resources(self) -> None:
         for source_item in self.source_location.iterdir():
@@ -451,9 +142,9 @@ class ObsidianToJekyllConverter:
                 continue
             dest_path = self.output_location / source_item.name
             if source_item.is_dir():
-                self.sync_tree(source_item, dest_path)
+                self.site_sync.sync_tree(source_item, dest_path)
             else:
-                self.sync_file(source_item, dest_path)
+                self.site_sync.sync_file(source_item, dest_path)
 
     def copy_vault_resources(self) -> None:
         for vault_item in self.obsidian_vault_location.iterdir():
@@ -461,9 +152,9 @@ class ObsidianToJekyllConverter:
                 continue
             if vault_item.name == 'posts':
                 image_suffixes = {'.png', '.jpg', '.jpeg', '.gif'}
-                self.sync_tree(vault_item, self.output_location / '_posts', exclude_suffixes=image_suffixes)
+                self.site_sync.sync_tree(vault_item, self.output_location / '_posts', exclude_suffixes=image_suffixes)
             else:
-                self.sync_tree(vault_item, self.output_location / vault_item.name)
+                self.site_sync.sync_tree(vault_item, self.output_location / vault_item.name)
 
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:

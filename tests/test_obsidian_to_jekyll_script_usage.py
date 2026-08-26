@@ -1,5 +1,5 @@
-import unittest
 import argparse
+import unittest
 from pathlib import Path
 
 from scripts import obsidian_to_jekyll
