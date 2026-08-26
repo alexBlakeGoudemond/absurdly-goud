@@ -100,5 +100,3 @@ GitHub-hosted runners are provided by GitHub and consume **GitHub Actions minute
 I want to be able to easily produce content, and have the infrastructure just work around me. To achieve this - I created an obsidian vault which contains the notes themselves. Jekyll doesn't understand this structure, so I use scripts to convert the content into a structure Jekyll does understand before it runs.
 
 This script runs when I test locally via docker as well as in GitHub Actions for the publication to the site. It produces a directory `site_src`. Jekyll is then told to use that generated directory to prepare the `site` directory as per normal
-
-I 

@@ -1,6 +1,9 @@
 # Goals
 - [ ] `---more---` showing after excerpt
-- [ ] vision not working
+- [ ] explanation on what the website is for
+- [ ] vision section not working
+	- [ ] `[!note]` syntax to be supported in HTML
+- [ ] revise scripts and split into responsibilities
 - [ ] Posts have last_modified_at frontmatter
 - [ ] soundboard for easy use
 - [ ] Light mode and Dark mode?
@@ -24,6 +27,9 @@
 - [ ] figure out 88x31 buttons
 	- [ ] https://petrapixel.neocities.org/indiewebdb/ eg button for svg?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
+- [ ] blog:
+	- [ ] buttons
+	- [ ] why indie web?
 
 # Achievements
 - [x] AI Usages:
