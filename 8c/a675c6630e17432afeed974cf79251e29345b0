@@ -1,0 +1,65 @@
+tests/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 2,7,11,13,19,22-36,53,59-62,67,74-87,106,120,129,141,152,156-158,174,191,213,254,265,276,368,413,426
+  h_1197a506f6c7d6 37,159
+scripts/markdown_regions.py
+  h_1197a506f6c7d6 1-92
+tests/test_site_sync.py
+  h_1197a506f6c7d6 1-167
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 2-9,14-18,29-31,33,39,41-43,55-58,62-63,66-69,72,82,85-88,109-110,116,119,128-129,137,145,147,155,157
+  h_1197a506f6c7d6 44-53,70-71,73
+scripts/website_manifest.py
+  h_1197a506f6c7d6 4
+tests/test_obsidian_to_jekyll_script_usage.py
+  h_1197a506f6c7d6 2
+scripts/wikilinks.py
+  h_1197a506f6c7d6 1-105
+tests/test_jekyll_frontmatter.py
+  h_1197a506f6c7d6 1-125
+tests/test_wikilinks.py
+  h_1197a506f6c7d6 1-158
+tests/test_obsidian_to_jekyll_run.py
+  h_1197a506f6c7d6 1-75
+tests/test_website_manifest.py
+  h_1197a506f6c7d6 2,55-62
+  h_1197a506f6c7d6 63
+absurdly-goud-obsidian/vision/design/website-design.md
+  s_a09a2067912f0f::t_0783566b06e7c4 3
+absurdly-goud-obsidian/vision/progress/website-progress.md
+  s_a09a2067912f0f::t_39ab4802c7e92c 4,32
+scripts/codeblock_escaping.py
+  h_1197a506f6c7d6 1-24
+scripts/jekyll_frontmatter.py
+  h_1197a506f6c7d6 1-81
+scripts/markdown_images.py
+  h_1197a506f6c7d6 1-48
+scripts/site_sync.py
+  h_1197a506f6c7d6 1-82
+tests/test_codeblock_escaping.py
+  h_1197a506f6c7d6 1-99
+tests/test_markdown_images.py
+  h_1197a506f6c7d6 1-96
+tests/test_markdown_regions.py
+  h_1197a506f6c7d6 1-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "8ca675c6630e17432afeed974cf79251e29345b0",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a09a2067912f0f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9acbfc97-e8b1-48f3-a671-70537e2f806f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
