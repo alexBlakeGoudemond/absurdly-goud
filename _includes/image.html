@@ -1,23 +1,22 @@
-{% assign image_path = "/assets/images/" | append: include.src %}
-{% assign image_exists = false %}
-
-{% for file in site.static_files %}
-    {% if file.path == image_path %}
-        {% assign image_exists = true %}
-    {% endif %}
-{% endfor %}
-{% if image_exists %}
-    <figure>
-        <img
-                class="u-photo"
-                src="{{ image_path | relative_url }}"
-                alt="{{ include.alt }}"
-        >
-
-        {% if include.title %}
-            <figcaption>{{ include.title }}</figcaption>
-        {% endif %}
-    </figure>
-{% else %}
-    <p>File `{{ include.src }}` not found</p>
-{% endif %}
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+{%- assign image_path = "/assets/images/" | append: include.src -%}
+{%- assign image_exists = false -%}
+{%- for file in site.static_files -%}
+{%- if file.path == image_path -%}
+{%- assign image_exists = true -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if image_exists %}
+<figure>
+    <img class="u-photo" src="{{ image_path | relative_url }}" alt="{{ include.alt }}">
+    {%- if include.title %}
+    <figcaption>{{ include.title }}</figcaption>
+    {%- endif %}
+</figure>
+{%- else %}
+<p>File `{{ include.src }}` not found</p>
+{%- endif %}
