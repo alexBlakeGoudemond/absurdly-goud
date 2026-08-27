@@ -1,0 +1,26 @@
+scripts/site_sync.py
+  h_1197a506f6c7d6 12,69-78,84-86
+  h_1197a506f6c7d6 66-68
+scripts/filenames.py
+  h_1197a506f6c7d6 1-22
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 16-20,165-167,170-171
+  h_1197a506f6c7d6 168-169
+tests/test_filenames.py
+  h_1197a506f6c7d6 1-30
+tests/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 2,13,355-380
+tests/test_site_sync.py
+  h_1197a506f6c7d6 2,132-164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "356bb27f6f04c1e82adb9768367e424747c9cf6a",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
