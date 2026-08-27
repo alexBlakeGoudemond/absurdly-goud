@@ -1,0 +1,26 @@
+tests/test_excalidraw_embeds.py
+  h_1197a506f6c7d6 1-65
+scripts/excalidraw_embeds.py
+  h_1197a506f6c7d6 1-41
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 15,78,117-119,126-131,163
+_includes/image.html
+  h_1197a506f6c7d6 1-2,4-6,8-9,13,16,20-23
+  h_1197a506f6c7d6 10-12,14-15,17-19
+tests/test_obsidian_to_jekyll_run.py
+  h_1197a506f6c7d6 65-108
+tests/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 107-167,398-408,462-473,475
+  h_1197a506f6c7d6 409,474
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.24",
+  "base_commit_sha": "4dfa5e942032236c0948c9bc6d091a5646ed5757",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
