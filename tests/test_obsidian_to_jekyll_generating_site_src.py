@@ -271,6 +271,37 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         self.assertIn(dedent(expected_syntax_1), result)
         self.assertIn(dedent(expected_syntax_2), result)
 
+    def test_wikilink_style_image_embed_does_not_crash_and_becomes_a_real_image(self):
+        # Regression test: ![[theImage.png]] used to be caught by the plain
+        # [[...]] wikilink pattern and crash with "unknown note" — an image
+        # filename was never a valid note to look up in the first place.
+        dest = self.converter.output_location / "post.md"
+        dest.write_text(
+            "Curious to see if Wikilink images work: `![[theImage.png]]",  # deliberately unclosed backtick
+            encoding="utf-8",
+        )
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        process_markdown_for_jekyll(dest, self.note_lookup)  # must not raise
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("{% include image.html", result)
+        self.assertIn('src="theImage.png"', result)
+
+    def test_wikilink_style_image_embed_inside_real_inline_code_is_left_as_text(self):
+        dest = self.converter.output_location / "post.md"
+        dest.write_text(
+            "Example syntax: `![[theImage.png]]`",  # properly closed this time
+            encoding="utf-8",
+        )
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        process_markdown_for_jekyll(dest, self.note_lookup)  # must not raise
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("`![[theImage.png]]`", result)
+        self.assertNotIn("{% include image.html", result)
+
 
 class TestCopyJekyllResources(unittest.TestCase):
     """Covers both first-time setup (fresh converter, empty manifest) and
