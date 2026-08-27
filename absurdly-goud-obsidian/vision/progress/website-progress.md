@@ -1,5 +1,9 @@
 # Goals
 - [ ] `---more---` showing after excerpt
+- [ ] Confirm images work with wikilinks
+- [ ] Control image dimensions:
+	- [ ] `![[image.png|300x200]]`
+	- [ ] `![AltText|300x200](image.png)`
 - [ ] explanation on what the website is for
 - [ ] `[!note]` syntax to be supported in HTML
 - [ ] Posts have last_modified_at frontmatter

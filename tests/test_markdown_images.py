@@ -4,6 +4,7 @@ from textwrap import dedent
 from scripts.markdown_images import (
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
     convert_images_outside_code,
+    convert_wikilink_image_embeds_outside_code,
 )
 
 
@@ -90,6 +91,64 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
         result = convert_images_outside_code(content)
 
         self.assertIn("{% include image.html", result)
+
+
+class TestConvertWikilinkImageEmbedsOutsideCode(unittest.TestCase):
+    """Covers Obsidian's own ![[image.png]] embed syntax — distinct from
+    standard ![alt](src) markdown and from [[NoteName]] wikilinks."""
+
+    def test_wikilink_image_embed_is_converted_to_markdown_image_syntax(self):
+        content = "![[theImage.png]]"
+
+        result = convert_wikilink_image_embeds_outside_code(content)
+
+        self.assertEqual(result, "![theImage.png](theImage.png)")
+
+    def test_size_hint_is_dropped(self):
+        content = "![[theImage.png|300]]"
+
+        result = convert_wikilink_image_embeds_outside_code(content)
+
+        self.assertEqual(result, "![theImage.png](theImage.png)")
+
+    def test_non_image_embed_is_left_untouched(self):
+        # ![[SomeNote]] (no image extension) is Obsidian note transclusion,
+        # a different feature this function deliberately doesn't touch.
+        content = "![[SomeNote]]"
+
+        result = convert_wikilink_image_embeds_outside_code(content)
+
+        self.assertEqual(result, "![[SomeNote]]")
+
+    def test_embed_inside_properly_closed_inline_code_is_left_untouched(self):
+        content = "Curious to see if Wikilink images work: `![[theImage.png]]`"
+
+        result = convert_wikilink_image_embeds_outside_code(content)
+
+        self.assertIn("`![[theImage.png]]`", result)
+        self.assertNotIn("![theImage.png](theImage.png)", result)
+
+    def test_embed_inside_fenced_block_is_left_untouched(self):
+        content = dedent("""
+        ```
+        ![[theImage.png]]
+        ```
+        """)
+
+        result = convert_wikilink_image_embeds_outside_code(content)
+
+        self.assertIn("![[theImage.png]]", result)
+        self.assertNotIn("![theImage.png](theImage.png)", result)
+
+    def test_unclosed_backtick_is_not_treated_as_code_and_is_converted(self):
+        # A single unmatched backtick isn't a real inline code span by
+        # Markdown's own rules, so this is genuine prose and should convert —
+        # this is exactly the case that used to crash with a ValueError.
+        content = "Curious to see if Wikilink images work: `![[theImage.png]]"
+
+        result = convert_wikilink_image_embeds_outside_code(content)
+
+        self.assertIn("![theImage.png](theImage.png)", result)
 
 
 if __name__ == '__main__':
