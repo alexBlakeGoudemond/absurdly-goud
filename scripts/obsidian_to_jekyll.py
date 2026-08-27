@@ -11,12 +11,13 @@ and understandable on its own.
 import argparse
 from pathlib import Path
 
-from scripts.codeblock_escaping import escape_markdown_codeblocks_for_jekyll
-from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
-from scripts.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.markdown_images import convert_images_outside_code
 from scripts.site_sync import SiteSync
 from scripts.wikilinks import build_note_path_lookup, convert_wikilinks_outside_code
+from scripts.markdown_images import convert_images_outside_code
+from scripts.codeblock_escaping import escape_markdown_codeblocks_for_jekyll
+from scripts.jekyll_frontmatter import add_frontmatter_to_file
+from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
+from scripts.filenames import slugify_filename
 
 MANIFEST_FILENAME = ".manifest.json"
 
@@ -161,7 +162,13 @@ class ObsidianToJekyllConverter:
                 continue
             if vault_item.name == 'posts':
                 image_suffixes = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
-                self.site_sync.sync_tree(vault_item, self.output_location / '_posts', exclude_suffixes=image_suffixes)
+                # Jekyll requires _posts filenames to be YYYY-MM-DD-title.md
+                # (lowercase, hyphens only) — Obsidian note titles are free-form,
+                # so slugify on the way out.
+                self.site_sync.sync_tree(vault_item,
+                                         self.output_location / '_posts',
+                                        exclude_suffixes=image_suffixes,
+                                        dest_filename=slugify_filename)
             else:
                 self.site_sync.sync_tree(vault_item, self.output_location / vault_item.name)
 

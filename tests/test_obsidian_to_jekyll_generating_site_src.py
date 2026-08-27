@@ -1,16 +1,16 @@
-import tempfile
 import unittest
+import tempfile
 from pathlib import Path
 from textwrap import dedent
 
 import test_helpers
-from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     process_markdown_for_jekyll,
     find_section,
 )
 from scripts.wikilinks import build_note_path_lookup
+from scripts.jekyll_frontmatter import add_frontmatter_to_file
 
 
 def start_next_run(converter: ObsidianToJekyllConverter) -> None:
@@ -351,6 +351,32 @@ class TestCopyVaultResources(unittest.TestCase):
 
         self.assertTrue((self.converter.output_location / "_posts" / "hello.md").exists())
         self.assertFalse((self.converter.output_location / "posts").exists())
+
+    def test_post_filename_with_spaces_and_mixed_case_is_slugified(self):
+        posts_dir = self.converter.obsidian_vault_location / "posts"
+        posts_dir.mkdir()
+        (posts_dir / "2026-08-27 Vision Whiteboard Showing.md").write_text("content", encoding="utf-8")
+
+        self.converter.copy_vault_resources()
+
+        self.assertTrue(
+            (self.converter.output_location / "_posts" / "2026-08-27-vision-whiteboard-showing.md").exists()
+        )
+        self.assertFalse(
+            (self.converter.output_location / "_posts" / "2026-08-27 Vision Whiteboard Showing.md").exists()
+        )
+
+    def test_non_post_directories_are_not_slugified(self):
+        # slugification is scoped to _posts only — an "about" note keeps its
+        # original filename, since other notes aren't subject to Jekyll's
+        # _posts naming rule and existing wikilinks may depend on the name.
+        about_dir = self.converter.obsidian_vault_location / "about"
+        about_dir.mkdir()
+        (about_dir / "My About Page.md").write_text("about me", encoding="utf-8")
+
+        self.converter.copy_vault_resources()
+
+        self.assertTrue((self.converter.output_location / "about" / "My About Page.md").exists())
 
     def test_obsidian_config_directory_is_ignored(self):
         obsidian_dir = self.converter.obsidian_vault_location / ".obsidian"
