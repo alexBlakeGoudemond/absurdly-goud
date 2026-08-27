@@ -1,10 +1,9 @@
 # Goals
 - [ ] `---more---` showing after excerpt
+- [ ] whiteboard show as svg
 - [ ] explanation on what the website is for
 - [ ] `[!note]` syntax to be supported in HTML
-- [ ] revise scripts and split into responsibilities
 - [ ] Posts have last_modified_at frontmatter
-- [ ] soundboard for easy use
 - [ ] Light mode and Dark mode?
 - [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
@@ -32,6 +31,7 @@
 - [ ] Get GitHub Pages to use caching?
 
 # Achievements
+- [x] revise scripts and split into responsibilities (2026-08-26)
 - [x] AI Usages:
 	- [x] correctly link disclaimer-ai-assisted to section in HOME (2026-08-25)
 	- [x] ai-usage not being linked to with button (2026-08-25)
