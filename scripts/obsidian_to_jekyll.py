@@ -12,6 +12,7 @@ import argparse
 from pathlib import Path
 
 from scripts.codeblock_escaping import escape_markdown_codeblocks_for_jekyll
+from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.markdown_images import convert_images_outside_code
 from scripts.site_sync import SiteSync
@@ -74,6 +75,7 @@ class ObsidianToJekyllConverter:
                              'vision']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
     SECTION_FOLDERS = ['vision']
+    IMAGE_ASSET_GLOBS = ('*.png', '*.svg')
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
@@ -112,13 +114,20 @@ class ObsidianToJekyllConverter:
     def copy_vault_images_into_assets_directory(self) -> None:
         output_image_path = self.output_location / 'assets/images/'
         output_image_path.mkdir(parents=True, exist_ok=True)
-        for image_file in self.obsidian_vault_location.rglob('*.png'):
-            self.site_sync.sync_file(image_file, output_image_path / image_file.name)
+        for glob_pattern in self.IMAGE_ASSET_GLOBS:
+            for image_file in self.obsidian_vault_location.rglob(glob_pattern):
+                self.site_sync.sync_file(image_file, output_image_path / image_file.name)
 
     def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
         for dest_path in self.site_sync.changed_dest_paths:
             if dest_path.suffix != '.md':
                 continue
+
+            if is_excalidraw_note(dest_path):
+                # Must happen before frontmatter injection below — this
+                # overwrites the whole file, so frontmatter would be lost
+                # if it were added first.
+                swap_excalidraw_note_with_image_embed(dest_path)
 
             if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
                 print(f"Skipping adding of frontmatter to '{dest_path.name}'")
@@ -151,7 +160,7 @@ class ObsidianToJekyllConverter:
             if vault_item.name in self.IGNORED_VAULT_ITEMS:
                 continue
             if vault_item.name == 'posts':
-                image_suffixes = {'.png', '.jpg', '.jpeg', '.gif'}
+                image_suffixes = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
                 self.site_sync.sync_tree(vault_item, self.output_location / '_posts', exclude_suffixes=image_suffixes)
             else:
                 self.site_sync.sync_tree(vault_item, self.output_location / vault_item.name)

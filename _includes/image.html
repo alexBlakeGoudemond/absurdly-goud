@@ -1,11 +1,23 @@
-<figure>
-    <img
-            class="u-photo"
-            src="/assets/images/{{ include.src }}"
-            alt="{{ include.alt }}"
-    >
+{% assign image_path = "/assets/images/" | append: include.src %}
+{% assign image_exists = false %}
 
-    {% if include.title %}
-    <figcaption>{{ include.title }}</figcaption>
+{% for file in site.static_files %}
+    {% if file.path == image_path %}
+        {% assign image_exists = true %}
     {% endif %}
-</figure>
+{% endfor %}
+{% if image_exists %}
+    <figure>
+        <img
+                class="u-photo"
+                src="{{ image_path | relative_url }}"
+                alt="{{ include.alt }}"
+        >
+
+        {% if include.title %}
+            <figcaption>{{ include.title }}</figcaption>
+        {% endif %}
+    </figure>
+{% else %}
+    <p>File `{{ include.src }}` not found</p>
+{% endif %}
