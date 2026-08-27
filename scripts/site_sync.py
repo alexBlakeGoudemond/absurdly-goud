@@ -9,6 +9,7 @@ in sync with source, cheaply, across repeat runs."
 
 import shutil
 from pathlib import Path
+from typing import Callable
 
 from scripts.website_manifest import sha256, create_manifest_entry, load_manifest, save_manifest
 
@@ -62,15 +63,27 @@ class SiteSync:
         self.new_manifest[source_key] = create_manifest_entry(source_path, dest_path)
         self.changed_dest_paths.append(dest_path)
 
-    def sync_tree(self, source_dir: Path, dest_dir: Path, exclude_suffixes: set[str] = frozenset()) -> None:
-        """Walk source_dir recursively, syncing each file individually."""
+    def sync_tree(self,
+                  source_dir: Path,
+                  dest_dir: Path,
+                  exclude_suffixes: set[str] = frozenset(),
+                  dest_filename: Callable[[str], str] = lambda name: name) -> None:
+        """Walk source_dir recursively, syncing each file individually.
+
+        `dest_filename` optionally transforms each file's basename (not its
+        full path) before it's joined onto dest_dir — e.g. slugifying a
+        free-form title into a URL/Jekyll-safe filename — while the
+        directory structure underneath dest_dir is preserved as-is. Left
+        untouched by default. SiteSync doesn't care what the transform does;
+        that's the caller's business."""
         for source_path in source_dir.rglob("*"):
             if source_path.is_dir():
                 continue
             if source_path.suffix.lower() in exclude_suffixes:
                 continue
-            relative = source_path.relative_to(source_dir)
-            self.sync_file(source_path, dest_dir / relative)
+            relative_dir = source_path.relative_to(source_dir).parent
+            dest_path = dest_dir / relative_dir / dest_filename(source_path.name)
+            self.sync_file(source_path, dest_path)
 
     def prune_stale_files(self) -> None:
         """Delete any output file whose source no longer exists in the new manifest."""

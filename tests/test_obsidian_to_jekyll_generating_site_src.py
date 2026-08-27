@@ -1,16 +1,16 @@
-import tempfile
 import unittest
+import tempfile
 from pathlib import Path
 from textwrap import dedent
 
 import test_helpers
-from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     process_markdown_for_jekyll,
     find_section,
 )
 from scripts.wikilinks import build_note_path_lookup
+from scripts.jekyll_frontmatter import add_frontmatter_to_file
 
 
 def start_next_run(converter: ObsidianToJekyllConverter) -> None:
@@ -102,6 +102,67 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
 
         result = md_file.read_text(encoding="utf-8")
         self.assertIn("layout: post", result)
+
+
+class TestExcalidrawNoteSwap(unittest.TestCase):
+    """Covers the orchestration around excalidraw_embeds: swap must happen,
+    and must happen BEFORE frontmatter injection so frontmatter survives."""
+
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
+        self.converter.begin_run()
+        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+
+    def test_excalidraw_note_body_is_swapped_for_image_embed(self):
+        dest = self.converter.output_location / "vision-diagram.excalidraw.md"
+        dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertNotIn('"type":"excalidraw"', result)
+        # swapped content flows through the normal image pipeline, so by the
+        # time processing finishes it's a Jekyll image include, not raw markdown
+        self.assertIn("{% include image.html", result)
+        self.assertIn('src="vision-diagram.excalidraw.svg"', result)
+
+    def test_excalidraw_note_still_gets_frontmatter(self):
+        dest = self.converter.output_location / "vision-diagram.excalidraw.md"
+        dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("layout: default", result)
+
+    def test_excalidraw_note_inside_section_still_gets_section_frontmatter(self):
+        section_dir = self.converter.output_location / "vision" / "whiteboard"
+        section_dir.mkdir(parents=True)
+        dest = section_dir / "website-whiteboard.excalidraw.md"
+        dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("layout: section", result)
+        self.assertIn("section: Vision", result)
+        self.assertIn('src="website-whiteboard.excalidraw.svg"', result)
+
+    def test_non_excalidraw_markdown_file_is_unaffected(self):
+        dest = self.converter.output_location / "about.md"
+        dest.write_text("About me", encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("About me", result)
+        self.assertNotIn("{% include image.html", result)
 
 
 class TestMarkdownFileConversion(unittest.TestCase):
@@ -291,6 +352,32 @@ class TestCopyVaultResources(unittest.TestCase):
         self.assertTrue((self.converter.output_location / "_posts" / "hello.md").exists())
         self.assertFalse((self.converter.output_location / "posts").exists())
 
+    def test_post_filename_with_spaces_and_mixed_case_is_slugified(self):
+        posts_dir = self.converter.obsidian_vault_location / "posts"
+        posts_dir.mkdir()
+        (posts_dir / "2026-08-27 Vision Whiteboard Showing.md").write_text("content", encoding="utf-8")
+
+        self.converter.copy_vault_resources()
+
+        self.assertTrue(
+            (self.converter.output_location / "_posts" / "2026-08-27-vision-whiteboard-showing.md").exists()
+        )
+        self.assertFalse(
+            (self.converter.output_location / "_posts" / "2026-08-27 Vision Whiteboard Showing.md").exists()
+        )
+
+    def test_non_post_directories_are_not_slugified(self):
+        # slugification is scoped to _posts only — an "about" note keeps its
+        # original filename, since other notes aren't subject to Jekyll's
+        # _posts naming rule and existing wikilinks may depend on the name.
+        about_dir = self.converter.obsidian_vault_location / "about"
+        about_dir.mkdir()
+        (about_dir / "My About Page.md").write_text("about me", encoding="utf-8")
+
+        self.converter.copy_vault_resources()
+
+        self.assertTrue((self.converter.output_location / "about" / "My About Page.md").exists())
+
     def test_obsidian_config_directory_is_ignored(self):
         obsidian_dir = self.converter.obsidian_vault_location / ".obsidian"
         obsidian_dir.mkdir()
@@ -333,6 +420,18 @@ class TestCopyVaultResources(unittest.TestCase):
         self.assertFalse((output_posts / "photo.jpg").exists())
         self.assertFalse((output_posts / "photo.jpeg").exists())
         self.assertFalse((output_posts / "photo.gif").exists())
+
+    def test_excalidraw_svg_in_posts_is_excluded(self):
+        # mirrors the png/jpg/gif exclusion above — an excalidraw drawing's
+        # auto-exported SVG living inside posts/ shouldn't land in _posts
+        # either; it belongs only in assets/images via the dedicated copy step.
+        posts_dir = self.converter.obsidian_vault_location / "posts"
+        posts_dir.mkdir()
+        (posts_dir / "diagram.excalidraw.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        self.converter.copy_vault_resources()
+
+        self.assertFalse((self.converter.output_location / "_posts" / "diagram.excalidraw.svg").exists())
 
     def test_markdown_alongside_excluded_image_in_posts_is_still_copied(self):
         posts_dir = self.converter.obsidian_vault_location / "posts"
@@ -386,7 +485,20 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
         self.assertTrue(dest.exists())
         self.assertEqual(dest.read_bytes(), b"fake-png-bytes")
 
-    def test_non_png_files_are_ignored(self):
+    def test_svg_is_copied_to_assets_images(self):
+        # the excalidraw auto-export SVG lands alongside its note in the
+        # vault; this is what actually gets it into assets/images
+        (self.converter.obsidian_vault_location / "diagram.excalidraw.svg").write_text(
+            "<svg></svg>", encoding="utf-8"
+        )
+
+        self.converter.copy_vault_images_into_assets_directory()
+
+        dest = self.converter.output_location / "assets" / "images" / "diagram.excalidraw.svg"
+        self.assertTrue(dest.exists())
+        self.assertEqual(dest.read_text(encoding="utf-8"), "<svg></svg>")
+
+    def test_non_image_files_are_ignored(self):
         (self.converter.obsidian_vault_location / "notes.md").write_text("hello", encoding="utf-8")
 
         self.converter.copy_vault_images_into_assets_directory()

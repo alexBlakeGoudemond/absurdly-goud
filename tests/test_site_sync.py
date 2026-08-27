@@ -1,5 +1,5 @@
-import tempfile
 import unittest
+import tempfile
 from pathlib import Path
 
 from scripts.site_sync import SiteSync
@@ -128,6 +128,39 @@ class TestSyncTree(unittest.TestCase):
         self.sync.sync_tree(source_dir, dest_dir)
 
         self.assertTrue((dest_dir / "a" / "b" / "deep.md").exists())
+
+    def test_dest_filename_transform_renames_on_the_way_out(self):
+        source_dir = self.tmp_path / "src"
+        source_dir.mkdir()
+        (source_dir / "My Note.md").write_text("hi", encoding="utf-8")
+        dest_dir = self.tmp_path / "dest"
+
+        self.sync.sync_tree(source_dir, dest_dir, dest_filename=lambda name: name.lower().replace(" ", "-"))
+
+        self.assertTrue((dest_dir / "my-note.md").exists())
+        self.assertFalse((dest_dir / "My Note.md").exists())
+
+    def test_dest_filename_transform_preserves_directory_structure(self):
+        source_dir = self.tmp_path / "src"
+        nested = source_dir / "sub folder"
+        nested.mkdir(parents=True)
+        (nested / "My Note.md").write_text("hi", encoding="utf-8")
+        dest_dir = self.tmp_path / "dest"
+
+        self.sync.sync_tree(source_dir, dest_dir, dest_filename=lambda name: name.lower().replace(" ", "-"))
+
+        # only the FILENAME is transformed — the folder name is left as-is
+        self.assertTrue((dest_dir / "sub folder" / "my-note.md").exists())
+
+    def test_dest_filename_transform_is_identity_by_default(self):
+        source_dir = self.tmp_path / "src"
+        source_dir.mkdir()
+        (source_dir / "My Note.md").write_text("hi", encoding="utf-8")
+        dest_dir = self.tmp_path / "dest"
+
+        self.sync.sync_tree(source_dir, dest_dir)
+
+        self.assertTrue((dest_dir / "My Note.md").exists())
 
 
 class TestPruneStaleFiles(unittest.TestCase):

@@ -2,9 +2,7 @@
 - [ ] `---more---` showing after excerpt
 - [ ] explanation on what the website is for
 - [ ] `[!note]` syntax to be supported in HTML
-- [ ] revise scripts and split into responsibilities
 - [ ] Posts have last_modified_at frontmatter
-- [ ] soundboard for easy use
 - [ ] Light mode and Dark mode?
 - [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
@@ -16,7 +14,6 @@
 - [ ] Guestbook
 - [ ] Consider a [Jekyll theme](https://jekyllrb.com/docs/themes/#installing-a-theme)
 - [ ] GitHub actions to leverage secrets where possible (e.g. CNAME)
-- [ ] Include Vision as a collection in the website
 - [ ] Figure our what RSS is about
 - [ ] consider a Notebook section
 - [ ] hits in the aside?
@@ -30,8 +27,12 @@
 	- [ ] buttons
 	- [ ] why indie web?
 - [ ] Get GitHub Pages to use caching?
+- [ ] Changelog
 
 # Achievements
+- [x] whiteboard show as svg (2026-08-27)
+- [x] revise scripts and split into responsibilities (2026-08-26)
+- [x] Include Vision as a collection in the website (2026-08-26)
 - [x] AI Usages:
 	- [x] correctly link disclaimer-ai-assisted to section in HOME (2026-08-25)
 	- [x] ai-usage not being linked to with button (2026-08-25)

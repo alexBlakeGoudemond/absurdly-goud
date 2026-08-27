@@ -62,6 +62,50 @@ class TestRunEndToEnd(unittest.TestCase):
 
         self.assertEqual(first_output, second_output)
 
+    def test_excalidraw_note_ends_up_as_a_working_image_include(self):
+        whiteboard_dir = self.vault / "vision" / "whiteboard"
+        whiteboard_dir.mkdir(parents=True)
+        (whiteboard_dir / "website-whiteboard.excalidraw.md").write_text(
+            '{"type":"excalidraw","elements":[]}', encoding="utf-8"
+        )
+        #!important SVG is expected to exist due to Obsidian settings "Auto export svg" setting - simulate
+        (whiteboard_dir / "website-whiteboard.excalidraw.svg").write_text(
+            "<svg></svg>", encoding="utf-8"
+        )
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+        converter.run()
+
+        note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
+        self.assertNotIn('"type":"excalidraw"', note)
+        self.assertIn("{% include image.html", note)
+        self.assertIn('src="website-whiteboard.excalidraw.svg"', note)
+        self.assertIn("layout: section", note)
+
+        self.assertTrue(
+            (self.output / "assets" / "images" / "website-whiteboard.excalidraw.svg").exists()
+        )
+
+    def test_replacing_excalidraw_note_does_not_create_svg(self):
+        whiteboard_dir = self.vault / "vision" / "whiteboard"
+        whiteboard_dir.mkdir(parents=True)
+        (whiteboard_dir / "website-whiteboard.excalidraw.md").write_text(
+            '{"type":"excalidraw","elements":[]}', encoding="utf-8"
+        )
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+        converter.run()
+
+        note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
+        self.assertNotIn('"type":"excalidraw"', note)
+        self.assertIn("{% include image.html", note)
+        self.assertIn('src="website-whiteboard.excalidraw.svg"', note)
+        self.assertIn("layout: section", note)
+
+        self.assertFalse(
+            (self.output / "assets" / "images" / "website-whiteboard.excalidraw.svg").exists()
+        )
+
     def test_missing_vault_does_not_raise_and_produces_no_output(self):
         missing_vault = self.tmp_path / "does-not-exist"
         converter = ObsidianToJekyllConverter(missing_vault, self.output, self.source)
