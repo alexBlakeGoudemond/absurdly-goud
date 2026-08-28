@@ -1,10 +1,6 @@
 # Goals
+- [ ] Images in vault should be copied into the assets directory with the same directory structure
 - [ ] `---more---` showing after excerpt
-- [ ] Confirm images work with wikilinks
-- [ ] Control image dimensions:
-	- [ ] `![[image.png|300x200]]`
-	- [ ] `![AltText|300x200](image.png)`
-- [ ] explanation on what the website is for
 - [ ] `[!note]` syntax to be supported in HTML
 - [ ] Posts have last_modified_at frontmatter
 - [ ] Light mode and Dark mode?
@@ -12,7 +8,6 @@
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
-	- [ ] handle existing frontmatter?
 	- [ ] posts without timestamp in name should have timestamp auto added
 - [ ] Custom 404 Page
 - [ ] Guestbook
@@ -34,6 +29,13 @@
 - [ ] Changelog
 
 # Achievements
+- [x] explanation on what the website is for (2026-08-27)
+- [x] Control image dimensions: (Not possible with Jekyll unless we save the image as resized - not pursuing that feature at this time)
+	- [x] `![[image.png|300x200]]`
+	- [x] `![AltText|300x200](image.png)`
+- [x] Extra obsidian to jekyll script features:
+	- [x] handle existing frontmatter? (2026-08-27)
+- [x] Confirm images work with wikilinks (2026-08-27)
 - [x] whiteboard show as svg (2026-08-27)
 - [x] revise scripts and split into responsibilities (2026-08-26)
 - [x] Include Vision as a collection in the website (2026-08-26)
