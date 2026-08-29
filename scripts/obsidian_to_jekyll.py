@@ -10,6 +10,7 @@ and understandable on its own.
 
 import argparse
 from pathlib import Path
+from typing import Any
 
 from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
@@ -122,6 +123,8 @@ class ObsidianToJekyllConverter:
                 self.site_sync.sync_file(image_file, output_image_path / image_file.name)
 
     def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
+        last_published_by_dest = self.filename_to_last_published()
+
         for dest_path in self.site_sync.changed_dest_paths:
             if dest_path.suffix != '.md':
                 continue
@@ -132,24 +135,33 @@ class ObsidianToJekyllConverter:
                 # if it were added first.
                 swap_excalidraw_note_with_image_embed(dest_path)
 
-            self.add_frontmatter_if_needed(dest_path)
+            self.add_frontmatter_if_needed(dest_path, last_published_by_dest[dest_path])
 
             process_markdown_for_jekyll(dest_path, note_path_lookup)
 
-    def add_frontmatter_if_needed(self, dest_path: Path):
+    def filename_to_last_published(self) -> dict[Path, Any]:
+        last_published_by_dest = {
+            Path(entry["dest"]): entry["last_published"]
+            for entry in self.site_sync.new_manifest.values()
+        }
+        return last_published_by_dest
+
+    def add_frontmatter_if_needed(self, dest_path: Path, last_published: str):
         if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
             print(f"Skipping adding of frontmatter to '{dest_path.name}'")
         elif dest_path.name in ['about.md']:
             add_frontmatter_to_file(dest_path,
-                                    include_permalink=True)
+                                    include_permalink=True,
+                                    last_published=last_published)
         elif find_parent_section(dest_path, self.SECTION_FOLDERS):
             section_root = find_parent_section(dest_path, self.SECTION_FOLDERS)
             add_frontmatter_to_file(dest_path,
                                     file_layout='section',
                                     section=section_root.capitalize(),
-                                    include_permalink=True)
+                                    include_permalink=True,
+                                    last_published=last_published)
         else:
-            add_frontmatter_to_file(dest_path)
+            add_frontmatter_to_file(dest_path, last_published=last_published)
 
     def copy_jekyll_resources(self) -> None:
         for source_item in self.source_location.iterdir():

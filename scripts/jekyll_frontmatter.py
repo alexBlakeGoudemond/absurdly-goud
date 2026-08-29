@@ -58,18 +58,6 @@ def build_permalink(markdown_file: Path, file_title: str, section: str | None) -
     return "/" + "/".join(path_parts) + "/"
 
 
-def build_frontmatter(file_layout: str, title: str, permalink: str = "", section: str | None = None) -> str:
-    lines = ["---", f"layout: {file_layout}", f'title: "{title}"']
-    if section:
-        lines.append(f"section: {section}")
-    if permalink:
-        lines.append(f"permalink: {permalink}")
-    lines.append("---")
-    lines.append("")
-    lines.append("")
-    return "\n".join(lines)
-
-
 def strip_existing_frontmatter(content: str) -> str:
     """Obsidian plugins (e.g. Excalidraw) often prepend their own YAML
     frontmatter block. Jekyll tolerates only one frontmatter block per file,
@@ -79,10 +67,26 @@ def strip_existing_frontmatter(content: str) -> str:
     return EXISTING_FRONTMATTER_PATTERN.sub('', content, count=1)
 
 
+def build_frontmatter(file_layout: str, title: str, permalink: str = "", section: str | None = None,
+                      last_published: str | None = None) -> str:
+    lines = ["---", f"layout: {file_layout}", f'title: "{title}"']
+    if section:
+        lines.append(f"section: {section}")
+    if permalink:
+        lines.append(f"permalink: {permalink}")
+    if last_published:
+        lines.append(f"last_published: {last_published}")
+    lines.append("---")
+    lines.append("")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def add_frontmatter_to_file(markdown_file: Path,
                             file_layout='default',
                             include_permalink=False,
-                            section: str | None = None) -> None:
+                            section: str | None = None,
+                            last_published: str | None = None) -> None:
     file_title = extract_title_from_file_name(markdown_file.name)
     file_content = strip_existing_frontmatter(markdown_file.read_text(encoding="utf-8"))
 
@@ -90,5 +94,6 @@ def add_frontmatter_to_file(markdown_file: Path,
     if include_permalink:
         file_permalink = build_permalink(markdown_file, file_title, section)
 
-    frontmatter = build_frontmatter(file_layout, display_title_from_slug(file_title), file_permalink, section)
+    frontmatter = build_frontmatter(file_layout, display_title_from_slug(file_title), file_permalink, section,
+                                    last_published)
     markdown_file.write_text(frontmatter + file_content, encoding="utf-8")

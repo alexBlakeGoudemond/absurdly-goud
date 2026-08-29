@@ -109,6 +109,16 @@ class TestAddFrontmatterToFile(unittest.TestCase):
         result = md_file.read_text(encoding="utf-8")
         self.assertIn("layout: post", result)
 
+    def test_last_published_is_used(self):
+        md_file = self.tmp_path / "post.md"
+        md_file.write_text("Body", encoding="utf-8")
+
+        add_frontmatter_to_file(md_file, file_layout="post", last_published="2026-08-29")
+
+        result = md_file.read_text(encoding="utf-8")
+        self.assertIn("layout: post", result)
+        self.assertIn("last_published: 2026-08-29", result)
+
     def test_section_is_written_when_provided(self):
         md_file = self.tmp_path / "vision" / "design" / "design.md"
         md_file.parent.mkdir(parents=True, exist_ok=True)

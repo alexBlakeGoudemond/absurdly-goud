@@ -3,6 +3,7 @@
 import hashlib
 import json
 from pathlib import Path
+from datetime import date
 
 
 def sha256(file_path):
@@ -17,11 +18,14 @@ def sha256(file_path):
 
 
 def create_manifest_entry(source_path: Path, dest_path: Path) -> dict:
-    """Create a manifest entry recording source, dest, and content hash."""
+    """Create a manifest entry recording source, dest, content hash, and
+    the date this content was last published (i.e. last time its hash
+    changed and it was re-synced)."""
     return {
         "source": str(source_path),
         "dest": str(dest_path),
         "sha256": sha256(source_path),
+        "last_published": date.today().isoformat(),
     }
 
 
