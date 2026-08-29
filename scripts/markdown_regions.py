@@ -66,32 +66,19 @@ def iter_fenced_lines(content: str) -> Iterator[FencedLine]:
                          fence_opened=False, fence_closed=False)
 
 
-def apply_outside_fenced_blocks(content: str, transform: Callable[[str], str]) -> str:
-    """Applies `transform` to each line of `content` that sits outside a
-    fenced code block, leaving fence delimiter lines and fenced content
-    untouched."""
-    output_lines = []
-    for fenced_line in iter_fenced_lines(content):
-        if fenced_line.in_fence or fenced_line.is_fence_boundary:
-            output_lines.append(fenced_line.line)
-        else:
-            output_lines.append(transform(fenced_line.line))
-    return '\n'.join(output_lines)
-
-
-def apply_outside_inline_code(line: str, transform: Callable[[str], str]) -> str:
+def apply_outside_inline_code(line: str, convert_segment: Callable[[str], str]) -> str:
     """Applies `transform` to the parts of a single `line` that sit outside
     `inline code` spans, leaving inline code spans untouched."""
     segments = []
     last_end = 0
     for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
-        segments.append(transform(line[last_end:code_match.start()]))
+        segments.append(convert_segment(line[last_end:code_match.start()]))
         segments.append(code_match.group(0))  # leave inline code untouched
         last_end = code_match.end()
-    segments.append(transform(line[last_end:]))
+    segments.append(convert_segment(line[last_end:]))
     return ''.join(segments)
 
-def apply_outside_code_block(content: str, transform: Callable[[str], str]) -> str:
+def apply_outside_code_block(content: str, convert_segment: Callable[[str], str]) -> str:
     """Applies `transform` to the parts of `content` that sit outside both
     fenced code blocks and inline `code` spans.
 
@@ -103,5 +90,5 @@ def apply_outside_code_block(content: str, transform: Callable[[str], str]) -> s
         if fenced_line.in_fence or fenced_line.is_fence_boundary:
             output_lines.append(fenced_line.line)
         else:
-            output_lines.append(apply_outside_inline_code(fenced_line.line, transform))
+            output_lines.append(apply_outside_inline_code(fenced_line.line, convert_segment))
     return '\n'.join(output_lines)

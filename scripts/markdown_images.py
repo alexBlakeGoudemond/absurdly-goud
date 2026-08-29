@@ -7,7 +7,7 @@ image.html %} tag.
 import re
 from textwrap import dedent
 
-from scripts.markdown_regions import apply_outside_fenced_blocks, apply_outside_inline_code, apply_outside_code_block
+from scripts.markdown_regions import apply_outside_code_block
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 
