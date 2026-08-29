@@ -1,0 +1,30 @@
+scripts/wikilinks.py
+  h_1197a506f6c7d6 9,93,103
+tests/test_codeblock_escaping.py
+  h_1197a506f6c7d6 4,16,28,40,48,60,76,92
+scripts/codeblock_escaping.py
+  h_1197a506f6c7d6 11
+tests/test_wikilinks.py
+  h_1197a506f6c7d6 9,116,130,138,151
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 14,18,20,33-36
+tests/test_markdown_regions.py
+  h_1197a506f6c7d6 6,83,95,107
+scripts/markdown_images.py
+  h_1197a506f6c7d6 10,49,55,66,69-70,72,74,77
+scripts/markdown_regions.py
+  h_1197a506f6c7d6 87
+tests/test_markdown_images.py
+  h_1197a506f6c7d6 6-7,33,42,56,69,76,91,103,110,119,126,138,149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7ce4df7c2b261ea68dafaa83dcce560f5763d22b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
