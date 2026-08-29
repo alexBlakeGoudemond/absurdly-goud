@@ -25,3 +25,8 @@ Notes on generated fragments
   building/publishing, otherwise the site build will miss generated content.
 
 Do not edit generated includes by hand; edit the vault instead.
+
+## Code Entrypoint
+
+This codebase works with Obsidian, Jekyll and GitHub Pages. Python scripts have been set up to assemble the resources
+needed by Jekyll in advance. The entrypoint of those scripts is [obsidian_to_jekyll.py](scripts/obsidian_to_jekyll.py)

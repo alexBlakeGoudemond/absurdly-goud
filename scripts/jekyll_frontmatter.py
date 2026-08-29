@@ -18,7 +18,8 @@ def extract_title_from_file_name(file_name: str) -> str:
     filename_ending_in_md = re.compile(r'\.md$')
     filename_excalidraw_infix = re.compile(r'\.excalidraw$')
 
-    file_title = filename_with_leading_timestamp.sub('', file_name)
+    file_title = file_name
+    file_title = filename_with_leading_timestamp.sub('', file_title)
     file_title = filename_ending_in_md.sub('', file_title)
     file_title = filename_excalidraw_infix.sub('', file_title)
     return file_title
@@ -31,30 +32,30 @@ def display_title_from_slug(file_title: str) -> str:
 
 
 def build_permalink(markdown_file: Path, file_title: str, section: str | None) -> str:
-    if section is None:
-        return f"/{file_title.lower()}/"
-
-    subfolder = markdown_file.parent.name.lower()
     slug = file_title.lower()
 
-    # If the cleaned filename matches its own folder (e.g. website-design.md
-    # in design/), treat it as that folder's index page rather than stuttering
-    # the URL (/vision/design/ instead of /vision/design/design/).
-    if slug == subfolder:
-        return f"/{section.lower()}/{subfolder}/"
-    return f"/{section.lower()}/{subfolder}/{slug}/"
+    if section is None:
+        return f"/{slug}/"
 
+    section_folder = section.lower()
+    parent_parts = [part.lower() for part in markdown_file.parent.parts]
 
-def build_frontmatter(file_layout: str, title: str, permalink: str = "", section: str | None = None) -> str:
-    lines = ["---", f"layout: {file_layout}", f'title: "{title}"']
-    if section:
-        lines.append(f"section: {section}")
-    if permalink:
-        lines.append(f"permalink: {permalink}")
-    lines.append("---")
-    lines.append("")
-    lines.append("")
-    return "\n".join(lines)
+    try:
+        section_index = parent_parts.index(section_folder)
+    except ValueError:
+        raise ValueError(
+            f"'{markdown_file}' does not appear to live under a '{section_folder}/' "
+            "folder — cannot build a section-relative permalink."
+        ) from None
+
+    # Include all segments in the permalink
+    subfolders = parent_parts[section_index + 1:]
+
+    # treat files like `vision/design/design.md` as index pages with URL `vision/design`
+    is_index_page = bool(subfolders) and slug == subfolders[-1]
+    path_parts = [section_folder, *subfolders] if is_index_page else [section_folder, *subfolders, slug]
+
+    return "/" + "/".join(path_parts) + "/"
 
 
 def strip_existing_frontmatter(content: str) -> str:
@@ -66,10 +67,26 @@ def strip_existing_frontmatter(content: str) -> str:
     return EXISTING_FRONTMATTER_PATTERN.sub('', content, count=1)
 
 
+def build_frontmatter(file_layout: str, title: str, permalink: str = "", section: str | None = None,
+                      last_published: str | None = None) -> str:
+    lines = ["---", f"layout: {file_layout}", f'title: "{title}"']
+    if section:
+        lines.append(f"section: {section}")
+    if permalink:
+        lines.append(f"permalink: {permalink}")
+    if last_published:
+        lines.append(f"last_published: \"{last_published}\"")
+    lines.append("---")
+    lines.append("")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def add_frontmatter_to_file(markdown_file: Path,
                             file_layout='default',
                             include_permalink=False,
-                            section: str | None = None) -> None:
+                            section: str | None = None,
+                            last_published: str | None = None) -> None:
     file_title = extract_title_from_file_name(markdown_file.name)
     file_content = strip_existing_frontmatter(markdown_file.read_text(encoding="utf-8"))
 
@@ -77,5 +94,6 @@ def add_frontmatter_to_file(markdown_file: Path,
     if include_permalink:
         file_permalink = build_permalink(markdown_file, file_title, section)
 
-    frontmatter = build_frontmatter(file_layout, display_title_from_slug(file_title), file_permalink, section)
+    frontmatter = build_frontmatter(file_layout, display_title_from_slug(file_title), file_permalink, section,
+                                    last_published)
     markdown_file.write_text(frontmatter + file_content, encoding="utf-8")

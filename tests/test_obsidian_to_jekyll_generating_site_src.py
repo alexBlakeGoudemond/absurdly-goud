@@ -7,7 +7,7 @@ import test_helpers
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     process_markdown_for_jekyll,
-    find_section,
+    find_parent_section,
 )
 from scripts.wikilinks import build_note_path_lookup
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
@@ -19,19 +19,33 @@ def start_next_run(converter: ObsidianToJekyllConverter) -> None:
     converter.site_sync.save()
     converter.begin_run()
 
+def register_synced_file(converter: ObsidianToJekyllConverter, dest: Path,
+                         last_published: str = "2026-08-29 12:00") -> None:
+    """Simulates what a real SiteSync.sync_file call would have populated
+    (changed_dest_paths + a matching new_manifest entry) — these tests write
+    directly to dest and set changed_dest_paths by hand, bypassing sync_file,
+    so last_published_by_dest's lookup needs a manifest entry to match."""
+    converter.site_sync.changed_dest_paths.append(dest)
+    converter.site_sync.new_manifest[str(dest)] = {
+        "source": str(dest),
+        "dest": str(dest),
+        "sha256": "test-hash",
+        "last_published": last_published,
+    }
+
 
 class TestFindSection(unittest.TestCase):
 
     def test_returns_matching_ancestor_folder(self):
-        result = find_section(Path("vision/design/website-design.md"), ["vision"])
+        result = find_parent_section(Path("vision/design/website-design.md"), ["vision"])
         self.assertEqual(result, "vision")
 
     def test_returns_none_when_no_ancestor_matches(self):
-        result = find_section(Path("about.md"), ["vision"])
+        result = find_parent_section(Path("about.md"), ["vision"])
         self.assertIsNone(result)
 
     def test_only_matches_configured_folders(self):
-        result = find_section(Path("progress/update.md"), ["vision"])
+        result = find_parent_section(Path("progress/update.md"), ["vision"])
         self.assertIsNone(result)
 
 
@@ -50,7 +64,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
     def test_changed_markdown_file_gets_frontmatter(self):
         dest = self.converter.output_location / "hello-world.md"
         dest.write_text("# Hello", encoding="utf-8")
-        self.converter.site_sync.changed_dest_paths = [dest]
+        register_synced_file(self.converter, dest)
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
 
@@ -64,6 +78,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
     def test_about_md_gets_permalink(self):
         dest = self.converter.output_location / "about.md"
         dest.write_text("About me", encoding="utf-8")
+        register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -76,6 +91,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         section_dir.mkdir(parents=True)
         dest = section_dir / "website-design.md"
         dest.write_text("Design notes", encoding="utf-8")
+        register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -118,6 +134,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
     def test_excalidraw_note_body_is_swapped_for_image_embed(self):
         dest = self.converter.output_location / "vision-diagram.excalidraw.md"
         dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
+        register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -132,6 +149,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
     def test_excalidraw_note_still_gets_frontmatter(self):
         dest = self.converter.output_location / "vision-diagram.excalidraw.md"
         dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
+        register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -144,6 +162,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         section_dir.mkdir(parents=True)
         dest = section_dir / "website-whiteboard.excalidraw.md"
         dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
+        register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -156,6 +175,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
     def test_non_excalidraw_markdown_file_is_unaffected(self):
         dest = self.converter.output_location / "about.md"
         dest.write_text("About me", encoding="utf-8")
+        register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -178,6 +198,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         for name in self.converter.IGNORED_FRONTMATTER_FILES:
             dest = self.converter.output_location / name
             dest.write_text("original content", encoding="utf-8")
+            register_synced_file(self.converter, dest)
             self.converter.site_sync.changed_dest_paths = [dest]
 
             self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
@@ -210,6 +231,8 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest_b = self.converter.output_location / "post-b.md"
         dest_a.write_text("A", encoding="utf-8")
         dest_b.write_text("B", encoding="utf-8")
+        register_synced_file(self.converter, dest_a)
+        register_synced_file(self.converter, dest_b)
         self.converter.site_sync.changed_dest_paths = [dest_a, dest_b]
 
         self.converter.parse_markdown_files_for_jekyll(self.note_lookup)

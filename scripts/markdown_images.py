@@ -7,7 +7,7 @@ image.html %} tag.
 import re
 from textwrap import dedent
 
-from scripts.markdown_regions import apply_outside_fenced_blocks, apply_outside_inline_code
+from scripts.markdown_regions import apply_outside_code_blocks_and_code_spans
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 
@@ -46,16 +46,13 @@ def replace_images_in_segment(segment: str) -> str:
     return MARKDOWN_IMAGE_PATTERN.sub(replace, segment)
 
 
-def convert_images_outside_code(content: str) -> str:
+def convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content: str) -> str:
     """
     Applies image-notation conversion only to text outside fenced '```' code
     blocks and inline `code` spans, so a documentation example showing
     ![alt](src) syntax isn't itself converted.
     """
-    return apply_outside_fenced_blocks(
-        content,
-        lambda line: apply_outside_inline_code(line, replace_images_in_segment),
-    )
+    return apply_outside_code_blocks_and_code_spans(content, replace_images_in_segment)
 
 
 def replace_wikilink_image_embeds_in_segment(segment: str) -> str:
@@ -66,19 +63,15 @@ def replace_wikilink_image_embeds_in_segment(segment: str) -> str:
     return WIKILINK_IMAGE_PATTERN.sub(replace, segment)
 
 
-def convert_wikilink_image_embeds_outside_code(content: str) -> str:
+def convert_wikilink_image_embeds_outside_code_blocks_and_code_spans(content: str) -> str:
     """
     Rewrites Obsidian's image embed syntax, `![[image.png]]`, into standard
-    markdown image notation (`![image.png](image.png)`) so it flows through
-    convert_images_outside_code into a normal Jekyll image include, the same
-    as any other image.
+    Markdown image notation (`![image.png](image.png)`) so it flows
+    into a normal Jekyll image include, the same as any other image.
 
-    Must run BEFORE wikilinks.convert_wikilinks_outside_code in the pipeline:
+    Must run BEFORE converting wikilinks outside fenced code blocks because:
     a `[[...]]` immediately preceded by `!` would otherwise be caught by the
-    generic wikilink pattern and treated as a note link — which then fails
+    generic wikilink pattern and treated as a note link — which then fails the
     lookup, since it's an image filename, not a note name.
     """
-    return apply_outside_fenced_blocks(
-        content,
-        lambda line: apply_outside_inline_code(line, replace_wikilink_image_embeds_in_segment),
-    )
+    return apply_outside_code_blocks_and_code_spans(content, replace_wikilink_image_embeds_in_segment)

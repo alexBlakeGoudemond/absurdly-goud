@@ -1,10 +1,11 @@
 # Goals
+- [ ] 
 - [ ] Images in vault should be copied into the assets directory with the same directory structure
 - [ ] Allow for option to inline an image, as default is dedicated figure
 - [ ] is linking to sections of the site working? Thought it was, but `about#ai-usage` may not be anymore
 - [ ] `---more---` showing after excerpt
 - [ ] `[!note]` syntax to be supported in HTML
-- [ ] Posts have last_modified_at frontmatter
+- [ ] Posts have last_pubished frontmatter and show in note on website
 - [ ] Light mode and Dark mode?
 - [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
