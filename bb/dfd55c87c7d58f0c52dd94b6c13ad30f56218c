@@ -1,0 +1,20 @@
+tests/test_markdown_regions.py
+  h_1197a506f6c7d6 6,83,95,107
+scripts/markdown_images.py
+  h_1197a506f6c7d6 10
+scripts/wikilinks.py
+  h_1197a506f6c7d6 9
+scripts/markdown_regions.py
+  h_1197a506f6c7d6 69,75,78,81,93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "bbdfd55c87c7d58f0c52dd94b6c13ad30f56218c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
