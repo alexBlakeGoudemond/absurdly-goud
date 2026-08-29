@@ -1,0 +1,20 @@
+scripts/jekyll_frontmatter.py
+  h_1197a506f6c7d6 78
+scripts/website_manifest.py
+  h_1197a506f6c7d6 6,28,32-38
+tests/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 22-35,67,81,94,137,152,165,178,201,234-235
+tests/test_jekyll_frontmatter.py
+  h_1197a506f6c7d6 120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c5882c252f4cdb55ea48430d8cf2a08dc3e50969",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
