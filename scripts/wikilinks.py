@@ -90,7 +90,7 @@ def convert_wikilinks_to_jekyll_layout(content: str, note_path_lookup: dict[str,
     return WIKILINK_PATTERN.sub(replace, content)
 
 
-def convert_wikilinks_outside_code(content: str, note_path_lookup: dict[str, str]) -> str:
+def convert_wikilinks_outside_code_blocks_and_code_spans(content: str, note_path_lookup: dict[str, str]) -> str:
     """
     Applies convert_wikilinks_to_jekyll_layout only to text outside fenced '```'
     code blocks and inline `code` spans. Without this, a documentation example

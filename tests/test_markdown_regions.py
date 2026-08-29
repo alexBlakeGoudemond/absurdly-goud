@@ -3,7 +3,7 @@ from textwrap import dedent
 
 from scripts.markdown_regions import (
     iter_fenced_lines,
-    apply_outside_inline_code, apply_outside_code_block,
+    apply_outside_inline_code_span, apply_outside_code_block,
 )
 
 
@@ -114,21 +114,21 @@ class TestApplyOutsideInlineCode(unittest.TestCase):
     def test_transform_applied_outside_inline_code(self):
         line = "before `code` after"
 
-        result = apply_outside_inline_code(line, lambda segment: segment.upper())
+        result = apply_outside_inline_code_span(line, lambda segment: segment.upper())
 
         self.assertEqual(result, "BEFORE `code` AFTER")
 
     def test_multiple_inline_code_spans_all_preserved(self):
         line = "`one` middle `two`"
 
-        result = apply_outside_inline_code(line, lambda segment: segment.upper())
+        result = apply_outside_inline_code_span(line, lambda segment: segment.upper())
 
         self.assertEqual(result, "`one` MIDDLE `two`")
 
     def test_no_inline_code_transforms_whole_line(self):
         line = "plain text"
 
-        result = apply_outside_inline_code(line, lambda segment: segment.upper())
+        result = apply_outside_inline_code_span(line, lambda segment: segment.upper())
 
         self.assertEqual(result, "PLAIN TEXT")
 

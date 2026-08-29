@@ -6,7 +6,7 @@ from textwrap import dedent
 from scripts.wikilinks import (
     build_note_path_lookup,
     convert_wikilinks_to_jekyll_layout,
-    convert_wikilinks_outside_code,
+    convert_wikilinks_outside_code_blocks_and_code_spans,
 )
 
 
@@ -113,7 +113,7 @@ class TestConvertWikilinksOutsideCode(unittest.TestCase):
     def test_wikilink_outside_code_is_converted(self):
         content = "[[LinkedNote]]"
 
-        result = convert_wikilinks_outside_code(content, self.note_lookup)
+        result = convert_wikilinks_outside_code_blocks_and_code_spans(content, self.note_lookup)
 
         self.assertIn("{% link LinkedNote.md %}", result)
 
@@ -127,7 +127,7 @@ class TestConvertWikilinksOutsideCode(unittest.TestCase):
         ```
         """)
 
-        result = convert_wikilinks_outside_code(content, self.note_lookup)
+        result = convert_wikilinks_outside_code_blocks_and_code_spans(content, self.note_lookup)
 
         self.assertIn("[[SomeExampleNote]]", result)
         self.assertNotIn("{% link", result)
@@ -135,7 +135,7 @@ class TestConvertWikilinksOutsideCode(unittest.TestCase):
     def test_wikilink_inside_inline_code_span_is_not_resolved(self):
         content = "Use `[[NoteName]]` syntax for links."
 
-        result = convert_wikilinks_outside_code(content, self.note_lookup)
+        result = convert_wikilinks_outside_code_blocks_and_code_spans(content, self.note_lookup)
 
         self.assertIn("`[[NoteName]]`", result)
         self.assertNotIn("{% link", result)
@@ -148,7 +148,7 @@ class TestConvertWikilinksOutsideCode(unittest.TestCase):
         ```
         """)
 
-        result = convert_wikilinks_outside_code(content, self.note_lookup)
+        result = convert_wikilinks_outside_code_blocks_and_code_spans(content, self.note_lookup)
 
         self.assertIn("{% link LinkedNote.md %}", result)
         self.assertIn("[[SomeExampleNote]]", result)

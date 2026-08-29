@@ -17,7 +17,7 @@ from scripts.filenames import slugify_filename
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.markdown_images import convert_images_outside_code, convert_wikilink_image_embeds_outside_code
 from scripts.site_sync import SiteSync
-from scripts.wikilinks import build_note_path_lookup, convert_wikilinks_outside_code
+from scripts.wikilinks import build_note_path_lookup, convert_wikilinks_outside_code_blocks_and_code_spans
 
 MANIFEST_FILENAME = ".manifest.json"
 
@@ -31,7 +31,7 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
     # preceded by `!` gets mistaken for a note link by the wikilink pattern
     # and fails lookup (it's an image filename, not a note).
     new_content = convert_wikilink_image_embeds_outside_code(content)
-    new_content = convert_wikilinks_outside_code(new_content, note_path_lookup)
+    new_content = convert_wikilinks_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
     new_content = convert_images_outside_code(new_content)
     new_content = escape_markdown_codeblocks_for_jekyll(new_content)
     if new_content != content:

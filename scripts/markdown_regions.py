@@ -17,12 +17,13 @@ MARKDOWN_INLINE_CODE_PATTERN = re.compile(r'`[^`]*`')
 
 class FencedLine(NamedTuple):
     """One line of content, classified by its position relative to a fenced
-    code block.
+    code block. A fenced block is a multi-line region delimited by
+    ``` or ~~~, which resemble picket fences
 
     `is_fence_boundary` is True for the opening or closing fence delimiter
     line itself (the ``` or ~~~ line). It's still "content" that callers pass
     through, but it's also the point where a caller like codeblock_escaping
-    needs to insert something (e.g. a {% raw %} tag).
+    needs to insert something (e.g., a {% raw %} tag).
     """
     line: str
     in_fence: bool
@@ -66,29 +67,30 @@ def iter_fenced_lines(content: str) -> Iterator[FencedLine]:
                          fence_opened=False, fence_closed=False)
 
 
-def apply_outside_inline_code(line: str, convert_segment: Callable[[str], str]) -> str:
-    """Applies `transform` to the parts of a single `line` that sit outside
-    `inline code` spans, leaving inline code spans untouched."""
+def apply_outside_inline_code_span(line: str, segment_transform: Callable[[str], str]) -> str:
+    """Applies `callable` to the parts of a single `line` that sit outside
+    `inline code` spans, leaving inline code spans untouched.
+
+    A code span is a single-line, inline text surrounded by
+    1 backtick on either side
+    """
     segments = []
     last_end = 0
     for code_match in MARKDOWN_INLINE_CODE_PATTERN.finditer(line):
-        segments.append(convert_segment(line[last_end:code_match.start()]))
+        segments.append(segment_transform(line[last_end:code_match.start()]))
         segments.append(code_match.group(0))  # leave inline code untouched
         last_end = code_match.end()
-    segments.append(convert_segment(line[last_end:]))
+    segments.append(segment_transform(line[last_end:]))
     return ''.join(segments)
 
-def apply_outside_code_block(content: str, convert_segment: Callable[[str], str]) -> str:
-    """Applies `transform` to the parts of `content` that sit outside both
-    fenced code blocks and inline `code` spans.
 
-    Duplicates apply_outside_fenced_blocks's loop (rather than composing it
-    with apply_outside_inline_code through a callback) so no line-vs-segment
-    argument-adapting lambda is needed anywhere."""
+def apply_outside_code_block(content: str, segment_transform: Callable[[str], str]) -> str:
+    """Applies `callable` to the parts of `content` that sit outside both
+    fenced code blocks and inline `code` spans."""
     output_lines = []
     for fenced_line in iter_fenced_lines(content):
         if fenced_line.in_fence or fenced_line.is_fence_boundary:
             output_lines.append(fenced_line.line)
         else:
-            output_lines.append(apply_outside_inline_code(fenced_line.line, convert_segment))
+            output_lines.append(apply_outside_inline_code_span(fenced_line.line, segment_transform))
     return '\n'.join(output_lines)
