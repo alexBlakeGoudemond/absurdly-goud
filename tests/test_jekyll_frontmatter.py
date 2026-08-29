@@ -55,6 +55,17 @@ class TestBuildPermalink(unittest.TestCase):
 
         self.assertEqual(permalink, "/vision/design/")
 
+    def test_section_file_nested_five_levels_deep_preserves_full_path(self):
+        # A note nested multiple folders deep under the section root should
+        # produce a permalink containing every intermediate folder, not just
+        # the immediate parent — e.g. a file five levels under vision/ should
+        # not collapse its URL down to a single subfolder segment.
+        markdown_file = Path("vision/design/mockups/homepage/desktop/hero-section.md")
+
+        permalink = build_permalink(markdown_file, "hero-section", section="vision")
+
+        self.assertEqual(permalink, "/vision/design/mockups/homepage/desktop/hero-section/")
+
 
 class TestStripExistingFrontmatter(unittest.TestCase):
 
@@ -99,7 +110,8 @@ class TestAddFrontmatterToFile(unittest.TestCase):
         self.assertIn("layout: post", result)
 
     def test_section_is_written_when_provided(self):
-        md_file = self.tmp_path / "design.md"
+        md_file = self.tmp_path / "vision" / "design" / "design.md"
+        md_file.parent.mkdir(parents=True, exist_ok=True)
         md_file.write_text("Body", encoding="utf-8")
 
         add_frontmatter_to_file(md_file, file_layout="section", section="Vision", include_permalink=True)
