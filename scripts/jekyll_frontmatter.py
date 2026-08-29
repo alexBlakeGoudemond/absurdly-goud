@@ -75,7 +75,7 @@ def build_frontmatter(file_layout: str, title: str, permalink: str = "", section
     if permalink:
         lines.append(f"permalink: {permalink}")
     if last_published:
-        lines.append(f"last_published: '{last_published}'")
+        lines.append(f"last_published: \"{last_published}\"")
     lines.append("---")
     lines.append("")
     lines.append("")
