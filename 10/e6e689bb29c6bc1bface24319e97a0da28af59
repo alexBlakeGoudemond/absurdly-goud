@@ -1,0 +1,23 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 20,34
+scripts/markdown_regions.py
+  h_1197a506f6c7d6 20-21,26,70-75,80,83,87-89,95
+  h_1197a506f6c7d6 76
+tests/test_markdown_regions.py
+  h_1197a506f6c7d6 6,117,124,131
+tests/test_wikilinks.py
+  h_1197a506f6c7d6 9,116,130,138,151
+scripts/wikilinks.py
+  h_1197a506f6c7d6 93
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "10e6e689bb29c6bc1bface24319e97a0da28af59",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
