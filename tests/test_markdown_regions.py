@@ -3,7 +3,7 @@ from textwrap import dedent
 
 from scripts.markdown_regions import (
     iter_fenced_lines,
-    apply_outside_inline_code_span, apply_outside_code_block,
+    apply_outside_inline_code_span, apply_outside_code_blocks_and_code_spans,
 )
 
 
@@ -80,7 +80,7 @@ class TestApplyOutsideFencedBlocks(unittest.TestCase):
     def test_transform_applied_outside_fence(self):
         content = "before\nafter"
 
-        result = apply_outside_code_block(content, lambda line: line.upper())
+        result = apply_outside_code_blocks_and_code_spans(content, lambda line: line.upper())
 
         self.assertEqual(result, "BEFORE\nAFTER")
 
@@ -92,7 +92,7 @@ class TestApplyOutsideFencedBlocks(unittest.TestCase):
         ```
         after""")
 
-        result = apply_outside_code_block(content, lambda line: line.upper())
+        result = apply_outside_code_blocks_and_code_spans(content, lambda line: line.upper())
 
         self.assertIn("inside", result)  # untouched, not "INSIDE"
         self.assertIn("BEFORE", result)
@@ -104,7 +104,7 @@ class TestApplyOutsideFencedBlocks(unittest.TestCase):
         inside
         ```""")
 
-        result = apply_outside_code_block(content, lambda line: line.upper())
+        result = apply_outside_code_blocks_and_code_spans(content, lambda line: line.upper())
 
         self.assertIn("```python", result)
 

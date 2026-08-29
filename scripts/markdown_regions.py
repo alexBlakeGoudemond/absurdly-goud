@@ -84,7 +84,7 @@ def apply_outside_inline_code_span(line: str, segment_transform: Callable[[str],
     return ''.join(segments)
 
 
-def apply_outside_code_block(content: str, segment_transform: Callable[[str], str]) -> str:
+def apply_outside_code_blocks_and_code_spans(content: str, segment_transform: Callable[[str], str]) -> str:
     """Applies `callable` to the parts of `content` that sit outside both
     fenced code blocks and inline `code` spans."""
     output_lines = []

@@ -11,13 +11,13 @@ and understandable on its own.
 import argparse
 from pathlib import Path
 
-from scripts.codeblock_escaping import escape_markdown_codeblocks_for_jekyll
+from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
 from scripts.filenames import slugify_filename
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.markdown_images import convert_images_outside_code, convert_wikilink_image_embeds_outside_code
+from scripts.markdown_images import convert_markdown_image_embeds_outside_code_blocks_and_code_spans, convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
 from scripts.site_sync import SiteSync
-from scripts.wikilinks import build_note_path_lookup, convert_wikilinks_outside_code_blocks_and_code_spans
+from scripts.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
 MANIFEST_FILENAME = ".manifest.json"
 
@@ -30,10 +30,10 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
     # `![alt](src)` markdown FIRST, before wikilinks run — otherwise a `[[...]]`
     # preceded by `!` gets mistaken for a note link by the wikilink pattern
     # and fails lookup (it's an image filename, not a note).
-    new_content = convert_wikilink_image_embeds_outside_code(content)
-    new_content = convert_wikilinks_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
-    new_content = convert_images_outside_code(new_content)
-    new_content = escape_markdown_codeblocks_for_jekyll(new_content)
+    new_content = convert_wikilink_image_embeds_outside_code_blocks_and_code_spans(content)
+    new_content = convert_wikilink_note_links_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
+    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content)
+    new_content = escape_markdown_code_blocks_for_jekyll(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
 

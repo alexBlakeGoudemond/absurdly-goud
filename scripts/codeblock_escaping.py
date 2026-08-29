@@ -8,7 +8,7 @@ appear inside a code sample (e.g. a `{% ... %}` shown as an example).
 from scripts.markdown_regions import iter_fenced_lines
 
 
-def escape_markdown_codeblocks_for_jekyll(content: str) -> str:
+def escape_markdown_code_blocks_for_jekyll(content: str) -> str:
     output_lines = []
 
     for fenced_line in iter_fenced_lines(content):

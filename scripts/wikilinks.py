@@ -6,7 +6,7 @@ Resolves Obsidian-style [[wikilinks]] into Jekyll {% link %} tags.
 import re
 from pathlib import Path
 
-from scripts.markdown_regions import apply_outside_code_block
+from scripts.markdown_regions import apply_outside_code_blocks_and_code_spans
 
 # Matches Obsidian wikilinks: [[NoteName#NoteSubSection|AltText]]
 # Both #NoteSubSection and |AltText are optional.
@@ -90,7 +90,7 @@ def convert_wikilinks_to_jekyll_layout(content: str, note_path_lookup: dict[str,
     return WIKILINK_PATTERN.sub(replace, content)
 
 
-def convert_wikilinks_outside_code_blocks_and_code_spans(content: str, note_path_lookup: dict[str, str]) -> str:
+def convert_wikilink_note_links_outside_code_blocks_and_code_spans(content: str, note_path_lookup: dict[str, str]) -> str:
     """
     Applies convert_wikilinks_to_jekyll_layout only to text outside fenced '```'
     code blocks and inline `code` spans. Without this, a documentation example
@@ -100,4 +100,4 @@ def convert_wikilinks_outside_code_blocks_and_code_spans(content: str, note_path
     def convert_segment(segment: str) -> str:
         return convert_wikilinks_to_jekyll_layout(segment, note_path_lookup)
 
-    return apply_outside_code_block(content, convert_segment)
+    return apply_outside_code_blocks_and_code_spans(content, convert_segment)
