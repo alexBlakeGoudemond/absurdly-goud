@@ -90,3 +90,18 @@ def apply_outside_inline_code(line: str, transform: Callable[[str], str]) -> str
         last_end = code_match.end()
     segments.append(transform(line[last_end:]))
     return ''.join(segments)
+
+def apply_outside_code_block(content: str, transform: Callable[[str], str]) -> str:
+    """Applies `transform` to the parts of `content` that sit outside both
+    fenced code blocks and inline `code` spans.
+
+    Duplicates apply_outside_fenced_blocks's loop (rather than composing it
+    with apply_outside_inline_code through a callback) so no line-vs-segment
+    argument-adapting lambda is needed anywhere."""
+    output_lines = []
+    for fenced_line in iter_fenced_lines(content):
+        if fenced_line.in_fence or fenced_line.is_fence_boundary:
+            output_lines.append(fenced_line.line)
+        else:
+            output_lines.append(apply_outside_inline_code(fenced_line.line, transform))
+    return '\n'.join(output_lines)

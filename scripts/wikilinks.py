@@ -6,7 +6,7 @@ Resolves Obsidian-style [[wikilinks]] into Jekyll {% link %} tags.
 import re
 from pathlib import Path
 
-from scripts.markdown_regions import apply_outside_fenced_blocks, apply_outside_inline_code
+from scripts.markdown_regions import apply_outside_fenced_blocks, apply_outside_inline_code, apply_outside_code_block
 
 # Matches Obsidian wikilinks: [[NoteName#NoteSubSection|AltText]]
 # Both #NoteSubSection and |AltText are optional.
@@ -97,9 +97,7 @@ def convert_wikilinks_outside_code(content: str, note_path_lookup: dict[str, str
     like `` `[[...]]` `` or a ```markdown sample containing [[Note]] gets
     treated as a real link and fails lookup.
     """
-    return apply_outside_fenced_blocks(
-        content,
-        lambda line: apply_outside_inline_code(
-            line, lambda segment: convert_wikilinks_to_jekyll_layout(segment, note_path_lookup)
-        ),
-    )
+    def convert_segment(segment: str) -> str:
+        return convert_wikilinks_to_jekyll_layout(segment, note_path_lookup)
+
+    return apply_outside_code_block(content, convert_segment)

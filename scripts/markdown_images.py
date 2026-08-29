@@ -7,7 +7,7 @@ image.html %} tag.
 import re
 from textwrap import dedent
 
-from scripts.markdown_regions import apply_outside_fenced_blocks, apply_outside_inline_code
+from scripts.markdown_regions import apply_outside_fenced_blocks, apply_outside_inline_code, apply_outside_code_block
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 
@@ -52,10 +52,7 @@ def convert_images_outside_code(content: str) -> str:
     blocks and inline `code` spans, so a documentation example showing
     ![alt](src) syntax isn't itself converted.
     """
-    return apply_outside_fenced_blocks(
-        content,
-        lambda line: apply_outside_inline_code(line, replace_images_in_segment),
-    )
+    return apply_outside_code_block(content, replace_images_in_segment)
 
 
 def replace_wikilink_image_embeds_in_segment(segment: str) -> str:
@@ -78,7 +75,4 @@ def convert_wikilink_image_embeds_outside_code(content: str) -> str:
     generic wikilink pattern and treated as a note link — which then fails
     lookup, since it's an image filename, not a note name.
     """
-    return apply_outside_fenced_blocks(
-        content,
-        lambda line: apply_outside_inline_code(line, replace_wikilink_image_embeds_in_segment),
-    )
+    return apply_outside_code_block(content, replace_wikilink_image_embeds_in_segment)
