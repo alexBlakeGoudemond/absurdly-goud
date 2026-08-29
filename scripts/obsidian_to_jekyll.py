@@ -15,7 +15,8 @@ from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
 from scripts.filenames import slugify_filename
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.markdown_images import convert_markdown_image_embeds_outside_code_blocks_and_code_spans, convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
+from scripts.markdown_images import convert_markdown_image_embeds_outside_code_blocks_and_code_spans, \
+    convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
 from scripts.site_sync import SiteSync
 from scripts.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
@@ -38,7 +39,7 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
         markdown_file.write_text(new_content, encoding="utf-8")
 
 
-def find_section(dest_path: Path, section_folders: list[str]) -> str | None:
+def find_parent_section(dest_path: Path, section_folders: list[str]) -> str | None:
     """
     Returns the entry in `section_folders` that `dest_path` lives under, if
     any (searches all ancestors). For example, each of the files below will
@@ -83,6 +84,7 @@ class ObsidianToJekyllConverter:
         self.output_location = output_location
         self.source_location = source_location
         self.site_sync = SiteSync(output_location / MANIFEST_FILENAME)
+        self.output_image_path = self.output_location / 'assets/images/'
 
     def begin_run(self) -> None:
         """Reset per-run sync tracking state (loads the on-disk manifest).
@@ -113,7 +115,7 @@ class ObsidianToJekyllConverter:
         self.site_sync.save()
 
     def copy_vault_images_into_assets_directory(self) -> None:
-        output_image_path = self.output_location / 'assets/images/'
+        output_image_path = self.output_image_path
         output_image_path.mkdir(parents=True, exist_ok=True)
         for glob_pattern in self.IMAGE_ASSET_GLOBS:
             for image_file in self.obsidian_vault_location.rglob(glob_pattern):
@@ -130,21 +132,24 @@ class ObsidianToJekyllConverter:
                 # if it were added first.
                 swap_excalidraw_note_with_image_embed(dest_path)
 
-            if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
-                print(f"Skipping adding of frontmatter to '{dest_path.name}'")
-            elif dest_path.name in ['about.md']:
-                add_frontmatter_to_file(dest_path,
-                                        include_permalink=True)
-            elif find_section(dest_path, self.SECTION_FOLDERS):
-                section_root = find_section(dest_path, self.SECTION_FOLDERS)
-                add_frontmatter_to_file(dest_path,
-                                        file_layout='section',
-                                        section=section_root.capitalize(),
-                                        include_permalink=True)
-            else:
-                add_frontmatter_to_file(dest_path)
+            self.add_frontmatter_if_needed(dest_path)
 
             process_markdown_for_jekyll(dest_path, note_path_lookup)
+
+    def add_frontmatter_if_needed(self, dest_path: Path):
+        if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
+            print(f"Skipping adding of frontmatter to '{dest_path.name}'")
+        elif dest_path.name in ['about.md']:
+            add_frontmatter_to_file(dest_path,
+                                    include_permalink=True)
+        elif find_parent_section(dest_path, self.SECTION_FOLDERS):
+            section_root = find_parent_section(dest_path, self.SECTION_FOLDERS)
+            add_frontmatter_to_file(dest_path,
+                                    file_layout='section',
+                                    section=section_root.capitalize(),
+                                    include_permalink=True)
+        else:
+            add_frontmatter_to_file(dest_path)
 
     def copy_jekyll_resources(self) -> None:
         for source_item in self.source_location.iterdir():

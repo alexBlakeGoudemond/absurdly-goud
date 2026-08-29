@@ -7,7 +7,7 @@ import test_helpers
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     process_markdown_for_jekyll,
-    find_section,
+    find_parent_section,
 )
 from scripts.wikilinks import build_note_path_lookup
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
@@ -23,15 +23,15 @@ def start_next_run(converter: ObsidianToJekyllConverter) -> None:
 class TestFindSection(unittest.TestCase):
 
     def test_returns_matching_ancestor_folder(self):
-        result = find_section(Path("vision/design/website-design.md"), ["vision"])
+        result = find_parent_section(Path("vision/design/website-design.md"), ["vision"])
         self.assertEqual(result, "vision")
 
     def test_returns_none_when_no_ancestor_matches(self):
-        result = find_section(Path("about.md"), ["vision"])
+        result = find_parent_section(Path("about.md"), ["vision"])
         self.assertIsNone(result)
 
     def test_only_matches_configured_folders(self):
-        result = find_section(Path("progress/update.md"), ["vision"])
+        result = find_parent_section(Path("progress/update.md"), ["vision"])
         self.assertIsNone(result)
 
 
