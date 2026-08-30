@@ -1,9 +1,9 @@
 # Goals
-- [ ] 
-- [ ] Images in vault should be copied into the assets directory with the same directory structure
+- [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Allow for option to inline an image, as default is dedicated figure
 - [ ] is linking to sections of the site working? Thought it was, but `about#ai-usage` may not be anymore
-- [ ] `---more---` showing after excerpt
+- [ ] First paragraph in Obsidian should insert `<!---more--->` in the `site_src` location
+- [ ] Quote syntax to be automatically given a class: `>`
 - [ ] `[!note]` syntax to be supported in HTML
 - [ ] Posts have last_pubished frontmatter and show in note on website
 - [ ] Light mode and Dark mode?
@@ -32,6 +32,7 @@
 - [ ] Changelog
 
 # Achievements
+- [x] Images in vault should be copied into the assets directory with the same directory structure (2026-08-30)
 - [x] explanation on what the website is for (2026-08-27)
 - [x] Control image dimensions: (Not possible with Jekyll unless we save the image as resized - not pursuing that feature at this time)
 	- [x] `![[image.png|300x200]]`

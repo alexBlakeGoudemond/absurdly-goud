@@ -16,15 +16,21 @@ from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
 from scripts.filenames import slugify_filename
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.markdown_images import convert_markdown_image_embeds_outside_code_blocks_and_code_spans, \
+from scripts.markdown_images import (
+    build_image_path_lookup,
+    convert_markdown_image_embeds_outside_code_blocks_and_code_spans,
     convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
+)
 from scripts.site_sync import SiteSync
 from scripts.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
 MANIFEST_FILENAME = ".manifest.json"
 
 
-def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str, str]) -> None:
+def process_markdown_for_jekyll(
+        markdown_file: Path, note_path_lookup: dict[str, str],
+        image_path_lookup: dict[str, str]
+) -> None:
     """Convert Obsidian-style notations to formats that Jekyll recognizes"""
     print(f"processing markdown for '{markdown_file.name}'")
     content = markdown_file.read_text(encoding="utf-8")
@@ -34,7 +40,7 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
     # and fails lookup (it's an image filename, not a note).
     new_content = convert_wikilink_image_embeds_outside_code_blocks_and_code_spans(content)
     new_content = convert_wikilink_note_links_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
-    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content)
+    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content, image_path_lookup)
     new_content = escape_markdown_code_blocks_for_jekyll(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
@@ -79,13 +85,13 @@ class ObsidianToJekyllConverter:
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
     SECTION_FOLDERS = ['vision']
     IMAGE_ASSET_GLOBS = ('*.png', '*.svg')
+    IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
         self.output_location = output_location
         self.source_location = source_location
         self.site_sync = SiteSync(output_location / MANIFEST_FILENAME)
-        self.output_image_path = self.output_location / 'assets/images/'
 
     def begin_run(self) -> None:
         """Reset per-run sync tracking state (loads the on-disk manifest).
@@ -108,21 +114,37 @@ class ObsidianToJekyllConverter:
         # Built AFTER all copying so it reflects the final output tree
         # (e.g. posts/ -> _posts/), and covers every note, not just
         # the ones changed this run, since an unchanged note may still
-        # be a valid wikilink target for a changed one.
+        # be a valid wikilink target for a changed one. Same reasoning
+        # applies to image_path_lookup: it must reflect the final bucketed
+        # assets/ tree, not just the images copied this run.
         note_path_lookup = build_note_path_lookup(self.output_location)
+        image_path_lookup = build_image_path_lookup(self.output_location / 'assets')
 
-        self.parse_markdown_files_for_jekyll(note_path_lookup)
+        self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup)
         self.site_sync.prune_stale_files()
         self.site_sync.save()
 
     def copy_vault_images_into_assets_directory(self) -> None:
-        output_image_path = self.output_image_path
-        output_image_path.mkdir(parents=True, exist_ok=True)
+        assets_root = self.output_location / 'assets'
         for glob_pattern in self.IMAGE_ASSET_GLOBS:
             for image_file in self.obsidian_vault_location.rglob(glob_pattern):
-                self.site_sync.sync_file(image_file, output_image_path / image_file.name)
+                relative_path = image_file.relative_to(self.obsidian_vault_location)
+                # Bucket by the vault's top-level parent directory (e.g. '88x31',
+                # 'posts') rather than preserving the full nested path — images
+                # land flat inside that bucket.
+                if len(relative_path.parts) > 1:
+                    top_level_dir = relative_path.parts[0]
+                    dest_dir = assets_root / top_level_dir
+                else:
+                    # Image sits directly at the vault root, with no parent dir.
+                    dest_dir = assets_root
+                dest_dir.mkdir(parents=True, exist_ok=True)
+                self.site_sync.sync_file(image_file, dest_dir / image_file.name)
 
-    def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
+    def parse_markdown_files_for_jekyll(
+            self, note_path_lookup: dict[str, str],
+            image_path_lookup: dict[str, str]
+    ) -> None:
         last_published_by_dest = self.filename_to_last_published()
 
         for dest_path in self.site_sync.changed_dest_paths:
@@ -137,7 +159,7 @@ class ObsidianToJekyllConverter:
 
             self.add_frontmatter_if_needed(dest_path, last_published_by_dest[dest_path])
 
-            process_markdown_for_jekyll(dest_path, note_path_lookup)
+            process_markdown_for_jekyll(dest_path, note_path_lookup, image_path_lookup)
 
     def filename_to_last_published(self) -> dict[Path, Any]:
         last_published_by_dest = {
@@ -174,20 +196,28 @@ class ObsidianToJekyllConverter:
                 self.site_sync.sync_file(source_item, dest_path)
 
     def copy_vault_resources(self) -> None:
+        """Images are excluded from every folder copied here — not just
+        posts/ — because copy_vault_images_into_assets_directory is the
+        single place responsible for landing images in the output tree
+        (bucketed under assets/). Without this exclusion, an image sitting
+        in any other vault folder (e.g. 88x31/) would get copied BOTH here,
+        as part of its folder, AND into assets/, duplicating it in the
+        output."""
         for vault_item in self.obsidian_vault_location.iterdir():
             if vault_item.name in self.IGNORED_VAULT_ITEMS:
                 continue
             if vault_item.name == 'posts':
-                image_suffixes = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
                 # Jekyll requires _posts filenames to be YYYY-MM-DD-title.md
                 # (lowercase, hyphens only) — Obsidian note titles are free-form,
                 # so slugify on the way out.
                 self.site_sync.sync_tree(vault_item,
                                          self.output_location / '_posts',
-                                         exclude_suffixes=image_suffixes,
+                                         exclude_suffixes=self.IMAGE_SUFFIXES,
                                          dest_filename=slugify_filename)
             else:
-                self.site_sync.sync_tree(vault_item, self.output_location / vault_item.name)
+                self.site_sync.sync_tree(vault_item,
+                                         self.output_location / vault_item.name,
+                                         exclude_suffixes=self.IMAGE_SUFFIXES)
 
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:

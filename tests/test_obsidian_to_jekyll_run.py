@@ -39,11 +39,15 @@ class TestRunEndToEnd(unittest.TestCase):
         about = (self.output / "about" / "about.md").read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", about)
         self.assertIn("{% include image.html", about)
+        # photo.png sits at the vault root (no parent dir), so it lands
+        # directly under assets/ with no bucket, and the resolved src
+        # reflects that.
+        self.assertIn('src="assets/photo.png"', about)
 
         hello = (self.output / "_posts" / "hello.md").read_text(encoding="utf-8")
         self.assertIn("{% link about/about.md %}", hello)
 
-        self.assertTrue((self.output / "assets" / "images" / "photo.png").exists())
+        self.assertTrue((self.output / "assets" / "photo.png").exists())
         self.assertTrue((self.output / "CNAME").exists())
         self.assertTrue((self.output / MANIFEST_FILENAME).exists())
 
@@ -79,11 +83,13 @@ class TestRunEndToEnd(unittest.TestCase):
         note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
         self.assertNotIn('"type":"excalidraw"', note)
         self.assertIn("{% include image.html", note)
-        self.assertIn('src="website-whiteboard.excalidraw.svg"', note)
+        # The SVG lives under vault/vision/whiteboard/, so it's bucketed
+        # into assets/vision/, and the resolved src reflects that bucket.
+        self.assertIn('src="assets/vision/website-whiteboard.excalidraw.svg"', note)
         self.assertIn("layout: section", note)
 
         self.assertTrue(
-            (self.output / "assets" / "images" / "website-whiteboard.excalidraw.svg").exists()
+            (self.output / "assets" / "vision" / "website-whiteboard.excalidraw.svg").exists()
         )
 
     def test_replacing_excalidraw_note_does_not_create_svg(self):
@@ -103,8 +109,27 @@ class TestRunEndToEnd(unittest.TestCase):
         self.assertIn("layout: section", note)
 
         self.assertFalse(
-            (self.output / "assets" / "images" / "website-whiteboard.excalidraw.svg").exists()
+            (self.output / "assets" / "vision" / "website-whiteboard.excalidraw.svg").exists()
         )
+
+    def test_image_in_non_posts_folder_is_not_duplicated(self):
+        # Regression test: images used to be copied twice for any vault
+        # folder other than posts/ — once verbatim by copy_vault_resources,
+        # once bucketed into assets/ by copy_vault_images_into_assets_directory.
+        buttons_dir = self.vault / "88x31" / "memes-as-buttons"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "free-real-estate.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+        converter.run()
+
+        self.assertTrue(
+            (self.output / "assets" / "88x31" / "free-real-estate.svg").exists()
+        )
+        self.assertFalse(
+            (self.output / "88x31" / "memes-as-buttons" / "free-real-estate.svg").exists()
+        )
+        self.assertFalse((self.output / "88x31").exists())
 
     def test_missing_vault_does_not_raise_and_produces_no_output(self):
         missing_vault = self.tmp_path / "does-not-exist"

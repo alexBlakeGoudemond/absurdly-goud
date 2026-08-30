@@ -3,7 +3,7 @@
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-{%- assign image_path = "/assets/images/" | append: include.src -%}
+{%- assign image_path = "/" | append: include.src -%}
 {%- assign image_exists = false -%}
 {%- for file in site.static_files -%}
 {%- if file.path == image_path -%}
