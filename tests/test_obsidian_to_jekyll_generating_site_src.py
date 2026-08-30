@@ -516,16 +516,18 @@ class TestCopyVaultResources(unittest.TestCase):
         self.assertTrue((self.converter.output_location / "_posts" / "entry.md").exists())
         self.assertFalse((self.converter.output_location / "_posts" / "screenshot.png").exists())
 
-    def test_images_outside_posts_directory_are_not_excluded(self):
-        # exclude_suffixes is only applied to the posts/ -> _posts sync; other
-        # top-level vault directories should copy images through untouched.
+    def test_images_outside_posts_directory_are_also_excluded(self):
+        # Images are handled exclusively by copy_vault_images_into_assets_directory,
+        # which buckets them under assets/. If copy_vault_resources also copied
+        # them here, they'd be duplicated in the output (once under their
+        # original vault folder, once under assets/).
         gallery_dir = self.converter.obsidian_vault_location / "gallery"
         gallery_dir.mkdir()
         (gallery_dir / "picture.png").write_bytes(b"fake-bytes")
 
         self.converter.copy_vault_resources()
 
-        self.assertTrue((self.converter.output_location / "gallery" / "picture.png").exists())
+        self.assertFalse((self.converter.output_location / "gallery" / "picture.png").exists())
 
     def test_recurring_run_is_idempotent(self):
         posts_dir = self.converter.obsidian_vault_location / "posts"

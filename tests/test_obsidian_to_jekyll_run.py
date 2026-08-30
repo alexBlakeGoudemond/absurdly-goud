@@ -112,6 +112,25 @@ class TestRunEndToEnd(unittest.TestCase):
             (self.output / "assets" / "vision" / "website-whiteboard.excalidraw.svg").exists()
         )
 
+    def test_image_in_non_posts_folder_is_not_duplicated(self):
+        # Regression test: images used to be copied twice for any vault
+        # folder other than posts/ — once verbatim by copy_vault_resources,
+        # once bucketed into assets/ by copy_vault_images_into_assets_directory.
+        buttons_dir = self.vault / "88x31" / "memes-as-buttons"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "free-real-estate.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+        converter.run()
+
+        self.assertTrue(
+            (self.output / "assets" / "88x31" / "free-real-estate.svg").exists()
+        )
+        self.assertFalse(
+            (self.output / "88x31" / "memes-as-buttons" / "free-real-estate.svg").exists()
+        )
+        self.assertFalse((self.output / "88x31").exists())
+
     def test_missing_vault_does_not_raise_and_produces_no_output(self):
         missing_vault = self.tmp_path / "does-not-exist"
         converter = ObsidianToJekyllConverter(missing_vault, self.output, self.source)

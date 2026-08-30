@@ -85,13 +85,13 @@ class ObsidianToJekyllConverter:
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
     SECTION_FOLDERS = ['vision']
     IMAGE_ASSET_GLOBS = ('*.png', '*.svg')
+    IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
         self.output_location = output_location
         self.source_location = source_location
         self.site_sync = SiteSync(output_location / MANIFEST_FILENAME)
-        self.output_image_path = self.output_location / 'assets'
 
     def begin_run(self) -> None:
         """Reset per-run sync tracking state (loads the on-disk manifest).
@@ -196,20 +196,28 @@ class ObsidianToJekyllConverter:
                 self.site_sync.sync_file(source_item, dest_path)
 
     def copy_vault_resources(self) -> None:
+        """Images are excluded from every folder copied here — not just
+        posts/ — because copy_vault_images_into_assets_directory is the
+        single place responsible for landing images in the output tree
+        (bucketed under assets/). Without this exclusion, an image sitting
+        in any other vault folder (e.g. 88x31/) would get copied BOTH here,
+        as part of its folder, AND into assets/, duplicating it in the
+        output."""
         for vault_item in self.obsidian_vault_location.iterdir():
             if vault_item.name in self.IGNORED_VAULT_ITEMS:
                 continue
             if vault_item.name == 'posts':
-                image_suffixes = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
                 # Jekyll requires _posts filenames to be YYYY-MM-DD-title.md
                 # (lowercase, hyphens only) — Obsidian note titles are free-form,
                 # so slugify on the way out.
                 self.site_sync.sync_tree(vault_item,
                                          self.output_location / '_posts',
-                                         exclude_suffixes=image_suffixes,
+                                         exclude_suffixes=self.IMAGE_SUFFIXES,
                                          dest_filename=slugify_filename)
             else:
-                self.site_sync.sync_tree(vault_item, self.output_location / vault_item.name)
+                self.site_sync.sync_tree(vault_item,
+                                         self.output_location / vault_item.name,
+                                         exclude_suffixes=self.IMAGE_SUFFIXES)
 
 
 def extract_command_line_arguments(args: argparse.Namespace) -> tuple[Path, Path, Path]:
