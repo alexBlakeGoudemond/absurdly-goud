@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Improve Asset Location Logic For Jekyll | ABsurdly Goud</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/posts/">Posts</a>
+        <a href="/vision/">Vision</a>
+    </nav>
+</header>
+
+<div class="page-wrapper">
+    <main>
+        <p>I improved the Python script that prepares <code class="language-plaintext highlighter-rouge">site-src</code> to include the top-level obsidian vault directory for images. This allows us to later navigate to those locations to showcase the assets we have, if desired</p>
+
+<!--more-->
+
+<p>For example, this vault image:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">|--</span> <span class="n">absurdly</span><span class="o">-</span><span class="n">goud</span><span class="o">-</span><span class="n">obsidian</span><span class="o">/</span>
+        <span class="o">|--</span> <span class="mi">88</span><span class="n">x31</span><span class="o">/</span>
+            <span class="o">|--</span> <span class="n">memes</span><span class="o">-</span><span class="k">as</span><span class="o">-</span><span class="n">buttons</span><span class="o">/</span>
+                <span class="o">|--</span> <span class="n">free</span><span class="o">-</span><span class="n">real</span><span class="o">-</span><span class="n">estate</span><span class="p">.</span><span class="n">svg</span>
+</code></pre></div></div>
+
+<p>Will be copied into a directory <code class="language-plaintext highlighter-rouge">site_src</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">|--</span> <span class="n">site_src</span><span class="o">/</span>
+	<span class="o">|--</span> <span class="n">assets</span><span class="o">/</span>
+		<span class="o">|--</span> <span class="mi">88</span><span class="n">x31</span><span class="o">/</span>
+			<span class="o">|--</span> <span class="n">free</span><span class="o">-</span><span class="n">real</span><span class="o">-</span><span class="n">estate</span><span class="p">.</span><span class="n">svg</span>
+</code></pre></div></div>
+
+<p>The removal of the middle directories are intentional, as seen with posts:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">|--</span> <span class="n">absurdly</span><span class="o">-</span><span class="n">goud</span><span class="o">-</span><span class="n">obsidian</span><span class="o">/</span>
+        <span class="o">|--</span> <span class="mi">88</span><span class="n">x31</span><span class="o">/</span>
+            <span class="o">|--</span> <span class="n">memes</span><span class="o">-</span><span class="k">as</span><span class="o">-</span><span class="n">buttons</span><span class="o">/</span>
+                <span class="o">|--</span> <span class="n">free</span><span class="o">-</span><span class="n">real</span><span class="o">-</span><span class="n">estate</span><span class="p">.</span><span class="n">svg</span>
+        <span class="p">...</span>
+        <span class="o">|--</span> <span class="n">posts</span><span class="o">/</span>
+            <span class="o">|--</span> <span class="mi">2026</span><span class="o">/</span>
+                <span class="o">|--</span> <span class="mi">08</span><span class="o">/</span>
+                    <span class="o">|--</span> <span class="mi">24</span><span class="o">/</span>
+                        <span class="p">...</span>
+                        <span class="o">|--</span> <span class="mi">2026</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="n">aside</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">buttons</span><span class="o">-</span><span class="n">screenshot</span><span class="p">.</span><span class="n">png</span>
+</code></pre></div></div>
+
+<p>is copied into:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">|--</span> <span class="n">site_src</span><span class="o">/</span>
+	<span class="o">|--</span> <span class="n">assets</span><span class="o">/</span>
+		<span class="o">|--</span> <span class="n">posts</span><span class="o">/</span>
+			<span class="o">|--</span> <span class="mi">2026</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="n">aside</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">buttons</span><span class="o">-</span><span class="n">screenshot</span><span class="p">.</span><span class="n">png</span>
+</code></pre></div></div>
+
+
+    </main>
+
+    <aside>
+    
+        <!-- render nothing -->
+    
+    <div class="badges">
+
+    <div class="badge-section">
+        <p>This site was built with the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://jekyllrb.com" target="_blank" rel="noopener">
+                <img src="/assets/badges/jekyll-button.svg"
+                     alt="Built with Jekyll"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://pages.github.com/" target="_blank" rel="noopener">
+                <img src="/assets/badges/github-pages-button.svg"
+                     alt="Built with GitHub Pages"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://obsidian.md/" target="_blank" rel="noopener">
+                <img src="/assets/badges/obsidian-button.svg"
+                     alt="Built with Obsidian"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://microformats.org/" target="_blank" rel="noopener">
+                <img src="/assets/badges/microformats-button.svg"
+                     alt="Built with Microformats"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>This site is part of the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://indieweb.org" target="_blank" rel="noopener">
+                <img src="/assets/badges/indiewebcamp-button.svg"
+                     alt="Part of the IndieWeb"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>Disclaimer:</p>
+        <div class="badge-row">
+            
+            <a href="/about#ai-usage/" target="_blank" rel="noopener">
+                <img src="/assets/badges/disclaimer-ai-assisted-button.svg"
+                     alt="Disclaimer AI assisted site"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+</div>
+</aside>
+</div>
+
+<footer>
+  <p>&copy; 2026 ABsurdly Goud. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
