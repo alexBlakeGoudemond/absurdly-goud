@@ -1,16 +1,16 @@
-import unittest
 import tempfile
+import unittest
 from pathlib import Path
 from textwrap import dedent
 
 import test_helpers
+from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.obsidian_to_jekyll import (
     ObsidianToJekyllConverter,
     process_markdown_for_jekyll,
     find_parent_section,
 )
 from scripts.wikilinks import build_note_path_lookup
-from scripts.jekyll_frontmatter import add_frontmatter_to_file
 
 
 def start_next_run(converter: ObsidianToJekyllConverter) -> None:
@@ -60,13 +60,14 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
         self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.image_lookup = {}
 
     def test_changed_markdown_file_gets_frontmatter(self):
         dest = self.converter.output_location / "hello-world.md"
         dest.write_text("# Hello", encoding="utf-8")
         register_synced_file(self.converter, dest)
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
@@ -81,7 +82,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", result)
@@ -94,7 +95,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: section", result)
@@ -130,6 +131,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
         self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.image_lookup = {}
 
     def test_excalidraw_note_body_is_swapped_for_image_embed(self):
         dest = self.converter.output_location / "vision-diagram.excalidraw.md"
@@ -137,7 +139,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertNotIn('"type":"excalidraw"', result)
@@ -152,7 +154,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: default", result)
@@ -165,7 +167,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: section", result)
@@ -178,7 +180,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("About me", result)
@@ -193,6 +195,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
         self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.image_lookup = {}
 
     def test_ignored_files_are_skipped(self):
         for name in self.converter.IGNORED_FRONTMATTER_FILES:
@@ -201,7 +204,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
             register_synced_file(self.converter, dest)
             self.converter.site_sync.changed_dest_paths = [dest]
 
-            self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+            self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
             self.assertEqual(dest.read_text(encoding="utf-8"), "original content")
 
@@ -210,7 +213,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest.write_text("body {}", encoding="utf-8")
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         self.assertEqual(dest.read_text(encoding="utf-8"), "body {}")
 
@@ -222,7 +225,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         dest.write_text(original, encoding="utf-8")
         self.converter.site_sync.changed_dest_paths = []  # nothing changed this run
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         self.assertEqual(dest.read_text(encoding="utf-8"), original)
 
@@ -235,7 +238,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         register_synced_file(self.converter, dest_b)
         self.converter.site_sync.changed_dest_paths = [dest_a, dest_b]
 
-        self.converter.parse_markdown_files_for_jekyll(self.note_lookup)
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
 
         # title is display_title_from_slug'd (slug -> Title Case) — see note above.
         self.assertIn("title: \"Post A\"", dest_a.read_text(encoding="utf-8"))
@@ -251,13 +254,14 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
         self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.image_lookup = {}
 
     def test_process_one_markdown_image_yields_one_jekyll_includes_syntax_in_file(self):
         dest = self.converter.output_location / "post.md"
         dest.write_text("![Alt text](image.png)", encoding="utf-8")
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        process_markdown_for_jekyll(dest, self.note_lookup)
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax = """
@@ -274,7 +278,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         dest.write_text("![Alt text 1](image1.png)\n![Alt text 2](image2.png)", encoding="utf-8")
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        process_markdown_for_jekyll(dest, self.note_lookup)
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax_1 = """
@@ -305,11 +309,25 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         )
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        process_markdown_for_jekyll(dest, self.note_lookup)  # must not raise
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)  # must not raise
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("{% include image.html", result)
         self.assertIn('src="theImage.png"', result)
+
+    def test_image_src_is_resolved_to_its_bucketed_path(self):
+        # Mirrors what run() actually does: image_path_lookup is built from
+        # the real assets/ tree, so a note referencing a bare filename ends
+        # up with a src that locates the file post-bucketing.
+        dest = self.converter.output_location / "post.md"
+        dest.write_text("![Alt text](free-real-estate.svg)", encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+        self.image_lookup = {"free-real-estate.svg": "assets/88x31/free-real-estate.svg"}
+
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn('src="assets/88x31/free-real-estate.svg"', result)
 
     def test_wikilink_style_image_embed_inside_real_inline_code_is_left_as_text(self):
         dest = self.converter.output_location / "post.md"
@@ -319,7 +337,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         )
         self.converter.site_sync.changed_dest_paths = [dest]
 
-        process_markdown_for_jekyll(dest, self.note_lookup)  # must not raise
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)  # must not raise
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("`![[theImage.png]]`", result)
@@ -522,75 +540,6 @@ class TestCopyVaultResources(unittest.TestCase):
         self.assertTrue((self.converter.output_location / "_posts" / "hello.md").exists())
 
 
-class TestCollectImagesInAssetsDirectory(unittest.TestCase):
-
-    def setUp(self):
-        self.tmp_dir = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp_dir.cleanup)
-        self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
-
-    def test_png_is_copied_to_assets_images(self):
-        (self.converter.obsidian_vault_location / "photo.png").write_bytes(b"fake-png-bytes")
-
-        self.converter.copy_vault_images_into_assets_directory()
-
-        dest = self.converter.output_location / "assets" / "images" / "photo.png"
-        self.assertTrue(dest.exists())
-        self.assertEqual(dest.read_bytes(), b"fake-png-bytes")
-
-    def test_svg_is_copied_to_assets_images(self):
-        # the excalidraw auto-export SVG lands alongside its note in the
-        # vault; this is what actually gets it into assets/images
-        (self.converter.obsidian_vault_location / "diagram.excalidraw.svg").write_text(
-            "<svg></svg>", encoding="utf-8"
-        )
-
-        self.converter.copy_vault_images_into_assets_directory()
-
-        dest = self.converter.output_location / "assets" / "images" / "diagram.excalidraw.svg"
-        self.assertTrue(dest.exists())
-        self.assertEqual(dest.read_text(encoding="utf-8"), "<svg></svg>")
-
-    def test_non_image_files_are_ignored(self):
-        (self.converter.obsidian_vault_location / "notes.md").write_text("hello", encoding="utf-8")
-
-        self.converter.copy_vault_images_into_assets_directory()
-
-        self.assertFalse((self.converter.output_location / "assets" / "images" / "notes.md").exists())
-
-    def test_nested_png_is_found_via_rglob(self):
-        nested_dir = self.converter.obsidian_vault_location / "posts" / "2026" / "08"
-        nested_dir.mkdir(parents=True)
-        (nested_dir / "screenshot.png").write_bytes(b"nested-bytes")
-
-        self.converter.copy_vault_images_into_assets_directory()
-
-        dest = self.converter.output_location / "assets" / "images" / "screenshot.png"
-        self.assertTrue(dest.exists())
-
-    def test_unchanged_image_is_skipped_on_recurring_run(self):
-        (self.converter.obsidian_vault_location / "photo.png").write_bytes(b"same-bytes")
-        self.converter.copy_vault_images_into_assets_directory()  # first-time setup
-
-        start_next_run(self.converter)  # recurring setup
-        self.converter.copy_vault_images_into_assets_directory()
-
-        self.assertEqual(self.converter.site_sync.changed_dest_paths, [])
-
-    def test_changed_image_is_recopied_on_recurring_run(self):
-        image = self.converter.obsidian_vault_location / "photo.png"
-        image.write_bytes(b"original-bytes")
-        self.converter.copy_vault_images_into_assets_directory()
-
-        start_next_run(self.converter)
-        image.write_bytes(b"updated-bytes")
-        self.converter.copy_vault_images_into_assets_directory()
-
-        dest = self.converter.output_location / "assets" / "images" / "photo.png"
-        self.assertEqual(dest.read_bytes(), b"updated-bytes")
-        self.assertIn(dest, self.converter.site_sync.changed_dest_paths)
-
 class TestCopyVaultImagesIntoAssetsDirectory(unittest.TestCase):
     """Covers both first-time setup (fresh converter, empty manifest) and
     recurring setup (same converter, manifest reloaded from disk via start_next_run)."""
@@ -640,6 +589,30 @@ class TestCopyVaultImagesIntoAssetsDirectory(unittest.TestCase):
         self.converter.copy_vault_images_into_assets_directory()  # unchanged content
 
         self.assertEqual(self.converter.site_sync.changed_dest_paths, [])
+
+    def test_changed_image_is_recopied_on_recurring_run(self):
+        image = self.converter.obsidian_vault_location / "88x31" / "free-real-estate.svg"
+        image.parent.mkdir(parents=True)
+        image.write_text("original", encoding="utf-8")
+        self.converter.copy_vault_images_into_assets_directory()
+
+        start_next_run(self.converter)
+        image.write_text("updated", encoding="utf-8")
+        self.converter.copy_vault_images_into_assets_directory()
+
+        dest = self.converter.output_location / "assets" / "88x31" / "free-real-estate.svg"
+        self.assertEqual(dest.read_text(encoding="utf-8"), "updated")
+        self.assertIn(dest, self.converter.site_sync.changed_dest_paths)
+
+    def test_non_image_files_are_ignored(self):
+        notes_dir = self.converter.obsidian_vault_location / "about"
+        notes_dir.mkdir(parents=True)
+        (notes_dir / "notes.md").write_text("hello", encoding="utf-8")
+
+        self.converter.copy_vault_images_into_assets_directory()
+
+        self.assertFalse((self.converter.output_location / "assets" / "about" / "notes.md").exists())
+
 
 if __name__ == '__main__':
     unittest.main()

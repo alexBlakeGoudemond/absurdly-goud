@@ -16,15 +16,21 @@ from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
 from scripts.filenames import slugify_filename
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.markdown_images import convert_markdown_image_embeds_outside_code_blocks_and_code_spans, \
+from scripts.markdown_images import (
+    build_image_path_lookup,
+    convert_markdown_image_embeds_outside_code_blocks_and_code_spans,
     convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
+)
 from scripts.site_sync import SiteSync
 from scripts.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
 MANIFEST_FILENAME = ".manifest.json"
 
 
-def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str, str]) -> None:
+def process_markdown_for_jekyll(
+        markdown_file: Path, note_path_lookup: dict[str, str],
+        image_path_lookup: dict[str, str]
+) -> None:
     """Convert Obsidian-style notations to formats that Jekyll recognizes"""
     print(f"processing markdown for '{markdown_file.name}'")
     content = markdown_file.read_text(encoding="utf-8")
@@ -34,7 +40,7 @@ def process_markdown_for_jekyll(markdown_file: Path, note_path_lookup: dict[str,
     # and fails lookup (it's an image filename, not a note).
     new_content = convert_wikilink_image_embeds_outside_code_blocks_and_code_spans(content)
     new_content = convert_wikilink_note_links_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
-    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content)
+    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content, image_path_lookup)
     new_content = escape_markdown_code_blocks_for_jekyll(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
@@ -108,10 +114,13 @@ class ObsidianToJekyllConverter:
         # Built AFTER all copying so it reflects the final output tree
         # (e.g. posts/ -> _posts/), and covers every note, not just
         # the ones changed this run, since an unchanged note may still
-        # be a valid wikilink target for a changed one.
+        # be a valid wikilink target for a changed one. Same reasoning
+        # applies to image_path_lookup: it must reflect the final bucketed
+        # assets/ tree, not just the images copied this run.
         note_path_lookup = build_note_path_lookup(self.output_location)
+        image_path_lookup = build_image_path_lookup(self.output_location / 'assets')
 
-        self.parse_markdown_files_for_jekyll(note_path_lookup)
+        self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup)
         self.site_sync.prune_stale_files()
         self.site_sync.save()
 
@@ -132,7 +141,10 @@ class ObsidianToJekyllConverter:
                 dest_dir.mkdir(parents=True, exist_ok=True)
                 self.site_sync.sync_file(image_file, dest_dir / image_file.name)
 
-    def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
+    def parse_markdown_files_for_jekyll(
+            self, note_path_lookup: dict[str, str],
+            image_path_lookup: dict[str, str]
+    ) -> None:
         last_published_by_dest = self.filename_to_last_published()
 
         for dest_path in self.site_sync.changed_dest_paths:
@@ -147,7 +159,7 @@ class ObsidianToJekyllConverter:
 
             self.add_frontmatter_if_needed(dest_path, last_published_by_dest[dest_path])
 
-            process_markdown_for_jekyll(dest_path, note_path_lookup)
+            process_markdown_for_jekyll(dest_path, note_path_lookup, image_path_lookup)
 
     def filename_to_last_published(self) -> dict[Path, Any]:
         last_published_by_dest = {

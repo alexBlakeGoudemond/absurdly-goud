@@ -1,7 +1,10 @@
+import tempfile
 import unittest
+from pathlib import Path
 from textwrap import dedent
 
 from scripts.markdown_images import (
+    build_image_path_lookup,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
     convert_markdown_image_embeds_outside_code_blocks_and_code_spans,
     convert_wikilink_image_embeds_outside_code_blocks_and_code_spans,
@@ -30,7 +33,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
     def test_image_syntax_is_converted(self):
         content = "![Alt text](image.png)"
 
-        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content)
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
         self.assertIn('{% include image.html', result)
         self.assertIn('src="image.png"', result)
@@ -39,7 +42,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
     def test_two_images_on_same_line_are_both_converted(self):
         content = "![Alt one](one.png) and ![Alt two](two.png)"
 
-        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content)
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
         self.assertIn('src="one.png"', result)
         self.assertIn('alt="Alt one"', result)
@@ -53,7 +56,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
         ```
         """)
 
-        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content)
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
         self.assertIn("![Alt text](image.png)", result)
         self.assertNotIn("{% include image.html", result)
@@ -66,14 +69,14 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
         ```
         """)
 
-        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content)
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
         self.assertIn("{% include image.html", result)
 
     def test_image_syntax_inside_inline_code_span_is_not_converted(self):
         content = "Use `![Alt text](image.png)` syntax for images."
 
-        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content)
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
         self.assertIn("`![Alt text](image.png)`", result)
         self.assertNotIn("{% include image.html", result)
@@ -88,9 +91,71 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
         ![Alt](img.png)
         """)
 
-        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content)
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
         self.assertIn("{% include image.html", result)
+
+    def test_bare_filename_is_resolved_via_image_path_lookup(self):
+        # A bare filename matching a known asset gets rewritten to its
+        # bucketed path — this is what lets image.html find the file after
+        # copy_vault_images_into_assets_directory buckets it by top-level
+        # vault directory instead of a single flat assets/images folder.
+        content = "![Alt text](free-real-estate.svg)"
+        lookup = {"free-real-estate.svg": "assets/88x31/free-real-estate.svg"}
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, lookup)
+
+        self.assertIn('src="assets/88x31/free-real-estate.svg"', result)
+
+    def test_unresolvable_src_is_left_unchanged(self):
+        # A src the lookup doesn't recognize — e.g. an external URL — is
+        # passed through untouched rather than mangled.
+        content = "![Alt text](https://example.com/image.png)"
+        lookup = {"image.png": "assets/88x31/image.png"}
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, lookup)
+
+        self.assertIn('src="https://example.com/image.png"', result)
+
+
+class TestBuildImagePathLookup(unittest.TestCase):
+
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        self.output_location = Path(self.tmp_dir.name)
+        self.assets_path = self.output_location / "assets"
+
+    def test_bucketed_image_resolves_to_its_full_relative_path(self):
+        bucket = self.assets_path / "88x31"
+        bucket.mkdir(parents=True)
+        (bucket / "free-real-estate.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        lookup = build_image_path_lookup(self.assets_path)
+
+        self.assertEqual(lookup["free-real-estate.svg"], "assets/88x31/free-real-estate.svg")
+
+    def test_root_level_asset_resolves_without_a_bucket(self):
+        self.assets_path.mkdir(parents=True)
+        (self.assets_path / "favicon.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        lookup = build_image_path_lookup(self.assets_path)
+
+        self.assertEqual(lookup["favicon.svg"], "assets/favicon.svg")
+
+    def test_duplicate_filename_across_buckets_raises(self):
+        (self.assets_path / "posts").mkdir(parents=True)
+        (self.assets_path / "88x31").mkdir(parents=True)
+        (self.assets_path / "posts" / "photo.png").write_bytes(b"one")
+        (self.assets_path / "88x31" / "photo.png").write_bytes(b"two")
+
+        with self.assertRaises(ValueError):
+            build_image_path_lookup(self.assets_path)
+
+    def test_missing_assets_directory_returns_empty_lookup(self):
+        lookup = build_image_path_lookup(self.assets_path)
+
+        self.assertEqual(lookup, {})
 
 
 class TestConvertWikilinkImageEmbedsOutsideCode(unittest.TestCase):
