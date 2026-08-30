@@ -16,6 +16,11 @@
       url: /vision/progress/website-progress/
     - title: Whiteboard
       url: /vision/whiteboard/website-whiteboard/
+- title: 88x31
+  url: /88x31/
+  children:
+    - title: Memes as Buttons
+      url: /memes-as-buttons/
 #- title: Writing
 #  url: /writing/
 #  children:

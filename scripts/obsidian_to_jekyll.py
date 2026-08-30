@@ -85,7 +85,7 @@ class ObsidianToJekyllConverter:
         self.output_location = output_location
         self.source_location = source_location
         self.site_sync = SiteSync(output_location / MANIFEST_FILENAME)
-        self.output_image_path = self.output_location / 'assets/images/'
+        self.output_image_path = self.output_location / 'assets'
 
     def begin_run(self) -> None:
         """Reset per-run sync tracking state (loads the on-disk manifest).
@@ -116,11 +116,21 @@ class ObsidianToJekyllConverter:
         self.site_sync.save()
 
     def copy_vault_images_into_assets_directory(self) -> None:
-        output_image_path = self.output_image_path
-        output_image_path.mkdir(parents=True, exist_ok=True)
+        assets_root = self.output_location / 'assets'
         for glob_pattern in self.IMAGE_ASSET_GLOBS:
             for image_file in self.obsidian_vault_location.rglob(glob_pattern):
-                self.site_sync.sync_file(image_file, output_image_path / image_file.name)
+                relative_path = image_file.relative_to(self.obsidian_vault_location)
+                # Bucket by the vault's top-level parent directory (e.g. '88x31',
+                # 'posts') rather than preserving the full nested path — images
+                # land flat inside that bucket.
+                if len(relative_path.parts) > 1:
+                    top_level_dir = relative_path.parts[0]
+                    dest_dir = assets_root / top_level_dir
+                else:
+                    # Image sits directly at the vault root, with no parent dir.
+                    dest_dir = assets_root
+                dest_dir.mkdir(parents=True, exist_ok=True)
+                self.site_sync.sync_file(image_file, dest_dir / image_file.name)
 
     def parse_markdown_files_for_jekyll(self, note_path_lookup: dict[str, str]) -> None:
         last_published_by_dest = self.filename_to_last_published()

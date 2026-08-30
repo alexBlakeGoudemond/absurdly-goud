@@ -591,6 +591,55 @@ class TestCollectImagesInAssetsDirectory(unittest.TestCase):
         self.assertEqual(dest.read_bytes(), b"updated-bytes")
         self.assertIn(dest, self.converter.site_sync.changed_dest_paths)
 
+class TestCopyVaultImagesIntoAssetsDirectory(unittest.TestCase):
+    """Covers both first-time setup (fresh converter, empty manifest) and
+    recurring setup (same converter, manifest reloaded from disk via start_next_run)."""
+
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
+        self.converter.begin_run()
+
+    def test_image_is_bucketed_by_top_level_vault_directory(self):
+        buttons_dir = self.converter.obsidian_vault_location / "88x31" / "memes-as-buttons"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "free-real-estate.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        self.converter.copy_vault_images_into_assets_directory()
+
+        self.assertTrue(
+            (self.converter.output_location / "assets" / "88x31" / "free-real-estate.svg").exists()
+        )
+
+    def test_deeply_nested_image_is_flattened_into_top_level_bucket(self):
+        posts_dir = self.converter.obsidian_vault_location / "posts" / "2026" / "08"
+        posts_dir.mkdir(parents=True)
+        (posts_dir / "pagination-test-screenshot.png").write_bytes(b"fake-png-bytes")
+
+        self.converter.copy_vault_images_into_assets_directory()
+
+        self.assertTrue(
+            (self.converter.output_location / "assets" / "posts" / "pagination-test-screenshot.png").exists()
+        )
+
+    def test_root_level_image_has_no_parent_directory_bucket(self):
+        (self.converter.obsidian_vault_location / "favicon.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        self.converter.copy_vault_images_into_assets_directory()
+
+        self.assertTrue((self.converter.output_location / "assets" / "favicon.svg").exists())
+
+    def test_unchanged_image_is_skipped_on_recurring_run(self):
+        buttons_dir = self.converter.obsidian_vault_location / "88x31" / "memes-as-buttons"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "free-real-estate.svg").write_text("<svg></svg>", encoding="utf-8")
+        self.converter.copy_vault_images_into_assets_directory()  # first-time setup
+
+        start_next_run(self.converter)  # recurring setup: persist + reload from disk
+        self.converter.copy_vault_images_into_assets_directory()  # unchanged content
+
+        self.assertEqual(self.converter.site_sync.changed_dest_paths, [])
 
 if __name__ == '__main__':
     unittest.main()
