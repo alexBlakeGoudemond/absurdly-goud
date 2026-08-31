@@ -1,4 +1,7 @@
 # Goals
+
+Below are quick blocks of text tracking what I am working towards as I think of something:
+
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Allow for option to inline an image, as default is dedicated figure
 - [ ] is linking to sections of the site working? Thought it was, but `about#ai-usage` may not be anymore

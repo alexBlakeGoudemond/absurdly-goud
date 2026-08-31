@@ -2,8 +2,6 @@
 
 In Obsidian I am using wikilinks like this `[[...]]` and it should now just work with Jekyll due to the conversion script!
 
-<!--more-->
-
 If I have a wikilink like this:
 ```markdown
 [[Note#Sub Section|Alt Text]]
