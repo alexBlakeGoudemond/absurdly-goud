@@ -61,7 +61,7 @@ figcaption {
 .badge-img {
     width: 88px;
     height: 31px;
-    border-radius: 2px; /* subtle rounding, optional */
+    border-radius: 7px;
     transition: transform 0.15s ease;
 }
 
