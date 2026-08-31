@@ -1,0 +1,54 @@
+tests/parsing_markdown2/test_website_manifest.py
+  h_1197a506f6c7d6 1-166
+scripts/parsing_markdown/wikilinks.py
+  h_1197a506f6c7d6 1-103
+docs/BUILD_CACHING.md
+  h_1197a506f6c7d6 8
+tests/parsing_markdown2/test_filenames.py
+  h_1197a506f6c7d6 1-30
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_file_conversion.py
+  h_1197a506f6c7d6 1-86
+tests/parsing_markdown2/test_markdown_regions.py
+  h_1197a506f6c7d6 1-137
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 15-20,25-26
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_script_usage.py
+  h_1197a506f6c7d6 1-45
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  h_1197a506f6c7d6 1-101
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 1-136
+tests/parsing_markdown2/test_codeblock_escaping.py
+  h_1197a506f6c7d6 1-99
+scripts/parsing_markdown/site_sync.py
+  h_1197a506f6c7d6 1-95
+tests/parsing_markdown2/test_site_sync.py
+  h_1197a506f6c7d6 1-200
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_excalidraw.py
+  h_1197a506f6c7d6 1-94
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_markdown_excerpt.py
+  h_1197a506f6c7d6 1-270
+scripts/parsing_markdown/codeblock_escaping.py
+  h_1197a506f6c7d6 1-24
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_images.py
+  h_1197a506f6c7d6 1-129
+tests/parsing_markdown2/test_jekyll_frontmatter.py
+  h_1197a506f6c7d6 1-147
+tests/parsing_markdown2/test_markdown_images.py
+  h_1197a506f6c7d6 1-220
+tests/parsing_markdown2/test_excalidraw_embeds.py
+  h_1197a506f6c7d6 1-65
+tests/parsing_markdown2/test_wikilinks.py
+  h_1197a506f6c7d6 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d56df05967dcfe7c190f6ee866b84205aa205e98",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
