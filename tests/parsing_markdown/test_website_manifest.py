@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.website_manifest import (
+from scripts.parsing_markdown.website_manifest import (
     sha256,
     create_manifest_entry,
     load_manifest,

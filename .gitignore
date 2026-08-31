@@ -13,3 +13,6 @@
 
 # Obsidian Vault excalidraw Libraries
 /absurdly-goud-obsidian/Excalidraw/Libraries/
+
+# Ignore Pycache files
+**/__pycache__/

@@ -12,18 +12,18 @@ import argparse
 from pathlib import Path
 from typing import Any
 
-from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
-from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
-from scripts.markdown_excerpt import add_excerpt_marker_to_file
-from scripts.filenames import slugify_filename
-from scripts.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.markdown_images import (
+from scripts.parsing_markdown.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
+from scripts.parsing_markdown.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
+from scripts.parsing_markdown.markdown_excerpt import add_excerpt_marker_to_file
+from scripts.parsing_markdown.filenames import slugify_filename
+from scripts.parsing_markdown.jekyll_frontmatter import add_frontmatter_to_file
+from scripts.parsing_markdown.markdown_images import (
     build_image_path_lookup,
     convert_markdown_image_embeds_outside_code_blocks_and_code_spans,
     convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
 )
-from scripts.site_sync import SiteSync
-from scripts.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
+from scripts.parsing_markdown.site_sync import SiteSync
+from scripts.parsing_markdown.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
 MANIFEST_FILENAME = ".manifest.json"
 

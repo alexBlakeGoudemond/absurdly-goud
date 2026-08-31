@@ -6,7 +6,7 @@ Resolves Obsidian-style [[wikilinks]] into Jekyll {% link %} tags.
 import re
 from pathlib import Path
 
-from scripts.markdown_regions import apply_outside_code_blocks_and_code_spans
+from scripts.parsing_markdown.markdown_regions import apply_outside_code_blocks_and_code_spans
 
 # Matches Obsidian wikilinks: [[NoteName#NoteSubSection|AltText]]
 # Both #NoteSubSection and |AltText are optional.

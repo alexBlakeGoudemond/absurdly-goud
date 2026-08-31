@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from textwrap import dedent
 
-from scripts.markdown_regions import apply_outside_code_blocks_and_code_spans
+from scripts.parsing_markdown.markdown_regions import apply_outside_code_blocks_and_code_spans
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 

@@ -2,7 +2,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.obsidian_to_jekyll import ObsidianToJekyllConverter, MANIFEST_FILENAME
+from scripts.obsidian_to_jekyll import (
+    ObsidianToJekyllConverter,
+    MANIFEST_FILENAME,
+)
 
 
 class TestRunEndToEnd(unittest.TestCase):

@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 from textwrap import dedent
 
-from scripts.wikilinks import (
+from scripts.parsing_markdown.wikilinks import (
     build_note_path_lookup,
     convert_wikilinks_to_jekyll_layout,
     convert_wikilink_note_links_outside_code_blocks_and_code_spans,

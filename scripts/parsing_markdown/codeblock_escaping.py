@@ -5,7 +5,7 @@ tags, so Liquid doesn't try to interpret template-like syntax that happens to
 appear inside a code sample (e.g. a `{% ... %}` shown as an example).
 """
 
-from scripts.markdown_regions import iter_fenced_lines
+from scripts.parsing_markdown.markdown_regions import iter_fenced_lines
 
 
 def escape_markdown_code_blocks_for_jekyll(content: str) -> str:

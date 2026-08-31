@@ -15,12 +15,12 @@ def make_args(vault: str, out_dir: str, src_root: str) -> argparse.Namespace:
 class TestExtractCommandLineArguments(unittest.TestCase):
 
     def test_returns_paths_for_explicit_args(self):
-        args = make_args(vault="my_vault", out_dir="site_src", src_root="some/root")
+        args = make_args(vault="my_vault", out_dir="../../site_src", src_root="some/root")
 
         vault, out, src = extract_command_line_arguments(args)
 
         self.assertEqual(vault, Path("my_vault"))
-        self.assertEqual(out, Path("site_src"))
+        self.assertEqual(out, Path("../../site_src"))
         self.assertEqual(src, Path("some/root"))
 
     def test_src_root_defaults_to_script_parent_when_dot(self):

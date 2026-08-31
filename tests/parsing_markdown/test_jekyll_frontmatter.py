@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.jekyll_frontmatter import (
+from scripts.parsing_markdown.jekyll_frontmatter import (
     extract_title_from_file_name,
     display_title_from_slug,
     build_permalink,

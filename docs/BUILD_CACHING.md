@@ -5,7 +5,7 @@
 [obsidian_to_jekyll.py](../scripts/obsidian_to_jekyll.py) now uses a **content-hash manifest** to avoid re-copying
 unchanged files on every run.
 
-- [website_manifest.py](../scripts/website_manifest.py) hashes each source file (SHA256) and can load/save a manifest
+- [website_manifest.py](../scripts/parsing_markdown/website_manifest.py) hashes each source file (SHA256) and can load/save a manifest
   to/from `site_src/.manifest.json`.
 - `ObsidianToJekyllConverter.sync_file()` compares each file's current hash against the manifest from the last run:
     - **Unchanged** → skip the copy entirely.

@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.filenames import slugify_filename
+from scripts.parsing_markdown.filenames import slugify_filename
 
 
 class TestSlugifyFilename(unittest.TestCase):
