@@ -86,6 +86,10 @@ figcaption {
     padding: 1rem;
 }
 
+.h-entry {
+    padding: 1rem;
+}
+
 .post {
     display: block;
     border: 1px solid #630b0b;
