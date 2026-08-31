@@ -173,6 +173,11 @@ class ObsidianToJekyllConverter:
     def add_frontmatter_if_needed(self, dest_path: Path, last_published: str):
         if dest_path.name in self.IGNORED_FRONTMATTER_FILES:
             print(f"Skipping adding of frontmatter to '{dest_path.name}'")
+        elif '_posts' in dest_path.parts:
+            add_frontmatter_to_file(dest_path,
+                                    file_layout='post',
+                                    include_permalink=True,
+                                    last_published=last_published)
         elif dest_path.name in ['about.md']:
             add_frontmatter_to_file(dest_path,
                                     include_permalink=True,
