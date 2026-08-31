@@ -2,6 +2,7 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] URL links and wikilinks should automatically escape vertical bars for Kramdown parsing confusion (not escaping fails to parse)
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
