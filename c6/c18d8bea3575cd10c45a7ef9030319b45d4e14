@@ -1,0 +1,17 @@
+scripts/markdown_excerpt.py
+  h_1197a506f6c7d6 17-32,37-44,56-75,78
+tests/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 698-756,760-786
+  h_1197a506f6c7d6 757-759
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "c6c18d8bea3575cd10c45a7ef9030319b45d4e14",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
