@@ -10,6 +10,7 @@ main {
     min-width: 0; /* prevents content from overflowing grid track (important for text/code blocks) */
     border: 1px solid #630b0b;
     border-radius: 4px;
+    padding: 1rem;
 }
 
 aside {
@@ -80,14 +81,6 @@ figcaption {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem;
-}
-
-.h-feed {
-    padding: 1rem;
-}
-
-.h-entry {
-    padding: 1rem;
 }
 
 .post {
