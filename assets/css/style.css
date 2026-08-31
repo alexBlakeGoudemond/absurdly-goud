@@ -81,3 +81,21 @@ figcaption {
     flex-wrap: wrap;
     gap: 0.25rem;
 }
+
+.h-feed {
+    padding: 1rem;
+}
+
+.post {
+    display: block;
+    border: 1px solid #630b0b;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.dt-published {
+    font-size: 0.85em;
+    font-style: italic;
+    color: #666;
+}
