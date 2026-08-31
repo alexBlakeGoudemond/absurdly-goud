@@ -35,7 +35,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
-        self.assertIn('{% include image.html', result)
+        self.assertIn('{% include figure.html', result)
         self.assertIn('src="image.png"', result)
         self.assertIn('alt="Alt text"', result)
 
@@ -71,7 +71,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
-        self.assertIn("{% include image.html", result)
+        self.assertIn("{% include figure.html", result)
 
     def test_image_syntax_inside_inline_code_span_is_not_converted(self):
         content = "Use `![Alt text](image.png)` syntax for images."
@@ -93,7 +93,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
-        self.assertIn("{% include image.html", result)
+        self.assertIn("{% include figure.html", result)
 
     def test_bare_filename_is_resolved_via_image_path_lookup(self):
         # A bare filename matching a known asset gets rewritten to its

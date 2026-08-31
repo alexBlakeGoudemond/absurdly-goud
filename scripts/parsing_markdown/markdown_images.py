@@ -62,7 +62,7 @@ def build_image_path_lookup(assets_path: Path) -> dict[str, str]:
 
 
 def convert_markdown_image_notation_to_jekyll_includes_image_notation(
-        image_name: str, image_alt_text: str, is_inline: bool = False
+        image_name: str, image_alt_text: str, is_inline: bool = True
 ) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
