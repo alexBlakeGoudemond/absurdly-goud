@@ -1,0 +1,19 @@
+assets/css/style.css
+  h_1197a506f6c7d6 64
+_data/badges.yml
+  h_1197a506f6c7d6 20,25
+assets/badges/disclaimer-ai-assisted-button.svg
+  h_1197a506f6c7d6 1,3-124,126-159,162-169
+  h_1197a506f6c7d6 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b37738a5f2497ba3a1d462004578c55edbda03ce",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
