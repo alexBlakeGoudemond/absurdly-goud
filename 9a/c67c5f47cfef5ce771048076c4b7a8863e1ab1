@@ -1,0 +1,66 @@
+docs/BUILD_CACHING.md
+  h_1197a506f6c7d6 8
+tests/__init__.py
+  h_1197a506f6c7d6 1-4
+tests/test_helpers.py
+  h_1197a506f6c7d6 16-29
+.gitignore
+  h_1197a506f6c7d6 16-18
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_find_section.py
+  h_1197a506f6c7d6 1-25
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 15-20,25-26
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_markdown_excerpt.py
+  h_1197a506f6c7d6 1-253
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_excalidraw.py
+  h_1197a506f6c7d6 1-77
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_images.py
+  h_1197a506f6c7d6 1-113
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_file_conversion.py
+  h_1197a506f6c7d6 1-69
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 1-291
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  h_1197a506f6c7d6 1-84
+scripts/parsing_markdown/codeblock_escaping.py
+  h_1197a506f6c7d6 8
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 11
+scripts/parsing_markdown/site_sync.py
+  h_1197a506f6c7d6 14
+scripts/parsing_markdown/wikilinks.py
+  h_1197a506f6c7d6 9
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_run.py
+  h_1197a506f6c7d6 5-8
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_script_usage.py
+  h_1197a506f6c7d6 18,23
+tests/parsing_markdown/test_codeblock_escaping.py
+  h_1197a506f6c7d6 4
+tests/parsing_markdown/test_excalidraw_embeds.py
+  h_1197a506f6c7d6 5
+tests/parsing_markdown/test_filenames.py
+  h_1197a506f6c7d6 3
+tests/parsing_markdown/test_jekyll_frontmatter.py
+  h_1197a506f6c7d6 5
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 6
+tests/parsing_markdown/test_markdown_regions.py
+  h_1197a506f6c7d6 4
+tests/parsing_markdown/test_site_sync.py
+  h_1197a506f6c7d6 5
+tests/parsing_markdown/test_website_manifest.py
+  h_1197a506f6c7d6 6
+tests/parsing_markdown/test_wikilinks.py
+  h_1197a506f6c7d6 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "9ac67c5f47cfef5ce771048076c4b7a8863e1ab1",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
