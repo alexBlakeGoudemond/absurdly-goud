@@ -61,11 +61,14 @@ def build_image_path_lookup(assets_path: Path) -> dict[str, str]:
     return lookup
 
 
-def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name: str, image_alt_text: str) -> str:
+def convert_markdown_image_notation_to_jekyll_includes_image_notation(
+        image_name: str, image_alt_text: str, is_inline: bool = False
+) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
+    include_name = 'image.html' if is_inline else 'figure.html'
     jekyll_image_layout_notation = f"""
-        {opening_brace} include image.html
+        {opening_brace} include {include_name}
             src="{image_name}"
             alt="{image_alt_text}"
             title="{image_alt_text}"
@@ -75,24 +78,23 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(image_name
 
 
 def replace_images_in_segment(segment: str, image_path_lookup: dict[str, str]) -> str:
-    def replace(match: re.Match) -> str:
-        image_alt_text = match.group(1)
-        image_name = match.group(2)
-        # Only a bare local filename (e.g. 'free-real-estate.svg', produced by
-        # the wikilink-embed conversion above) is resolved against the vault's
-        # assets bucket. An external URL is left exactly as written even if
-        # its basename happens to collide with a known asset's filename —
-        # otherwise a remote image could get silently rewritten to point at
-        # an unrelated local file.
-        if '://' in image_name:
-            image_src = image_name
-        else:
-            image_src = image_path_lookup.get(Path(image_name).name, image_name)
-        return convert_markdown_image_notation_to_jekyll_includes_image_notation(
-            image_src, image_alt_text
-        )
+    def replace_line(line: str) -> str:
+        is_inline = len(MARKDOWN_IMAGE_PATTERN.findall(line)) > 1
 
-    return MARKDOWN_IMAGE_PATTERN.sub(replace, segment)
+        def replace(match: re.Match) -> str:
+            image_alt_text = match.group(1)
+            image_name = match.group(2)
+            if '://' in image_name:
+                image_src = image_name
+            else:
+                image_src = image_path_lookup.get(Path(image_name).name, image_name)
+            return convert_markdown_image_notation_to_jekyll_includes_image_notation(
+                image_src, image_alt_text, is_inline=is_inline
+            )
+
+        return MARKDOWN_IMAGE_PATTERN.sub(replace, line)
+
+    return '\n'.join(replace_line(line) for line in segment.split('\n'))
 
 
 def convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
