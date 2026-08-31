@@ -41,53 +41,36 @@
 <!--more-->
 
 <p>Normal markdown syntax: <code class="language-plaintext highlighter-rouge">![Screenshot showing the pagination test](pagination-test-screenshot.png)</code> should show
-here: 
-<!--
+here: <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
---></p>
-<figure>
-    <img class="u-photo" src="/assets/posts/pagination-test-screenshot.png" alt="Screenshot showing the pagination test" />
-    <figcaption>Screenshot showing the pagination test</figcaption>
-</figure>
+-->
+    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="Screenshot showing the pagination test" /></p>
 
-<p>Wikilink Syntax: <code class="language-plaintext highlighter-rouge">![[pagination-test-screenshot.png]]</code> should show here: 
-<!--
+<p>Wikilink Syntax: <code class="language-plaintext highlighter-rouge">![[pagination-test-screenshot.png]]</code> should show here: <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
---></p>
-<figure>
-    <img class="u-photo" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" />
-    <figcaption>pagination-test-screenshot.png</figcaption>
-</figure>
+-->
+    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" /></p>
 
 <p>In addition to this, its worth noting that Jekyll does not support dynamic image sizing!
 In other words, controlling the size of the images using the <code class="language-plaintext highlighter-rouge">bar</code> syntax won’t work. Proof is below</p>
 
-<p><code class="language-plaintext highlighter-rouge">![[theImage.png|300]]</code>: 
-<!--
+<p><code class="language-plaintext highlighter-rouge">![[theImage.png|300]]</code>: <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
---></p>
-<figure>
-    <img class="u-photo" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" />
-    <figcaption>pagination-test-screenshot.png</figcaption>
-</figure>
+-->
+    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" /></p>
 
-<p><code class="language-plaintext highlighter-rouge">![[theImage.png|300x100]]</code>: 
-<!--
+<p><code class="language-plaintext highlighter-rouge">![[theImage.png|300x100]]</code>: <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
---></p>
-<figure>
-    <img class="u-photo" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" />
-    <figcaption>pagination-test-screenshot.png</figcaption>
-</figure>
-
+-->
+    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" /></p>
 
     </div>
 
