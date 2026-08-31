@@ -1,5 +1,3 @@
-# Testing Wikilink Images
-
 Curious to see if Wikilink images work (ie. this format: `![[theImage.png]]`)
 
 Normal markdown syntax: `![Screenshot showing the pagination test](pagination-test-screenshot.png)` should show

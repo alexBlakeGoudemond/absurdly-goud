@@ -1,5 +1,3 @@
-# Testing Wikilinks
-
 In Obsidian I am using wikilinks like this `[[...]]` and it should now just work with Jekyll due to the conversion script!
 
 If I have a wikilink like this:

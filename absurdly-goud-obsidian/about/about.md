@@ -87,7 +87,7 @@ Comments:
 - I am sceptical around AI companies promising that they will NOT collect data outside of the prompts
 	- I am awaiting the day when we are told: "We have been scraping data for years - now buy this product..." ⚠️
 	- To cope with this, I have a personal policy: Only use AI on code that is publicly available
-		- This way - anyone **COULD** use AI on it, by cloning the repo ![[free-real-estate.svg]]
+		- This way - anyone **COULD** use AI on it, by cloning the repo ![[free-real-estate.gif]]
 - If my code exists in the public domain, I cannot detect/stop AI being used on it
     - As such, I am not going to police AI on my site – I will instead focus on what I like and consider AI to help me
       when relevant 💪

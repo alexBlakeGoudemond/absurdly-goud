@@ -9,17 +9,15 @@ title: Posts
 
   {% for post in paginator.posts %}
 
-  <article class="h-entry">
+  <article class="h-entry post">
 
     <h2 class="p-name">
-      <a class="u-url" href="{{ post.url }}">
-        {{ post.title }}
-      </a>
+      {{ post.title }}
     </h2>
 
-    <time class="dt-published"
-          datetime="{{ post.date | date_to_xmlschema }}">
-      {{ post.date | date: "%d %B %Y" }}
+    {% assign display_date = post.last_published | default: post.date %}
+    <time class="dt-published" datetime="{{ display_date | date_to_xmlschema }}">
+      {{ display_date | date: "%Y-%m-%d %H:%M" }}
     </time>
 
     <div class="p-summary">
