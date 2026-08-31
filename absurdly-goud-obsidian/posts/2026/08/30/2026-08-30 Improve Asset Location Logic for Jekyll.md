@@ -1,7 +1,5 @@
 I improved the Python script that prepares `site-src` to include the top-level obsidian vault directory for images. This allows us to later navigate to those locations to showcase the assets we have, if desired
 
-<!--more-->
-
 For example, this vault image:
 ```python
 |-- absurdly-goud-obsidian/
