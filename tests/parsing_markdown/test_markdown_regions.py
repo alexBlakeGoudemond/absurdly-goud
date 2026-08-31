@@ -1,7 +1,7 @@
 import unittest
 from textwrap import dedent
 
-from scripts.markdown_regions import (
+from scripts.parsing_markdown.markdown_regions import (
     iter_fenced_lines,
     apply_outside_inline_code_span, apply_outside_code_blocks_and_code_spans,
 )

@@ -1,7 +1,7 @@
 import unittest
 from textwrap import dedent
 
-from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
+from scripts.parsing_markdown.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 
 
 class TestEscapeMarkdownCodeblocksForJekyll(unittest.TestCase):

@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.excalidraw_embeds import (
+from scripts.parsing_markdown.excalidraw_embeds import (
     is_excalidraw_note,
     excalidraw_svg_filename,
     swap_excalidraw_note_with_image_embed,

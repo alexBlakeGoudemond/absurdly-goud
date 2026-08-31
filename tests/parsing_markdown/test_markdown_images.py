@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 from textwrap import dedent
 
-from scripts.markdown_images import (
+from scripts.parsing_markdown.markdown_images import (
     build_image_path_lookup,
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
     convert_markdown_image_embeds_outside_code_blocks_and_code_spans,

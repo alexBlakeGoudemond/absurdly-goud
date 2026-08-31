@@ -2,7 +2,7 @@ import unittest
 import tempfile
 from pathlib import Path
 
-from scripts.site_sync import SiteSync
+from scripts.parsing_markdown.site_sync import SiteSync
 
 
 def make_site_sync(tmp_path: Path) -> SiteSync:
