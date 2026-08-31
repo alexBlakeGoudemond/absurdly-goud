@@ -3,7 +3,6 @@
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
-- [ ] Allow for option to inline an image, as default is dedicated figure
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
 - [ ] `[!note]` syntax to be supported in HTML
@@ -33,6 +32,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] Changelog
 
 # Achievements
+- [x] Allow for option to inline an image, as default is dedicated figure (2026-08-31)
 - [x] Can I use badges if they are links? (2026-08-31)
 - [x] Posts have last_pubished frontmatter and show in note on website (2026-08-31)
 - [x] is linking to sections of the site working? Thought it was, but `about#ai-usage` may not be anymore - YES, stale cache problem (confirmed 2026-08-31)
