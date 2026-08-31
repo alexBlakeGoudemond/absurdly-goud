@@ -11,7 +11,7 @@
 {%- endif -%}
 {%- endfor -%}
 {%- if image_exists %}
-    <img class="u-photo" src="{{ image_path | relative_url }}" alt="{{ include.alt }}">
+    <img class="u-photo-inline" src="{{ image_path | relative_url }}" alt="{{ include.alt }}">
 {%- else %}
 <p>File `{{ include.src }}` not found</p>
 {%- endif %}
