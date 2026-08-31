@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Testing Wikilinks | ABsurdly Goud</title>
+    <title>Caching Test | ABsurdly Goud</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -22,28 +22,33 @@
 
 <div class="page-wrapper">
     <main>
-        <h1 id="testing-wikilinks">Testing Wikilinks</h1>
+        <article class="h-entry">
 
-<p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
+    <header>
+        <h2 class="p-name">Caching Test</h2>
+
+        
+        <time class="dt-published" datetime="2026-08-23T00:00:00+00:00">
+            2026-08-23 00:00
+        </time>
+    </header>
+
+    <div class="e-content">
+        
+
+        <p>I am working on doing a build cache via a Manifest file to improve publication</p>
 
 <!--more-->
 
-<p>If I have a wikilink like this:</p>
+<p>Instead of deleting the entire <code class="language-plaintext highlighter-rouge">site_src</code> directory and then re-copying, I am instead using a cache strategy. If the
+<code class="language-plaintext highlighter-rouge">sha256</code> of a file changed, the <code class="language-plaintext highlighter-rouge">name</code> of the file changed or the file was deleted - only then should it be updated in
+the remote destination - the rest remains as is. Right now this benefits Local Development only as GitHub-hosted Actions
+runners are <strong>ephemeral</strong> — nothing persists between workflow runs unless explicitly cached. Can always bring this in
+later to GitHub Pages</p>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[Note#Sub Section|Alt Text]]
-</code></pre></div></div>
+    </div>
 
-<p>Then the script should convert it into a form that Jekyll requires -  a redirect syntax called a link like this:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nv">Alt Text</span><span class="p">](</span><span class="sx">{%</span> link path/to/Note.md %}#sub-section)
-</code></pre></div></div>
-
-<p>Testing between posts - this should link <a href="/2026/08/24/aside-and-buttons/">2026-08-24-aside-and-buttons</a></p>
-
-<p>Testing between posts and about - this should link <a href="/about/#ai-usage">AI Usage</a></p>
-
-<p>Testing hyperlinks: <a href="https://jekyllrb.com/">Jekyll</a></p>
-
+</article>
     </main>
 
     <aside>

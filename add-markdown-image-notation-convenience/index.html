@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Show And Tell With A Friend | ABsurdly Goud</title>
+    <title>Add Markdown Image Notation Convenience | ABsurdly Goud</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -22,14 +22,43 @@
 
 <div class="page-wrapper">
     <main>
-        <h1 id="show-and-tell-with-a-friend">Show and Tell with a Friend</h1>
+        <article class="h-entry">
 
-<p>Showing the bare-bones site to my friend at work</p>
+    <header>
+        <h2 class="p-name">Add Markdown Image Notation Convenience</h2>
+
+        
+        <time class="dt-published" datetime="2026-08-24T00:00:00+00:00">
+            2026-08-24 00:00
+        </time>
+    </header>
+
+    <div class="e-content">
+        
+
+        <p>Because I am using Obsidian to produce posts etc, I would prefer to create content using the Markdown syntax I know. I have now gotten it to play nice with Jekyll Includes Syntax</p>
 
 <!--more-->
 
-<p>Exploring Jekyll together and discussing GitHub Pages</p>
+<p>Jekyll requires a specific structure for includes docs:</p>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">image</span><span class="p">.</span><span class="n">html</span>  
+    <span class="n">src</span><span class="o">=</span><span class="s">"image1.png"</span>
+    <span class="n">alt</span><span class="o">=</span><span class="s">"Alt text 1"</span>
+    <span class="n">title</span><span class="o">=</span><span class="s">"Alt text 1"</span>
+<span class="o">%</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Whereas the Markdown syntax is simpler:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">Alt text 1</span><span class="p">](</span><span class="sx">image1.png</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>With the changes brought into the <code class="language-plaintext highlighter-rouge">obsidian_to_jekyll</code> script, the conversion from Markdown Image Notation to Jekyll Includes Notation just works!</p>
+
+    </div>
+
+</article>
     </main>
 
     <aside>
