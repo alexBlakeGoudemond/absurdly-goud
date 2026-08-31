@@ -1,0 +1,15 @@
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 18,28-40
+  h_1197a506f6c7d6 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3c33a84b69041955c2e88e191d61a2838688835d",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
