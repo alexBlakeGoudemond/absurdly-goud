@@ -1,0 +1,63 @@
+scripts/parsing_markdown/site_sync.py
+  h_1197a506f6c7d6 14
+scripts/parsing_markdown/codeblock_escaping.py
+  h_1197a506f6c7d6 8
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 6
+tests/parsing_markdown/test_excalidraw_embeds.py
+  h_1197a506f6c7d6 5
+tests/parsing_markdown/test_website_manifest.py
+  h_1197a506f6c7d6 6
+scripts/parsing_markdown/wikilinks.py
+  h_1197a506f6c7d6 9
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_markdown_excerpt.py
+  h_1197a506f6c7d6 7,11
+tests/parsing_markdown/test_jekyll_frontmatter.py
+  h_1197a506f6c7d6 5
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_images.py
+  h_1197a506f6c7d6 11
+tests/parsing_markdown/test_site_sync.py
+  h_1197a506f6c7d6 5
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 11
+tests/parsing_markdown/test_filenames.py
+  h_1197a506f6c7d6 3
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_file_conversion.py
+  h_1197a506f6c7d6 9
+tests/__init__.py
+  h_1197a506f6c7d6 1-4
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_excalidraw.py
+  h_1197a506f6c7d6 9
+tests/parsing_markdown/test_wikilinks.py
+  h_1197a506f6c7d6 6
+tests/parsing_markdown/test_codeblock_escaping.py
+  h_1197a506f6c7d6 4
+scripts/obsidian_to_jekyll.py
+  s_643f6c1ea8174b::t_2a2e556fc60f76 15-20
+  s_643f6c1ea8174b::t_699bb9f701bf84 25-26
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  h_1197a506f6c7d6 6,10
+tests/parsing_markdown/test_markdown_regions.py
+  h_1197a506f6c7d6 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "08c84c268bb138b04ee38c372d719e8e05069925",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_643f6c1ea8174b": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1787932968716",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
