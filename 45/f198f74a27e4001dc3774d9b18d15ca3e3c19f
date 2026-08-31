@@ -1,0 +1,17 @@
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 69-71,78-79,81,90-93,96,100-109,111,128
+  h_1197a506f6c7d6 72-77,94-95,97-98
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 41-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "45f198f74a27e4001dc3774d9b18d15ca3e3c19f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
