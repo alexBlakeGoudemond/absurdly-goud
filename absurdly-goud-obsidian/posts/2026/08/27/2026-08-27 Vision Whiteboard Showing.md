@@ -1,4 +1,4 @@
-## Whiteboard showing on site
+# Whiteboard showing on site
 
 Today I confirmed that Excalidraw files can be prepared as SVGs and displayed in the site
 
