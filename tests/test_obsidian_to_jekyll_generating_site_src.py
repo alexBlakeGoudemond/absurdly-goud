@@ -695,6 +695,95 @@ class TestInsertExcerptMarkerAfterFirstParagraph(unittest.TestCase):
             "First paragraph.\n\n<!--more-->\n\n---\n\nSecond paragraph after a horizontal rule.",
         )
 
+    def test_single_heading_is_skipped_before_placing_marker(self):
+        content = dedent("""\
+            ## Website Name
+
+            `ABsurdly Goud` is a personal website. Its name came from a few pieces of inspiration:
+
+            - My initials are ABG - I wanted that included in the name""")
+
+        result = insert_excerpt_marker_after_first_paragraph(content)
+
+        self.assertEqual(result, dedent("""\
+            ## Website Name
+
+            `ABsurdly Goud` is a personal website. Its name came from a few pieces of inspiration:
+
+            <!--more-->
+
+            - My initials are ABG - I wanted that included in the name"""))
+
+    def test_nested_headings_are_all_skipped_before_placing_marker(self):
+        content = dedent("""\
+            # Header 1
+
+            ## Header 2
+
+            ### Header 3
+
+            #### Header 4
+
+            some text is here
+
+            more text is here""")
+
+        result = insert_excerpt_marker_after_first_paragraph(content)
+
+        self.assertEqual(result, dedent("""\
+            # Header 1
+
+            ## Header 2
+
+            ### Header 3
+
+            #### Header 4
+
+            some text is here
+
+            <!--more-->
+
+            more text is here"""))
+
+    def test_heading_with_no_paragraph_after_it_is_left_unchanged(self):
+        content = "# Title\n\nOnly one paragraph after the title."
+
+        result = insert_excerpt_marker_after_first_paragraph(content)
+
+        self.assertEqual(result, content)
+        self.assertNotIn("<!--more-->", result)
+
+    def test_frontmatter_and_heading_are_both_skipped_before_placing_marker(self):
+        content = dedent("""\
+            ---
+            layout: default
+            ---
+
+            ## Section
+
+            First para.
+
+            Second para.
+            """)
+
+        result = insert_excerpt_marker_after_first_paragraph(content)
+
+        self.assertIn("First para.\n\n<!--more-->\n\nSecond para.", result)
+        self.assertTrue(result.startswith("---\nlayout: default\n---\n\n## Section\n\n"))
+
+    def test_heading_like_line_inside_a_paragraph_is_not_treated_as_a_heading(self):
+        # A '#' only signals a heading when it's the entire block on its own
+        # line — a line that merely starts with '#' inside running prose
+        # (unusual, but possible) must not be skipped as if it were a title.
+        content = "#hashtag mentioned inline is not a heading here.\n\nSecond paragraph."
+
+        result = insert_excerpt_marker_after_first_paragraph(content)
+
+        self.assertEqual(
+            result,
+            "#hashtag mentioned inline is not a heading here.\n\n<!--more-->\n\nSecond paragraph.",
+        )
+
 
 class TestAddExcerptMarkerToMarkdownFiles(unittest.TestCase):
     """Exercises the orchestration: add_excerpt_if_needed runs for every

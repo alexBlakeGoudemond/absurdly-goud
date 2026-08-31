@@ -14,21 +14,34 @@ EXCERPT_MARKER = "<!--more-->"
 # horizontal rule) must never be mistaken for a frontmatter delimiter.
 _FRONTMATTER_PATTERN = re.compile(r'\A---\n.*?\n---\n', re.DOTALL)
 
-# The first blank line (allowing trailing whitespace on it) marks the end
-# of the first paragraph.
-_PARAGRAPH_BREAK_PATTERN = re.compile(r'\n[ \t]*\n')
+# One or more consecutive blank lines, i.e. the gap between two blocks.
+# The `+` matters for correctly identifying block boundaries when hunting
+# for headings below — a gap of several blank lines is still just one gap
+# between two blocks, not several empty blocks in between.
+_BLOCK_BREAK_PATTERN = re.compile(r'\n(?:[ \t]*\n)+')
+
+# A block that is a heading and nothing else: a single line starting with
+# 1-6 '#' characters. Headings are skipped when hunting for the "first
+# paragraph" — the excerpt should start after the first real prose block,
+# not get wedged directly under a title.
+_HEADING_ONLY_PATTERN = re.compile(r'\A#{1,6}[ \t]+\S.*\Z')
+
+
+def _is_heading_only_block(block: str) -> bool:
+    stripped = block.strip('\n')
+    return '\n' not in stripped and bool(_HEADING_ONLY_PATTERN.match(stripped))
 
 
 def insert_excerpt_marker_after_first_paragraph(content: str) -> str:
     """
-    Finds the first paragraph in `content` — skipping a leading YAML
-    frontmatter block, if present — and inserts EXCERPT_MARKER on its own
-    line directly after it.
+    Finds the first non-heading paragraph in `content` — skipping a leading
+    YAML frontmatter block, if present, and skipping over any heading blocks
+    (`# ...` through `###### ...`) that precede it — and inserts
+    EXCERPT_MARKER on its own line directly after that paragraph.
 
-    A "paragraph" here is the first run of non-blank lines, ending at the
-    first blank line. If the marker is already present, or the content has
-    no second paragraph to separate the first one from, `content` is
-    returned unchanged.
+    If the marker is already present, or there's no paragraph after the
+    leading headings to separate the marker from, `content` is returned
+    unchanged.
     """
     if EXCERPT_MARKER in content:
         return content
@@ -40,12 +53,29 @@ def insert_excerpt_marker_after_first_paragraph(content: str) -> str:
     body_without_leading_blank_lines = body.lstrip('\n')
     leading_blank_lines_length = len(body) - len(body_without_leading_blank_lines)
 
-    break_match = _PARAGRAPH_BREAK_PATTERN.search(body_without_leading_blank_lines)
-    if break_match is None:
-        # Only one paragraph (or no body at all) — nothing to separate.
+    breaks = list(_BLOCK_BREAK_PATTERN.finditer(body_without_leading_blank_lines))
+    if not breaks:
+        # Only one block total — nothing to separate it from.
         return content
 
-    insert_at = leading_blank_lines_length + break_match.start()
+    block_starts = [0] + [b.end() for b in breaks]
+    block_ends = [b.start() for b in breaks] + [len(body_without_leading_blank_lines)]
+
+    # Walk blocks in order, skipping leading headings, looking for the first
+    # non-heading block that still has a block *after* it (excluding the
+    # final block — there must be something to separate it from).
+    insertion_break_index = None
+    for index in range(len(breaks)):
+        block = body_without_leading_blank_lines[block_starts[index]:block_ends[index]]
+        if _is_heading_only_block(block):
+            continue
+        insertion_break_index = index
+        break
+
+    if insertion_break_index is None:
+        return content
+
+    insert_at = leading_blank_lines_length + breaks[insertion_break_index].start()
     return f'{frontmatter}{body[:insert_at]}\n\n{EXCERPT_MARKER}{body[insert_at:]}'
 
 
