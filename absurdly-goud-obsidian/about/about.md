@@ -1,6 +1,7 @@
 ## Website Name
 
 `ABsurdly Goud` is a personal website. Its name came from a few pieces of inspiration:
+
 - My initials are ABG - I wanted that included in the name
 - `absurd` means completely unreasonable, illogical, or lacking common sense
 - `goud` is a reference to my surname (`Goudemond`) and reads as the word `good`
