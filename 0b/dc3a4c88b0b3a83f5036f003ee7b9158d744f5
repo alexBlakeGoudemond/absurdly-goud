@@ -1,0 +1,40 @@
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_find_section.py
+  h_1197a506f6c7d6 4
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 6
+tests/test_helpers.py
+  h_1197a506f6c7d6 3
+scripts/main.py
+  h_1197a506f6c7d6 1-4
+scripts/obsidian_to_jekyll/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 19,26-27
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_run.py
+  h_1197a506f6c7d6 5
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_script_usage.py
+  h_1197a506f6c7d6 5-6
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  h_1197a506f6c7d6 7
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_markdown_excerpt.py
+  h_1197a506f6c7d6 8
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_file_conversion.py
+  h_1197a506f6c7d6 6
+README.md
+  h_1197a506f6c7d6 32
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_excalidraw.py
+  h_1197a506f6c7d6 6
+docs/BUILD_CACHING.md
+  h_1197a506f6c7d6 5
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_images.py
+  h_1197a506f6c7d6 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "0bdc3a4c88b0b3a83f5036f003ee7b9158d744f5",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
