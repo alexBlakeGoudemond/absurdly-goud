@@ -85,8 +85,8 @@ class ObsidianToJekyllConverter:
                              'vision']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
     SECTION_FOLDERS = ['vision']
-    IMAGE_ASSET_GLOBS = ('*.png', '*.svg')
-    IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg'}
+    IMAGE_ASSET_GLOBS = ('*.png', '*.svg', '*.gif')
+    IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '*.gif'}
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
