@@ -14,6 +14,7 @@ from typing import Any
 
 from scripts.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
+from scripts.markdown_excerpt import add_excerpt_marker_to_file
 from scripts.filenames import slugify_filename
 from scripts.jekyll_frontmatter import add_frontmatter_to_file
 from scripts.markdown_images import (
@@ -158,6 +159,7 @@ class ObsidianToJekyllConverter:
                 swap_excalidraw_note_with_image_embed(dest_path)
 
             self.add_frontmatter_if_needed(dest_path, last_published_by_dest[dest_path])
+            self.add_excerpt_if_needed(dest_path)
 
             process_markdown_for_jekyll(dest_path, note_path_lookup, image_path_lookup)
 
@@ -184,6 +186,14 @@ class ObsidianToJekyllConverter:
                                     last_published=last_published)
         else:
             add_frontmatter_to_file(dest_path, last_published=last_published)
+
+    def add_excerpt_if_needed(self, dest_path: Path) -> None:
+        """Inserts Jekyll's `<!--more-->` marker after the file's first
+        paragraph. Runs after frontmatter injection so the frontmatter-skip
+        logic in add_excerpt_marker_to_file has a real frontmatter block to
+        skip; is a no-op (idempotent) if the marker is already present or
+        the file has no second paragraph to separate from."""
+        add_excerpt_marker_to_file(dest_path)
 
     def copy_jekyll_resources(self) -> None:
         for source_item in self.source_location.iterdir():
