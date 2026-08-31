@@ -41,7 +41,7 @@ class TestRunEndToEnd(unittest.TestCase):
 
         about = (self.output / "about" / "about.md").read_text(encoding="utf-8")
         self.assertIn("permalink: /about/", about)
-        self.assertIn("{% include image.html", about)
+        self.assertIn("{% include figure.html", about)
         # photo.png sits at the vault root (no parent dir), so it lands
         # directly under assets/ with no bucket, and the resolved src
         # reflects that.
@@ -85,7 +85,7 @@ class TestRunEndToEnd(unittest.TestCase):
 
         note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
         self.assertNotIn('"type":"excalidraw"', note)
-        self.assertIn("{% include image.html", note)
+        self.assertIn("{% include figure.html", note)
         # The SVG lives under vault/vision/whiteboard/, so it's bucketed
         # into assets/vision/, and the resolved src reflects that bucket.
         self.assertIn('src="assets/vision/website-whiteboard.excalidraw.svg"', note)
@@ -107,7 +107,7 @@ class TestRunEndToEnd(unittest.TestCase):
 
         note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
         self.assertNotIn('"type":"excalidraw"', note)
-        self.assertIn("{% include image.html", note)
+        self.assertIn("{% include figure.html", note)
         self.assertIn('src="website-whiteboard.excalidraw.svg"', note)
         self.assertIn("layout: section", note)
 

@@ -31,7 +31,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         self.assertNotIn('"type":"excalidraw"', result)
         # swapped content flows through the normal image pipeline, so by the
         # time processing finishes it's a Jekyll image include, not raw markdown
-        self.assertIn("{% include image.html", result)
+        self.assertIn("{% include figure.html", result)
         self.assertIn('src="vision-diagram.excalidraw.svg"', result)
 
     def test_excalidraw_note_still_gets_frontmatter(self):

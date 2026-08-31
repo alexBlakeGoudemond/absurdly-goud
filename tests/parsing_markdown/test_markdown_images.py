@@ -14,7 +14,8 @@ from scripts.parsing_markdown.markdown_images import (
 class TestCreateJekyllImageLayout(unittest.TestCase):
 
     def test_markdown_image_notation_gets_converted_to_jekyll_includes_file(self):
-        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation('image.png', 'Alt text')
+        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            'image.png', 'Alt text', is_inline=True)
         expected_syntax = """
         {% include image.html
             src="image.png"
@@ -23,6 +24,25 @@ class TestCreateJekyllImageLayout(unittest.TestCase):
         %}
         """
         self.assertEqual(dedent(expected_syntax), actual_syntax)
+
+    def test_markdown_image_notation_with_is_inline_false_yields_figure_include(self):
+        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            'image.png', 'Alt text', is_inline=False
+        )
+        expected_syntax = """
+        {% include figure.html
+            src="image.png"
+            alt="Alt text"
+            title="Alt text"
+        %}
+        """
+        self.assertEqual(dedent(expected_syntax), actual_syntax)
+
+    def test_inline_image_include_is_a_single_line_with_no_injected_newlines(self):
+        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            'image.png', 'Alt text', is_inline=True
+        )
+        self.assertNotIn('\n', actual_syntax)
 
 
 class TestConvertImagesOutsideCode(unittest.TestCase):
@@ -35,7 +55,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
-        self.assertIn('{% include image.html', result)
+        self.assertIn('{% include figure.html', result)
         self.assertIn('src="image.png"', result)
         self.assertIn('alt="Alt text"', result)
 
@@ -71,7 +91,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
-        self.assertIn("{% include image.html", result)
+        self.assertIn("{% include figure.html", result)
 
     def test_image_syntax_inside_inline_code_span_is_not_converted(self):
         content = "Use `![Alt text](image.png)` syntax for images."
@@ -93,7 +113,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
 
-        self.assertIn("{% include image.html", result)
+        self.assertIn("{% include figure.html", result)
 
     def test_bare_filename_is_resolved_via_image_path_lookup(self):
         # A bare filename matching a known asset gets rewritten to its

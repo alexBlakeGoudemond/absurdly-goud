@@ -30,7 +30,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax = """
-        {% include image.html
+        {% include figure.html
             src="image.png"
             alt="Alt text"
             title="Alt text"
@@ -47,14 +47,14 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         expected_syntax_1 = """
-            {% include image.html
+            {% include figure.html
                 src="image1.png"
                 alt="Alt text 1"
                 title="Alt text 1"
             %}
             """
         expected_syntax_2 = """
-            {% include image.html
+            {% include figure.html
                 src="image2.png"
                 alt="Alt text 2"
                 title="Alt text 2"
@@ -77,7 +77,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)  # must not raise
 
         result = dest.read_text(encoding="utf-8")
-        self.assertIn("{% include image.html", result)
+        self.assertIn("{% include figure.html", result)
         self.assertIn('src="theImage.png"', result)
 
     def test_image_src_is_resolved_to_its_bucketed_path(self):
