@@ -66,9 +66,19 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
 ) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
-    include_name = 'image.html' if is_inline else 'figure.html'
+
+    if is_inline:
+        # Single line, no leading/trailing newlines — must sit inline with
+        # surrounding prose without breaking the paragraph/list item or
+        # risking kramdown misreading indentation as a code block.
+        return (
+            f'{opening_brace} include image.html '
+            f'src="{image_name}" alt="{image_alt_text}" title="{image_alt_text}" '
+            f'{closing_brace}'
+        )
+
     jekyll_image_layout_notation = f"""
-        {opening_brace} include {include_name}
+        {opening_brace} include figure.html
             src="{image_name}"
             alt="{image_alt_text}"
             title="{image_alt_text}"
@@ -77,24 +87,28 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
     return dedent(jekyll_image_layout_notation)
 
 
-def replace_images_in_segment(segment: str, image_path_lookup: dict[str, str]) -> str:
-    def replace_line(line: str) -> str:
-        is_inline = len(MARKDOWN_IMAGE_PATTERN.findall(line)) > 1
+def replace_images_in_line(line: str, image_path_lookup: dict[str, str]) -> str:
+    matches = list(MARKDOWN_IMAGE_PATTERN.finditer(line))
+    if len(matches) > 1:
+        is_inline = True
+    elif len(matches) == 1:
+        remainder = MARKDOWN_IMAGE_PATTERN.sub('', line).strip()
+        is_inline = bool(remainder)  # anything left over means it's embedded in prose
+    else:
+        is_inline = False  # unused, no match to replace anyway
 
-        def replace(match: re.Match) -> str:
-            image_alt_text = match.group(1)
-            image_name = match.group(2)
-            if '://' in image_name:
-                image_src = image_name
-            else:
-                image_src = image_path_lookup.get(Path(image_name).name, image_name)
-            return convert_markdown_image_notation_to_jekyll_includes_image_notation(
-                image_src, image_alt_text, is_inline=is_inline
-            )
+    def replace(match: re.Match) -> str:
+        image_alt_text = match.group(1)
+        image_name = match.group(2)
+        if '://' in image_name:
+            image_src = image_name
+        else:
+            image_src = image_path_lookup.get(Path(image_name).name, image_name)
+        return convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            image_src, image_alt_text, is_inline=is_inline
+        )
 
-        return MARKDOWN_IMAGE_PATTERN.sub(replace, line)
-
-    return '\n'.join(replace_line(line) for line in segment.split('\n'))
+    return MARKDOWN_IMAGE_PATTERN.sub(replace, line)
 
 
 def convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
@@ -111,7 +125,7 @@ def convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
     """
 
     def convert_segment(segment: str) -> str:
-        return replace_images_in_segment(segment, image_path_lookup)
+        return replace_images_in_line(segment, image_path_lookup)
 
     return apply_outside_code_blocks_and_code_spans(content, convert_segment)
 

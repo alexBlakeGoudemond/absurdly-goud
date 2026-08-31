@@ -38,6 +38,12 @@ class TestCreateJekyllImageLayout(unittest.TestCase):
         """
         self.assertEqual(dedent(expected_syntax), actual_syntax)
 
+    def test_inline_image_include_is_a_single_line_with_no_injected_newlines(self):
+        actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation(
+            'image.png', 'Alt text', is_inline=True
+        )
+        self.assertNotIn('\n', actual_syntax)
+
 
 class TestConvertImagesOutsideCode(unittest.TestCase):
     """Covers plain conversion plus fence/inline-code suppression, which used
