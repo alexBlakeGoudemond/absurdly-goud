@@ -4,9 +4,9 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Allow for option to inline an image, as default is dedicated figure
+- [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
 - [ ] `[!note]` syntax to be supported in HTML
-- [ ] Posts have last_pubished frontmatter and show in note on website
 - [ ] Light mode and Dark mode?
 - [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
@@ -33,6 +33,8 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] Changelog
 
 # Achievements
+- [x] Can I use badges if they are links? (2026-08-31)
+- [x] Posts have last_pubished frontmatter and show in note on website (2026-08-31)
 - [x] is linking to sections of the site working? Thought it was, but `about#ai-usage` may not be anymore - YES, stale cache problem (confirmed 2026-08-31)
 - [x] First paragraph in Obsidian should insert `<!---more--->` in the `site_src` location (2026-08-31)
 - [x] Images in vault should be copied into the assets directory with the same directory structure (2026-08-30)

@@ -12,6 +12,8 @@ Other Cool websites I've seen
 - [OhHelloAna.blog](ohhelloana.blog)
 - [bobek.cz](bobek.cz)
 - [Fullmetalbrackets](Fullmetalbrackets.com)
+- [Chris Burnell - Ravenous for CSS](https://chrisburnell.com/)
+- [EXO PET](https://exo.pet/#)
 
 
 Also found out about like-minded Obsidian-...-GitHub Actions people after the fact:
