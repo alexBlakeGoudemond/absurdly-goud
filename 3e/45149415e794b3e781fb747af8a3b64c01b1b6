@@ -1,0 +1,20 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 25,47
+Makefile
+  h_1197a506f6c7d6 9-10
+tests/parsing_markdown/test_pipe_escaping.py
+  h_1197a506f6c7d6 1-135
+scripts/parsing_markdown/pipe_escaping.py
+  h_1197a506f6c7d6 1-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3e45149415e794b3e781fb747af8a3b64c01b1b6",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
