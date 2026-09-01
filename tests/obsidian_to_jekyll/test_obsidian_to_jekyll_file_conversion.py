@@ -4,7 +4,6 @@ from pathlib import Path
 
 import test_helpers
 from test_helpers import register_synced_file
-from scripts.parsing_markdown.wikilinks import build_note_path_lookup
 
 
 class TestMarkdownFileConversion(unittest.TestCase):
@@ -14,7 +13,7 @@ class TestMarkdownFileConversion(unittest.TestCase):
         self.addCleanup(self.tmp_dir.cleanup)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
-        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.note_lookup = {}
         self.image_lookup = {}
 
     def test_ignored_files_are_skipped(self):

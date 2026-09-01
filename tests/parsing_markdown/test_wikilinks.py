@@ -10,45 +10,85 @@ from scripts.parsing_markdown.wikilinks import (
 )
 
 
+def manifest_entry(source: str, dest: str) -> dict:
+    """Builds a manifest entry with the fields build_note_path_lookup reads
+    (source, dest); sha256/last_published are irrelevant to that function
+    but included so the shape matches a real SiteSync entry."""
+    return {"source": source, "dest": dest, "sha256": "test-hash", "last_published": "2026-08-29 12:00"}
+
+
 class TestBuildNotePathLookup(unittest.TestCase):
 
     def setUp(self):
         self.tmp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp_dir.cleanup)
         self.tmp_path = Path(self.tmp_dir.name)
+        self.output_location = self.tmp_path / "output"
 
     def test_duplicate_note_name_across_folders_raises(self):
-        (self.tmp_path / "a").mkdir()
-        (self.tmp_path / "b").mkdir()
-        (self.tmp_path / "a" / "Note.md").write_text("")
-        (self.tmp_path / "b" / "Note.md").write_text("")
+        manifest = {
+            "/vault/a/Note.md": manifest_entry("/vault/a/Note.md", str(self.output_location / "a" / "Note.md")),
+            "/vault/b/Note.md": manifest_entry("/vault/b/Note.md", str(self.output_location / "b" / "Note.md")),
+        }
 
         with self.assertRaises(ValueError) as context:
-            build_note_path_lookup(self.tmp_path)
+            build_note_path_lookup(manifest, self.output_location)
 
         self.assertIn("Note", str(context.exception))
 
     def test_unique_note_names_build_a_lookup(self):
-        (self.tmp_path / "First.md").write_text("")
-        (self.tmp_path / "Second.md").write_text("")
+        manifest = {
+            "/vault/First.md": manifest_entry("/vault/First.md", str(self.output_location / "First.md")),
+            "/vault/Second.md": manifest_entry("/vault/Second.md", str(self.output_location / "Second.md")),
+        }
 
-        lookup = build_note_path_lookup(self.tmp_path)
+        lookup = build_note_path_lookup(manifest, self.output_location)
 
         self.assertEqual(lookup, {"First": "First.md", "Second": "Second.md"})
+
+    def test_lookup_key_is_the_original_source_stem_not_the_slugified_dest_stem(self):
+        # Regression test: copy_vault_resources() slugifies post filenames
+        # on the way into _posts/ (e.g. via slugify_filename), so a post's
+        # OUTPUT stem no longer matches the title a wikilink references.
+        # The lookup must be keyed by the note's original vault name.
+        source = "/vault/posts/2026-08-31 88x31 Exploration.md"
+        dest = str(self.output_location / "_posts" / "2026-08-31-88x31-exploration.md")
+        manifest = {source: manifest_entry(source, dest)}
+
+        lookup = build_note_path_lookup(manifest, self.output_location)
+
+        self.assertEqual(
+            lookup,
+            {"2026-08-31 88x31 Exploration": "_posts/2026-08-31-88x31-exploration.md"}
+        )
+
+    def test_non_markdown_manifest_entries_are_ignored(self):
+        manifest = {
+            "/vault/img.png": manifest_entry("/vault/img.png", str(self.output_location / "assets" / "img.png")),
+            "/vault/Note.md": manifest_entry("/vault/Note.md", str(self.output_location / "Note.md")),
+        }
+
+        lookup = build_note_path_lookup(manifest, self.output_location)
+
+        self.assertEqual(lookup, {"Note": "Note.md"})
+
+    def test_empty_manifest_yields_empty_lookup(self):
+        lookup = build_note_path_lookup({}, self.output_location)
+
+        self.assertEqual(lookup, {})
 
 
 class TestWikilinksConvertedToJekyllLayout(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_dir = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp_dir.cleanup)
-        tmp_path = Path(self.tmp_dir.name)
-
-        # Create the notes these tests expect to resolve against
-        (tmp_path / "LinkedNote.md").write_text("")
-        (tmp_path / "linked-note.md").write_text("")
-
-        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        # These tests only exercise convert_wikilinks_to_jekyll_layout, which
+        # just consumes a note_path_lookup dict -- built directly here rather
+        # than round-tripped through build_note_path_lookup's manifest shape,
+        # which is covered separately by TestBuildNotePathLookup.
+        self.note_lookup = {
+            "LinkedNote": "LinkedNote.md",
+            "linked-note": "linked-note.md",
+        }
 
     def test_wikilinks_are_converted_to_jekyll_layout(self):
         content1 = "[[LinkedNote]]"
@@ -104,11 +144,7 @@ class TestConvertWikilinksOutsideCode(unittest.TestCase):
     equivalent of the image-suppression tests in test_markdown_images.py."""
 
     def setUp(self):
-        self.tmp_dir = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp_dir.cleanup)
-        tmp_path = Path(self.tmp_dir.name)
-        (tmp_path / "LinkedNote.md").write_text("")
-        self.note_lookup = build_note_path_lookup(tmp_path)
+        self.note_lookup = {"LinkedNote": "LinkedNote.md"}
 
     def test_wikilink_outside_code_is_converted(self):
         content = "[[LinkedNote]]"

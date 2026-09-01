@@ -16,13 +16,7 @@ class TestCreateJekyllImageLayout(unittest.TestCase):
     def test_markdown_image_notation_gets_converted_to_jekyll_includes_file(self):
         actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation(
             'image.png', 'Alt text', is_inline=True)
-        expected_syntax = """
-        {% include image.html
-            src="image.png"
-            alt="Alt text"
-            title="Alt text"
-        %}
-        """
+        expected_syntax = """{% include image.html src="image.png" alt="Alt text" title="Alt text" %}"""
         self.assertEqual(dedent(expected_syntax), actual_syntax)
 
     def test_markdown_image_notation_with_is_inline_false_yields_figure_include(self):
