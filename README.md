@@ -30,3 +30,17 @@ Do not edit generated includes by hand; edit the vault instead.
 
 This codebase works with Obsidian, Jekyll and GitHub Pages. Python scripts have been set up to assemble the resources
 needed by Jekyll in advance. The entrypoint of those scripts is [obsidian_to_jekyll.py](scripts/obsidian_to_jekyll.py)
+
+## Test Suite
+
+This project uses a Python Virtual Environment. To setup, in root:
+
+```bash
+python -m venv .venv
+```
+
+then install Pillow in the virtual environment:
+
+```bash
+.\.venv\Scripts\python.exe -m pip install Pillow 
+```

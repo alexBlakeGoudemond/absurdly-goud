@@ -77,6 +77,23 @@ class TestSyncFile(unittest.TestCase):
         self.assertFalse(old_dest.exists())
         self.assertTrue(new_dest.exists())
 
+    def test_renamed_source_with_already_missing_old_dest_does_not_error(self):
+        # Mirrors the rename case above, but the old destination file has
+        # already been deleted by some other means before this run (e.g. a
+        # manual cleanup) — unlink() should not be attempted on it.
+        source = self.tmp_path / "note.md"
+        source.write_text("hello", encoding="utf-8")
+        old_dest = self.tmp_path / "out" / "old_location.md"
+        self.sync.sync_file(source, old_dest)
+
+        start_next_run(self.sync)
+        old_dest.unlink()
+        new_dest = self.tmp_path / "out" / "new_location.md"
+
+        self.sync.sync_file(source, new_dest)  # should not raise
+
+        self.assertTrue(new_dest.exists())
+
 
 class TestSyncTree(unittest.TestCase):
 
@@ -194,6 +211,23 @@ class TestPruneStaleFiles(unittest.TestCase):
         self.sync.prune_stale_files()
 
         self.assertTrue(dest.exists())
+
+    def test_stale_output_already_missing_is_not_an_error(self):
+        # The recorded destination for a removed source has already been
+        # deleted by some other means before prune runs — unlink() should
+        # not be attempted on it.
+        source = self.tmp_path / "gone.md"
+        source.write_text("content", encoding="utf-8")
+        dest = self.tmp_path / "out" / "gone.md"
+        self.sync.sync_file(source, dest)
+
+        start_next_run(self.sync)
+        source.unlink()
+        dest.unlink()  # already gone before this run's prune
+
+        self.sync.prune_stale_files()  # should not raise
+
+        self.assertFalse(dest.exists())
 
 
 if __name__ == '__main__':
