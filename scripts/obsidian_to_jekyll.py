@@ -22,6 +22,7 @@ from scripts.parsing_markdown.markdown_images import (
     convert_markdown_image_embeds_outside_code_blocks_and_code_spans,
     convert_wikilink_image_embeds_outside_code_blocks_and_code_spans
 )
+from scripts.parsing_markdown.pipe_escaping import escape_pipes_in_links_outside_code_blocks_and_code_spans
 from scripts.parsing_markdown.site_sync import SiteSync
 from scripts.parsing_markdown.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
@@ -43,6 +44,7 @@ def process_markdown_for_jekyll(
     new_content = convert_wikilink_note_links_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
     new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content, image_path_lookup)
     new_content = escape_markdown_code_blocks_for_jekyll(new_content)
+    new_content = escape_pipes_in_links_outside_code_blocks_and_code_spans(new_content)
     if new_content != content:
         markdown_file.write_text(new_content, encoding="utf-8")
 
