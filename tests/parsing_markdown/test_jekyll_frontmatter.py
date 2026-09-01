@@ -55,6 +55,27 @@ class TestBuildPermalink(unittest.TestCase):
 
         self.assertEqual(permalink, "/vision/design/")
 
+    def test_file_not_under_section_folder_raises_value_error(self):
+        # The file lives under 'vision/', but the caller asked for a
+        # permalink relative to a 'blog/' section it never appears in.
+        markdown_file = Path("vision/design/website-inspiration.md")
+
+        with self.assertRaises(ValueError) as raised:
+            build_permalink(markdown_file, "website-inspiration", section="blog")
+
+        message = str(raised.exception)
+        self.assertIn(str(markdown_file), message)
+        self.assertIn("blog/", message)
+
+    def test_section_match_is_case_insensitive(self):
+        # section folder on disk is lowercase; the section name passed in
+        # is not — this still needs to resolve rather than raising.
+        markdown_file = Path("Vision/Design/website-inspiration.md")
+
+        permalink = build_permalink(markdown_file, "website-inspiration", section="Vision")
+
+        self.assertEqual(permalink, "/vision/design/website-inspiration/")
+
     def test_section_file_nested_five_levels_deep_preserves_full_path(self):
         # A note nested multiple folders deep under the section root should
         # produce a permalink containing every intermediate folder, not just

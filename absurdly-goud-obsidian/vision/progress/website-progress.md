@@ -2,7 +2,6 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
-- [ ] URL links and wikilinks should automatically escape vertical bars for Kramdown parsing confusion (not escaping fails to parse)
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
@@ -23,12 +22,13 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] parallax background?
 - [ ] build version? or last updated date
 - [ ] what makes this website an IndieWeb site? (h-ref?)
-- [ ] cachine:
+- [ ] caching:
 	- [ ] screenshots always show as changed in cache
 	- [ ] Get GitHub Pages to use caching?
 - [ ] Changelog
 
 # Achievements
+- [x] URL links and wikilinks should automatically escape vertical bars for Kramdown parsing confusion (not escaping fails to parse) (2026-09-01)
 - [x] blog:
 	- [x] buttons (2026-08-31)
 	- [x] why indie web? (2026-08-28)
