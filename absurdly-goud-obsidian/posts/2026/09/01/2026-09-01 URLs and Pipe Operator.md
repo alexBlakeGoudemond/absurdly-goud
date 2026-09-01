@@ -7,3 +7,4 @@ Testing Wikilink URL:
 Testing Markdown URL:
 - [Markdown without pipe](https://blot.im/how/formatting/wikilinks)
 - [Markdown | with pipe](https://blot.im/how/formatting/wikilinks)
+
