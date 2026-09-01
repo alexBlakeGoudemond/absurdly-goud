@@ -14,5 +14,6 @@
 # Obsidian Vault excalidraw Libraries
 /absurdly-goud-obsidian/Excalidraw/Libraries/
 
-# Ignore Pycache files
+# Ignore Python related files
 **/__pycache__/
+/.venv/
