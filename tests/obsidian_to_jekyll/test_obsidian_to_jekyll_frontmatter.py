@@ -5,7 +5,6 @@ from pathlib import Path
 import test_helpers
 from test_helpers import register_synced_file
 from scripts.parsing_markdown.jekyll_frontmatter import add_frontmatter_to_file
-from scripts.parsing_markdown.wikilinks import build_note_path_lookup
 
 
 class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
@@ -18,7 +17,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
-        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.note_lookup = {}
         self.image_lookup = {}
 
     def test_changed_markdown_file_gets_frontmatter(self):

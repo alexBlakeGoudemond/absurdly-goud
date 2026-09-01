@@ -8,7 +8,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] Quote syntax to be automatically given a class: `>`
 - [ ] `[!note]` syntax to be supported in HTML
 - [ ] Light mode and Dark mode?
-- [ ] screenshots always show as changed in cache
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
 - [ ] Extra obsidian to jekyll script features:
@@ -23,18 +22,20 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] projects tab?
 - [ ] parallax background?
 - [ ] build version? or last updated date
-- [ ] figure out 88x31 buttons
-	- [ ] https://petrapixel.neocities.org/indiewebdb/ eg button for svg?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
-- [ ] blog:
-	- [ ] buttons
-	- [ ] why indie web?
-- [ ] Get GitHub Pages to use caching?
+- [ ] cachine:
+	- [ ] screenshots always show as changed in cache
+	- [ ] Get GitHub Pages to use caching?
 - [ ] Changelog
 
 # Achievements
+- [x] blog:
+	- [x] buttons (2026-08-31)
+	- [x] why indie web? (2026-08-28)
 - [x] Allow for option to inline an image, as default is dedicated figure (2026-08-31)
 - [x] Can I use badges if they are links? (2026-08-31)
+- [x] figure out 88x31 buttons
+	- [x] https://petrapixel.neocities.org/indiewebdb/ eg button for svg? (2028-08-31)
 - [x] Posts have last_pubished frontmatter and show in note on website (2026-08-31)
 - [x] is linking to sections of the site working? Thought it was, but `about#ai-usage` may not be anymore - YES, stale cache problem (confirmed 2026-08-31)
 - [x] First paragraph in Obsidian should insert `<!---more--->` in the `site_src` location (2026-08-31)

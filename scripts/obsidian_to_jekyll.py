@@ -120,7 +120,7 @@ class ObsidianToJekyllConverter:
         # be a valid wikilink target for a changed one. Same reasoning
         # applies to image_path_lookup: it must reflect the final bucketed
         # assets/ tree, not just the images copied this run.
-        note_path_lookup = build_note_path_lookup(self.output_location)
+        note_path_lookup = build_note_path_lookup(self.site_sync.new_manifest, self.output_location)
         image_path_lookup = build_image_path_lookup(self.output_location / 'assets')
 
         self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup)

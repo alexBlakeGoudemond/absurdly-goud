@@ -7,7 +7,6 @@ import test_helpers
 from scripts.obsidian_to_jekyll import (
     process_markdown_for_jekyll,
 )
-from scripts.parsing_markdown.wikilinks import build_note_path_lookup
 
 
 class TestMarkdownImageNotationConversion(unittest.TestCase):
@@ -18,7 +17,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
         self.converter.begin_run()
-        self.note_lookup = build_note_path_lookup(Path(self.tmp_dir.name))
+        self.note_lookup = {}
         self.image_lookup = {}
 
     def test_process_one_markdown_image_yields_one_jekyll_includes_syntax_in_file(self):
@@ -77,7 +76,7 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)  # must not raise
 
         result = dest.read_text(encoding="utf-8")
-        self.assertIn("{% include figure.html", result)
+        self.assertIn("{% include image.html", result)
         self.assertIn('src="theImage.png"', result)
 
     def test_image_src_is_resolved_to_its_bucketed_path(self):

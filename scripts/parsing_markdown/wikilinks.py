@@ -22,24 +22,42 @@ WIKILINK_PATTERN = re.compile(
 )
 
 
-def build_note_path_lookup(notes_path: Path) -> dict[str, str]:
+def build_note_path_lookup(new_manifest: dict, output_location: Path) -> dict[str, str]:
     """
-    Scans `notes_path` (the OUTPUT tree, i.e. self.output_location, not the vault)
-    and builds a lookup of `note name` -> `path relative to notes_path`, using forward
-    slashes so it can be dropped straight into a Jekyll {% link %} tag.
+    Builds a lookup of `note name` -> `path relative to output_location`,
+    using forward slashes so it can be dropped straight into a Jekyll
+    {% link %} tag.
 
-    Must run against the output tree because copy_vault_resources() renames
-    the vault's posts/ folder to _posts/ on the way out — resolving against
-    the vault would produce links pointing at a path that no longer exists.
+    Built from a SiteSync manifest (self.site_sync.new_manifest), keyed by
+    each note's ORIGINAL (source/vault) filename stem — not by scanning the
+    output tree and using each file's own stem there. This matters because
+    copy_vault_resources() slugifies filenames on the way into _posts/ (see
+    filenames.slugify_filename), so a post's output stem no longer matches
+    the title a wikilink actually references, e.g. a vault note named
+    'My Post Title.md' lands as '_posts/.../my-post-title.md'. A wikilink
+    written as [[My Post Title]] needs to resolve against the ORIGINAL name;
+    only the manifest (which records both source and dest per entry) has
+    that mapping. Scanning the output tree can only ever recover the dest
+    name, which is exactly the one wikilinks don't reference.
+
+    Must run AFTER all copying, since site_sync.sync_file records a manifest
+    entry for every file each run — changed or an unchanged cache hit —
+    so an unchanged note is still available here as a valid wikilink target
+    for a note that did change this run.
 
     Assumes note names are unique across the vault, mirroring how Obsidian
     itself resolves [[wikilinks]] (by basename, regardless of folder).
     """
     lookup: dict[str, str] = {}
 
-    for md_file in notes_path.rglob("*.md"):
-        note_name = md_file.stem
-        relative_path = md_file.relative_to(notes_path).as_posix()
+    for entry in new_manifest.values():
+        source_path = Path(entry["source"])
+        if source_path.suffix != ".md":
+            continue
+
+        note_name = source_path.stem
+        dest_path = Path(entry["dest"])
+        relative_path = dest_path.relative_to(output_location).as_posix()
 
         if note_name in lookup:
             raise ValueError(
