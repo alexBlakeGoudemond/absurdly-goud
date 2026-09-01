@@ -1,0 +1,47 @@
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  h_1197a506f6c7d6 20
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 19
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_images.py
+  h_1197a506f6c7d6 20,79
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_file_conversion.py
+  h_1197a506f6c7d6 16
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_markdown_excerpt.py
+  h_1197a506f6c7d6 189
+scripts/parsing_markdown/wikilinks.py
+  h_1197a506f6c7d6 25,27-46,53-60
+  h_1197a506f6c7d6 121
+tests/parsing_markdown/test_wikilinks.py
+  h_1197a506f6c7d6 13-19,26,29-32,35,40-43,45,49-56,58,60-62,64-71,73,75-91,147,194
+  h_1197a506f6c7d6 63
+"absurdly-goud-obsidian/posts/2026/09/01/2026-09-01 URLs and Pipe Operator.md"
+  h_1197a506f6c7d6 11-13
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_excalidraw.py
+  h_1197a506f6c7d6 18
+  h_1197a506f6c7d6 76
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 123
+absurdly-goud-obsidian/vision/progress/website-progress.md
+  s_a09a2067912f0f::t_2bdd52ab325cbd 26-28,32-34,37-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "09aff7f73d627cb75796c84f4a3d37b651bc948b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a09a2067912f0f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9acbfc97-e8b1-48f3-a671-70537e2f806f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
