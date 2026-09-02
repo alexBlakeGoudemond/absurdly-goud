@@ -49,7 +49,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [x] Confirm images work with wikilinks (2026-08-27)
 - [x] whiteboard show as svg (2026-08-27)
 - [x] revise scripts and split into responsibilities (2026-08-26)
-- [x] Include Vision as a collection in the website (2026-08-26)
+- [x] Include journey as a collection in the website (2026-08-26)
 - [x] AI Usages:
 	- [x] correctly link disclaimer-ai-assisted to section in HOME (2026-08-25)
 	- [x] ai-usage not being linked to with button (2026-08-25)

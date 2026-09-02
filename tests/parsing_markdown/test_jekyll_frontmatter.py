@@ -40,25 +40,25 @@ class TestBuildPermalink(unittest.TestCase):
         self.assertEqual(permalink, "/about/")
 
     def test_section_file_gets_nested_permalink(self):
-        markdown_file = Path("vision/design/website-inspiration.md")
+        markdown_file = Path("journey/design/website-inspiration.md")
 
-        permalink = build_permalink(markdown_file, "website-inspiration", section="vision")
+        permalink = build_permalink(markdown_file, "website-inspiration", section="journey")
 
-        self.assertEqual(permalink, "/vision/design/website-inspiration/")
+        self.assertEqual(permalink, "/journey/design/website-inspiration/")
 
     def test_section_index_page_does_not_stutter_folder_name(self):
         # website-design.md living in a folder called design/ is that folder's
-        # index page — /vision/design/, not /vision/design/design/.
-        markdown_file = Path("vision/design/design.md")
+        # index page — /journey/design/, not /journey/design/design/.
+        markdown_file = Path("journey/design/design.md")
 
-        permalink = build_permalink(markdown_file, "design", section="vision")
+        permalink = build_permalink(markdown_file, "design", section="journey")
 
-        self.assertEqual(permalink, "/vision/design/")
+        self.assertEqual(permalink, "/journey/design/")
 
     def test_file_not_under_section_folder_raises_value_error(self):
-        # The file lives under 'vision/', but the caller asked for a
+        # The file lives under 'journey/', but the caller asked for a
         # permalink relative to a 'blog/' section it never appears in.
-        markdown_file = Path("vision/design/website-inspiration.md")
+        markdown_file = Path("journey/design/website-inspiration.md")
 
         with self.assertRaises(ValueError) as raised:
             build_permalink(markdown_file, "website-inspiration", section="blog")
@@ -70,22 +70,22 @@ class TestBuildPermalink(unittest.TestCase):
     def test_section_match_is_case_insensitive(self):
         # section folder on disk is lowercase; the section name passed in
         # is not — this still needs to resolve rather than raising.
-        markdown_file = Path("Vision/Design/website-inspiration.md")
+        markdown_file = Path("journey/Design/website-inspiration.md")
 
-        permalink = build_permalink(markdown_file, "website-inspiration", section="Vision")
+        permalink = build_permalink(markdown_file, "website-inspiration", section="journey")
 
-        self.assertEqual(permalink, "/vision/design/website-inspiration/")
+        self.assertEqual(permalink, "/journey/design/website-inspiration/")
 
     def test_section_file_nested_five_levels_deep_preserves_full_path(self):
         # A note nested multiple folders deep under the section root should
         # produce a permalink containing every intermediate folder, not just
-        # the immediate parent — e.g. a file five levels under vision/ should
+        # the immediate parent — e.g. a file five levels under journey/ should
         # not collapse its URL down to a single subfolder segment.
-        markdown_file = Path("vision/design/mockups/homepage/desktop/hero-section.md")
+        markdown_file = Path("journey/design/mockups/homepage/desktop/hero-section.md")
 
-        permalink = build_permalink(markdown_file, "hero-section", section="vision")
+        permalink = build_permalink(markdown_file, "hero-section", section="journey")
 
-        self.assertEqual(permalink, "/vision/design/mockups/homepage/desktop/hero-section/")
+        self.assertEqual(permalink, "/journey/design/mockups/homepage/desktop/hero-section/")
 
 
 class TestStripExistingFrontmatter(unittest.TestCase):
@@ -141,14 +141,14 @@ class TestAddFrontmatterToFile(unittest.TestCase):
         self.assertIn("last_published: \"2026-08-29\"", result)
 
     def test_section_is_written_when_provided(self):
-        md_file = self.tmp_path / "vision" / "design" / "design.md"
+        md_file = self.tmp_path / "journey" / "design" / "design.md"
         md_file.parent.mkdir(parents=True, exist_ok=True)
         md_file.write_text("Body", encoding="utf-8")
 
-        add_frontmatter_to_file(md_file, file_layout="section", section="Vision", include_permalink=True)
+        add_frontmatter_to_file(md_file, file_layout="section", section="journey", include_permalink=True)
 
         result = md_file.read_text(encoding="utf-8")
-        self.assertIn("section: Vision", result)
+        self.assertIn("section: journey", result)
         self.assertIn("layout: section", result)
 
     def test_pre_existing_frontmatter_is_replaced_not_stacked(self):

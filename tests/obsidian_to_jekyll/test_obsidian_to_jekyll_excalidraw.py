@@ -19,7 +19,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         self.image_lookup = {}
 
     def test_excalidraw_note_body_is_swapped_for_image_embed(self):
-        dest = self.converter.output_location / "vision-diagram.excalidraw.md"
+        dest = self.converter.output_location / "journey-diagram.excalidraw.md"
         dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
@@ -31,10 +31,10 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         # swapped content flows through the normal image pipeline, so by the
         # time processing finishes it's a Jekyll image include, not raw markdown
         self.assertIn("{% include figure.html", result)
-        self.assertIn('src="vision-diagram.excalidraw.svg"', result)
+        self.assertIn('src="journey-diagram.excalidraw.svg"', result)
 
     def test_excalidraw_note_still_gets_frontmatter(self):
-        dest = self.converter.output_location / "vision-diagram.excalidraw.md"
+        dest = self.converter.output_location / "journey-diagram.excalidraw.md"
         dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
         register_synced_file(self.converter, dest)
         self.converter.site_sync.changed_dest_paths = [dest]
@@ -45,7 +45,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
         self.assertIn("layout: default", result)
 
     def test_excalidraw_note_inside_section_still_gets_section_frontmatter(self):
-        section_dir = self.converter.output_location / "vision" / "whiteboard"
+        section_dir = self.converter.output_location / "journey" / "whiteboard"
         section_dir.mkdir(parents=True)
         dest = section_dir / "website-whiteboard.excalidraw.md"
         dest.write_text('{"type":"excalidraw","elements":[]}', encoding="utf-8")
@@ -56,7 +56,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: section", result)
-        self.assertIn("section: Vision", result)
+        self.assertIn("section: journey", result)
         self.assertIn('src="website-whiteboard.excalidraw.svg"', result)
 
     def test_non_excalidraw_markdown_file_is_unaffected(self):

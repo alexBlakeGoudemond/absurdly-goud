@@ -6,8 +6,8 @@ from scripts.parsing_markdown.filenames import slugify_filename
 class TestSlugifyFilename(unittest.TestCase):
 
     def test_spaces_become_hyphens_and_lowercased(self):
-        result = slugify_filename("2026-08-27 Vision Whiteboard Showing.md")
-        self.assertEqual(result, "2026-08-27-vision-whiteboard-showing.md")
+        result = slugify_filename("2026-08-27 journey Whiteboard Showing.md")
+        self.assertEqual(result, "2026-08-27-journey-whiteboard-showing.md")
 
     def test_existing_hyphens_in_date_are_untouched(self):
         result = slugify_filename("2026-08-27 Update.md")

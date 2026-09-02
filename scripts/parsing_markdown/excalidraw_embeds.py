@@ -22,7 +22,7 @@ def is_excalidraw_note(markdown_file: Path) -> bool:
 
 
 def excalidraw_svg_filename(markdown_file: Path) -> str:
-    """`vision-diagram.excalidraw.md` -> `vision-diagram.excalidraw.svg`,
+    """`journey-diagram.excalidraw.md` -> `journey-diagram.excalidraw.svg`,
     matching the filename Obsidian's Excalidraw auto-export writes next to
     the note (same basename, `.md` swapped for `.svg`)."""
     return markdown_file.name.removesuffix(".md") + ".svg"

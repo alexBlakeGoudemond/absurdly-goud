@@ -46,7 +46,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         self.assertIn("permalink: /about/", result)
 
     def test_section_file_gets_section_layout_and_frontmatter(self):
-        section_dir = self.converter.output_location / "vision" / "design"
+        section_dir = self.converter.output_location / "journey" / "design"
         section_dir.mkdir(parents=True)
         dest = section_dir / "website-design.md"
         dest.write_text("Design notes", encoding="utf-8")
@@ -57,8 +57,8 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: section", result)
-        self.assertIn("section: Vision", result)
-        self.assertIn("permalink: /vision/design/website-design/", result)
+        self.assertIn("section: journey", result)
+        self.assertIn("permalink: /journey/design/website-design/", result)
 
     def test_permalink_omitted_by_default(self):
         md_file = self.tmp_path / "post.md"

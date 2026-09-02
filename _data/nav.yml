@@ -3,19 +3,19 @@
   url: /
 - title: About
   url: /about/
-- title: Vision
-  url: /vision/
+- title: Journey
+  url: /journey/
   children:
-    - title: Vision Home
-      url: /vision/
+    - title: Journey Home
+      url: /journey/
     - title: Design
-      url: /vision/design/website-design/
+      url: /journey/design/website-design/
     - title: Inspiration
-      url: /vision/design/website-inspiration/
+      url: /journey/design/website-inspiration/
     - title: Progress
-      url: /vision/progress/website-progress/
+      url: /journey/progress/website-progress/
     - title: Whiteboard
-      url: /vision/whiteboard/website-whiteboard/
+      url: /journey/whiteboard/website-whiteboard/
 - title: 88x31
   url: /88x31/
   children:

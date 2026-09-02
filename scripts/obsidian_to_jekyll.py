@@ -53,9 +53,9 @@ def find_parent_section(dest_path: Path, section_folders: list[str]) -> str | No
     """
     Returns the entry in `section_folders` that `dest_path` lives under, if
     any (searches all ancestors). For example, each of the files below will
-    be part of the section `vision`:
+    be part of the section `journey`:
     ```
-    |-- vision/
+    |-- journey/
         |-- design/
             |-- website-design.md
             |-- website-inspiration.md
@@ -84,9 +84,9 @@ class ObsidianToJekyllConverter:
                              '_includes',
                              '_layouts',
                              '_data',
-                             'vision']
-    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'vision.md']
-    SECTION_FOLDERS = ['vision']
+                             'journey']
+    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md']
+    SECTION_FOLDERS = ['journey']
     IMAGE_ASSET_GLOBS = ('*.png', '*.svg', '*.gif')
     IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '*.gif'}
 

@@ -51,7 +51,7 @@ def build_permalink(markdown_file: Path, file_title: str, section: str | None) -
     # Include all segments in the permalink
     subfolders = parent_parts[section_index + 1:]
 
-    # treat files like `vision/design/design.md` as index pages with URL `vision/design`
+    # treat files like `journey/design/design.md` as index pages with URL `journey/design`
     is_index_page = bool(subfolders) and slug == subfolders[-1]
     path_parts = [section_folder, *subfolders] if is_index_page else [section_folder, *subfolders, slug]
 

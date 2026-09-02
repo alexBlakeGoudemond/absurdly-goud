@@ -70,7 +70,7 @@ class TestRunEndToEnd(unittest.TestCase):
         self.assertEqual(first_output, second_output)
 
     def test_excalidraw_note_ends_up_as_a_working_image_include(self):
-        whiteboard_dir = self.vault / "vision" / "whiteboard"
+        whiteboard_dir = self.vault / "journey" / "whiteboard"
         whiteboard_dir.mkdir(parents=True)
         (whiteboard_dir / "website-whiteboard.excalidraw.md").write_text(
             '{"type":"excalidraw","elements":[]}', encoding="utf-8"
@@ -83,20 +83,20 @@ class TestRunEndToEnd(unittest.TestCase):
         converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
         converter.run()
 
-        note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
+        note = (self.output / "journey" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
         self.assertNotIn('"type":"excalidraw"', note)
         self.assertIn("{% include figure.html", note)
-        # The SVG lives under vault/vision/whiteboard/, so it's bucketed
-        # into assets/vision/, and the resolved src reflects that bucket.
-        self.assertIn('src="assets/vision/website-whiteboard.excalidraw.svg"', note)
+        # The SVG lives under vault/journey/whiteboard/, so it's bucketed
+        # into assets/journey/, and the resolved src reflects that bucket.
+        self.assertIn('src="assets/journey/website-whiteboard.excalidraw.svg"', note)
         self.assertIn("layout: section", note)
 
         self.assertTrue(
-            (self.output / "assets" / "vision" / "website-whiteboard.excalidraw.svg").exists()
+            (self.output / "assets" / "journey" / "website-whiteboard.excalidraw.svg").exists()
         )
 
     def test_replacing_excalidraw_note_does_not_create_svg(self):
-        whiteboard_dir = self.vault / "vision" / "whiteboard"
+        whiteboard_dir = self.vault / "journey" / "whiteboard"
         whiteboard_dir.mkdir(parents=True)
         (whiteboard_dir / "website-whiteboard.excalidraw.md").write_text(
             '{"type":"excalidraw","elements":[]}', encoding="utf-8"
@@ -105,14 +105,14 @@ class TestRunEndToEnd(unittest.TestCase):
         converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
         converter.run()
 
-        note = (self.output / "vision" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
+        note = (self.output / "journey" / "whiteboard" / "website-whiteboard.excalidraw.md").read_text(encoding="utf-8")
         self.assertNotIn('"type":"excalidraw"', note)
         self.assertIn("{% include figure.html", note)
         self.assertIn('src="website-whiteboard.excalidraw.svg"', note)
         self.assertIn("layout: section", note)
 
         self.assertFalse(
-            (self.output / "assets" / "vision" / "website-whiteboard.excalidraw.svg").exists()
+            (self.output / "assets" / "journey" / "website-whiteboard.excalidraw.svg").exists()
         )
 
     def test_image_in_non_posts_folder_is_not_duplicated(self):

@@ -12,7 +12,7 @@ from scripts.parsing_markdown.excalidraw_embeds import (
 class TestIsExcalidrawNote(unittest.TestCase):
 
     def test_excalidraw_note_is_detected(self):
-        self.assertTrue(is_excalidraw_note(Path("vision-diagram.excalidraw.md")))
+        self.assertTrue(is_excalidraw_note(Path("journey-diagram.excalidraw.md")))
 
     def test_regular_note_is_not_detected(self):
         self.assertFalse(is_excalidraw_note(Path("about.md")))
@@ -26,11 +26,11 @@ class TestIsExcalidrawNote(unittest.TestCase):
 class TestExcalidrawSvgFilename(unittest.TestCase):
 
     def test_md_suffix_swapped_for_svg(self):
-        result = excalidraw_svg_filename(Path("vision-diagram.excalidraw.md"))
-        self.assertEqual(result, "vision-diagram.excalidraw.svg")
+        result = excalidraw_svg_filename(Path("journey-diagram.excalidraw.md"))
+        self.assertEqual(result, "journey-diagram.excalidraw.svg")
 
     def test_preserves_folder_agnostic_basename_only(self):
-        result = excalidraw_svg_filename(Path("vision/whiteboard/website-whiteboard.excalidraw.md"))
+        result = excalidraw_svg_filename(Path("journey/whiteboard/website-whiteboard.excalidraw.md"))
         self.assertEqual(result, "website-whiteboard.excalidraw.svg")
 
 
@@ -42,13 +42,13 @@ class TestSwapExcalidrawNoteWithImageEmbed(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
 
     def test_entire_file_content_is_replaced_with_image_markdown(self):
-        note = self.tmp_path / "vision-diagram.excalidraw.md"
+        note = self.tmp_path / "journey-diagram.excalidraw.md"
         note.write_text('---\nexcalidraw-plugin: parsed\n---\n{"type":"excalidraw","elements":[...]}', encoding="utf-8")
 
         swap_excalidraw_note_with_image_embed(note)
 
         result = note.read_text(encoding="utf-8")
-        self.assertEqual(result, "![vision-diagram.excalidraw.svg](vision-diagram.excalidraw.svg)\n")
+        self.assertEqual(result, "![journey-diagram.excalidraw.svg](journey-diagram.excalidraw.svg)\n")
 
     def test_no_leftover_scene_data_or_frontmatter(self):
         note = self.tmp_path / "drawing.excalidraw.md"

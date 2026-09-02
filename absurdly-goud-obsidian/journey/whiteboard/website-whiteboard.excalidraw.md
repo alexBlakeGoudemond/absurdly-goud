@@ -40,7 +40,7 @@ Progress ^NadeGUiv
 
 Whiteboard ^Uc7H49FS
 
-Vision ^OrD3vW0u
+journey ^OrD3vW0u
 
 Community
     Guestbook ^o63j94Yh
@@ -89,7 +89,7 @@ Progress ^EjIZVMkk
 
 ... ^8MY4O4iE
 
-Vision ^DpQTxtWd
+journey ^DpQTxtWd
 
 Community
     Guestbook ^R7JnrJlz
@@ -138,7 +138,7 @@ Progress ^OosOU44V
 
 ... ^65BuQjY5
 
-Vision ^fDuF4Iew
+journey ^fDuF4Iew
 
 Community
     Guestbook ^aVRrwbPh
@@ -157,7 +157,7 @@ Fun Stuff ^05eInFLS
 
 content ^097Wjx9C
 
-Vision Page ^olMAEovN
+journey Page ^olMAEovN
 
 Site hits
 
@@ -187,7 +187,7 @@ Progress ^9VBOLyT6
 
 ... ^YbdHw8IL
 
-Vision ^KXWUpdrR
+journey ^KXWUpdrR
 
 Community
     Guestbook ^jMMrEhvq
@@ -234,7 +234,7 @@ Progress ^Yaqopjnd
 
 ... ^wFTmSusi
 
-Vision ^pngSUHFm
+journey ^pngSUHFm
 
 Community
     Guestbook ^yEyelSfO
@@ -281,7 +281,7 @@ Progress ^elBBVzkV
 
 ... ^5zKXSJLm
 
-Vision ^IC6b2pHm
+journey ^IC6b2pHm
 
 Community
     Guestbook ^dgzedTgN
@@ -328,7 +328,7 @@ Progress ^MYrTquNG
 
 ... ^1ms40mhW
 
-Vision ^dyazdiQg
+journey ^dyazdiQg
 
 Community
     Guestbook ^fNcZsAgg
@@ -441,7 +441,7 @@ Progress ^llK74irx
 
 ... ^WQy2lXTs
 
-Vision ^tVz2M0rb
+journey ^tVz2M0rb
 
 Community
     Guestbook ^JqLhtDDb

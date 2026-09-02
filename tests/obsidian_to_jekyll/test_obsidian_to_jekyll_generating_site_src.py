@@ -98,15 +98,15 @@ class TestCopyVaultResources(unittest.TestCase):
     def test_post_filename_with_spaces_and_mixed_case_is_slugified(self):
         posts_dir = self.converter.obsidian_vault_location / "posts"
         posts_dir.mkdir()
-        (posts_dir / "2026-08-27 Vision Whiteboard Showing.md").write_text("content", encoding="utf-8")
+        (posts_dir / "2026-08-27 journey Whiteboard Showing.md").write_text("content", encoding="utf-8")
 
         self.converter.copy_vault_resources()
 
         self.assertTrue(
-            (self.converter.output_location / "_posts" / "2026-08-27-vision-whiteboard-showing.md").exists()
+            (self.converter.output_location / "_posts" / "2026-08-27-journey-whiteboard-showing.md").exists()
         )
         self.assertFalse(
-            (self.converter.output_location / "_posts" / "2026-08-27 Vision Whiteboard Showing.md").exists()
+            (self.converter.output_location / "_posts" / "2026-08-27 journey Whiteboard Showing.md").exists()
         )
 
     def test_non_post_directories_are_not_slugified(self):
