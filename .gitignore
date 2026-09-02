@@ -17,3 +17,5 @@
 # Ignore Python related files
 **/__pycache__/
 /.venv/
+
+/temp/
