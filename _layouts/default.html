@@ -13,7 +13,16 @@
 
 <body>
 
-<div class="water-background"></div>
+<svg class="water-background" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <g id="waves">
+        <path class="wave" d="M0 100 Q250 80 500 100 T1000 100"/>
+<!--        <path class="wave" d="M0 250 Q250 230 500 250 T1000 250"/>-->
+<!--        <path class="wave" d="M0 400 Q250 380 500 400 T1000 400"/>-->
+<!--        <path class="wave" d="M0 550 Q250 530 500 550 T1000 550"/>-->
+<!--        <path class="wave" d="M0 700 Q250 680 500 700 T1000 700"/>-->
+<!--        <path class="wave" d="M0 850 Q250 830 500 850 T1000 850"/>-->
+    </g>
+</svg>
 
 {% include header.html %}
 
@@ -26,6 +35,9 @@
 </div>
 
 {% include footer.html %}
+
+<!--<script src="{{ '/assets/js/pond.js' | relative_url }}"></script>-->
+<script src="/absurdly-goud/assets/js/pond.js"></script>
 
 </body>
 </html>
