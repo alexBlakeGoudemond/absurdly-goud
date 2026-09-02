@@ -70,10 +70,17 @@ const ducks = document.querySelectorAll(
     "#pond-duck-1, #pond-duck-2, #pond-duck-3"
 );
 
+const rippleContainer =
+    document.querySelector("#duck-ripples");
+
 const duckData = [];
 
 const duckScreenHeight = 1000;
 const duckBuffer = 150;
+
+
+// How often each duck creates a ripple.
+const rippleInterval = 900;
 
 
 // Create data for each duck.
@@ -83,31 +90,32 @@ ducks.forEach(duck => {
         duck: duck,
 
         // Starting position.
-        // This is always above the screen.
         x: Math.random() * 1000,
         y: -duckBuffer,
 
-        // Distance travelled so far.
+        // Distance travelled.
         distance: 0,
 
-        // Speed will be randomised.
+        // Movement.
         speed: 0,
 
-        // Direction.
         angle: 0,
         directionX: 0,
         directionY: 1,
 
         // Floating motion.
         bobAmplitude: 8,
-        bobSpeed: 0,
+        bobSpeed: 0.001,
 
         // Gentle sideways drift.
         driftAmplitude: 5,
-        driftSpeed: 0,
+        driftSpeed: 0.001,
 
-        // Random phase.
-        phase: 0
+        // Random movement phase.
+        phase: Math.random() * Math.PI * 2,
+
+        // Time of the last ripple.
+        lastRipple: 0
     };
 
     duckData.push(data);
@@ -120,17 +128,15 @@ function resetDuck(data) {
     // Start above the screen.
     data.y = -duckBuffer;
 
-    // Random horizontal starting position.
+    // Random horizontal position.
     data.x = Math.random() * 1000;
 
-    // Start the journey from zero.
+    // Reset journey distance.
     data.distance = 0;
-
 
     // Random speed.
     data.speed =
         0.15 + Math.random() * 0.35;
-
 
     // Random direction.
     // -30° = down-left
@@ -138,17 +144,14 @@ function resetDuck(data) {
     data.angle =
         -30 + Math.random() * 60;
 
-
     const angle =
         data.angle * Math.PI / 180;
-
 
     data.directionX =
         Math.sin(angle);
 
     data.directionY =
         Math.cos(angle);
-
 
     // Randomise floating behaviour.
     data.phase =
@@ -159,6 +162,9 @@ function resetDuck(data) {
 
     data.driftSpeed =
         0.001 + Math.random() * 0.001;
+
+    // Allow a ripple shortly after entering.
+    data.lastRipple = 0;
 }
 
 
@@ -168,15 +174,110 @@ duckData.forEach(data => {
 });
 
 
+// Create a ripple at the duck's current position.
+function createRipple(data, time) {
+
+    const ripple =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "ellipse"
+        );
+
+    ripple.classList.add("duck-ripple");
+
+    /*
+     * The duck coordinates are already using
+     * the same 0–1000 coordinate system as
+     * the SVG.
+     */
+    const x =
+        data.x +
+        data.distance * data.directionX;
+
+    const y =
+        data.y +
+        data.distance * data.directionY;
+
+
+    ripple.setAttribute("cx", x);
+    ripple.setAttribute("cy", y);
+
+    // Start as a small ripple.
+    ripple.setAttribute("rx", 5);
+    ripple.setAttribute("ry", 2);
+
+    rippleContainer.appendChild(ripple);
+
+
+    // Animate the ripple.
+    const duration = 2500;
+    const startTime = time;
+
+
+    function animateRipple(currentTime) {
+
+        const elapsed =
+            currentTime - startTime;
+
+        const progress =
+            Math.min(elapsed / duration, 1);
+
+
+        /*
+         * Ease-out makes the ripple expand
+         * quickly at first and then slow down.
+         */
+        const eased =
+            1 - Math.pow(1 - progress, 3);
+
+
+        // Grow the ripple.
+        const rx =
+            5 + eased * 55;
+
+        const ry =
+            2 + eased * 18;
+
+
+        ripple.setAttribute("rx", rx);
+        ripple.setAttribute("ry", ry);
+
+
+        // Fade out gradually.
+        const opacity =
+            0.20 * (1 - progress);
+
+        ripple.style.stroke =
+            `rgba(255, 255, 255, ${opacity})`;
+
+
+        // Remove once finished.
+        if (progress < 1) {
+
+            requestAnimationFrame(
+                animateRipple
+            );
+
+        } else {
+
+            ripple.remove();
+        }
+    }
+
+
+    requestAnimationFrame(animateRipple);
+}
+
+
 function animateDucks(time) {
 
     duckData.forEach(data => {
 
-        // Move this duck forward.
+        // Move the duck forward.
         data.distance += data.speed;
 
 
-        // Calculate position along its journey.
+        // Calculate its position.
         let x =
             data.x +
             data.distance * data.directionX;
@@ -212,11 +313,24 @@ function animateDucks(time) {
             `${y / 10}%`;
 
 
-        // Once the duck has completely left
-        // the bottom of the pond, start a new journey.
+        // Create a new ripple periodically.
         if (
-            y > duckScreenHeight + duckBuffer
+            time - data.lastRipple >
+            rippleInterval
         ) {
+
+            createRipple(data, time);
+
+            data.lastRipple = time;
+        }
+
+
+        // Reset when the duck leaves the bottom.
+        if (
+            y >
+            duckScreenHeight + duckBuffer
+        ) {
+
             resetDuck(data);
         }
 
