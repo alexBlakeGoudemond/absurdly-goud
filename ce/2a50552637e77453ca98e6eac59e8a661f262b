@@ -1,0 +1,21 @@
+_layouts/default.html
+  h_1197a506f6c7d6 19,21-28,30,33-36
+  h_1197a506f6c7d6 16-18
+assets/css/animated-background.css
+  h_1197a506f6c7d6 45-57
+assets/js/pond.js
+  h_1197a506f6c7d6 68-230
+assets/images/duck.svg
+  h_1197a506f6c7d6 1-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "ce2a50552637e77453ca98e6eac59e8a661f262b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
