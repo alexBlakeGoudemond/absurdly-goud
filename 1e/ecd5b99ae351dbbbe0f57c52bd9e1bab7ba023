@@ -1,0 +1,27 @@
+_layouts/default.html
+  s_230a08e8b7e2f3::t_4f27329900a561 11
+  h_1197a506f6c7d6 16-17
+assets/css/animated-background.css
+  h_1197a506f6c7d6 1-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1eecd5b99ae351dbbbe0f57c52bd9e1bab7ba023",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_230a08e8b7e2f3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788362654899",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
