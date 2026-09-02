@@ -1,0 +1,15 @@
+assets/js/pond.js
+  h_1197a506f6c7d6 5,7,9-15,32-46,48-50,52,54,59-60
+  h_1197a506f6c7d6 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5566dc5e3f15b5046c2bd8dd23c48601c718dbc1",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
