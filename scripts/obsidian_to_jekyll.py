@@ -84,7 +84,8 @@ class ObsidianToJekyllConverter:
                              '_includes',
                              '_layouts',
                              '_data',
-                             'journey']
+                             'journey',
+                             'favicon.svg']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md']
     SECTION_FOLDERS = ['journey']
     IMAGE_ASSET_GLOBS = ('*.png', '*.svg', '*.gif')

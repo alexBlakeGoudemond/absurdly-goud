@@ -9,8 +9,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
-- [ ] Extra obsidian to jekyll script features:
-	- [ ] posts without timestamp in name should have timestamp auto added
 - [ ] Custom 404 Page
 - [ ] Guestbook
 - [ ] Consider a [Jekyll theme](https://jekyllrb.com/docs/themes/#installing-a-theme)
