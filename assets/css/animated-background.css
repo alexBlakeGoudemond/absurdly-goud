@@ -42,3 +42,16 @@
 /*        transform: translateY(55px);*/
 /*    }*/
 /*}*/
+
+#pond-duck-1,
+#pond-duck-2,
+#pond-duck-3 {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+
+    z-index: 0;
+    pointer-events: none;
+
+    transform: translate(-50%, -50%);
+}
