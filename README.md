@@ -11,13 +11,13 @@ This repo was initially created as a personal website for Alex Blake-Goudemond, 
 - For the first time users, follow the [setup instructions](docs/README.md#setup)
 - Edit in the Obsidian vault: absurdly-goud-obsidian
 - Leverage Makefile: `make compose-rebuild-no-cache`
-- Generated `site_src/` and `_site` are safe to delete (not committed).
+- Generated `site_src/` and `_site` are safe to delete (not committed)
 
 ## Notes
 
 - Obsidian is the source of truth
 - Everything around it is infrastructure designed to be flexible
-- For more information, please refer to the [Documentation README](docs/README.md).
+- For more information, please refer to the [Documentation README](docs/README.md)
 
 ## Repository
 
