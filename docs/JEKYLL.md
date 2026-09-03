@@ -12,7 +12,7 @@ What Jekyll does
 
 ## Images & media
 
-- `media/` stores per-post images by date/slug
+- `assets/` stores images used by posts and more
 - use `_includes/image.html` and `_includes/figure.html` to insert images
 
 ## Local test

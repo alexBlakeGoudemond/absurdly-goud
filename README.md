@@ -1,5 +1,7 @@
 # README
 
+![favicon: Rubber Duck Logo](favicon.svg)
+
 This repo was initially created as a personal website for Alex Blake-Goudemond, namely as a way to join the IndieWeb.
 
 > TL:DR: Jekyll site built from an Obsidian vault, published to `absurdlygoud.com` via GitHub Pages.
