@@ -78,26 +78,32 @@ const duckData = [];
 const duckScreenHeight = 1000;
 const duckBuffer = 150;
 
+// Stagger settings: one duck every N ms
+const duckStaggerInterval = 8400; // milliseconds between duck spawns
+let animationStart = null; // will be set to the first animate timestamp
+let lastDuckSpawnOffset = 0; // offset (ms) of the last scheduled spawn (relative to animationStart)
+
 
 // How often each duck creates a ripple.
 const rippleInterval = 900;
 
-
-// Create data for each duck.
-ducks.forEach(duck => {
+// Random speed (increased for faster vertical movement).
+let duckSpeed = 0.3 + Math.random() * 0.5;
+// Create data for each duck. Assign an initial spawn offset so ducks appear staggered in a sequence.
+ducks.forEach((duck, index) => {
 
     const data = {
         duck: duck,
 
-        // Starting position.
+        // Starting position (closer so they appear sooner once spawned).
         x: Math.random() * 1000,
-        y: -duckBuffer,
+        y: -duckBuffer / 2,
 
-        // Distance travelled.
-        distance: 0,
+        // Distance travelled (small randomized offset to avoid simultaneous alignment).
+        distance: Math.random() * 10,
 
-        // Movement.
-        speed: 0,
+        // Movement (will be randomized on reset).
+        speed: 2,
 
         angle: 0,
         directionX: 0,
@@ -115,7 +121,11 @@ ducks.forEach(duck => {
         phase: Math.random() * Math.PI * 2,
 
         // Time of the last ripple.
-        lastRipple: 0
+        lastRipple: 0,
+
+        // Spawn control (offset in ms relative to animationStart)
+        spawnOffset: index * duckStaggerInterval,
+        spawned: false
     };
 
     duckData.push(data);
@@ -125,24 +135,22 @@ ducks.forEach(duck => {
 // Give a duck a new journey.
 function resetDuck(data) {
 
-    // Start above the screen.
-    data.y = -duckBuffer;
+    // Start above the screen (closer so they appear sooner).
+    data.y = -duckBuffer / 2;
 
     // Random horizontal position.
     data.x = Math.random() * 1000;
 
-    // Reset journey distance.
-    data.distance = 0;
+    // Reset journey distance (small random offset so some ducks start closer).
+    data.distance = Math.random() * 10;
 
-    // Random speed.
-    data.speed =
-        0.15 + Math.random() * 0.35;
+    data.speed = duckSpeed;
 
     // Random direction.
     // -30° = down-left
     // +30° = down-right
     data.angle =
-        -30 + Math.random() * 60;
+        -15 + Math.random() * 30;
 
     const angle =
         data.angle * Math.PI / 180;
@@ -172,6 +180,9 @@ function resetDuck(data) {
 duckData.forEach(data => {
     resetDuck(data);
 });
+
+// Initialize the spawn offset tracker so future respawns continue the stagger sequence.
+lastDuckSpawnOffset = (ducks.length - 1) * duckStaggerInterval;
 
 
 // Create a ripple at the duck's current position.
@@ -271,11 +282,26 @@ function createRipple(data, time) {
 
 function animateDucks(time) {
 
+    // Establish a consistent animation baseline on first frame
+    if (animationStart === null) {
+        animationStart = time;
+        // ensure lastDuckSpawnOffset begins at the last initial spawn we've assigned
+        // (this was set after initial resets)
+    }
+
     duckData.forEach(data => {
+
+        // If it's not yet this duck's turn to appear, keep it hidden/offscreen.
+        if (time < animationStart + (data.spawnOffset || 0)) {
+            data.duck.style.display = 'none';
+            return;
+        }
+
+        // Make visible once spawned
+        data.duck.style.display = '';
 
         // Move the duck forward.
         data.distance += data.speed;
-
 
         // Calculate its position.
         let x =
@@ -331,7 +357,17 @@ function animateDucks(time) {
             duckScreenHeight + duckBuffer
         ) {
 
+            // Schedule its next spawn so ducks keep appearing one-by-one.
+            lastDuckSpawnOffset += duckStaggerInterval;
+
             resetDuck(data);
+
+            // Assign the next spawn offset (relative to animationStart)
+            data.spawnOffset = lastDuckSpawnOffset;
+
+            // Hide until its spawn time arrives
+            data.duck.style.display = 'none';
+            return;
         }
 
     });
