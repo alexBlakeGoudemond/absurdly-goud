@@ -1,0 +1,26 @@
+_layouts/post.html
+  s_c8d8c95c3c7ede::t_edf67964ddebbe 10-12
+"absurdly-goud-obsidian/posts/2026/09/03/2026-09-03 DUCKS DUCKS DUCKS.md"
+  s_c8d8c95c3c7ede::t_2cece0c6cd8076 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "9139b05f2f0aef2b8f2751ffe6e91b53e45c7e59",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c8d8c95c3c7ede": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "356c7d19-5ab4-494f-b918-e66dca5da599",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
