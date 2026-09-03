@@ -57,7 +57,7 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: section", result)
-        self.assertIn("section: journey", result)
+        self.assertIn("section: Journey", result)
         self.assertIn("permalink: /journey/design/website-design/", result)
 
     def test_permalink_omitted_by_default(self):
