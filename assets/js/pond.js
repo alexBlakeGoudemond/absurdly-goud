@@ -82,7 +82,8 @@ const duckBuffer = 150;
 // How often each duck creates a ripple.
 const rippleInterval = 900;
 
-
+// Random speed (increased for faster vertical movement).
+let duckSpeed = 0.3 + Math.random() * 0.5;
 // Create data for each duck.
 ducks.forEach(duck => {
 
@@ -97,7 +98,7 @@ ducks.forEach(duck => {
         distance: 0,
 
         // Movement.
-        speed: 0,
+        speed: duckSpeed,
 
         angle: 0,
         directionX: 0,
@@ -125,24 +126,22 @@ ducks.forEach(duck => {
 // Give a duck a new journey.
 function resetDuck(data) {
 
-    // Start above the screen.
-    data.y = -duckBuffer;
+    // Start above the screen (closer so they appear sooner).
+    data.y = -duckBuffer / 2;
 
     // Random horizontal position.
     data.x = Math.random() * 1000;
 
-    // Reset journey distance.
-    data.distance = 0;
+    // Reset journey distance (small random offset so some ducks start closer).
+    data.distance = Math.random() * 10;
 
-    // Random speed.
-    data.speed =
-        0.15 + Math.random() * 0.35;
+    data.speed = duckSpeed;
 
     // Random direction.
     // -30° = down-left
     // +30° = down-right
     data.angle =
-        -30 + Math.random() * 60;
+        -15 + Math.random() * 30;
 
     const angle =
         data.angle * Math.PI / 180;
