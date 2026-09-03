@@ -1,0 +1,16 @@
+_layouts/default.html
+  h_1197a506f6c7d6 44
+assets/images/duck-purple-octavia.svg
+  h_1197a506f6c7d6 1-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "907a79593ba4cfe007fa0a1ad1423af75bdc9177",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
