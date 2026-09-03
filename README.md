@@ -1,7 +1,21 @@
-# personal-website
-Personal website for AlexBlakeGoudemond
+# README
 
-For more information, please refer to the [Documentation README](docs/README.md).
+This repo was initially created as a personal website for Alex Blake-Goudemond, namely as a way to join the IndieWeb.
+
+> TL:DR: Jekyll site built from an Obsidian vault, published to `absurdlygoud.com` via GitHub Pages.
+
+## Quick start
+
+- For the first time users, follow the [setup instructions](docs/README.md#setup)
+- Edit in the Obsidian vault: absurdly-goud-obsidian
+- Leverage Makefile: `make compose-rebuild-no-cache`
+- Generated `site_src/` and `_site` are safe to delete (not committed).
+
+## Notes
+
+- Obsidian is the source of truth
+- Everything around it is infrastructure designed to be flexible
+- For more information, please refer to the [Documentation README](docs/README.md).
 
 ## Repository
 
@@ -11,36 +25,3 @@ For more information, please refer to the [Documentation README](docs/README.md)
 - **Publishing source:** `main` branch, repository root
 - **Custom domain:** `absurdlygoud.com`
 - **License**: MIT
-
-## Obsidian workflow
-
-This repo treats the Obsidian vault (absurdly-goud-obsidian) as the source of truth. The exporter
-scripts/obsidian_to_jekyll.py converts vault content into Jekyll site sources and writes generated
-fragments into _includes.
-
-Notes on generated fragments
-- The converter generates `_includes/home_fragment.md` and `_includes/about_fragment.md` from the
-  vault. You can delete the checked-in copies — the converter/watcher will recreate them locally.
-- For CI / GitHub Pages: either commit generated files, or add a CI step to run the converter before
-  building/publishing, otherwise the site build will miss generated content.
-
-Do not edit generated includes by hand; edit the vault instead.
-
-## Code Entrypoint
-
-This codebase works with Obsidian, Jekyll and GitHub Pages. Python scripts have been set up to assemble the resources
-needed by Jekyll in advance. The entrypoint of those scripts is [obsidian_to_jekyll.py](scripts/obsidian_to_jekyll.py)
-
-## Test Suite
-
-This project uses a Python Virtual Environment. To setup, in root:
-
-```bash
-python -m venv .venv
-```
-
-then install Pillow in the virtual environment:
-
-```bash
-.\.venv\Scripts\python.exe -m pip install Pillow 
-```
