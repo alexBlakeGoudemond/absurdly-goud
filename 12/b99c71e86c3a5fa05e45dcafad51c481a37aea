@@ -1,0 +1,34 @@
+assets/css/style.css
+  h_1197a506f6c7d6 2-4,14,17-24,123-128
+  h_1197a506f6c7d6 15-16
+assets/css/animated-background.css
+  h_1197a506f6c7d6 8,10,12-13,23-25,34,45-50,55,58-60,62
+  h_1197a506f6c7d6 51-54,56-57,61,63-64
+Makefile
+  h_1197a506f6c7d6 8,14
+  h_1197a506f6c7d6 15-17
+_layouts/default.html
+  s_230a08e8b7e2f3::t_a61fc7f67f779a 49
+  s_230a08e8b7e2f3::t_e4ed6b8cbc3961 44,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "12b99c71e86c3a5fa05e45dcafad51c481a37aea",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_230a08e8b7e2f3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788362654899",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
