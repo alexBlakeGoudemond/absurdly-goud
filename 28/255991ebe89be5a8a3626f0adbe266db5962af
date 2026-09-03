@@ -1,0 +1,35 @@
+assets/js/pond.js
+  s_230a08e8b7e2f3::t_1716939e381d79 101
+  s_fc8e7937c15922::t_b0d9fdaffc5eda 129-130,135-136
+  s_fc8e7937c15922::t_e645c53dded3dd 144
+  s_fc8e7937c15922::t_30e064508ba318 85-86,138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "28255991ebe89be5a8a3626f0adbe266db5962af",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_230a08e8b7e2f3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788362654899",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_fc8e7937c15922": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a2fd615f-569f-4357-9c13-7c2801160c12",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
