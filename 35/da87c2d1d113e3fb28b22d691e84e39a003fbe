@@ -1,0 +1,25 @@
+assets/css/style.css
+  s_fc8e7937c15922::t_64d923fcb24afe 25
+  s_fc8e7937c15922::t_45ec41a9d196a7 3
+  s_fc8e7937c15922::t_65e8da7e16d3f1 129
+assets/css/animated-background.css
+  s_fc8e7937c15922::t_ddab9542fab326 9
+  s_fc8e7937c15922::t_403495d87c1bc0 34
+  s_fc8e7937c15922::t_862e4aa04a2ca8 59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "35da87c2d1d113e3fb28b22d691e84e39a003fbe",
+  "prompts": {},
+  "sessions": {
+    "s_fc8e7937c15922": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a2fd615f-569f-4357-9c13-7c2801160c12",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
