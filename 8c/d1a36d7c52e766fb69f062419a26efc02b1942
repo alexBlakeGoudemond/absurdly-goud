@@ -1,0 +1,28 @@
+assets/js/navigation.js
+  h_1197a506f6c7d6 1-2,8,15,17-19,21-27,40,49-52,54,58,60-63,65-67,71,73-75,77-78,80-85,89-91
+  s_230a08e8b7e2f3::t_727c26a537c07c 44
+  h_1197a506f6c7d6 3-7,9-14,16,20,28-39,41-43,45-48,53,55-57,59,64,68-70,72,76,79,86-88,92-96
+_layouts/default.html
+  h_1197a506f6c7d6 71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8cd1a36d7c52e766fb69f062419a26efc02b1942",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_230a08e8b7e2f3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788362654899",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
