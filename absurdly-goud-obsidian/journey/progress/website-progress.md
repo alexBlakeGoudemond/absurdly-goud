@@ -25,6 +25,14 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] Get GitHub Pages to use caching?
 - [ ] Changelog
 
+- [ ] Animated background
+	- [x] Blue background
+	- [ ] Subtle water movement
+	- [ ] More convincing water texture
+	- [ ] Duck appears
+	- [ ] Duck moves
+	- [ ] Duck creates ripples
+
 # Achievements
 - [x] URL links and wikilinks should automatically escape vertical bars for Kramdown parsing confusion (not escaping fails to parse) (2026-09-01)
 - [x] blog:

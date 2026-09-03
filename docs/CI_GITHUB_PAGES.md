@@ -10,15 +10,10 @@ workflow at `.github/workflows/convert-build-deploy.yml` does the following on p
 
 Notes:
 
-- Do NOT commit generated `site_src/` or `site/` — the workflow generates them in CI.
+- Do NOT commit generated `site_src/` or `site/` — the workflow generates them in CI
 - If you need pagination or other site behavior changes, update `_config.yml` and templates, and verify locally before
-  pushing.
+  pushing
 
 Local testing:
 
-- python scripts/obsidian_to_jekyll.py
-- bundle install
-- bundle exec jekyll build --source site_src --destination site
-
-If you want a different publish strategy (commit generated site_src, or publish gh-pages branch), say so and I can add
-an alternate workflow.
+See [LOCAL_TESTING.md](LOCAL_TESTING.md)

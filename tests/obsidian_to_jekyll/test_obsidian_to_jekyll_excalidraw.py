@@ -56,7 +56,7 @@ class TestExcalidrawNoteSwap(unittest.TestCase):
 
         result = dest.read_text(encoding="utf-8")
         self.assertIn("layout: section", result)
-        self.assertIn("section: journey", result)
+        self.assertIn("section: Journey", result)
         self.assertIn('src="website-whiteboard.excalidraw.svg"', result)
 
     def test_non_excalidraw_markdown_file_is_unaffected(self):

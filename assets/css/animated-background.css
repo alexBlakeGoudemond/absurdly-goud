@@ -1,0 +1,64 @@
+/* Pond background */
+
+.water-background {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: -1;
+
+    background: #5bb8c9;
+
+    pointer-events: none;
+}
+
+.wave {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 5;
+}
+
+
+/* =========================================================
+   DUCK RIPPLES
+   ========================================================= */
+
+.ripple-background {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+.duck-ripple {
+    fill: none;
+
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 2;
+}
+
+
+/* =========================================================
+   DUCKS
+   ========================================================= */
+
+#pond-duck-1,
+#pond-duck-2,
+#pond-duck-3 {
+    position: fixed;
+
+    width: 80px;
+    height: 80px;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    transform: translate(-50%, -50%);
+}
