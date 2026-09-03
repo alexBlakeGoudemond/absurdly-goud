@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 560" width="500" height="560">
+
+    <!-- Water Ripples -->
+    <circle cx="250" cy="320" r="240" fill="#dcf0f6"/>
+    <circle cx="250" cy="320" r="195" fill="none" stroke="#c3e3ec" stroke-width="1.5"/>
+    <circle cx="250" cy="320" r="150" fill="none" stroke="#c3e3ec" stroke-width="1.5"/>
+
+    <ellipse cx="255" cy="360" rx="165" ry="185" fill="#000000" fill-opacity="0.07"/>
+
+    <!-- Tail -->
+    <path d="M225,500 Q250,505 275,500 Q250,550 225,500 Z" fill="#FFE04A"/>
+
+    <!-- Body -->
+    <ellipse cx="250" cy="345" rx="150" ry="165" fill="#ffd43b"/>
+
+    <!-- Wings -->
+    <ellipse cx="132" cy="330" rx="45" ry="95" fill="#F5C932" transform="rotate(-8 132 330)"/>
+    <ellipse cx="368" cy="330" rx="45" ry="95" fill="#F5C932" transform="rotate(8 368 330)"/>
+
+    <!-- Head -->
+    <circle cx="250" cy="150" r="108" fill="#FFE04A"/>
+
+    <!-- Beak and Nose -->
+    <ellipse cx="250" cy="50" rx="66" ry="35" fill="#F28C28"/>
+    <ellipse cx="234" cy="62" rx="4" ry="6" fill="#B86216"/>
+    <ellipse cx="266" cy="62" rx="4" ry="6" fill="#B86216"/>
+
+    <!-- Eyes -->
+    <circle cx="193" cy="112" r="15" fill="#2b2b2b"/>
+    <circle cx="307" cy="112" r="15" fill="#2b2b2b"/>
+    <!-- Pupils -->
+    <circle cx="195" cy="102" r="4.5" fill="#ffffff"/>
+    <circle cx="305" cy="102" r="4.5" fill="#ffffff"/>
+</svg>

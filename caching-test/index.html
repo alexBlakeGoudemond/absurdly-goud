@@ -8,9 +8,52 @@
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/animated-background.css">
 </head>
 
 <body>
+
+<svg class="water-background"
+     viewBox="0 0 1000 1000"
+     preserveAspectRatio="none">
+
+    <g id="waves">
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+    </g>
+</svg>
+
+
+<!-- Duck ripples -->
+<svg class="ripple-background"
+     viewBox="0 0 1000 1000"
+     preserveAspectRatio="none">
+    <g id="duck-ripples"></g>
+</svg>
+
+
+<img id="pond-duck-1"
+     src="/assets/images/duck.svg"
+     alt=""
+     aria-hidden="true">
+
+<img id="pond-duck-2"
+     src="/assets/images/duck.svg"
+     alt=""
+     aria-hidden="true">
+
+<img id="pond-duck-3"
+     src="/assets/images/duck.svg"
+     alt=""
+     aria-hidden="true">
 
 <header>
     <nav>
@@ -129,6 +172,10 @@ later to GitHub Pages</p>
 <footer>
   <p>&copy; 2026 ABsurdly Goud. All rights reserved.</p>
 </footer>
+
+<script src="/assets/js/pond.js"></script>
+<script src="/assets/js/navigation.js"></script>
+<!--<script src="/absurdly-goud/assets/js/pond.js"></script>-->
 
 </body>
 </html>
