@@ -25,20 +25,11 @@
 </svg>
 
 
-<img id="pond-duck-1"
-     src="/assets/logos/logo-rubber-duck-octavia.svg"
-     alt=""
-     aria-hidden="true">
-
-<img id="pond-duck-2"
-     src="/assets/logos/logo-rubber-duck-emily-and-lyra.svg"
-     alt=""
-     aria-hidden="true">
-
-<img id="pond-duck-3"
-     src="/assets/logos/logo-rubber-duck-abg.svg"
-     alt=""
-     aria-hidden="true">
+{%- for file in site.static_files -%}
+    {%- if file.path contains '/assets/site-background/' and file.path contains '.svg' -%}
+        <img class="pond-duck" id="pond-duck-{{ forloop.index }}" src="{{ file.path | relative_url }}" alt="" aria-hidden="true">
+    {%- endif -%}
+{%- endfor -%}
 
 <script src="{{ '/assets/js/pond.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
