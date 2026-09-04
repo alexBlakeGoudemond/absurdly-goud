@@ -133,11 +133,16 @@ class ObsidianToJekyllConverter:
         for glob_pattern in self.IMAGE_ASSET_GLOBS:
             for image_file in self.obsidian_vault_location.rglob(glob_pattern):
                 relative_path = image_file.relative_to(self.obsidian_vault_location)
+                bucket_parts = relative_path.parts
+                if bucket_parts and bucket_parts[0] == 'assets':
+                    # The vault's reserved `assets/` directory is already the
+                    # target root for the output tree
+                    bucket_parts = bucket_parts[1:]
                 # Bucket by the vault's top-level parent directory (e.g. '88x31',
                 # 'posts') rather than preserving the full nested path — images
                 # land flat inside that bucket.
-                if len(relative_path.parts) > 1:
-                    top_level_dir = relative_path.parts[0]
+                if len(bucket_parts) > 1:
+                    top_level_dir = bucket_parts[0]
                     dest_dir = assets_root / top_level_dir
                 else:
                     # Image sits directly at the vault root, with no parent dir.

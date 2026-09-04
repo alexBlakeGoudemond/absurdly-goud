@@ -30,10 +30,12 @@ In few words, it exists:
 ## Why IndieWeb?
 
 A friend asked me: "Why build a website for the IndieWeb and not just a normal website?" and the question held me. We had discussed the obvious things before: 
+
 - no priority on advertisements
 - no need to chase algorithms
 - no need to build around Search Engine Optimization (SEO) and trends
 - no need to justify the website's existence
+
 And upon reflection, I realized that these responses did not address the core of question...
 
 Then my answer came to me: 
