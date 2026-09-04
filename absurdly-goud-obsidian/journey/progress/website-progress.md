@@ -24,16 +24,22 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] screenshots always show as changed in cache
 	- [ ] Get GitHub Pages to use caching?
 - [ ] Changelog
-
+- [ ] Move more things to Obsidian, so that content is 100% managed in Obsidian
+	- [ ] Updating button works through Obsidian
+	- [ ] Adding favicon
+	- [ ] Adding images for animated background
+- [ ] Ducks:
+	- [ ] Add more duck variations - 1 for each interested person in the family
 - [ ] Animated background
-	- [x] Blue background
-	- [ ] Subtle water movement
 	- [ ] More convincing water texture
-	- [ ] Duck appears
-	- [ ] Duck moves
-	- [ ] Duck creates ripples
 
 # Achievements
+- [x]  Animated background (2026-09-03)
+	- [x] Blue background
+	- [x] Subtle water movement
+	- [x] Duck appears
+	- [x] Duck moves
+	- [x] Duck creates ripples
 - [x] URL links and wikilinks should automatically escape vertical bars for Kramdown parsing confusion (not escaping fails to parse) (2026-09-01)
 - [x] blog:
 	- [x] buttons (2026-08-31)
