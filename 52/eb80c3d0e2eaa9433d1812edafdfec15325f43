@@ -1,0 +1,26 @@
+_data/badges.yml
+  s_97e4bbb702e5c3::t_9d18f1274025e7 12
+  s_97e4bbb702e5c3::t_90c3cb82e38148 16
+  s_97e4bbb702e5c3::t_4d5d3dd83f8e78 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "52eb80c3d0e2eaa9433d1812edafdfec15325f43",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_97e4bbb702e5c3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788549942067",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
