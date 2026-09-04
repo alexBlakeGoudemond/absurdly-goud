@@ -139,7 +139,7 @@ class TestCopyVaultResources(unittest.TestCase):
 
         self.assertTrue((self.converter.output_location / "about" / "about.md").exists())
 
-    def test_images_in_posts_directory_are_excluded(self):
+    def test_images_in_posts_directory_are_excluded_from_underscore_posts(self):
         # Jekyll tries to read every file under _posts as UTF-8 front matter and
         # blows up on binary content, so image assets must never land there.
         posts_dir = self.converter.obsidian_vault_location / "posts" / "2026" / "08"
@@ -150,12 +150,13 @@ class TestCopyVaultResources(unittest.TestCase):
 
         self.assertFalse((self.converter.output_location / "_posts" / "2026" / "08" / "screenshot.png").exists())
 
-    def test_other_image_extensions_in_posts_are_also_excluded(self):
+    def test_other_image_extensions_in_posts_are_also_excluded_from_underscore_posts(self):
         posts_dir = self.converter.obsidian_vault_location / "posts"
         posts_dir.mkdir()
         (posts_dir / "photo.jpg").write_bytes(b"fake-jpg")
         (posts_dir / "photo.jpeg").write_bytes(b"fake-jpeg")
         (posts_dir / "photo.gif").write_bytes(b"fake-gif")
+        (posts_dir / "screenshot.png").write_bytes(b"\x89PNG\r\n\x1a\nfake-bytes")
 
         self.converter.copy_vault_resources()
 
@@ -163,8 +164,9 @@ class TestCopyVaultResources(unittest.TestCase):
         self.assertFalse((output_posts / "photo.jpg").exists())
         self.assertFalse((output_posts / "photo.jpeg").exists())
         self.assertFalse((output_posts / "photo.gif").exists())
+        self.assertFalse((output_posts / "screenshot.png").exists())
 
-    def test_excalidraw_svg_in_posts_is_excluded(self):
+    def test_excalidraw_svg_in_posts_is_excluded_from_underscore_posts(self):
         # mirrors the png/jpg/gif exclusion above — an excalidraw drawing's
         # auto-exported SVG living inside posts/ shouldn't land in _posts
         # either; it belongs only in assets/images via the dedicated copy step.
@@ -176,7 +178,7 @@ class TestCopyVaultResources(unittest.TestCase):
 
         self.assertFalse((self.converter.output_location / "_posts" / "diagram.excalidraw.svg").exists())
 
-    def test_markdown_alongside_excluded_image_in_posts_is_still_copied(self):
+    def test_markdown_alongside_excluded_image_in_posts_is_still_copied_to_underscore_posts(self):
         posts_dir = self.converter.obsidian_vault_location / "posts"
         posts_dir.mkdir()
         (posts_dir / "screenshot.png").write_bytes(b"fake-bytes")
@@ -187,7 +189,7 @@ class TestCopyVaultResources(unittest.TestCase):
         self.assertTrue((self.converter.output_location / "_posts" / "entry.md").exists())
         self.assertFalse((self.converter.output_location / "_posts" / "screenshot.png").exists())
 
-    def test_images_outside_posts_directory_are_also_excluded(self):
+    def test_images_outside_posts_directory_are_also_excluded_from_underscore_posts(self):
         # Images are handled exclusively by copy_vault_images_into_assets_directory,
         # which buckets them under assets/. If copy_vault_resources also copied
         # them here, they'd be duplicated in the output (once under their
@@ -230,6 +232,20 @@ class TestCopyVaultImagesIntoAssetsDirectory(unittest.TestCase):
 
         self.converter.copy_vault_images_into_assets_directory()
 
+        self.assertTrue(
+            (self.converter.output_location / "assets" / "88x31" / "free-real-estate.svg").exists()
+        )
+
+    def test_vault_images_inside_assets_directory_are_not_copied_as_asset_asset_image(self):
+        buttons_dir = self.converter.obsidian_vault_location / "assets" / "88x31" / "memes-as-buttons"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "free-real-estate.svg").write_text("<svg></svg>", encoding="utf-8")
+
+        self.converter.copy_vault_images_into_assets_directory()
+
+        self.assertFalse(
+            (self.converter.output_location / "assets" / "assets" / "88x31" / "free-real-estate.svg").exists()
+        )
         self.assertTrue(
             (self.converter.output_location / "assets" / "88x31" / "free-real-estate.svg").exists()
         )
