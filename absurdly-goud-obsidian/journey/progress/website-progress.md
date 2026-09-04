@@ -2,6 +2,8 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] bugfix:
+	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
