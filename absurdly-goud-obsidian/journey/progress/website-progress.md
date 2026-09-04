@@ -2,6 +2,8 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] bugfix:
+	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
 - [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
@@ -24,16 +26,14 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] screenshots always show as changed in cache
 	- [ ] Get GitHub Pages to use caching?
 - [ ] Changelog
-- [ ] Move more things to Obsidian, so that content is 100% managed in Obsidian
-	- [ ] Updating button works through Obsidian
-	- [ ] Adding favicon
-	- [ ] Adding images for animated background
-- [ ] Ducks:
-	- [ ] Add more duck variations - 1 for each interested person in the family
 - [ ] Animated background
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Ducks:
+	- [x] Add more duck variations - 1 for each interested person in the family (2026-09-04)
+- [x] Move more things to Obsidian, so that content is 100% managed in Obsidian
+	- [x] Adding images for animated background (2026-09-04)
 - [x]  Animated background (2026-09-03)
 	- [x] Blue background
 	- [x] Subtle water movement
