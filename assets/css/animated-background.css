@@ -48,9 +48,7 @@
    DUCKS
    ========================================================= */
 
-#pond-duck-1,
-#pond-duck-2,
-#pond-duck-3 {
+.pond-duck {
     position: fixed;
 
     width: 80px;

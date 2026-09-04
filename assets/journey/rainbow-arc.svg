@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="200" height="160">
+
+  <!-- Rainbow -->
+  <path d="M20 125
+       A80 80 0 0 1 180 125" fill="none" stroke="#FF595E" stroke-width="24" stroke-linecap="round"></path>
+
+  <path d="M32 125
+       A68 68 0 0 1 168 125" fill="none" stroke="#FFCA3A" stroke-width="20" stroke-linecap="round"></path>
+
+  <path d="M44 125
+       A56 56 0 0 1 156 125" fill="none" stroke="#8AC926" stroke-width="16" stroke-linecap="round"></path>
+
+  <path d="M56 125
+       A44 44 0 0 1 144 125" fill="none" stroke="#1982C4" stroke-width="12" stroke-linecap="round"></path>
+
+  <path d="M68 125
+       A32 32 0 0 1 132 125" fill="none" stroke="#6A4C93" stroke-width="8" stroke-linecap="round"></path>
+
+  <!-- Bottom bubbles -->
+  <circle cx="28" cy="130" r="14" fill="#FF595E"></circle>
+
+  <circle cx="52" cy="138" r="17" fill="#FFCA3A"></circle>
+
+  <circle cx="78" cy="141" r="13" fill="#8AC926"></circle>
+
+  <circle cx="105" cy="140" r="18" fill="#1982C4"></circle>
+
+  <circle cx="133" cy="139" r="14" fill="#6A4C93"></circle>
+
+  <circle cx="160" cy="135" r="17" fill="#FF595E"></circle>
+
+  <circle cx="180" cy="128" r="12" fill="#FFCA3A"></circle>
+
+</svg>

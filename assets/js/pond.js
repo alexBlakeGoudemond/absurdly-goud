@@ -67,7 +67,7 @@ function animate(time) {
 requestAnimationFrame(animate);
 
 const ducks = document.querySelectorAll(
-    "#pond-duck-1, #pond-duck-2, #pond-duck-3"
+    ".pond-duck"
 );
 
 const rippleContainer =

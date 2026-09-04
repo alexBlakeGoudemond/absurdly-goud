@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200" width="100" height="200">
+
+  <!-- Unicorn horn -->
+  <path d="M50 5
+       L15 185
+       Q50 195 85 185
+       Z" fill="#F5D6FF" stroke="#B77BC7" stroke-width="3"></path>
+
+  <!-- Horn spiral -->
+  <path d="M27 158
+       Q48 145 73 157
+       M31 135
+       Q51 122 68 132
+       M35 112
+       Q51 101 64 109
+       M39 89
+       Q51 80 60 86
+       M43 66
+       Q51 59 57 63
+       M47 43
+       Q51 38 54 40
+       M49 21
+       Q51 18 52 20" fill="none" stroke="#C58AD6" stroke-width="5" stroke-linecap="round"></path>
+
+</svg>
