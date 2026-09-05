@@ -43,7 +43,7 @@ def display_title_from_slug(file_title: str) -> str:
 
 
 def build_permalink(markdown_file: Path, file_title: str, section: str | None) -> str:
-    slug = file_title.lower()
+    slug = extract_title_from_file_name(file_title).lower()
 
     if section is None:
         return f"/{slug}/"
@@ -103,7 +103,7 @@ def add_frontmatter_to_file(markdown_file: Path,
                             include_permalink=False,
                             section: str | None = None,
                             last_published: str | None = None) -> None:
-    file_title = markdown_file.name
+    file_title = extract_title_from_file_name(markdown_file.name)
     file_content = strip_existing_frontmatter(markdown_file.read_text(encoding="utf-8"))
 
     file_permalink = ""

@@ -4,6 +4,8 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 
 - [ ] bugfix:
 	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
+	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
+- [ ] Add test pipeline before pushing
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
 - [ ] `[!note]` syntax to be supported in HTML
