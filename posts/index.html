@@ -15,8 +15,14 @@ title: Posts
       {{ post.title }}
     </h2>
 
+    {% assign creation_date = post.creation_date | default: post.date %}
     {% assign display_date = post.last_published | default: post.date %}
     <div class="dt-published">
+      Created:
+      <time datetime="{{ creation_date | date_to_xmlschema }}">
+        {{ creation_date | date: "%Y-%m-%d" }}
+      </time>
+
       Last updated:
       <time datetime="{{ display_date | date_to_xmlschema }}">
         {{ display_date | date: "%Y-%m-%d %H:%M" }}
