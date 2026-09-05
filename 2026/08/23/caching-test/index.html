@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Posts | ABsurdly Goud</title>
+    <title>Caching Test | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -59,103 +59,33 @@
 
 <div class="page-wrapper">
     <main>
-        <div class="h-feed">
+        <article class="h-entry">
 
-  <h1 class="p-name">Posts</h1>
+    <header>
+        <h2 class="p-name">Caching Test</h2>
 
-  
+        
+        <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
+            2026-09-05 04:12
+        </time>
+    </header>
 
-  <article class="h-entry post">
+    <div class="e-content">
+        
 
-    <h2 class="p-name">
-      Testing Wikilinks
-    </h2>
+        <p>I am working on doing a build cache via a Manifest file to improve publication</p>
 
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
+<!--more-->
 
-    <div class="p-summary">
-      <p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
+<p>Instead of deleting the entire <code class="language-plaintext highlighter-rouge">site_src</code> directory and then re-copying, I am instead using a cache strategy. If the
+<code class="language-plaintext highlighter-rouge">sha256</code> of a file changed, the <code class="language-plaintext highlighter-rouge">name</code> of the file changed or the file was deleted - only then should it be updated in
+the remote destination - the rest remains as is. Right now this benefits Local Development only as GitHub-hosted Actions
+runners are <strong>ephemeral</strong> — nothing persists between workflow runs unless explicitly cached. Can always bring this in
+later to GitHub Pages</p>
 
-
-      <a class="u-url" href="/2026/08/25/testing-wikilinks/"><i>click me to continue reading ...</i></a>
     </div>
 
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Show And Tell With A Friend
-    </h2>
-
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
-
-    <div class="p-summary">
-      <p>Showing the bare-bones site to my friend at work</p>
-
-
-      <a class="u-url" href="/2026/08/25/show-and-tell-with-a-friend/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Aside And Buttons
-    </h2>
-
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
-
-    <div class="p-summary">
-      <p>Today I defined an aside for my website that contains buttons / badges that I want other people to be aware of</p>
-
-
-      <a class="u-url" href="/2026/08/24/aside-and-buttons/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  
-
-  <nav class="pagination" aria-label="Posts pagination">
-
-    
-    <a href="/posts/page2/">
-      ← Newer posts
-    </a>
-    
-
-    <span>
-            Page 3 of 5
-        </span>
-
-    
-    <a href="/posts/page4/">
-      Older posts →
-    </a>
-    
-
-  </nav>
-
-  
-
-</div>
+</article>
     </main>
 
     <aside>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Posts | ABsurdly Goud</title>
+    <title>Testing Wikilinks | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -59,103 +59,43 @@
 
 <div class="page-wrapper">
     <main>
-        <div class="h-feed">
+        <article class="h-entry">
 
-  <h1 class="p-name">Posts</h1>
+    <header>
+        <h2 class="p-name">Testing Wikilinks</h2>
 
-  
+        
+        <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
+            2026-09-05 04:12
+        </time>
+    </header>
 
-  <article class="h-entry post">
+    <div class="e-content">
+        
 
-    <h2 class="p-name">
-      Testing Wikilinks
-    </h2>
+        <p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
 
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
+<!--more-->
 
-    <div class="p-summary">
-      <p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
+<p>If I have a wikilink like this:</p>
 
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[Note#Sub Section|Alt Text]]
+</code></pre></div></div>
 
-      <a class="u-url" href="/2026/08/25/testing-wikilinks/"><i>click me to continue reading ...</i></a>
+<p>Then the script should convert it into a form that Jekyll requires -  a redirect syntax called a link like this:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nv">Alt Text</span><span class="p">](</span><span class="sx">{%</span> link path/to/Note.md %}#sub-section)
+</code></pre></div></div>
+
+<p>Testing between posts - this should link <a href="/2026/08/24/aside-and-buttons/">2026-08-24-aside-and-buttons</a></p>
+
+<p>Testing between posts and about - this should link <a href="/about/#ai-usage">AI Usage</a></p>
+
+<p>Testing hyperlinks: <a href="https://jekyllrb.com/">Jekyll</a></p>
+
     </div>
 
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Show And Tell With A Friend
-    </h2>
-
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
-
-    <div class="p-summary">
-      <p>Showing the bare-bones site to my friend at work</p>
-
-
-      <a class="u-url" href="/2026/08/25/show-and-tell-with-a-friend/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Aside And Buttons
-    </h2>
-
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
-
-    <div class="p-summary">
-      <p>Today I defined an aside for my website that contains buttons / badges that I want other people to be aware of</p>
-
-
-      <a class="u-url" href="/2026/08/24/aside-and-buttons/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  
-
-  <nav class="pagination" aria-label="Posts pagination">
-
-    
-    <a href="/posts/page2/">
-      ← Newer posts
-    </a>
-    
-
-    <span>
-            Page 3 of 5
-        </span>
-
-    
-    <a href="/posts/page4/">
-      Older posts →
-    </a>
-    
-
-  </nav>
-
-  
-
-</div>
+</article>
     </main>
 
     <aside>

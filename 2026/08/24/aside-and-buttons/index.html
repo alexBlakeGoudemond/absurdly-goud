@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Posts | ABsurdly Goud</title>
+    <title>Aside And Buttons | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -59,103 +59,40 @@
 
 <div class="page-wrapper">
     <main>
-        <div class="h-feed">
+        <article class="h-entry">
 
-  <h1 class="p-name">Posts</h1>
+    <header>
+        <h2 class="p-name">Aside And Buttons</h2>
 
-  
+        
+        <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
+            2026-09-05 04:12
+        </time>
+    </header>
 
-  <article class="h-entry post">
+    <div class="e-content">
+        
 
-    <h2 class="p-name">
-      Testing Wikilinks
-    </h2>
+        <p>Today I defined an aside for my website that contains buttons / badges that I want other people to be aware of</p>
 
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
+<!--more-->
 
-    <div class="p-summary">
-      <p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
+<p>I chose to model my own buttons, as they are just SVGs. I am unsure if need to complete a task to <code class="language-plaintext highlighter-rouge">earn</code> them, or if anyone even cares. Until I know otherwise - I am going to use them to quickly and visually describe information for others to see 📎</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/2026-08-24-aside-and-buttons-screenshot.png" alt="Screenshot showing the aside and buttons" />
+    <figcaption>Screenshot showing the aside and buttons</figcaption>
+</figure>
 
 
-      <a class="u-url" href="/2026/08/25/testing-wikilinks/"><i>click me to continue reading ...</i></a>
     </div>
 
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Show And Tell With A Friend
-    </h2>
-
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
-
-    <div class="p-summary">
-      <p>Showing the bare-bones site to my friend at work</p>
-
-
-      <a class="u-url" href="/2026/08/25/show-and-tell-with-a-friend/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Aside And Buttons
-    </h2>
-
-    
-    <time class="dt-published" datetime="2026-09-05T04:12:00+00:00">
-      2026-09-05 04:12
-    </time>
-
-    <div class="p-summary">
-      <p>Today I defined an aside for my website that contains buttons / badges that I want other people to be aware of</p>
-
-
-      <a class="u-url" href="/2026/08/24/aside-and-buttons/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  
-
-  <nav class="pagination" aria-label="Posts pagination">
-
-    
-    <a href="/posts/page2/">
-      ← Newer posts
-    </a>
-    
-
-    <span>
-            Page 3 of 5
-        </span>
-
-    
-    <a href="/posts/page4/">
-      Older posts →
-    </a>
-    
-
-  </nav>
-
-  
-
-</div>
+</article>
     </main>
 
     <aside>
