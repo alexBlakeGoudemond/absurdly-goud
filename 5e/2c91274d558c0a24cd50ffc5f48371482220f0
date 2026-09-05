@@ -1,0 +1,18 @@
+scripts/parsing_markdown/jekyll_frontmatter.py
+  h_1197a506f6c7d6 28-38,81,83-86,93-94,106
+  h_1197a506f6c7d6 113
+tests/parsing_markdown/test_jekyll_frontmatter.py
+  h_1197a506f6c7d6 11,30-34,36-39
+  h_1197a506f6c7d6 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "5e2c91274d558c0a24cd50ffc5f48371482220f0",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
