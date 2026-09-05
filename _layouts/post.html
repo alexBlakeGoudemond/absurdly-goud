@@ -7,10 +7,19 @@ layout: default
     <header>
         <h2 class="p-name">{{ page.title }}</h2>
 
+        {% assign creation_date = page.creation_date | default: page.date %}
         {% assign display_date = page.last_published | default: page.date %}
-        <time class="dt-published" datetime="{{ display_date | date_to_xmlschema }}">
-            {{ display_date | date: "%Y-%m-%d %H:%M" }}
-        </time>
+        <div class="dt-published">
+            Created:
+            <time datetime="{{ creation_date | date_to_xmlschema }}">
+                {{ creation_date | date: "%Y-%m-%d" }}
+            </time>
+
+            Last updated:
+            <time datetime="{{ display_date | date_to_xmlschema }}">
+                {{ display_date | date: "%Y-%m-%d %H:%M" }}
+            </time>
+        </div>
     </header>
 
     <div class="e-content">

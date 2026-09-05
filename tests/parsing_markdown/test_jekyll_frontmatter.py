@@ -8,6 +8,7 @@ from scripts.parsing_markdown.jekyll_frontmatter import (
     build_permalink,
     strip_existing_frontmatter,
     add_frontmatter_to_file,
+    extract_creation_date_from_file_name,
 )
 
 
@@ -25,6 +26,16 @@ class TestExtractTitleFromFileName(unittest.TestCase):
         title = extract_title_from_file_name("home.mdx")
         self.assertEqual(title, "home.mdx")
 
+
+class TestExtractCreationDateFromFileName(unittest.TestCase):
+
+    def test_strips_file_title_and_extension(self):
+        title = extract_creation_date_from_file_name("2026-08-19-hello-world.md")
+        self.assertEqual(title, "2026-08-19")
+
+    def test_no_creation_date_in_final_name_returns_nothing(self):
+        title = extract_creation_date_from_file_name("hello-world.md")
+        self.assertEqual(title, "")
 
 class TestDisplayTitleFromSlug(unittest.TestCase):
 
