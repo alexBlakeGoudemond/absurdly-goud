@@ -1,0 +1,41 @@
+_layouts/default.html
+  h_1197a506f6c7d6 10,13
+docker/entrypoint.sh
+  h_1197a506f6c7d6 7-8,11,15-16,20
+  s_97e4bbb702e5c3::t_6c3a25f98823dd 10
+  s_9280db76281b7b::t_9aad667fb67cbe 9,12-14
+docs/README.md
+  s_97e4bbb702e5c3::t_cd830d35855d4d 17
+docs/CODEBLOCK_STYLING.md
+  h_1197a506f6c7d6 2-24
+  s_97e4bbb702e5c3::t_3dfd6682dcbb03 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "62dd5cb5355a5c01d3c62e781566d93a4806e9bb",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_9280db76281b7b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "e0f1191d-da18-4438-a40f-f8b08de020c0",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_97e4bbb702e5c3": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788549942067",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
