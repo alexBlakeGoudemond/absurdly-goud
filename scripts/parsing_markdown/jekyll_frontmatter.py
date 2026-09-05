@@ -25,6 +25,17 @@ def extract_title_from_file_name(file_name: str) -> str:
     return file_title
 
 
+def extract_creation_date_from_file_name(file_name: str) -> str:
+    """Extract the YYYY-MM-DD date prefix from a filename, if present."""
+    leading_date_pattern = re.compile(r'^(\d{4}-\d{2}-\d{2})-')
+
+    match = leading_date_pattern.match(file_name)
+    if not match:
+        return ""
+
+    return match.group(1)
+
+
 def display_title_from_slug(file_title: str) -> str:
     """Turns a hyphenated slug into a readable page title, e.g.
     'website-inspiration' -> 'Inspiration', 'my-cool-note' -> 'My Cool Note'."""
@@ -67,15 +78,20 @@ def strip_existing_frontmatter(content: str) -> str:
     return EXISTING_FRONTMATTER_PATTERN.sub('', content, count=1)
 
 
-def build_frontmatter(file_layout: str, title: str, permalink: str = "", section: str | None = None,
+def build_frontmatter(file_layout: str, file_name: str, permalink: str = "", section: str | None = None,
                       last_published: str | None = None) -> str:
-    lines = ["---", f"layout: {file_layout}", f'title: "{title}"']
+    creation_date = extract_creation_date_from_file_name(file_name)
+    display_title = extract_title_from_file_name(file_name)
+    display_title = display_title_from_slug(display_title)
+    lines = ["---", f"layout: {file_layout}", f'title: "{display_title}"']
     if section:
         lines.append(f"section: {section}")
     if permalink:
         lines.append(f"permalink: {permalink}")
     if last_published:
         lines.append(f"last_published: \"{last_published}\"")
+    if len(creation_date) > 0:
+        lines.append(f"creation_date: \"{creation_date}\"")
     lines.append("---")
     lines.append("")
     lines.append("")
@@ -87,13 +103,12 @@ def add_frontmatter_to_file(markdown_file: Path,
                             include_permalink=False,
                             section: str | None = None,
                             last_published: str | None = None) -> None:
-    file_title = extract_title_from_file_name(markdown_file.name)
+    file_title = markdown_file.name
     file_content = strip_existing_frontmatter(markdown_file.read_text(encoding="utf-8"))
 
     file_permalink = ""
     if include_permalink:
         file_permalink = build_permalink(markdown_file, file_title, section)
 
-    frontmatter = build_frontmatter(file_layout, display_title_from_slug(file_title), file_permalink, section,
-                                    last_published)
+    frontmatter = build_frontmatter(file_layout, file_title, file_permalink, section, last_published)
     markdown_file.write_text(frontmatter + file_content, encoding="utf-8")
