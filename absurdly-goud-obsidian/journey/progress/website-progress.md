@@ -4,7 +4,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 
 - [ ] bugfix:
 	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
-- [ ] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc
 - [ ] Include in footer: created
 - [ ] Quote syntax to be automatically given a class: `>`
 - [ ] `[!note]` syntax to be supported in HTML
@@ -30,6 +29,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc (2026-09-05)
 - [x] Ducks:
 	- [x] Add more duck variations - 1 for each interested person in the family (2026-09-04)
 - [x] Move more things to Obsidian, so that content is 100% managed in Obsidian
