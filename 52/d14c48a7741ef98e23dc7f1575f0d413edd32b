@@ -1,0 +1,26 @@
+scripts/parsing_markdown/jekyll_frontmatter.py
+  h_1197a506f6c7d6 46,106
+absurdly-goud-obsidian/journey/progress/website-progress.md
+  s_fa1b95b79f6a2c::t_83ca1c13348f0d 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "52d14c48a7741ef98e23dc7f1575f0d413edd32b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_fa1b95b79f6a2c": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "dbed2c01-ed86-4104-86f2-e52beb5a2cac",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
