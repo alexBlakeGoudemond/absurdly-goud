@@ -13,15 +13,17 @@ on website: ![[codeblock-screenshot-rouge-web-view.png]]
 and on the phone:
 ![[codeblock-screenshot-rouge-phone-view.png]]
 
+## Testing Codeblocks
+
 On top of this, several codeblock coloring options should work out of the gate:
 
+Python:
 ```python
 def func():
     print("Python colour is here")
 ```
 
-...
-
+Java:
 ```java
 public class Main {
     public static void main(String[] args) {
@@ -30,15 +32,13 @@ public class Main {
 }
 ```
 
-...
-
+Bash:
 ```bash
 # Bash colouring is here
 echo "hello"
 ```
 
-...
-
+YAML:
 ```yaml
 paginate: 3
 paginate_path: "/posts/page:num/"
@@ -46,15 +46,13 @@ plugins:
   - jekyll-paginate
 ```
 
-...
-
+HTML:
 ```html
 <link rel="stylesheet" href="/assets/css/style.css">
 <a href="/posts/">Posts</a>
 ```
 
-...
-
+CSS:
 ```css
 .highlighter-rouge {
     max-width: 100%;
@@ -62,22 +60,23 @@ plugins:
 }
 ```
 
-...
-
+Ruby:
 ```ruby
 def self.site_title
   "ABsurdly Goud"
 end
 ```
 
-...
-
+Diff:
 ```diff
 - include_permalink=True
 + include_permalink=False
 ```
 
-NOTE - this Mermaid diagram styling should not work. Rouge does not support Mermaid by default
+Mermaid:
+
+> NOTE - this Mermaid diagram styling should not work. Rouge does not support Mermaid by default
+
 ```mermaid
 graph TD
     A[Vault] --> B[site_src]

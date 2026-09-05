@@ -57,6 +57,16 @@ jobs:
             exit 1
           fi
 
+      - name: Generate syntax highlighting CSS via Rouge
+        run: |
+          echo "Checking if syntax highlighting CSS exists"
+          if [ ! -f site_src/assets/css/syntax-highlighting.css ]; then
+            echo "Generating syntax highlighting CSS via Rouge..."
+            bundle exec rougify style monokai.sublime > site_src/assets/css/syntax-highlighting.css
+          else
+            echo "syntax-highlighting.css already exists, skipping generation"
+          fi
+
       - name: Build site with Jekyll
         run: bundle exec jekyll build --source site_src --config _config.yml --destination _site
 
