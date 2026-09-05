@@ -1,0 +1,17 @@
+_layouts/post.html
+  h_1197a506f6c7d6 10-11,13-17
+posts/index.html
+  h_1197a506f6c7d6 23,25
+  h_1197a506f6c7d6 18,21-22,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "c849246816638b456a1aa6af03df14e7a0bb232c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
