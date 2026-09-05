@@ -16,9 +16,12 @@ title: Posts
     </h2>
 
     {% assign display_date = post.last_published | default: post.date %}
-    <time class="dt-published" datetime="{{ display_date | date_to_xmlschema }}">
-      {{ display_date | date: "%Y-%m-%d %H:%M" }}
-    </time>
+    <div class="dt-published">
+      Last updated:
+      <time datetime="{{ display_date | date_to_xmlschema }}">
+        {{ display_date | date: "%Y-%m-%d %H:%M" }}
+      </time>
+    </div>
 
     <div class="p-summary">
       {{ post.excerpt }}
