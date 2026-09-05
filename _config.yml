@@ -7,6 +7,7 @@ repository: alexBlakeGoudemond/absurdly-goud
 
 excerpt_separator: <!--more-->
 
+# only applies to posts collection - placeholder pattern for post content in `site`
 permalink: /:year/:month/:day/:title/
 
 exclude:

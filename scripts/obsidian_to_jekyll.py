@@ -184,7 +184,7 @@ class ObsidianToJekyllConverter:
         elif '_posts' in dest_path.parts:
             add_frontmatter_to_file(dest_path,
                                     file_layout='post',
-                                    include_permalink=True,
+                                    include_permalink=False,
                                     last_published=last_published)
         elif dest_path.name in ['about.md']:
             add_frontmatter_to_file(dest_path,
