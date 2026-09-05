@@ -1,0 +1,16 @@
+.github/workflows/convert-build-deploy.yml
+  h_1197a506f6c7d6 60-69
+"absurdly-goud-obsidian/posts/2026/09/05/2026-09-05 Jekyll Rouge - Not Moulin Rouge.md"
+  h_1197a506f6c7d6 16-17,20,26,35,41,49,55,63,70,76-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "ace6bca7cefacad84fe2c45f4beaff316316e8fe",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
