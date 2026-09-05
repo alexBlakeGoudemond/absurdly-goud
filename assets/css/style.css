@@ -128,3 +128,15 @@ footer {
     position: relative;
     z-index: 20;
 }
+
+div.highlighter-rouge,
+div.highlighter-rouge .highlight {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+div.highlighter-rouge pre.highlight {
+    margin: 0;
+    overflow-x: visible;
+}

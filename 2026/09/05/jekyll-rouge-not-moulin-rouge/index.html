@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Testing Wikilink Images | ABsurdly Goud</title>
+    <title>Jekyll Rouge   Not Moulin Rouge | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
@@ -64,14 +64,14 @@
         <article class="h-entry">
 
     <header>
-        <h2 class="p-name">Testing Wikilink Images</h2>
+        <h2 class="p-name">Jekyll Rouge   Not Moulin Rouge</h2>
 
         
         
         <div class="dt-published">
             Created:
-            <time datetime="2026-08-27T00:00:00+00:00">
-                2026-08-27
+            <time datetime="2026-09-05T00:00:00+00:00">
+                2026-09-05
             </time>
 
             Last updated:
@@ -84,41 +84,108 @@
     <div class="e-content">
         
 
-        <p>Curious to see if Wikilink images work (ie. this format: <code class="language-plaintext highlighter-rouge">![[theImage.png]]</code>)</p>
+        <p>In the pursuit of improving codeblocks for the website I learnt that Jekyll uses <a href="https://github.com/rouge-ruby/rouge">Rouge</a> to handle syntax highlighting of code snippets! This is called that because it uses a programming language called Ruby - not named after the movie <a href="https://en.wikipedia.org/wiki/Moulin_Rouge!">Moulin Rouge</a>!</p>
 
 <!--more-->
 
-<p>Normal markdown syntax: <code class="language-plaintext highlighter-rouge">![Screenshot showing the pagination test](pagination-test-screenshot.png)</code> should show
-here: <!--
+<p>In the screenshots below - notice the lack of colour!</p>
+
+<p>Before the updates to codeblocks, this is what the site looked like on the web: <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="Screenshot showing the pagination test" /></p>
+    <img class="u-photo-inline" src="/assets/posts/codeblock-screenshot-web-view.png" alt="codeblock-screenshot-web-view.png" /></p>
 
-<p>Wikilink Syntax: <code class="language-plaintext highlighter-rouge">![[pagination-test-screenshot.png]]</code> should show here: <!--
+<p>and this is what it looked like on a cellphone (Notice how it runs off the screen): <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" /></p>
+    <img class="u-photo-inline" src="/assets/posts/codeblock-screenshot-phone-view.png" alt="codeblock-screenshot-phone-view.png" /></p>
 
-<p>In addition to this, its worth noting that Jekyll does not support dynamic image sizing!
-In other words, controlling the size of the images using the <code class="language-plaintext highlighter-rouge">bar</code> syntax won’t work. Proof is below</p>
+<p>With the fixes in place, codeblocks now look like this:</p>
 
-<p><code class="language-plaintext highlighter-rouge">![[theImage.png|300]]</code>: <!--
+<p>on website: <!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" /></p>
+    <img class="u-photo-inline" src="/assets/posts/codeblock-screenshot-rouge-web-view.png" alt="codeblock-screenshot-rouge-web-view.png" /></p>
 
-<p><code class="language-plaintext highlighter-rouge">![[theImage.png|300x100]]</code>: <!--
+<p>and on the phone:</p>
+
+<!--
     NOTE - indentation matters with liquid and kramdown here -
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-    <img class="u-photo-inline" src="/assets/posts/pagination-test-screenshot.png" alt="pagination-test-screenshot.png" /></p>
+<figure>
+    <img class="u-photo" src="/assets/posts/codeblock-screenshot-rouge-phone-view.png" alt="codeblock-screenshot-rouge-phone-view.png" />
+    <figcaption>codeblock-screenshot-rouge-phone-view.png</figcaption>
+</figure>
+
+<p>On top of this, several codeblock coloring options should work out of the gate:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Python colour is here"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Java colouring is here</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Bash colouring is here</span>
+<span class="nb">echo</span> <span class="s2">"hello"</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paginate</span><span class="pi">:</span> <span class="m">3</span>
+<span class="na">paginate_path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/posts/page:num/"</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-paginate</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/assets/css/style.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/posts/"</span><span class="nt">&gt;</span>Posts<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.highlighter-rouge</span> <span class="p">{</span>
+    <span class="nl">max-width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">overflow-x</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">site_title</span>
+  <span class="s2">"ABsurdly Goud"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>…</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">- include_permalink=True
+</span><span class="gi">+ include_permalink=False
+</span></code></pre></div></div>
+
+<p>NOTE - this Mermaid diagram styling should not work. Rouge does not support Mermaid by default</p>
+
+<pre><code class="language-mermaid">graph TD
+    A[Vault] --&gt; B[site_src]
+</code></pre>
 
     </div>
 
