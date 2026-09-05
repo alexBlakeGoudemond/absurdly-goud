@@ -39,7 +39,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-31" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-32" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-33" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true"><script src="/assets/js/pond.js"></script>
+</svg><img class="pond-duck" id="pond-duck-32" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-33" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-34" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true"><script src="/assets/js/pond.js"></script>
 <script src="/assets/js/navigation.js"></script>
 <!--<script src="/absurdly-goud/assets/js/pond.js"></script>-->
 
@@ -75,8 +75,8 @@
             </time>
 
             Last updated:
-            <time datetime="2026-09-05T05:59:00+00:00">
-                2026-09-05 05:59
+            <time datetime="2026-09-05T06:58:00+00:00">
+                2026-09-05 06:58
             </time>
         </div>
     </header>
@@ -125,13 +125,17 @@
     <figcaption>codeblock-screenshot-rouge-phone-view.png</figcaption>
 </figure>
 
+<h2 id="testing-codeblocks">Testing Codeblocks</h2>
+
 <p>On top of this, several codeblock coloring options should work out of the gate:</p>
+
+<p>Python:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
     <span class="k">print</span><span class="p">(</span><span class="s">"Python colour is here"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>Java:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -140,13 +144,13 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>Bash:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Bash colouring is here</span>
 <span class="nb">echo</span> <span class="s2">"hello"</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>YAML:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paginate</span><span class="pi">:</span> <span class="m">3</span>
 <span class="na">paginate_path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/posts/page:num/"</span>
@@ -154,13 +158,13 @@
   <span class="pi">-</span> <span class="s">jekyll-paginate</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>HTML:</p>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/assets/css/style.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/posts/"</span><span class="nt">&gt;</span>Posts<span class="nt">&lt;/a&gt;</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>CSS:</p>
 
 <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.highlighter-rouge</span> <span class="p">{</span>
     <span class="nl">max-width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
@@ -168,20 +172,24 @@
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>Ruby:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">site_title</span>
   <span class="s2">"ABsurdly Goud"</span>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>…</p>
+<p>Diff:</p>
 
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">- include_permalink=True
 </span><span class="gi">+ include_permalink=False
 </span></code></pre></div></div>
 
-<p>NOTE - this Mermaid diagram styling should not work. Rouge does not support Mermaid by default</p>
+<p>Mermaid:</p>
+
+<blockquote>
+  <p>NOTE - this Mermaid diagram styling should not work. Rouge does not support Mermaid by default</p>
+</blockquote>
 
 <pre><code class="language-mermaid">graph TD
     A[Vault] --&gt; B[site_src]
