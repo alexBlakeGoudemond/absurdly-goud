@@ -18,6 +18,7 @@ Also - something I have not tested yet are tables:
 | Heading 1 | Heading 2 |
 | --------- | --------- |
 | Content 1 | Content 2 |
+
 and in a callout:
 
 > [!Note]
