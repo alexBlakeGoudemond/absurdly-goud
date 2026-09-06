@@ -1,0 +1,33 @@
+{% assign callout_type = include.type | downcase %}
+{% case callout_type %}
+{% when 'note' %}{% assign callout_icon = 'pencil' %}
+{% when 'abstract' %}{% assign callout_icon = 'clipboard-list' %}
+{% when 'info' %}{% assign callout_icon = 'info' %}
+{% when 'todo' %}{% assign callout_icon = 'square-check' %}
+{% when 'tip' %}{% assign callout_icon = 'flame' %}
+{% when 'success' %}{% assign callout_icon = 'check' %}
+{% when 'question' %}{% assign callout_icon = 'circle-help' %}
+{% when 'warning' %}{% assign callout_icon = 'triangle-alert' %}
+{% when 'failure' %}{% assign callout_icon = 'x' %}
+{% when 'danger' %}{% assign callout_icon = 'zap' %}
+{% when 'bug' %}{% assign callout_icon = 'bug' %}
+{% when 'example' %}{% assign callout_icon = 'list' %}
+{% when 'quote' %}{% assign callout_icon = 'quote' %}
+{% else %}
+{% assign callout_type = 'note' %}
+{% assign callout_icon = 'pencil' %}
+{% endcase %}
+{% assign is_collapsible = include.collapsible %}
+<div class="callout{% if is_collapsible %} is-collapsible{% endif %}"
+     data-callout="{{ callout_type }}"
+     data-collapsible="{{ is_collapsible }}">
+    <div class="callout-title">
+        <div class="callout-title-icon">
+            {% include callout-icons/{{ callout_icon }}.svg %}
+        </div>
+        <div class="callout-title-inner">{{ include.title }}</div>
+    </div>
+    <div class="callout-content">
+        {{ include.content | markdownify }}
+    </div>
+</div>
