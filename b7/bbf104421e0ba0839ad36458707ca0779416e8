@@ -1,0 +1,42 @@
+assets/callout_icons/list.svg
+  h_1197a506f6c7d6 1-9
+assets/callout_icons/info.svg
+  h_1197a506f6c7d6 1-6
+assets/callout_icons/zap.svg
+  h_1197a506f6c7d6 1-4
+assets/callout_icons/triangle-alert.svg
+  h_1197a506f6c7d6 1-6
+assets/callout_icons/square-check.svg
+  h_1197a506f6c7d6 1-5
+assets/callout_icons/x.svg
+  h_1197a506f6c7d6 1-5
+docs/ICONS.md
+  h_1197a506f6c7d6 1-3
+assets/callout_icons/flame.svg
+  h_1197a506f6c7d6 1-4
+assets/callout_icons/bug.svg
+  h_1197a506f6c7d6 1-14
+assets/callout_icons/quote.svg
+  h_1197a506f6c7d6 1-5
+assets/callout_icons/clipboard-list.svg
+  h_1197a506f6c7d6 1-9
+assets/callout_icons/pencil.svg
+  h_1197a506f6c7d6 1-5
+assets/callout_icons/circle-help.svg
+  h_1197a506f6c7d6 1-6
+assets/callout_icons/check.svg
+  h_1197a506f6c7d6 1-5
+_includes/callout.html
+  h_1197a506f6c7d6 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "b7bbf104421e0ba0839ad36458707ca0779416e8",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
