@@ -23,7 +23,7 @@
      data-collapsible="{{ is_collapsible }}">
     <div class="callout-title">
         <div class="callout-title-icon">
-            {% include callout-icons/{{ callout_icon }}.svg %}
+                <img src="{{ '/assets/callout_icons/' | append: callout_icon | append: '.svg' | relative_url }}" alt="{{ callout_type }} callout icon" aria-hidden="true">
         </div>
         <div class="callout-title-inner">{{ include.title }}</div>
     </div>
