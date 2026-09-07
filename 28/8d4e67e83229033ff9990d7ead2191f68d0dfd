@@ -1,0 +1,20 @@
+docker/ruby/Dockerfile
+  s_74d83b63cff61e::t_db6aa8061ec53c 3,6
+  s_74d83b63cff61e::t_4b9a0fcc4345f9 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "288d4e67e83229033ff9990d7ead2191f68d0dfd",
+  "prompts": {},
+  "sessions": {
+    "s_74d83b63cff61e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09c9a619-d593-46e0-9b4e-4826314410bc",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
