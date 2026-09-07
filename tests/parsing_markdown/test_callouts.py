@@ -114,17 +114,23 @@ class TestParseCalloutBlock(unittest.TestCase):
     def test_no_fold_marker_is_not_collapsible(self):
         lines = ['> [!note]', '> Body text']
 
-        self.assertFalse(parse_callout_block(lines).collapsible)
+        callout = parse_callout_block(lines)
+        self.assertFalse(callout.collapsible)
+        self.assertFalse(callout.initially_collapsed)
 
-    def test_minus_fold_marker_is_collapsible(self):
+    def test_minus_fold_marker_is_collapsible_and_starts_collapsed(self):
         lines = ['> [!note]-', '> Body text']
 
-        self.assertTrue(parse_callout_block(lines).collapsible)
+        callout = parse_callout_block(lines)
+        self.assertTrue(callout.collapsible)
+        self.assertTrue(callout.initially_collapsed)
 
-    def test_plus_fold_marker_is_collapsible(self):
+    def test_plus_fold_marker_is_collapsible_and_starts_expanded(self):
         lines = ['> [!note]+', '> Body text']
 
-        self.assertTrue(parse_callout_block(lines).collapsible)
+        callout = parse_callout_block(lines)
+        self.assertTrue(callout.collapsible)
+        self.assertFalse(callout.initially_collapsed)
 
     def test_fold_marker_alongside_custom_title(self):
         lines = ['> [!tip]- Collapsed Tip', '> Body text']
@@ -132,6 +138,7 @@ class TestParseCalloutBlock(unittest.TestCase):
         callout = parse_callout_block(lines)
 
         self.assertTrue(callout.collapsible)
+        self.assertTrue(callout.initially_collapsed)
         self.assertEqual(callout.title, 'Collapsed Tip')
 
     def test_header_with_no_space_before_bracket_is_still_recognized(self):
@@ -223,6 +230,14 @@ class TestRenderCalloutAsJekyllInclude(unittest.TestCase):
         result = render_callout_as_jekyll_include(callout, index=0)
 
         self.assertIn('collapsible=true', result)
+        self.assertIn('initially_collapsed=false', result)
+
+    def test_collapsible_and_initially_collapsed_renders_state(self):
+        callout = CalloutBlock(canonical_type='tip', title='Tip', collapsible=True, content='x', initially_collapsed=True)
+
+        result = render_callout_as_jekyll_include(callout, index=0)
+
+        self.assertIn('initially_collapsed=true', result)
 
     def test_index_disambiguates_capture_variable_name(self):
         callout = CalloutBlock(canonical_type='note', title='Note', collapsible=False, content='x')

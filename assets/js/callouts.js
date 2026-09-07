@@ -18,13 +18,9 @@
  *   .callout-fold-icon { ... }
  *   .callout.is-collapsed .callout-fold-icon { transform: rotate(-90deg); }
  *
- * Known limitation: Obsidian's `[!type]+` / `[!type]-` syntax distinguishes
- * "starts expanded" from "starts collapsed", but that distinction isn't
- * carried through the current pipeline (callouts.py only ever emits a
- * boolean `collapsible`, not an initial state) -- every collapsible callout
- * starts expanded here. Supporting a collapsed default would mean adding
- * e.g. a `data-initial-state` attribute all the way through Python ->
- * Liquid -> HTML -> here.
+ * The fold marker is preserved throughout the pipeline: the Python parser,
+ * Liquid include, and rendered HTML all carry the initial state, so
+ * `[!type]+` starts expanded and `[!type]-` starts collapsed.
  */
 (function () {
     'use strict';
@@ -41,12 +37,15 @@
         var titles = document.querySelectorAll(TITLE_SELECTOR);
 
         titles.forEach(function (title) {
+            var callout = title.closest('.callout');
+            var collapsed = !!(callout && callout.classList.contains('is-collapsed'));
+
             // Keyboard + screen-reader affordances only get added once JS has
             // confirmed it actually runs -- a role="button" with no handler
             // behind it would be worse than no ARIA at all.
             title.setAttribute('role', 'button');
             title.setAttribute('tabindex', '0');
-            title.setAttribute('aria-expanded', 'true');
+            title.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
 
             if (!title.querySelector('.callout-fold-icon')) {
                 var foldIcon = document.createElement('div');

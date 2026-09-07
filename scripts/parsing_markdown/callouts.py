@@ -23,9 +23,11 @@ from typing import NamedTuple, Optional
 from scripts.parsing_markdown.markdown_regions import iter_fenced_lines
 
 # First line of a callout blockquote: `> [!type]`, `>[!type]+`, `> [!type]- Title`
-# The type-identifier character class is deliberately permissive (any custom
-# word is accepted here) — TYPE_ALIASES below is what decides whether it's
-# one of Obsidian's 13 known types or an unrecognized/custom one.
+# The fold marker is preserved here as part of the parsed callout state:
+# `+` means start expanded, `-` means start collapsed. The type-identifier
+# character class is deliberately permissive (any custom word is accepted
+# here) — TYPE_ALIASES below is what decides whether it's one of Obsidian's
+# 13 known types or an unrecognized/custom one.
 CALLOUT_HEADER_PATTERN = re.compile(
     r'^>[ \t]?\[!(?P<type>[A-Za-z][\w-]*)\](?P<fold>[+-]?)[ \t]*(?P<title>.*)$'
 )
@@ -75,8 +77,9 @@ FALLBACK_CANONICAL_TYPE = "note"
 class CalloutBlock(NamedTuple):
     canonical_type: str
     title: str
-    collapsible: bool
-    content: str
+    collapsible: bool = False
+    content: str = ''
+    initially_collapsed: bool = False
 
 
 def _resolve_canonical_type_and_title(raw_type: str, custom_title: str) -> tuple[str, str]:
@@ -124,11 +127,13 @@ def parse_callout_block(lines: list[str]) -> Optional[CalloutBlock]:
         body_match = BLOCKQUOTE_LINE_PATTERN.match(line)
         body_lines.append(body_match.group('rest'))
 
+    fold = header_match.group('fold')
     return CalloutBlock(
         canonical_type=canonical_type,
         title=title,
-        collapsible=header_match.group('fold') in ('+', '-'),
+        collapsible=fold in ('+', '-'),
         content='\n'.join(body_lines),
+        initially_collapsed=fold == '-',
     )
 
 
@@ -146,13 +151,17 @@ def render_callout_as_jekyll_include(callout: CalloutBlock, index: int) -> str:
     """
     var_name = f'callout_content_{index}'
     capture = f'{{% capture {var_name} %}}\n{callout.content}\n{{% endcapture %}}'
-    include = (
-        f'{{% include callout.html '
-        f'type="{callout.canonical_type}" '
-        f'title={_liquid_quote(callout.title)} '
-        f'collapsible={"true" if callout.collapsible else "false"} '
-        f'content={var_name} %}}'
-    )
+    include_parts = [
+        f'type="{callout.canonical_type}"',
+        f'title={_liquid_quote(callout.title)}',
+        f'collapsible={"true" if callout.collapsible else "false"}',
+    ]
+    if callout.collapsible:
+        include_parts.append(
+            f'initially_collapsed={"true" if callout.initially_collapsed else "false"}'
+        )
+    include_parts.append(f'content={var_name}')
+    include = '{% include callout.html ' + ' '.join(include_parts) + ' %}'
     return f'{capture}\n{include}'
 
 

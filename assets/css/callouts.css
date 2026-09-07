@@ -136,11 +136,10 @@
     width: 100%;
 }
 
-/* Collapsible hook: no expand/collapse JS exists yet (see
-   _includes/callout.html), so this is only a visual affordance --
-   the cursor and hover tint suggest the title bar is clickable, without
-   implying a working toggle that isn't there. Extend this rule (fold-icon
-   rotation, etc.) once the real JS behaviour is added. */
+/* Collapsible hook: the title bar is interactive, and a small JS handler
+   toggles the collapsed/expanded state on click/keyboard input. The visual
+   affordance is intentionally paired with the actual behaviour now that the
+   + / - fold markers and initial state are carried through the pipeline. */
 .callout.is-collapsible .callout-title {
     cursor: pointer;
 }

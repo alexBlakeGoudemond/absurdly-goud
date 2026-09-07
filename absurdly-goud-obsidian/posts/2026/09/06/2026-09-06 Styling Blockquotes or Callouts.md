@@ -39,6 +39,12 @@ Obsidian has [callouts](https://obsidian.md/help/callouts) notation which are th
 > [!Quote] Quote / Cite
 > This is a quote callout
 
+Then we have complex callouts:
+
+> [!note] This is an outer callout
+> > [!important] This is an inner callout
+> > > [!bug] This is an inner inner callout
+
 And now we have some dynamic callouts: below should be collapsable:
 
 > [!Example]- Click me to expand
