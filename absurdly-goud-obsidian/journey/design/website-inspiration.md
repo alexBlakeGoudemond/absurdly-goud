@@ -15,6 +15,8 @@ Other Cool websites I've seen
 - [Chris Burnell - Ravenous for CSS](https://chrisburnell.com/)
 - [EXO PET](https://exo.pet/#)
 - [tabithaDotComputer](https://tabitha.computer/)
+- [Chris Rants at Clouds](https://chris.funderburg.me/)
+- [Elle's Homepage](https://ellesho.me/page/)
 
 
 Also found out about like-minded Obsidian-...-GitHub Actions people after the fact:

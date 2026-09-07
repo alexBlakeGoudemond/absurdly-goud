@@ -1,3 +1,29 @@
+const backgroundAnimationToggle = document.getElementById("background-animation-toggle");
+const backgroundAnimationStorageKey = "absurdly-goud-background-animation-paused";
+const backgroundAnimationState = {paused: false};
+
+function getStoredBackgroundAnimationState() {
+    try {
+        return localStorage.getItem(backgroundAnimationStorageKey) === "true";
+    } catch (error) {
+        return false;
+    }
+}
+
+function setBackgroundAnimationPaused(paused) {
+    backgroundAnimationState.paused = paused;
+
+    if (backgroundAnimationToggle) {
+        backgroundAnimationToggle.checked = paused;
+    }
+
+    try {
+        localStorage.setItem(backgroundAnimationStorageKey, String(paused));
+    } catch (error) {
+        // Storage may be unavailable; ignore silently.
+    }
+}
+
 const waves = document.querySelectorAll(".wave");
 
 const waveData = [];
@@ -29,6 +55,10 @@ waves.forEach((wave, index) => {
 
 
 function animate(time) {
+    if (backgroundAnimationState.paused) {
+        return;
+    }
+
     waveData.forEach(data => { // Move the arc downward.
         let y = data.baseY + time * data.verticalSpeed;
         // Wrap the arc back to the top.
@@ -64,7 +94,9 @@ function animate(time) {
     requestAnimationFrame(animate);
 }
 
-requestAnimationFrame(animate);
+if (!backgroundAnimationState.paused) {
+    requestAnimationFrame(animate);
+}
 
 const ducks = document.querySelectorAll(
     ".pond-duck"
@@ -281,6 +313,9 @@ function createRipple(data, time) {
 
 
 function animateDucks(time) {
+    if (backgroundAnimationState.paused) {
+        return;
+    }
 
     // Establish a consistent animation baseline on first frame
     if (animationStart === null) {
@@ -376,5 +411,21 @@ function animateDucks(time) {
     requestAnimationFrame(animateDucks);
 }
 
+const initialBackgroundAnimationPaused = getStoredBackgroundAnimationState();
+setBackgroundAnimationPaused(initialBackgroundAnimationPaused);
 
-requestAnimationFrame(animateDucks);
+if (backgroundAnimationToggle) {
+    backgroundAnimationToggle.addEventListener("change", event => {
+        const paused = event.target.checked;
+        setBackgroundAnimationPaused(paused);
+
+        if (!paused) {
+            requestAnimationFrame(animate);
+            requestAnimationFrame(animateDucks);
+        }
+    });
+}
+
+if (!backgroundAnimationState.paused) {
+    requestAnimationFrame(animateDucks);
+}

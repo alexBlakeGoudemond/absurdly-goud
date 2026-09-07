@@ -2,6 +2,9 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] images should support link to larger version of themselves
+- [ ] investigate:
+	- [ ] all pics in assets/images?
 - [ ] bugfix:
 	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
 	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
@@ -28,6 +31,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [X] checkbox to freeze animation, if desired (2026-09-07)
 - [x] Quote syntax to be automatically given a class: `>`. i.e. `[!note]` syntax to be supported in HTML (2026-09-07)
 - [x] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc (2026-09-05)
 - [x] Ducks:
