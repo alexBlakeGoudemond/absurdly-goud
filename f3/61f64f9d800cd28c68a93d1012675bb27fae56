@@ -1,0 +1,38 @@
+scripts/parsing_markdown/callouts.py
+  s_849ee6ac5a7aff::t_b105ccc578e73b 154-163
+  s_849ee6ac5a7aff::t_f77c985dc1de34 80-82
+  s_849ee6ac5a7aff::t_a3b6a31dcd7a16 26-30
+  s_849ee6ac5a7aff::t_6a856ed4ddcf06 164
+  s_849ee6ac5a7aff::t_c60eaaed4f857a 130,134,136
+assets/css/callouts.css
+  s_849ee6ac5a7aff::t_83c79ff3f3a5b4 139-142
+_includes/callout.html
+  s_849ee6ac5a7aff::t_5f209a1f1cac9e 21-22,24-25
+tests/parsing_markdown/test_callouts.py
+  s_849ee6ac5a7aff::t_7e603162667912 233-240
+  s_849ee6ac5a7aff::t_ea12fdc7de9ae5 117-119,121,124-126,128,131-133,141
+assets/js/callouts.js
+  s_849ee6ac5a7aff::t_5cc92bf77f3de8 40-42,48
+  s_849ee6ac5a7aff::t_2d7d04934d20a1 21-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f361f64f9d800cd28c68a93d1012675bb27fae56",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_849ee6ac5a7aff": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "fbfb1555-4179-45a0-a38b-0198f3c16df4",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
