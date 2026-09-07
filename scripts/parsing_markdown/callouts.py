@@ -43,7 +43,7 @@ _CANONICAL_TYPES_WITH_ALIASES: dict[str, list[str]] = {
     "abstract": ["summary", "tldr"],
     "info": [],
     "todo": [],
-    "tip": ["hint", "important"],
+    "important": ["tip", "hint"],
     "success": ["check", "done"],
     "question": ["help", "faq"],
     "warning": ["caution", "attention"],
