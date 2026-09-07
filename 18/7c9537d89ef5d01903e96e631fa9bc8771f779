@@ -1,0 +1,21 @@
+assets/js/callouts.js
+  h_1197a506f6c7d6 1-95
+assets/css/callouts.css
+  h_1197a506f6c7d6 152-174
+_includes/callout.html
+  h_1197a506f6c7d6 36-37
+  h_1197a506f6c7d6 35
+"absurdly-goud-obsidian/posts/2026/09/06/2026-09-06 Styling Blockquotes or Callouts.md"
+  h_1197a506f6c7d6 41-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "187c9537d89ef5d01903e96e631fa9bc8771f779",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
