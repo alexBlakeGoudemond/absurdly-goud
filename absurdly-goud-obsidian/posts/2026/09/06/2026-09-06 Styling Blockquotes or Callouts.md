@@ -38,3 +38,13 @@ Obsidian has [callouts](https://obsidian.md/help/callouts) notation which are th
 
 > [!Quote] Quote / Cite
 > This is a quote callout
+
+And now we have some dynamic callouts: below should be collapsable:
+
+> [!Example]- Click me to expand
+> This is an example callout that starts collapsed and can be expanded
+
+
+> [!Example]+ Click me to collapse
+> This is an example callout that starts expanded and can be collapsed
+

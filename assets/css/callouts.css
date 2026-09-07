@@ -149,6 +149,29 @@
     background-color: rgba(var(--callout-color), 0.2);
 }
 
+/* Fold icon: injected by assets/js/callouts.js, not present in markup
+   without JS (see that file's comments on why). Sits flush right in the
+   already-flex .callout-title, via the same gap/align-items the title bar
+   already uses. */
+.callout-fold-icon {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex: 0 0 auto;
+    transition: transform 0.15s ease;
+}
+
+/* Collapsed state: toggled on .callout by callouts.js. Content is fully
+   removed from layout rather than just visually hidden, since there's no
+   need for it to remain in the accessibility tree while collapsed. */
+.callout.is-collapsed .callout-content {
+    display: none;
+}
+
+.callout.is-collapsed .callout-fold-icon {
+    transform: rotate(-90deg);
+}
+
 /* --------------------------------------------------------------------------
    Per-type colors
    Proposed as a distinct, roughly semantic 13-color set (red=danger,
