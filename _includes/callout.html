@@ -22,10 +22,12 @@
      data-callout="{{ callout_type }}"
      data-collapsible="{{ is_collapsible }}">
     <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div class="callout-title-icon" style="display: flex; align-items: center;">
-            <img src="{{ '/assets/callout_icons/' | append: callout_icon | append: '.svg' | relative_url }}" alt="{{ callout_type }} callout icon" aria-hidden="true" style="width: 1rem; height: 1rem; flex-shrink: 0;">
+        <div class="callout-title-icon">
+            <img src="{{ '/assets/callout_icons/' | append: callout_icon | append: '.svg' | relative_url }}"
+                 alt="{{ callout_type }} callout icon"
+                 aria-hidden="true">
         </div>
-        <div class="callout-title-inner" style="display: flex; align-items: center;">{{ include.title }}</div>
+        <div class="callout-title-inner">{{ include.title }}</div>
     </div>
     <div class="callout-content">
         {{ include.content | markdownify }}

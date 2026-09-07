@@ -1,0 +1,242 @@
+/* ==========================================================================
+   Callouts (Obsidian-style)
+   ==========================================================================
+   Markup comes from _includes/callout.html:
+
+     <div class="callout" data-callout="note" data-collapsible="false">
+       <div class="callout-title">
+         <div class="callout-title-icon"><svg>...</svg></div>
+         <div class="callout-title-inner">Note</div>
+       </div>
+       <div class="callout-content">...markdownified content...</div>
+     </div>
+
+   Each callout type sets its own --callout-color as an "R, G, B" triplet
+   (not a hex/named color) so it can be reused both as a solid color
+   (rgb(var(--callout-color))) and as a translucent background tint
+   (rgba(var(--callout-color), 0.1)) without a second variable. This mirrors
+   Obsidian's own --callout-color convention, so any Obsidian callout theme
+   snippet you find later can mostly be adapted by copying its RGB triplets
+   into the blocks below, rather than rewriting selectors.
+
+   Assumes the vendored Lucide SVGs use stroke="currentColor" (Lucide's
+   default export) so .callout-title-icon svg picks up --callout-color via
+   the `color` property below. If your SVGs have a hardcoded stroke color
+   instead, icons won't recolor per type -- worth a quick check.
+   ========================================================================== */
+
+.callout {
+    margin: 1.25em 0;
+    padding: 0;
+    border-radius: 6px;
+    border: 1px solid rgba(var(--callout-color), 0.25);
+    border-left: 4px solid rgb(var(--callout-color));
+    background-color: rgba(var(--callout-color), 0.08);
+    overflow: hidden; /* keeps the border-radius clean around the title bar */
+}
+
+.callout-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.65em 1em;
+    font-weight: 600;
+    color: rgb(var(--callout-color));
+    background-color: rgba(var(--callout-color), 0.12);
+}
+
+.callout-title-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 1.2em;
+    height: 1.2em;
+    color: rgb(var(--callout-color)); /* feeds currentColor into the svg */
+}
+
+.callout-title-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.callout-title-inner {
+    flex: 1 1 auto;
+}
+
+.callout-content {
+    padding: 0.85em 1em 1em;
+    color: inherit;
+}
+
+/* Collapse the callout's own top/bottom margins on its first/last child so
+   the content area doesn't have extra whitespace above the first paragraph
+   or below the last one. */
+.callout-content > :first-child {
+    margin-top: 0;
+}
+
+.callout-content > :last-child {
+    margin-bottom: 0;
+}
+
+/* Images inside a callout: don't let a full-size embed blow out the box.
+   Adjust the selector once you can see the real markup from your
+   image.html / figure.html includes -- this is a generic fallback. */
+.callout-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.callout-content figure {
+    margin: 0.75em 0;
+}
+
+.callout-content figcaption {
+    font-size: 0.85em;
+    opacity: 0.75;
+    margin-top: 0.35em;
+}
+
+/* Code blocks/inline code inside a callout should sit comfortably inside
+   the already-padded content area, not touch its edges. */
+.callout-content pre {
+    margin: 0.75em 0;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.callout-content code {
+    font-size: 0.9em;
+}
+
+/* Links inside a callout keep the site's normal link color, but the
+   underline uses the callout's own color so it visually belongs to the box
+   it's sitting in rather than clashing with it. */
+.callout-content a {
+    text-decoration-color: rgba(var(--callout-color), 0.5);
+}
+
+/* A plain (non-callout) blockquote nested inside a callout -- rare, but
+   give it a visible left rule so it doesn't disappear into the callout's
+   own background tint. */
+.callout-content blockquote {
+    margin: 0.75em 0;
+    padding-left: 1em;
+    border-left: 3px solid rgba(var(--callout-color), 0.4);
+}
+
+/* Tables inside a callout use the same base table styling as the rest of
+   the site (see the "Base table styling" section below) -- this just
+   trims the outer margin so it doesn't fight the callout's own padding. */
+.callout-content table {
+    margin: 0.75em 0;
+    width: 100%;
+}
+
+/* Collapsible hook: no expand/collapse JS exists yet (see
+   _includes/callout.html), so this is only a visual affordance --
+   the cursor and hover tint suggest the title bar is clickable, without
+   implying a working toggle that isn't there. Extend this rule (fold-icon
+   rotation, etc.) once the real JS behaviour is added. */
+.callout.is-collapsible .callout-title {
+    cursor: pointer;
+}
+
+.callout.is-collapsible .callout-title:hover {
+    background-color: rgba(var(--callout-color), 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   Per-type colors
+   Proposed as a distinct, roughly semantic 13-color set (red=danger,
+   green=success, amber=warning, etc.) rather than an exact match to any one
+   Obsidian theme's hex values -- those vary by theme/version anyway.
+   Retune any single line here without touching anything else above.
+   -------------------------------------------------------------------------- */
+
+.callout[data-callout="note"] {
+    --callout-color: 69, 138, 255; /* blue */
+}
+
+.callout[data-callout="abstract"] {
+    --callout-color: 0, 191, 188; /* teal */
+}
+
+.callout[data-callout="info"] {
+    --callout-color: 0, 172, 238; /* sky blue */
+}
+
+.callout[data-callout="todo"] {
+    --callout-color: 90, 108, 234; /* indigo */
+}
+
+.callout[data-callout="important"] {
+    --callout-color: 255, 145, 0; /* amber/orange, matches the flame icon */
+}
+
+.callout[data-callout="success"] {
+    --callout-color: 8, 185, 78; /* green */
+}
+
+.callout[data-callout="question"] {
+    --callout-color: 155, 89, 235; /* violet */
+}
+
+.callout[data-callout="warning"] {
+    --callout-color: 236, 168, 0; /* yellow/amber */
+}
+
+.callout[data-callout="failure"] {
+    --callout-color: 233, 49, 71; /* red-orange */
+}
+
+.callout[data-callout="danger"] {
+    --callout-color: 220, 38, 38; /* red */
+}
+
+.callout[data-callout="bug"] {
+    --callout-color: 224, 41, 132; /* pink/magenta */
+}
+
+.callout[data-callout="example"] {
+    --callout-color: 100, 116, 139; /* slate */
+}
+
+.callout[data-callout="quote"] {
+    --callout-color: 120, 120, 120; /* neutral gray */
+}
+
+/* ==========================================================================
+   Base table styling (bonus)
+   ==========================================================================
+   Not callout-specific -- the current site renders <table> with zero
+   styling at all (bold header, everything else unstyled). This is a
+   general-purpose fix, included here because it was flagged as broken
+   during callout testing. Delete this section if you're handling table
+   styling separately.
+   ========================================================================== */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+th,
+td {
+    padding: 0.5em 0.75em;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+th {
+    background-color: rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}
+
+tr:nth-child(even) td {
+    background-color: rgba(0, 0, 0, 0.02);
+}
