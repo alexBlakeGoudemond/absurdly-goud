@@ -8,7 +8,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] tables require empty newline before and after for jekyll
 - [ ] Add test pipeline before pushing
 - [ ] Include in footer: created
-- [ ] Quote syntax to be automatically given a class: `>`. i.e. `[!note]` syntax to be supported in HTML
 - [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
@@ -29,6 +28,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Quote syntax to be automatically given a class: `>`. i.e. `[!note]` syntax to be supported in HTML (2026-09-07)
 - [x] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc (2026-09-05)
 - [x] Ducks:
 	- [x] Add more duck variations - 1 for each interested person in the family (2026-09-04)
