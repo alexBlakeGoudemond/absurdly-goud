@@ -8,7 +8,7 @@ development and testing.
 - Confirm that `Makefile` is installed on your system: `make --version`
 - Confirm that `Docker` is installed on your system (recommended: Docker Desktop): `docker --version`
 - Confirm that `Python` is installed on your system: `python --version`
-- Setup Python Virtual Environment:
+- Setup Python Virtual Environment with extras:
 
 ```bash
 python -m venv .venv 
@@ -16,6 +16,7 @@ python -m venv .venv
 
 ```bash
 .\.venv\Scripts\python.exe -m pip install Pillow
+.\.venv\Scripts\python.exe -m pip install pyyaml
 ```
 
 ## Running
