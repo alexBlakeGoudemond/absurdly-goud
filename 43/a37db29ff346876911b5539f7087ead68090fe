@@ -1,0 +1,18 @@
+scripts/parsing_markdown/callouts.py
+  h_1197a506f6c7d6 20,22,179-189,191-194,205-213,229
+tests/parsing_markdown/test_callouts.py
+  h_1197a506f6c7d6 1,383-464
+"absurdly-goud-obsidian/posts/2026/09/06/2026-09-06 Styling Blockquotes or Callouts.md"
+  h_1197a506f6c7d6 47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "43a37db29ff346876911b5539f7087ead68090fe",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
