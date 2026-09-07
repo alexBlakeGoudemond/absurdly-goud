@@ -1,3 +1,4 @@
+import re
 import unittest
 from textwrap import dedent
 
@@ -378,6 +379,88 @@ class TestConvertObsidianCalloutsToJekyllIncludes(unittest.TestCase):
         self.assertIn('| Heading 1 | Heading 2 |', result)
         self.assertIn('|---|---|', result)
         self.assertIn('| Content 1 | Content 2 |', result)
+
+    def test_one_level_nested_callout_is_converted(self):
+        content = dedent('''\
+            > [!note] Outer
+            > Outer body.
+            >
+            > > [!bug] Inner
+            > > Inner body.
+            ''')
+
+        result = convert_obsidian_callouts_to_jekyll_includes(content)
+
+        # Outer callout, unwrapped
+        self.assertIn('{% include callout.html type="note" title="Outer"', result)
+        self.assertIn('Outer body.', result)
+        # Inner callout, converted rather than left as literal `> [!bug]` text
+        self.assertIn('{% include callout.html type="bug" title="Inner"', result)
+        self.assertIn('Inner body.', result)
+        self.assertNotIn('[!bug]', result)
+        # Distinct capture variable names -- no collision between levels
+        self.assertIn('{% capture callout_content_0 %}', result)
+        self.assertIn('{% capture callout_content_1 %}', result)
+        self.assertNotEqual(
+            result.count('{% capture callout_content_0 %}'),
+            0,
+        )
+
+    def test_three_levels_of_nested_callouts_all_convert(self):
+        content = dedent('''\
+            > [!note] This is an outer callout
+            >
+            > > [!important] This is an inner callout
+            > >
+            > > > [!bug] This is an inner inner callout
+            ''')
+
+        result = convert_obsidian_callouts_to_jekyll_includes(content)
+
+        self.assertEqual(result.count('{% include callout.html'), 3)
+        self.assertIn('type="note" title="This is an outer callout"', result)
+        self.assertIn('type="important" title="This is an inner callout"', result)
+        self.assertIn('type="bug" title="This is an inner inner callout"', result)
+        self.assertNotIn('[!note]', result)
+        self.assertNotIn('[!important]', result)
+        self.assertNotIn('[!bug]', result)
+        # Three distinct capture variables, one per nesting level
+        self.assertIn('callout_content_0', result)
+        self.assertIn('callout_content_1', result)
+        self.assertIn('callout_content_2', result)
+
+    def test_nested_capture_variable_names_never_collide_with_sibling_top_level_callouts(self):
+        content = dedent('''\
+            > [!note] First top-level callout
+            >
+            > > [!bug] Nested inside first
+            > > Nested body.
+
+            > [!warning] Second top-level callout, sibling not nested
+            ''')
+
+        result = convert_obsidian_callouts_to_jekyll_includes(content)
+
+        capture_var_names = re.findall(r'{% capture (callout_content_\d+) %}', result)
+        self.assertEqual(len(capture_var_names), len(set(capture_var_names)))
+        self.assertEqual(len(capture_var_names), 3)
+
+    def test_plain_nested_blockquote_without_callout_header_is_left_as_plain_text(self):
+        # A nested blockquote that never had a `[!type]` header at any level
+        # is just a regular (non-callout) quote and must stay untouched --
+        # same rule as the top-level case, applied one level down.
+        content = dedent('''\
+            > [!note] Outer
+            > Outer body.
+            >
+            > > Just a plain nested quote, no callout header.
+            ''')
+
+        result = convert_obsidian_callouts_to_jekyll_includes(content)
+
+        self.assertIn('{% include callout.html type="note"', result)
+        self.assertIn('> Just a plain nested quote, no callout header.', result)
+        self.assertEqual(result.count('{% include callout.html'), 1)
 
     def test_real_world_fixture_with_multiple_callout_flavours(self):
         # Mirrors the actual test note used to validate the site

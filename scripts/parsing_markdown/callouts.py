@@ -17,8 +17,9 @@ resolution of its own. It only extracts whatever markdown/Liquid is already
 inside the blockquote and re-wraps it, unchanged, inside a `{% capture %}`.
 """
 
+import itertools
 import re
-from typing import NamedTuple, Optional
+from typing import Iterator, NamedTuple, Optional
 
 from scripts.parsing_markdown.markdown_regions import iter_fenced_lines
 
@@ -175,21 +176,41 @@ def convert_obsidian_callouts_to_jekyll_includes(content: str) -> str:
     A blockquote that does NOT start with a `[!type]` header (a plain quote)
     is left completely untouched, as is any blockquote-like text inside a
     fenced code block (e.g. a documentation example).
+
+    Nested callouts (Obsidian's `>> [!type]` / `> > [!type]` syntax, any
+    depth) are supported: once a callout's own body is extracted, it's just
+    an ordinary markdown fragment again -- stripping one leading `>` from
+    `>> [!bug] ...` leaves `> [!bug] ...`, which is indistinguishable from a
+    fresh top-level callout. So each callout's content is recursively run
+    back through this same conversion before being wrapped in its own
+    `{% capture %}`. All levels of nesting share a single counter (see
+    _convert_callouts_with_shared_counter) so two callouts never end up
+    with the same capture variable name just because one happens to be
+    nested inside another elsewhere in the file.
     """
+    return _convert_callouts_with_shared_counter(content, itertools.count())
+
+
+def _convert_callouts_with_shared_counter(content: str, counter: Iterator[int]) -> str:
     output_lines: list[str] = []
     pending_block: list[str] = []
-    callout_index = 0
 
     def flush_pending_block() -> None:
-        nonlocal callout_index
         if not pending_block:
             return
         callout = parse_callout_block(pending_block)
         if callout is None:
             output_lines.extend(pending_block)
         else:
-            output_lines.append(render_callout_as_jekyll_include(callout, callout_index))
-            callout_index += 1
+            # Claim this callout's index before recursing, so capture
+            # variable names read in roughly top-to-bottom document order
+            # even though nested callouts (processed by the recursive call
+            # below) end up with higher indices than their parent.
+            index = next(counter)
+            callout = callout._replace(
+                content=_convert_callouts_with_shared_counter(callout.content, counter)
+            )
+            output_lines.append(render_callout_as_jekyll_include(callout, index))
         pending_block.clear()
 
     for fenced_line in iter_fenced_lines(content):

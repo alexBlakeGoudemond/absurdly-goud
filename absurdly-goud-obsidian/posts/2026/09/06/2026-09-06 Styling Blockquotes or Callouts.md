@@ -44,6 +44,7 @@ Then we have complex callouts:
 > [!note] This is an outer callout
 > > [!important] This is an inner callout
 > > > [!bug] This is an inner inner callout
+> > > And this is the content!
 
 And now we have some dynamic callouts: below should be collapsable:
 
