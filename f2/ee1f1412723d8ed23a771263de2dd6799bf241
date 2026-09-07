@@ -1,0 +1,21 @@
+scripts/parsing_markdown/image_popups.py
+  h_1197a506f6c7d6 1-55
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 11,66-67,73-79,86
+tests/parsing_markdown/test_image_popups.py
+  h_1197a506f6c7d6 102-105,123-126,136-150,156-163,165,167,169
+  h_1197a506f6c7d6 164,166
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 19-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f2ee1f1412723d8ed23a771263de2dd6799bf241",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
