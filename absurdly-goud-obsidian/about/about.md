@@ -40,6 +40,7 @@ And upon reflection, I realized that these responses did not address the core of
 
 Then my answer came to me: 
 
+> [!success] Why IndieWeb?
 > "I want to be a part of the community. I want to rebel against the current Internet structure. I want to be in control of my own data, time, attention and engagement. I want to have fun, explore and grow"
 
 I felt satisfied with that answer! And as an outcome: we will see if my friend joins the web as well! 😏
@@ -51,7 +52,7 @@ I am a developer who does use Artificial Intelligence (AI) - and I focus on usin
 I own and take accountability for all the work I generate - and if an AI helps, then I give 
 attribution to both of us.
 
-> NOTE:
+> [!important]
 >
 > **I AM PERFECTLY CAPABLE OF WRITING CR@P CODE MYSELF**! I do not *need* an AI to write cr@p code on my behalf 😏
 >

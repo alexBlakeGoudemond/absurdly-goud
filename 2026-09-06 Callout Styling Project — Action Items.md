@@ -14,10 +14,10 @@
   (Python -> Liquid -> kramdown output) is proven to work smoothly
 
 ## Files anticipated to be touched (not all at once)
-- [ ] Python script: callout detection/conversion (new or added to existing pipeline)
-- [ ] Test script for the callout Python script
-- [ ] Jekyll _includes/callout.html
-- [ ] Lucide icons (source/storage TBD — inline SVG vs included files)
+- [X] Python script: callout detection/conversion (new or added to existing pipeline)
+- [X] Test script for the callout Python script
+- [X] Jekyll _includes/callout.html
+- [X] Lucide icons (source/storage TBD — inline SVG vs included files)
 - [ ] CSS for callout styling (mirroring Obsidian look)
 - [ ] JS for collapsible behavior (later)
 

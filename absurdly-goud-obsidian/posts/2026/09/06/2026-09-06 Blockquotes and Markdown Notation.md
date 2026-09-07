@@ -13,7 +13,7 @@ Obsidian has [callouts](https://obsidian.md/help/callouts) notation which are th
 >This has a image on its own line (should show as figure):
 >![[this-is-fine-fire.gif]]
 
-Also - something I have not tested yet are tables:
+Also - something I have not tested as yet are tables - these should show in the site formatted like this:
 
 | Heading 1 | Heading 2 |
 | --------- | --------- |
