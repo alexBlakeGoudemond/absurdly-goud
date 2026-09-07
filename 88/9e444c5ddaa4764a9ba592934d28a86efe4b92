@@ -1,0 +1,39 @@
+_layouts/default.html
+  s_74d83b63cff61e::t_d27ddc1aaebd26 36
+  s_4877e84a9cf441::t_f450566c10bd3f 15
+assets/css/images.css
+  h_1197a506f6c7d6 1-86
+_includes/image.html
+  s_74d83b63cff61e::t_d97fa07c535441 14-22,24
+assets/js/image_popups.js
+  s_74d83b63cff61e::t_5721447e1c95e9 1-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "889e444c5ddaa4764a9ba592934d28a86efe4b92",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4877e84a9cf441": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788797319920",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    },
+    "s_74d83b63cff61e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09c9a619-d593-46e0-9b4e-4826314410bc",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
