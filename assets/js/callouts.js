@@ -25,27 +25,44 @@
 (function () {
     'use strict';
 
+    // prevent the script from wiring listeners multiple times
+    if (window.__absurdlyGoudCalloutsInitialized__) {
+        return;
+    }
+    window.__absurdlyGoudCalloutsInitialized__ = true;
+
     var CHEVRON_SVG =
         '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" ' +
         'stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
         'stroke-linejoin="round" aria-hidden="true">' +
         '<polyline points="6 9 12 15 18 9"></polyline></svg>';
 
-    var TITLE_SELECTOR = '.callout.is-collapsible > .callout-title';
+    var TITLE_SELECTOR = '.callout[data-collapsible="true"] > .callout-title';
 
     function decorateCollapsibleCallouts() {
-        var titles = document.querySelectorAll(TITLE_SELECTOR);
+        var callouts = document.querySelectorAll('.callout[data-collapsible="true"]');
 
-        titles.forEach(function (title) {
-            var callout = title.closest('.callout');
-            var collapsed = !!(callout && callout.classList.contains('is-collapsed'));
+        callouts.forEach(function (callout) {
+            callout.classList.add('is-collapsible');
+
+            var shouldStartCollapsed = callout.getAttribute('data-initial-state') === 'collapsed';
+            if (shouldStartCollapsed) {
+                callout.classList.add('is-collapsed');
+            } else {
+                callout.classList.remove('is-collapsed');
+            }
+
+            var title = callout.querySelector('.callout-title');
+            if (!title) {
+                return;
+            }
 
             // Keyboard + screen-reader affordances only get added once JS has
             // confirmed it actually runs -- a role="button" with no handler
             // behind it would be worse than no ARIA at all.
             title.setAttribute('role', 'button');
             title.setAttribute('tabindex', '0');
-            title.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+            title.setAttribute('aria-expanded', shouldStartCollapsed ? 'false' : 'true');
 
             if (!title.querySelector('.callout-fold-icon')) {
                 var foldIcon = document.createElement('div');

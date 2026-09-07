@@ -19,10 +19,10 @@
 {% endcase %}
 {% assign is_collapsible = include.collapsible %}
 {% assign is_collapsed = include.initially_collapsed %}
-<div class="callout{% if is_collapsible %} is-collapsible{% endif %}{% if is_collapsed %} is-collapsed{% endif %}"
+<div class="callout"
      data-callout="{{ callout_type }}"
      data-collapsible="{{ is_collapsible }}"
-     data-initial-state="{% if is_collapsed %}collapsed{% else %}expanded{% endif %}">
+     data-initial-state="{% if is_collapsible and is_collapsed %}collapsed{% else %}expanded{% endif %}">
     <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
         <div class="callout-title-icon">
             <img src="{{ '/assets/callout_icons/' | append: callout_icon | append: '.svg' | relative_url }}"
