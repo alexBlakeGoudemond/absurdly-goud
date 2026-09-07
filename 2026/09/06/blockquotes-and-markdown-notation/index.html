@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Obsidian Test | ABsurdly Goud</title>
+    <title>Blockquotes And Markdown Notation | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
@@ -63,14 +63,14 @@
         <article class="h-entry">
 
     <header>
-        <h2 class="p-name">Obsidian Test</h2>
+        <h2 class="p-name">Blockquotes And Markdown Notation</h2>
 
         
         
         <div class="dt-published">
             Created:
-            <time datetime="2026-08-20T00:00:00+00:00">
-                2026-08-20
+            <time datetime="2026-09-06T00:00:00+00:00">
+                2026-09-06
             </time>
 
             Last updated:
@@ -83,11 +83,123 @@
     <div class="e-content">
         
 
-        <p>This is a note I produced using Obsidian - just focussing on the MarkDown Note</p>
+        <p>Obsidian has <a href="https://obsidian.md/help/callouts">callouts</a> notation which are the same as Markdown Blockquotes. Below are examples of the other kinds of Markdown that should be supported inside of them</p>
 
 <!--more-->
 
-<p>I have restructured the repository so that I can easily make notes in Obsidian and then it builds happily with Jekyll. Thinking long term about how I want to use posts like this</p>
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Note</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This has a ‘note’ Style</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Note</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This has a wikilink to another note: <a href="/2026/09/03/ducks-ducks-ducks/">2026-09-03 DUCKS DUCKS DUCKS</a></p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Note</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This has an embdedded image (should show as inline image): <!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+    <img class="u-photo-inline" src="/assets/88x31/free-real-estate.gif" alt="free-real-estate.gif" /></p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Note</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This has a image on its own line (should show as figure):
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+    <img class="u-photo-inline" src="/assets/88x31/this-is-fine-fire.gif" alt="this-is-fine-fire.gif" /></p>
+
+    </div>
+</div>
+
+<p>Also - something I have not tested as yet are tables - these should show in the site formatted like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Heading 1</th>
+      <th>Heading 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content 1</td>
+      <td>Content 2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>and in a callout:</p>
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Note</div>
+    </div>
+    <div class="callout-content">
+        
+<table>
+  <thead>
+    <tr>
+      <th>Heading 1</th>
+      <th>Heading 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content 1</td>
+      <td>Content 2</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+</div>
+
 
     </div>
 

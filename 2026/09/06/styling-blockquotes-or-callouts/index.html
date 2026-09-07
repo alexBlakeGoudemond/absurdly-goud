@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Styling Blockquotes Or Callouts | ABsurdly Goud</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/animated-background.css">
+    <link rel="stylesheet" href="/assets/css/syntax-highlighting.css">
+    <link rel="stylesheet" href="/assets/css/callouts.css">
+</head>
+
+<body>
+
+<svg class="water-background"
+     viewBox="0 0 1000 1000"
+     preserveAspectRatio="none">
+
+    <g id="waves">
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+    </g>
+</svg>
+
+
+<!-- Duck ripples -->
+<svg class="ripple-background"
+     viewBox="0 0 1000 1000"
+     preserveAspectRatio="none">
+    <g id="duck-ripples"></g>
+</svg><img class="pond-duck" id="pond-duck-47" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-48" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-49" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+
+<header>
+    <nav>
+        <a href="/">
+            <img src="/favicon.svg"
+                 alt="Home"
+                 width="40"
+                 height="40">
+        </a>
+
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/posts/">Posts</a>
+        <a href="/journey/">Journey</a>
+    </nav>
+</header>
+
+<div class="page-wrapper">
+    <main>
+        <article class="h-entry">
+
+    <header>
+        <h2 class="p-name">Styling Blockquotes Or Callouts</h2>
+
+        
+        
+        <div class="dt-published">
+            Created:
+            <time datetime="2026-09-06T00:00:00+00:00">
+                2026-09-06
+            </time>
+
+            Last updated:
+            <time datetime="2026-09-07T04:25:00+00:00">
+                2026-09-07 04:25
+            </time>
+        </div>
+    </header>
+
+    <div class="e-content">
+        
+
+        <p>Obsidian has <a href="https://obsidian.md/help/callouts">callouts</a> notation which are the same as Markdown Blockquotes. The supported callouts are: info, todo, tip/hint/important, success/check/done, question/help/faq, warning/caution/attention, failure/fail/missing, danger/error, bug, example, quote/site. This website should mirror the styling we see in Obsidian</p>
+
+<!--more-->
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Note</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a note callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="info" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/info.svg" alt="info callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Info</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is an info callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="abstract" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/clipboard-list.svg" alt="abstract callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Abstract / Summary / TLDR</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is an abstract callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="todo" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/square-check.svg" alt="todo callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Todo</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a todo callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Tip / Hint / Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a tip callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="success" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/check.svg" alt="success callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Success / Check / Done</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a success callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="question" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/circle-help.svg" alt="question callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Question / Help / FAQ</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a question callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="warning" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/triangle-alert.svg" alt="warning callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Warning / Caution / Attention</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a warning callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="failure" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/x.svg" alt="failure callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Failure / Fail / Missing</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a failure callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="danger" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/zap.svg" alt="danger callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Danger / Error</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a danger callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="bug" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/bug.svg" alt="bug callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Bug</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a bug callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="example" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/list.svg" alt="example callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Example</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is an example callout</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="quote" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/quote.svg" alt="quote callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Quote / Cite</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is a quote callout</p>
+
+    </div>
+</div>
+
+<p>Then we have complex callouts:</p>
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">This is an outer callout</div>
+    </div>
+    <div class="callout-content">
+        
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">This is an inner callout</div>
+    </div>
+    <div class="callout-content">
+        
+<div class="callout" data-callout="bug" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/bug.svg" alt="bug callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">This is an inner inner callout</div>
+    </div>
+    <div class="callout-content">
+        
+<p>And this is the content!</p>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<p>And now we have some dynamic callouts: below should be collapsable:</p>
+
+<div class="callout" data-callout="example" data-collapsible="true" data-initial-state="collapsed">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/list.svg" alt="example callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Click me to expand</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is an example callout that starts collapsed and can be expanded</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="example" data-collapsible="true" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/list.svg" alt="example callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Click me to collapse</div>
+    </div>
+    <div class="callout-content">
+        
+<p>This is an example callout that starts expanded and can be collapsed</p>
+
+    </div>
+</div>
+
+
+    </div>
+
+</article>
+    </main>
+
+    <aside>
+    
+        <!-- render nothing -->
+    
+    <div class="badges">
+
+    <div class="badge-section">
+        <p>This site was built with the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://jekyllrb.com" target="_blank" rel="noopener">
+                <img src="/assets/88x31/jekyll-button.svg"
+                     alt="Built with Jekyll"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://pages.github.com/" target="_blank" rel="noopener">
+                <img src="/assets/88x31/github-pages-button.svg"
+                     alt="Built with GitHub Pages"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://obsidian.md/" target="_blank" rel="noopener">
+                <img src="/assets/88x31/obsidian-button.svg"
+                     alt="Built with Obsidian"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://microformats.org/" target="_blank" rel="noopener">
+                <img src="https://indieweb.org/images/e/e6/microformats88x31-flat.png"
+                     alt="Built with Microformats"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>This site is part of the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://indieweb.org" target="_blank" rel="noopener">
+                <img src="https://indieweb.org/images/4/42/indieweb88x31-flat.png"
+                     alt="Part of the IndieWeb"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>Disclaimer:</p>
+        <div class="badge-row">
+            
+            <a href="/about#ai-usage/" target="_blank" rel="noopener">
+                <img src="https://www.aihonestybadge.com/badges/ai-assisted.svg"
+                     alt="Disclaimer AI assisted site"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+</div>
+</aside>
+</div>
+
+<footer>
+  <p>&copy; 2026 ABsurdly Goud. All rights reserved.</p>
+</footer>
+
+<script src="/assets/js/pond.js"></script>
+<script src="/assets/js/navigation.js"></script>
+<!--<script src="/absurdly-goud/assets/js/pond.js"></script>-->
+<script src="/assets/js/callouts.js" defer></script>
+
+</body>
+</html>

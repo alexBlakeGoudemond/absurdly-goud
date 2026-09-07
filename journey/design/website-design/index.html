@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/animated-background.css">
     <link rel="stylesheet" href="/assets/css/syntax-highlighting.css">
+    <link rel="stylesheet" href="/assets/css/callouts.css">
 </head>
 
 <body>
@@ -39,9 +40,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-32" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-33" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-34" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true"><script src="/assets/js/pond.js"></script>
-<script src="/assets/js/navigation.js"></script>
-<!--<script src="/absurdly-goud/assets/js/pond.js"></script>-->
+</svg><img class="pond-duck" id="pond-duck-47" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-48" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-49" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header>
     <nav>
@@ -189,18 +188,36 @@
   <li><code class="language-plaintext highlighter-rouge">breadcrumbs</code></li>
 </ul>
 
-<blockquote>
-  <p>[!Important]
-Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and <code class="language-plaintext highlighter-rouge">categories</code> are part of Jekyll’s posts system and so the Liquid variables `` may not contain the about.md page</p>
-</blockquote>
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and <code class="language-plaintext highlighter-rouge">categories</code> are part of Jekyll’s posts system and so the Liquid variables `` may not contain the about.md page</p>
 
-<blockquote>
-  <p>[!Note] Helpful Insights 
-<a href="https://jekyllrb.com/docs/configuration/front-matter-defaults/">Front Matter Defaults</a> can also be setup in <code class="language-plaintext highlighter-rouge">_config.yaml</code>
+    </div>
+</div>
+
+<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Helpful Insights</div>
+    </div>
+    <div class="callout-content">
+        
+<p><a href="https://jekyllrb.com/docs/configuration/front-matter-defaults/">Front Matter Defaults</a> can also be setup in <code class="language-plaintext highlighter-rouge">_config.yaml</code>
 <code class="language-plaintext highlighter-rouge">Front Matter Tags</code> can build up an index across your site
 <a href="https://jekyllrb.com/docs/posts/#categories">Front Matter Categories</a>  group posts together
 <a href="https://jekyllrb.com/docs/step-by-step/09-collections/">Collections</a> allow grouping anything together, instead of just bundling posts with <code class="language-plaintext highlighter-rouge">categories</code></p>
-</blockquote>
+
+    </div>
+</div>
 
 <h2 id="github-pages">GitHub Pages</h2>
 
@@ -212,10 +229,19 @@ Front Matter <code class="language-plaintext highlighter-rouge">tags</code> and 
 
 <p>GitHub-hosted runners are provided by GitHub and consume <strong>GitHub Actions minutes</strong> from the account’s included usage/quota.</p>
 
-<blockquote>
-  <p>[!Important] 
-GitHub Pages are free for public repositories. In this way, I am not paying for hosting!</p>
-</blockquote>
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>GitHub Pages are free for public repositories. In this way, I am not paying for hosting!</p>
+
+    </div>
+</div>
 
 <h2 id="having-notes-in-obsidian-vault">Having Notes in Obsidian Vault</h2>
 
@@ -223,10 +249,19 @@ GitHub Pages are free for public repositories. In this way, I am not paying for 
 
 <p>This script runs when I test locally via docker as well as in GitHub Actions for the publication to the site. It produces a directory <code class="language-plaintext highlighter-rouge">site_src</code>. Jekyll is then told to use that generated directory to prepare the <code class="language-plaintext highlighter-rouge">site</code> directory as per normal</p>
 
-<blockquote>
-  <p>[!Important]
-A community plugin for Excalidraw is being used in this obsidian vault. A setting to export the changes to an SVG is also turned on - which allows the SVG to be used in the website generation</p>
-</blockquote>
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>A community plugin for Excalidraw is being used in this obsidian vault. A setting to export the changes to an SVG is also turned on - which allows the SVG to be used in the website generation</p>
+
+    </div>
+</div>
 
 
     </div>
@@ -303,6 +338,11 @@ A community plugin for Excalidraw is being used in this obsidian vault. A settin
 <footer>
   <p>&copy; 2026 ABsurdly Goud. All rights reserved.</p>
 </footer>
+
+<script src="/assets/js/pond.js"></script>
+<script src="/assets/js/navigation.js"></script>
+<!--<script src="/absurdly-goud/assets/js/pond.js"></script>-->
+<script src="/assets/js/callouts.js" defer></script>
 
 </body>
 </html>
