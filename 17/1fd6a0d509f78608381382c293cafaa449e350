@@ -1,0 +1,19 @@
+assets/css/callouts.css
+  h_1197a506f6c7d6 1-242
+_layouts/default.html
+  h_1197a506f6c7d6 14
+_includes/callout.html
+  h_1197a506f6c7d6 25,28,30
+  h_1197a506f6c7d6 26-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "171fd6a0d509f78608381382c293cafaa449e350",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
