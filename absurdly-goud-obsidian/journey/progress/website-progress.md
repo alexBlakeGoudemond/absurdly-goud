@@ -5,10 +5,9 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] bugfix:
 	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
 	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
+	- [ ] tables require empty newline before and after for jekyll
 - [ ] Add test pipeline before pushing
 - [ ] Include in footer: created
-- [ ] Quote syntax to be automatically given a class: `>`
-- [ ] `[!note]` syntax to be supported in HTML
 - [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
@@ -21,16 +20,15 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] hits in the aside?
 - [ ] projects tab?
 - [ ] parallax background?
-- [ ] build version? or last updated date
 - [ ] what makes this website an IndieWeb site? (h-ref?)
 - [ ] caching:
 	- [ ] screenshots always show as changed in cache
 	- [ ] Get GitHub Pages to use caching?
-- [ ] Changelog
 - [ ] Animated background
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Quote syntax to be automatically given a class: `>`. i.e. `[!note]` syntax to be supported in HTML (2026-09-07)
 - [x] codeblocks with coloring style: `python etc` should just create a class for the CSS styling: `codeblock-python` etc (2026-09-05)
 - [x] Ducks:
 	- [x] Add more duck variations - 1 for each interested person in the family (2026-09-04)

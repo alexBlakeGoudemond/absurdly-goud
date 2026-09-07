@@ -1,0 +1,37 @@
+{% assign callout_type = include.type | downcase %}
+{% case callout_type %}
+{% when 'note' %}{% assign callout_icon = 'pencil' %}
+{% when 'abstract' %}{% assign callout_icon = 'clipboard-list' %}
+{% when 'info' %}{% assign callout_icon = 'info' %}
+{% when 'todo' %}{% assign callout_icon = 'square-check' %}
+{% when 'important' %}{% assign callout_icon = 'flame' %}
+{% when 'success' %}{% assign callout_icon = 'check' %}
+{% when 'question' %}{% assign callout_icon = 'circle-help' %}
+{% when 'warning' %}{% assign callout_icon = 'triangle-alert' %}
+{% when 'failure' %}{% assign callout_icon = 'x' %}
+{% when 'danger' %}{% assign callout_icon = 'zap' %}
+{% when 'bug' %}{% assign callout_icon = 'bug' %}
+{% when 'example' %}{% assign callout_icon = 'list' %}
+{% when 'quote' %}{% assign callout_icon = 'quote' %}
+{% else %}
+{% assign callout_type = 'note' %}
+{% assign callout_icon = 'pencil' %}
+{% endcase %}
+{% assign is_collapsible = include.collapsible %}
+{% assign is_collapsed = include.initially_collapsed %}
+<div class="callout"
+     data-callout="{{ callout_type }}"
+     data-collapsible="{{ is_collapsible }}"
+     data-initial-state="{% if is_collapsible and is_collapsed %}collapsed{% else %}expanded{% endif %}">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="{{ '/assets/callout_icons/' | append: callout_icon | append: '.svg' | relative_url }}"
+                 alt="{{ callout_type }} callout icon"
+                 aria-hidden="true">
+        </div>
+        <div class="callout-title-inner">{{ include.title }}</div>
+    </div>
+    <div class="callout-content">
+        {{ include.content | markdownify }}
+    </div>
+</div>
