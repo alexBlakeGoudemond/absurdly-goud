@@ -1,0 +1,24 @@
+_includes/image.html
+  s_74d83b63cff61e::t_e0bc777c45611b 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f6b6a31ce1d2e15713eeb1d9ff0485fef3a6eec4",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_74d83b63cff61e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09c9a619-d593-46e0-9b4e-4826314410bc",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
