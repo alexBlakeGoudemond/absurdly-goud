@@ -12,11 +12,13 @@ import argparse
 from pathlib import Path
 from typing import Any
 
+from scripts.parsing_markdown.callouts import convert_obsidian_callouts_to_jekyll_includes
 from scripts.parsing_markdown.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.parsing_markdown.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
-from scripts.parsing_markdown.markdown_excerpt import add_excerpt_marker_to_file
 from scripts.parsing_markdown.filenames import slugify_filename
+from scripts.parsing_markdown.image_popups import load_image_popup_entries
 from scripts.parsing_markdown.jekyll_frontmatter import add_frontmatter_to_file
+from scripts.parsing_markdown.markdown_excerpt import add_excerpt_marker_to_file
 from scripts.parsing_markdown.markdown_images import (
     build_image_path_lookup,
     convert_markdown_image_embeds_outside_code_blocks_and_code_spans,
@@ -24,15 +26,16 @@ from scripts.parsing_markdown.markdown_images import (
 )
 from scripts.parsing_markdown.pipe_escaping import escape_pipes_in_links_outside_code_blocks_and_code_spans
 from scripts.parsing_markdown.site_sync import SiteSync
-from scripts.parsing_markdown.wikilinks import build_note_path_lookup, convert_wikilink_note_links_outside_code_blocks_and_code_spans
-from scripts.parsing_markdown.callouts import convert_obsidian_callouts_to_jekyll_includes
+from scripts.parsing_markdown.wikilinks import build_note_path_lookup, \
+    convert_wikilink_note_links_outside_code_blocks_and_code_spans
 
 MANIFEST_FILENAME = ".manifest.json"
 
 
 def process_markdown_for_jekyll(
         markdown_file: Path, note_path_lookup: dict[str, str],
-        image_path_lookup: dict[str, str]
+        image_path_lookup: dict[str, str],
+        image_popup_lookup: dict[str, dict] | None = None,
 ) -> None:
     """Convert Obsidian-style notations to formats that Jekyll recognizes"""
     print(f"processing markdown for '{markdown_file.name}'")
@@ -43,7 +46,9 @@ def process_markdown_for_jekyll(
     # and fails lookup (it's an image filename, not a note).
     new_content = convert_wikilink_image_embeds_outside_code_blocks_and_code_spans(content)
     new_content = convert_wikilink_note_links_outside_code_blocks_and_code_spans(new_content, note_path_lookup)
-    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(new_content, image_path_lookup)
+    new_content = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+        new_content, image_path_lookup, image_popup_lookup
+    )
     new_content = escape_markdown_code_blocks_for_jekyll(new_content)
     new_content = escape_pipes_in_links_outside_code_blocks_and_code_spans(new_content)
     new_content = convert_obsidian_callouts_to_jekyll_includes(new_content)
@@ -92,6 +97,7 @@ class ObsidianToJekyllConverter:
     SECTION_FOLDERS = ['journey']
     IMAGE_ASSET_GLOBS = ('*.png', '*.svg', '*.gif')
     IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '*.gif'}
+    IMAGE_POPUPS_DATA_FILENAME = 'image_popups.yml'
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):
         self.obsidian_vault_location = obsidian_vault_location
@@ -125,8 +131,11 @@ class ObsidianToJekyllConverter:
         # assets/ tree, not just the images copied this run.
         note_path_lookup = build_note_path_lookup(self.site_sync.new_manifest, self.output_location)
         image_path_lookup = build_image_path_lookup(self.output_location / 'assets')
+        image_popup_lookup = load_image_popup_entries(
+            self.output_location / '_data' / self.IMAGE_POPUPS_DATA_FILENAME
+        )
 
-        self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup)
+        self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup, image_popup_lookup)
         self.site_sync.prune_stale_files()
         self.site_sync.save()
 
@@ -154,7 +163,8 @@ class ObsidianToJekyllConverter:
 
     def parse_markdown_files_for_jekyll(
             self, note_path_lookup: dict[str, str],
-            image_path_lookup: dict[str, str]
+            image_path_lookup: dict[str, str],
+            image_popup_lookup: dict[str, dict] | None = None,
     ) -> None:
         last_published_by_dest = self.filename_to_last_published()
 
@@ -171,7 +181,7 @@ class ObsidianToJekyllConverter:
             self.add_frontmatter_if_needed(dest_path, last_published_by_dest[dest_path])
             self.add_excerpt_if_needed(dest_path)
 
-            process_markdown_for_jekyll(dest_path, note_path_lookup, image_path_lookup)
+            process_markdown_for_jekyll(dest_path, note_path_lookup, image_path_lookup, image_popup_lookup)
 
     def filename_to_last_published(self) -> dict[Path, Any]:
         last_published_by_dest = {
@@ -239,6 +249,12 @@ class ObsidianToJekyllConverter:
                                          self.output_location / '_posts',
                                          exclude_suffixes=self.IMAGE_SUFFIXES,
                                          dest_filename=slugify_filename)
+            elif vault_item.name == 'data':
+                # Jekyll only reads data files (e.g. image_popups.yml) from
+                # _data/ — same underscore-prefix rename as posts -> _posts,
+                # but filenames are left as-is since they're referenced by
+                # exact name (IMAGE_POPUPS_DATA_FILENAME), not slugified.
+                self.site_sync.sync_tree(vault_item, self.output_location / '_data')
             else:
                 self.site_sync.sync_tree(vault_item,
                                          self.output_location / vault_item.name,

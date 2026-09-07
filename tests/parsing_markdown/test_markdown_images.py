@@ -134,6 +134,76 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         self.assertIn('src="https://example.com/image.png"', result)
 
+    def test_inline_image_with_popup_lookup_entry_gets_external_source_and_blurb(self):
+        content = "check this out ![Alt](free-real-estate.gif) it's great"
+        image_lookup = {"free-real-estate.gif": "assets/88x31/free-real-estate.gif"}
+        popup_lookup = {
+            "free-real-estate.gif": {
+                "image_source": "https://knowyourmeme.com/memes/free-real-estate",
+                "popup_blurb": "A classic meme",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('popup_src="https://knowyourmeme.com/memes/free-real-estate"', result)
+        self.assertIn('popup_blurb="A classic meme"', result)
+
+    def test_inline_image_with_local_popup_source_resolves_through_image_path_lookup(self):
+        # image_source pointing at a local vault file (not a URL) must be
+        # resolved to its real bucketed output path, the same as the
+        # displayed image's own src — not left as a vault-relative path
+        # that won't exist post-build.
+        content = "have a look ![Alt](good-news-everyone.gif) huh"
+        image_lookup = {
+            "good-news-everyone.gif": "assets/88x31/good-news-everyone.gif",
+            "good-news-everyone-original.gif": "assets/source/good-news-everyone-original.gif",
+        }
+        popup_lookup = {
+            "good-news-everyone.gif": {
+                "image_source": "assets/source/88x31/good-news-everyone-original.gif",
+                "popup_blurb": "Good news, everyone!",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('popup_src="assets/source/good-news-everyone-original.gif"', result)
+        self.assertIn('popup_blurb="Good news, everyone!"', result)
+
+    def test_inline_image_with_no_popup_lookup_entry_falls_back(self):
+        content = "have a look ![Alt](calculating-puzzled.gif) huh"
+        image_lookup = {"calculating-puzzled.gif": "assets/88x31/calculating-puzzled.gif"}
+        popup_lookup = {"free-real-estate.gif": {"image_source": "https://x.example", "popup_blurb": "x"}}
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('popup_src="assets/88x31/calculating-puzzled.gif"', result)
+        self.assertIn('popup_blurb="No details yet"', result)
+
+    def test_figure_is_unaffected_by_popup_lookup(self):
+        # Standalone image (no surrounding text) -> figure.html, which never
+        # carries popup attributes regardless of a matching popup entry.
+        content = "![Alt](free-real-estate.gif)"
+        image_lookup = {"free-real-estate.gif": "assets/88x31/free-real-estate.gif"}
+        popup_lookup = {
+            "free-real-estate.gif": {"image_source": "https://x.example", "popup_blurb": "x"}
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('{% include figure.html', result)
+        self.assertNotIn('popup_src', result)
+        self.assertNotIn('popup_blurb', result)
+
 
 class TestBuildImagePathLookup(unittest.TestCase):
 

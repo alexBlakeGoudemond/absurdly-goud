@@ -12,6 +12,7 @@
 #
 # Any inline image NOT listed here still gets a popup — it just falls back
 # to a self-link (the displayed image itself) and a default blurb.
+
 image_popups:
   - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
     image_source: "https://knowyourmeme.com/memes/free-real-estate"
@@ -29,5 +30,5 @@ image_popups:
     image_source: "https://knowyourmeme.com/memes/knuckles-sonic-the-hedgehog"
     popup_blurb: "Knuckles giving his seal of approval."
 
-# calculating-puzzled.gif intentionally has no entry — used to test the
-# fallback path (self-link + default blurb) once image_popups.py exists.
+  # calculating-puzzled.gif intentionally has no entry — used to test the
+  # fallback path (self-link + default blurb) once image_popups.py exists.

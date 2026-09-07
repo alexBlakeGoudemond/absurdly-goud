@@ -8,8 +8,8 @@ import re
 from pathlib import Path
 from textwrap import dedent
 
-from scripts.parsing_markdown.image_popups import DEFAULT_POPUP_BLURB
 from scripts.parsing_markdown.markdown_regions import apply_outside_code_blocks_and_code_spans
+from scripts.parsing_markdown.image_popups import DEFAULT_POPUP_BLURB
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 
@@ -97,7 +97,10 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
     return dedent(jekyll_image_layout_notation)
 
 
-def replace_images_in_line(line: str, image_path_lookup: dict[str, str]) -> str:
+def replace_images_in_line(
+        line: str, image_path_lookup: dict[str, str],
+        image_popup_lookup: dict[str, dict] | None = None,
+) -> str:
     matches = list(MARKDOWN_IMAGE_PATTERN.finditer(line))
     if len(matches) > 1:
         is_inline = True
@@ -107,6 +110,24 @@ def replace_images_in_line(line: str, image_path_lookup: dict[str, str]) -> str:
     else:
         is_inline = False  # unused, no match to replace anyway
 
+    def resolve_popup(image_name: str) -> tuple[str | None, str | None]:
+        if not image_popup_lookup:
+            return None, None
+        popup_entry = image_popup_lookup.get(Path(image_name).name)
+        if not popup_entry:
+            return None, None
+
+        raw_source = popup_entry.get('image_source')
+        if raw_source and '://' not in raw_source:
+            # Local vault path: resolve through the same bucketed lookup as
+            # the display image, so it points at where the source file
+            # actually landed post-build rather than its vault-relative path.
+            popup_source = image_path_lookup.get(Path(raw_source).name, raw_source)
+        else:
+            popup_source = raw_source  # external URL, or no entry at all
+
+        return popup_source, popup_entry.get('popup_blurb')
+
     def replace(match: re.Match) -> str:
         image_alt_text = match.group(1)
         image_name = match.group(2)
@@ -114,15 +135,20 @@ def replace_images_in_line(line: str, image_path_lookup: dict[str, str]) -> str:
             image_src = image_name
         else:
             image_src = image_path_lookup.get(Path(image_name).name, image_name)
+
+        popup_source, popup_blurb = resolve_popup(image_name)
+
         return convert_markdown_image_notation_to_jekyll_includes_image_notation(
-            image_src, image_alt_text, is_inline=is_inline
+            image_src, image_alt_text, is_inline=is_inline,
+            popup_source=popup_source, popup_blurb=popup_blurb,
         )
 
     return MARKDOWN_IMAGE_PATTERN.sub(replace, line)
 
 
 def convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
-        content: str, image_path_lookup: dict[str, str]
+        content: str, image_path_lookup: dict[str, str],
+        image_popup_lookup: dict[str, dict] | None = None,
 ) -> str:
     """
     Applies image-notation conversion only to text outside fenced '```' code
@@ -131,11 +157,12 @@ def convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
 
     image_path_lookup resolves each bare image
     filename to its real bucketed path under assets/, so the emitted src
-    actually locates the file post-move.
+    actually locates the file post-move. image_popup_lookup (optional)
+    supplies each inline image's popup source/blurb from image_popups.yml.
     """
 
     def convert_segment(segment: str) -> str:
-        return replace_images_in_line(segment, image_path_lookup)
+        return replace_images_in_line(segment, image_path_lookup, image_popup_lookup)
 
     return apply_outside_code_blocks_and_code_spans(content, convert_segment)
 

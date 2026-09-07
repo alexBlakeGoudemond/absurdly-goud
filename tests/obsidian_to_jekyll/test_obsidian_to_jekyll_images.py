@@ -107,6 +107,41 @@ class TestMarkdownImageNotationConversion(unittest.TestCase):
         self.assertIn("`![[theImage.png]]`", result)
         self.assertNotIn("{% include image.html", result)
 
+    def test_image_popup_lookup_is_threaded_through_to_the_include(self):
+        dest = self.converter.output_location / "post.md"
+        dest.write_text(
+            "cloning the repo is ![Alt](free-real-estate.gif) basically free real estate",
+            encoding="utf-8",
+        )
+        self.converter.site_sync.changed_dest_paths = [dest]
+        self.image_lookup = {"free-real-estate.gif": "assets/88x31/free-real-estate.gif"}
+        popup_lookup = {
+            "free-real-estate.gif": {
+                "image_source": "https://knowyourmeme.com/memes/free-real-estate",
+                "popup_blurb": "A classic meme",
+            }
+        }
+
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup, popup_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn('popup_src="https://knowyourmeme.com/memes/free-real-estate"', result)
+        self.assertIn('popup_blurb="A classic meme"', result)
+
+    def test_no_image_popup_lookup_still_yields_fallback_popup_attributes(self):
+        # image_popup_lookup is optional — omitting it entirely (as every
+        # other existing test in this file does) must not lose the popup
+        # attributes altogether, just fall back to defaults.
+        dest = self.converter.output_location / "post.md"
+        dest.write_text("check this out ![Alt](image.png) neat huh", encoding="utf-8")
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        process_markdown_for_jekyll(dest, self.note_lookup, self.image_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn('popup_src="image.png"', result)
+        self.assertIn('popup_blurb="No details yet"', result)
+
 
 if __name__ == '__main__':
     unittest.main()
