@@ -15,7 +15,7 @@
 
 image_popups:
   - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
-    image_source: "https://knowyourmeme.com/memes/free-real-estate"
+    image_source: "https://knowyourmeme.com/memes/its-free-real-estate"
     popup_blurb: "Cloning the repo is basically free real estate — the whole point of publicly available code."
 
   - image_vault: "assets/88x31/buttons-memes/this-is-fine-fire.gif"

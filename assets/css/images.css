@@ -12,6 +12,10 @@
     outline-offset: 4px;
 }
 
+.image-popup-trigger:hover {
+    transform: scale(1.05);
+}
+
 .image-popup-trigger .u-photo-inline {
     cursor: pointer;
 }
