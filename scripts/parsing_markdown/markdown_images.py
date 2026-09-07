@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from textwrap import dedent
 
+from scripts.parsing_markdown.image_popups import DEFAULT_POPUP_BLURB
 from scripts.parsing_markdown.markdown_regions import apply_outside_code_blocks_and_code_spans
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
@@ -62,18 +63,27 @@ def build_image_path_lookup(assets_path: Path) -> dict[str, str]:
 
 
 def convert_markdown_image_notation_to_jekyll_includes_image_notation(
-        image_name: str, image_alt_text: str, is_inline: bool = True
+        image_name: str, image_alt_text: str, is_inline: bool = True,
+        popup_source: str | None = None, popup_blurb: str | None = None,
 ) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
 
     if is_inline:
+        # An inline image always gets a popup (unlike a figure, which never
+        # does) — falling back to a self-link (the image's own resolved
+        # path) and a default blurb when there's no image_popups.yml entry
+        # behind it, rather than omitting the popup attributes.
+        resolved_popup_source = popup_source if popup_source is not None else image_name
+        resolved_popup_blurb = popup_blurb if popup_blurb is not None else DEFAULT_POPUP_BLURB
+
         # Single line, no leading/trailing newlines — must sit inline with
         # surrounding prose without breaking the paragraph/list item or
         # risking kramdown misreading indentation as a code block.
         return (
             f'{opening_brace} include image.html '
             f'src="{image_name}" alt="{image_alt_text}" title="{image_alt_text}" '
+            f'popup_src="{resolved_popup_source}" popup_blurb="{resolved_popup_blurb}" '
             f'{closing_brace}'
         )
 

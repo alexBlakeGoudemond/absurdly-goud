@@ -7,7 +7,6 @@ from scripts.parsing_markdown.image_popups import (
     DEFAULT_POPUP_BLURB,
     load_image_popup_entries,
 )
-
 from scripts.parsing_markdown.markdown_images import (
     convert_markdown_image_notation_to_jekyll_includes_image_notation,
 )
@@ -100,9 +99,10 @@ class TestLoadImagePopupEntries(unittest.TestCase):
 
     def test_entries_are_keyed_by_image_filename(self):
         self.data_path.write_text(dedent("""\
-            - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
-              image_source: "https://knowyourmeme.com/memes/free-real-estate"
-              popup_blurb: "A classic meme"
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
+                image_source: "https://knowyourmeme.com/memes/free-real-estate"
+                popup_blurb: "A classic meme"
             """), encoding='utf-8')
 
         entries = load_image_popup_entries(self.data_path)
@@ -120,9 +120,10 @@ class TestLoadImagePopupEntries(unittest.TestCase):
         # real output path is the converter's job (same lookup used for
         # image_vault), not the YAML loader's.
         self.data_path.write_text(dedent("""\
-            - image_vault: "assets/88x31/buttons-memes/good-news-everyone.gif"
-              image_source: "assets/source/88x31/buttons-memes/good-news-everyone.gif"
-              popup_blurb: "Good news, everyone!"
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/good-news-everyone.gif"
+                image_source: "assets/source/88x31/buttons-memes/good-news-everyone.gif"
+                popup_blurb: "Good news, everyone!"
             """), encoding='utf-8')
 
         entries = load_image_popup_entries(self.data_path)
@@ -132,13 +133,40 @@ class TestLoadImagePopupEntries(unittest.TestCase):
             'assets/source/88x31/buttons-memes/good-news-everyone.gif',
         )
 
+    def test_multiple_entries_all_load(self):
+        self.data_path.write_text(dedent("""\
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
+                image_source: "https://knowyourmeme.com/memes/free-real-estate"
+                popup_blurb: "A classic meme"
+              - image_vault: "assets/88x31/buttons-memes/this-is-fine-fire.gif"
+                image_source: "https://knowyourmeme.com/memes/this-is-fine"
+                popup_blurb: "The internet, most days."
+            """), encoding='utf-8')
+
+        entries = load_image_popup_entries(self.data_path)
+
+        self.assertEqual(set(entries.keys()), {'free-real-estate.gif', 'this-is-fine-fire.gif'})
+
     def test_missing_file_returns_empty_dict(self):
         entries = load_image_popup_entries(self.data_path)
 
         self.assertEqual(entries, {})
 
+    def test_missing_top_level_key_returns_empty_dict(self):
+        # Valid YAML, but without the image_popups: key wrapping it —
+        # degrade gracefully rather than crashing the build.
+        self.data_path.write_text(dedent("""\
+            some_other_key:
+              - foo: bar
+            """), encoding='utf-8')
+
+        entries = load_image_popup_entries(self.data_path)
+
+        self.assertEqual(entries, {})
+
     def test_corrupt_yaml_returns_empty_dict_instead_of_raising(self):
-        self.data_path.write_text("- image_vault: [unclosed", encoding='utf-8')
+        self.data_path.write_text("image_popups: [unclosed", encoding='utf-8')
 
         entries = load_image_popup_entries(self.data_path)
 
