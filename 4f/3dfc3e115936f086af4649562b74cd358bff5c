@@ -1,0 +1,16 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 201
+absurdly-goud-obsidian/buttons/buttons.md
+  h_1197a506f6c7d6 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "4f3dfc3e115936f086af4649562b74cd358bff5c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
