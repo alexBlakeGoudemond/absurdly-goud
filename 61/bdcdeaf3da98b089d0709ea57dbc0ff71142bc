@@ -1,0 +1,26 @@
+_includes/image.html
+  s_74d83b63cff61e::t_75fef2462c1ed1 1
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 29,34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "61bdcdeaf3da98b089d0709ea57dbc0ff71142bc",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_74d83b63cff61e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09c9a619-d593-46e0-9b4e-4826314410bc",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
