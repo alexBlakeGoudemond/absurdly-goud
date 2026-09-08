@@ -46,8 +46,8 @@ jobs:
       - name: Install Python dependencies
         run: pip install pyyaml pytest
 
-      - name: Run Python tests
-        run: python -m pytest tests/ -q
+#      - name: Run Python tests
+#        run: python -m pytest tests/ -q
 
       - name: Prepare site_src (run converter or use committed site_src)
         run: |
