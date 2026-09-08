@@ -1,8 +1,3 @@
-<!--
-    NOTE - indentation matters with liquid and kramdown here -
-    changing the HTML indentation can cause Kramdown to treat
-    the code as a codeblock and escape
--->
 {%- assign image_path = "/" | append: include.src -%}
 {%- assign image_exists = false -%}
 {%- for file in site.static_files -%}
@@ -10,8 +5,24 @@
 {%- assign image_exists = true -%}
 {%- endif -%}
 {%- endfor -%}
-{%- if image_exists %}
-    <img class="u-photo-inline" src="{{ image_path | relative_url }}" alt="{{ include.alt }}">
-{%- else %}
-<p>File `{{ include.src }}` not found</p>
-{%- endif %}
+{%- if image_exists -%}
+{%- assign popup_src = include.popup_src | default: include.src -%}
+{%- assign popup_blurb = include.popup_blurb | default: "No details yet" -%}
+{%- assign popup_preview = include.popup_preview | default: include.src -%}
+{%- assign popup_src_href = popup_src -%}
+{%- if popup_src contains "://" -%}
+{%- assign popup_src_href = popup_src -%}
+{%- else -%}
+{%- assign popup_src_href = popup_src | relative_url -%}
+{%- endif -%}
+{%- assign popup_preview_href = popup_preview -%}
+{%- if popup_preview contains "://" -%}
+{%- assign popup_preview_href = popup_preview -%}
+{%- else -%}
+{%- assign popup_preview_href = popup_preview | relative_url -%}
+{%- endif -%}
+<button type="button" class="image-popup-trigger" data-popup-src="{{ popup_src_href | escape }}"
+        data-popup-blurb="{{ popup_blurb | escape }}" data-popup-image="{{ popup_preview_href | escape }}"
+        aria-label="Open details for {{ include.alt | escape }}"><img
+        class="u-photo-inline" src="{{ image_path | relative_url }}" alt="{{ include.alt }}"></button>{%- else -%}<p>
+    File `{{ include.src }}` not found</p>{%- endif -%}

@@ -1,9 +1,10 @@
 FROM ruby:3.3
 
-# Install Python (for the Obsidian converter) and basic utilities
+# Install Python (for the Obsidian converter), image libs, and basic utilities
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 python3-pip ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && python3 -m pip install --break-system-packages --no-cache-dir Pillow PyYAML
 
 WORKDIR /_site
 

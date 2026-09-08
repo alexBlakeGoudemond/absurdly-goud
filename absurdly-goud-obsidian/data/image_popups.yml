@@ -1,0 +1,50 @@
+# Popup metadata for inline images (buttons, memes, etc).
+#
+# image_vault:   path to the displayed image, relative to the vault root —
+#                matched by filename against the same image_path_lookup the
+#                converter already builds, so the folder here doesn't need
+#                to match the output bucket exactly.
+# image_source:  where "tell me more" goes. Either:
+#                  - a URL (attribution / origin page), or
+#                  - a local vault path to a bigger/original version, stored
+#                    under assets/source/... mirroring assets/'s own layout.
+# image_preview: optional. The image shown inside the popup itself, before
+#                "tell me more" is clicked. Either a URL or a local vault
+#                path, same rules as image_source. Falls back to the
+#                displayed image (image_vault) if omitted.
+# popup_blurb:   short text shown in the popup alongside the image.
+#
+# Any inline image NOT listed here still gets a popup — it just falls back
+# to a self-link (the displayed image itself, shown as its own preview too)
+# and a default blurb.
+#
+# NOTE: a local image_source/image_preview must NOT share a filename with
+# its displayed counterpart — image resolution assumes filenames are unique
+# across the whole vault (see build_image_path_lookup). Use a distinguishing
+# name, e.g. "-original", for any locally-hosted bigger/original file.
+
+image_popups:
+  - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
+    image_source: "https://knowyourmeme.com/memes/meme-approved-by-knuckles"
+    image_preview: "assets/image-popups/approved-sonic-knuckles-original.gif"
+    popup_blurb: "Knuckles giving his seal of approval"
+
+  - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
+    image_source: "https://knowyourmeme.com/memes/its-free-real-estate"
+    image_preview: "assets/image-popups/free-real-estate-original.gif"
+    popup_blurb: "Anyone can jump in - its free real estate!"
+
+  - image_vault: "assets/88x31/buttons-memes/this-is-fine-fire.gif"
+    image_source: "https://knowyourmeme.com/memes/this-is-fine"
+    image_preview: "assets/image-popups/this-is-fine-fire-original.gif"
+    popup_blurb: "The internet, most days"
+
+  - image_vault: "assets/88x31/buttons-memes/good-news-everyone.gif"
+    image_source: "https://knowyourmeme.com/sensitive/memes/good-news-everyone"
+    image_preview: "assets/image-popups/good-news-everyone-original.gif"
+    popup_blurb: "Professor Farnsworth's catchphrase from Futurama - often read in his voice"
+
+  - image_vault: "assets/88x31/buttons-memes/calculating-puzzled.gif"
+    image_source: "https://knowyourmeme.com/memes/confused-math-lady"
+    image_preview: "assets/image-popups/calculating-puzzled-original.gif"
+    popup_blurb: "The classic 'confused math lady' expression"
