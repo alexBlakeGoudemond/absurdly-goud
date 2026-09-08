@@ -26,11 +26,12 @@
 image_popups:
   - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
     image_source: "https://knowyourmeme.com/memes/its-free-real-estate"
-    image_preview: "https://i.kym-cdn.com/entries/icons/original/000/029/959/Screen_Shot_2019-05-17_at_3.36.21_PM.jpg"
+    image_preview: "https://i.kym-cdn.com/photos/images/original/001/170/759/7c9.gif"
     popup_blurb: "Cloning the repo is basically free real estate — the whole point of publicly available code."
 
   - image_vault: "assets/88x31/buttons-memes/this-is-fine-fire.gif"
     image_source: "https://knowyourmeme.com/memes/this-is-fine"
+    image_preview: "assets/image-popups/this-is-fine-fire-original.gif"
     popup_blurb: "The internet, most days."
 
   - image_vault: "assets/88x31/buttons-memes/good-news-everyone.gif"
