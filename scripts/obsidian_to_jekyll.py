@@ -198,7 +198,7 @@ class ObsidianToJekyllConverter:
                                     file_layout='post',
                                     include_permalink=False,
                                     last_published=last_published)
-        elif dest_path.name in ['about.md']:
+        elif dest_path.name in ['about.md', 'buttons.md']:
             add_frontmatter_to_file(dest_path,
                                     include_permalink=True,
                                     last_published=last_published)
