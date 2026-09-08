@@ -24,25 +24,27 @@
 # name, e.g. "-original", for any locally-hosted bigger/original file.
 
 image_popups:
+  - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
+    image_source: "https://knowyourmeme.com/memes/meme-approved-by-knuckles"
+    image_preview: "assets/image-popups/approved-sonic-knuckles-original.gif"
+    popup_blurb: "Knuckles giving his seal of approval"
+
   - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
     image_source: "https://knowyourmeme.com/memes/its-free-real-estate"
-    image_preview: "https://i.kym-cdn.com/photos/images/original/001/170/759/7c9.gif"
-    popup_blurb: "Cloning the repo is basically free real estate — the whole point of publicly available code."
+    image_preview: "assets/image-popups/free-real-estate-original.gif"
+    popup_blurb: "Anyone can jump in - its free real estate!"
 
   - image_vault: "assets/88x31/buttons-memes/this-is-fine-fire.gif"
     image_source: "https://knowyourmeme.com/memes/this-is-fine"
     image_preview: "assets/image-popups/this-is-fine-fire-original.gif"
-    popup_blurb: "The internet, most days."
+    popup_blurb: "The internet, most days"
 
   - image_vault: "assets/88x31/buttons-memes/good-news-everyone.gif"
-    image_source: "assets/source/88x31/buttons-memes/good-news-everyone-original.gif"
-    image_preview: "assets/source/88x31/buttons-memes/good-news-everyone-original.gif"
-    popup_blurb: "Professor Farnsworth's catchphrase from Futurama — the local file here is a higher-res original, not an attribution link."
+    image_source: "https://knowyourmeme.com/sensitive/memes/good-news-everyone"
+    image_preview: "assets/image-popups/good-news-everyone-original.gif"
+    popup_blurb: "Professor Farnsworth's catchphrase from Futurama - often read in his voice"
 
-  - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
-    image_source: "https://knowyourmeme.com/memes/knuckles-sonic-the-hedgehog"
-    popup_blurb: "Knuckles giving his seal of approval."
-
-  # calculating-puzzled.gif intentionally has no entry — used to test the
-  # fallback path (self-link + default blurb + default preview) once
-  # image_popups.py exists.
+  - image_vault: "assets/88x31/buttons-memes/calculating-puzzled.gif"
+    image_source: "https://knowyourmeme.com/memes/confused-math-lady"
+    image_preview: "assets/image-popups/calculating-puzzled-original.gif"
+    popup_blurb: "The classic 'confused math lady' expression"
