@@ -28,6 +28,7 @@ from scripts.parsing_markdown.pipe_escaping import escape_pipes_in_links_outside
 from scripts.parsing_markdown.site_sync import SiteSync
 from scripts.parsing_markdown.wikilinks import build_note_path_lookup, \
     convert_wikilink_note_links_outside_code_blocks_and_code_spans
+from scripts.version_control.cms_helper import write_last_updated
 
 MANIFEST_FILENAME = ".manifest.json"
 
@@ -282,6 +283,7 @@ def main():
 
     obsidian_vault_location, output_location, source_location = extract_command_line_arguments(arguments)
     converter = ObsidianToJekyllConverter(obsidian_vault_location, output_location, source_location)
+    write_last_updated(repo_path=".", output_path=output_location / "_data" / "last_updated.yml")
     converter.run()
 
 

@@ -5,11 +5,9 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] investigate:
 	- [ ] all pics in assets/images?
 - [ ] bugfix:
-	- [ ] 2 directories with same filename inside of them should be allowed to exist at the same time
 	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
 	- [ ] tables require empty newline before and after for jekyll
 - [ ] Add test pipeline before pushing
-- [ ] Include in footer: created
 - [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
@@ -30,6 +28,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Include in footer: created (2026-09-08)
 - [x] images should support link to larger version of themselves (2026-09-08)
 - [X] checkbox to freeze animation, if desired (2026-09-07)
 - [x] Quote syntax to be automatically given a class: `>`. i.e. `[!note]` syntax to be supported in HTML (2026-09-07)
