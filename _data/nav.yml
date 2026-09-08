@@ -3,6 +3,8 @@
   url: /
 - title: About
   url: /about/
+- title: Posts
+  url: /posts/
 - title: Journey
   url: /journey/
   children:
@@ -16,11 +18,8 @@
       url: /journey/progress/website-progress/
     - title: Whiteboard
       url: /journey/whiteboard/website-whiteboard/
-- title: 88x31
-  url: /88x31/
-  children:
-    - title: Memes as Buttons
-      url: /memes-as-buttons/
+- title: Buttons
+  url: /buttons/
 #- title: Writing
 #  url: /writing/
 #  children:

@@ -1,15 +1,14 @@
 <header>
     <nav>
-        <a href="/">
+        <a href="{{ '/' | relative_url }}">
             <img src="{{ '/favicon.svg' | relative_url }}"
                  alt="Home"
                  width="40"
                  height="40">
         </a>
 
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-        <a href="/posts/">Posts</a>
-        <a href="/journey/">Journey</a>
+        {% for item in site.data.nav %}
+            <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        {% endfor %}
     </nav>
 </header>
