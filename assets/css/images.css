@@ -1,4 +1,3 @@
-
 .image-popup-trigger {
     all: unset;
     display: inline-block;
@@ -62,6 +61,20 @@
 .image-popup-body {
     padding-top: 1.5rem;
     color: #2b1b1b;
+}
+
+.image-popup-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 1rem;
+    border: 1px solid #630b0b;
+    border-radius: 8px;
+    image-rendering: pixelated; /* keeps small gifs (88x31 buttons) crisp when scaled up */
+}
+
+.image-popup-image[hidden] {
+    display: none;
 }
 
 .image-popup-body p {

@@ -3,12 +3,12 @@ import unittest
 from pathlib import Path
 from textwrap import dedent
 
+from scripts.parsing_markdown.markdown_images import (
+    convert_markdown_image_notation_to_jekyll_includes_image_notation,
+)
 from scripts.parsing_markdown.image_popups import (
     DEFAULT_POPUP_BLURB,
     load_image_popup_entries,
-)
-from scripts.parsing_markdown.markdown_images import (
-    convert_markdown_image_notation_to_jekyll_includes_image_notation,
 )
 
 
@@ -111,8 +111,24 @@ class TestLoadImagePopupEntries(unittest.TestCase):
             entries['free-real-estate.gif'],
             {
                 'image_source': 'https://knowyourmeme.com/memes/free-real-estate',
+                'image_preview': None,
                 'popup_blurb': 'A classic meme',
             },
+        )
+
+    def test_image_preview_is_loaded_when_present(self):
+        self.data_path.write_text(dedent("""\
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
+                image_source: "https://knowyourmeme.com/memes/free-real-estate"
+                image_preview: "https://example.com/original.jpg"
+                popup_blurb: "A classic meme"
+            """), encoding='utf-8')
+
+        entries = load_image_popup_entries(self.data_path)
+
+        self.assertEqual(
+            entries['free-real-estate.gif']['image_preview'], 'https://example.com/original.jpg'
         )
 
     def test_local_vault_source_is_preserved_as_is(self):

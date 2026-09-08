@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Loads popup metadata (source link + blurb) for inline images from a vault
-data file, e.g. absurdly-goud-obsidian/data/image_popups.yml:
+Loads popup metadata (source link + blurb + optional preview image) for
+inline images from a vault data file, e.g.
+absurdly-goud-obsidian/data/image_popups.yml:
 
     image_popups:
       - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
         image_source: "https://knowyourmeme.com/memes/free-real-estate"
+        image_preview: "https://knowyourmeme.com/photos/original.jpg"
         popup_blurb: "Cloning the repo is basically free real estate."
 
 Entries are keyed by the image_vault filename (matching how
@@ -49,6 +51,7 @@ def load_image_popup_entries(data_path: Path) -> dict[str, dict]:
         filename = Path(entry["image_vault"]).name
         entries[filename] = {
             "image_source": entry.get("image_source"),
+            "image_preview": entry.get("image_preview"),
             "popup_blurb": entry.get("popup_blurb"),
         }
 

@@ -186,6 +186,52 @@ class TestRunEndToEnd(unittest.TestCase):
         self.assertIn('popup_src="https://knowyourmeme.com/memes/free-real-estate"', about)
         self.assertIn('popup_blurb="A classic meme"', about)
 
+    def test_image_popup_preview_from_vault_data_reaches_the_rendered_include(self):
+        buttons_dir = self.vault / "assets" / "88x31" / "buttons-memes"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "free-real-estate.gif").write_bytes(b"fake-gif-bytes")
+
+        data_dir = self.vault / "data"
+        data_dir.mkdir()
+        (data_dir / "image_popups.yml").write_text(dedent("""\
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
+                image_source: "https://knowyourmeme.com/memes/free-real-estate"
+                image_preview: "https://example.com/original.jpg"
+                popup_blurb: "A classic meme"
+            """), encoding="utf-8")
+
+        about_dir = self.vault / "about"
+        about_dir.mkdir()
+        (about_dir / "about.md").write_text(
+            "cloning the repo is ![[free-real-estate.gif]] basically free real estate",
+            encoding="utf-8",
+        )
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+        converter.run()
+
+        about = (self.output / "about" / "about.md").read_text(encoding="utf-8")
+        self.assertIn('popup_preview="https://example.com/original.jpg"', about)
+
+    def test_image_popup_preview_defaults_to_displayed_image_end_to_end(self):
+        buttons_dir = self.vault / "assets" / "88x31" / "buttons-memes"
+        buttons_dir.mkdir(parents=True)
+        (buttons_dir / "calculating-puzzled.gif").write_bytes(b"fake-gif-bytes")
+
+        about_dir = self.vault / "about"
+        about_dir.mkdir()
+        (about_dir / "about.md").write_text(
+            "not sure what to think ![[calculating-puzzled.gif]] about this",
+            encoding="utf-8",
+        )
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+        converter.run()
+
+        about = (self.output / "about" / "about.md").read_text(encoding="utf-8")
+        self.assertIn('popup_preview="assets/88x31/calculating-puzzled.gif"', about)
+
     def test_inline_image_with_no_popup_entry_falls_back_end_to_end(self):
         buttons_dir = self.vault / "assets" / "88x31" / "buttons-memes"
         buttons_dir.mkdir(parents=True)
