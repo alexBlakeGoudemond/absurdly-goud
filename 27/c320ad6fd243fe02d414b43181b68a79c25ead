@@ -1,0 +1,45 @@
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 5-14,18-24,29,37-38,46-47
+  h_1197a506f6c7d6 3-4,15
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 21,190-256,273
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_run.py
+  h_1197a506f6c7d6 189-234
+_includes/image.html
+  h_1197a506f6c7d6 1-3
+  h_1197a506f6c7d6 4
+assets/js/image_popups.js
+  h_1197a506f6c7d6 32-35,44,66,69,75-85
+  s_74d83b63cff61e::t_fa9ec91d25cd81 120
+scripts/parsing_markdown/image_popups.py
+  h_1197a506f6c7d6 3-5,10,54
+tests/parsing_markdown/test_image_popups.py
+  h_1197a506f6c7d6 6-7,114,119-131,133
+  h_1197a506f6c7d6 8,132
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 68,77-79,82,91,118,120,123,125-129,131-136,138,148,153
+assets/css/images.css
+  h_1197a506f6c7d6 66-79
+  h_1197a506f6c7d6 103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "27c320ad6fd243fe02d414b43181b68a79c25ead",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_74d83b63cff61e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "09c9a619-d593-46e0-9b4e-4826314410bc",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
