@@ -1,0 +1,32 @@
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 30,43
+  s_4877e84a9cf441::t_a3d0db1cddd665 34
+  s_4877e84a9cf441::t_cdff7cdbb1f172 44
+  s_4877e84a9cf441::t_0da451d98d8e76 49
+  s_4877e84a9cf441::t_3f7607d1f2d686 35
+  s_4877e84a9cf441::t_393dbab3318e30 45
+  s_4877e84a9cf441::t_131062d5b06e11 47-48
+  s_4877e84a9cf441::t_a87fa6b08ad971 50
+  h_1197a506f6c7d6 27-29,31,40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "db5600165ab05f20d32fa8d6d1199eb1c8ec6bfa",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_4877e84a9cf441": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1788797319920",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
