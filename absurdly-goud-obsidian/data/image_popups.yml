@@ -48,3 +48,12 @@ image_popups:
     image_source: "https://knowyourmeme.com/memes/confused-math-lady"
     image_preview: "assets/image-popups/calculating-puzzled-original.gif"
     popup_blurb: "The classic 'confused math lady' expression"
+
+  - image_vault: "assets/88x31/buttons-indieweb/brennan-day-alt-optimized.gif"
+    image_source: "https://brennan.day/"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site"
+
+#  - image_vault: ""
+#    image_source: ""
+#    image_preview: ""
+#    popup_blurb: ""
