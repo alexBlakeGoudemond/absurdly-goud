@@ -1,0 +1,16 @@
+absurdly-goud-obsidian/buttons/buttons.md
+  h_1197a506f6c7d6 5-8,10,14
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 51-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "891bf175732ef987c30415a48a91fc6c1f71abd9",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
