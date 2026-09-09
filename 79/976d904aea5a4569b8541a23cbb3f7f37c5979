@@ -1,0 +1,19 @@
+docs/JEKYLL.md
+  h_1197a506f6c7d6 13
+  h_1197a506f6c7d6 14
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 50
+absurdly-goud-obsidian/journey/progress/website-progress.md
+  h_1197a506f6c7d6 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "79976d904aea5a4569b8541a23cbb3f7f37c5979",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
