@@ -7,6 +7,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] bugfix:
 	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
 	- [ ] tables require empty newline before and after for jekyll
+	- [ ] why cant link about to duck collection post? GitHub Actions error
 - [ ] Add test pipeline before pushing
 - [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
