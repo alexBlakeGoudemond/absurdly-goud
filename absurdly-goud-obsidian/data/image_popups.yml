@@ -49,9 +49,15 @@ image_popups:
     image_preview: "assets/image-popups/calculating-puzzled-original.gif"
     popup_blurb: "The classic 'confused math lady' expression"
 
+# 88x31 indieweb buttons below
+
   - image_vault: "assets/88x31/buttons-indieweb/brennan-day-alt-optimized.gif"
     image_source: "https://brennan.day/"
-    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/jelloeater.png"
+    image_source: "https://jelloeater.me/now/"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
 
 #  - image_vault: ""
 #    image_source: ""
