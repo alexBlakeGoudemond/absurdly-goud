@@ -7,7 +7,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] bugfix:
 	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
 	- [ ] tables require empty newline before and after for jekyll
-	- [ ] why cant link about to duck collection post? GitHub Actions error
 - [ ] Add test pipeline before pushing
 - [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
@@ -29,6 +28,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [ ] why cant link about to duck collection post? GitHub Actions error. A: Post was in the future: 2029-09-09, jekyll did not generate
 - [x] Include in footer: created (2026-09-08)
 - [x] images should support link to larger version of themselves (2026-09-08)
 - [X] checkbox to freeze animation, if desired (2026-09-07)
