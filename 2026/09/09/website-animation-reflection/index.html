@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Posts | ABsurdly Goud</title>
+    <title>Website Animation Reflection | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
@@ -68,126 +68,80 @@
 
 <div class="page-wrapper">
     <main>
-        <div class="h-feed">
+        <article class="h-entry">
 
-  <h1 class="p-name">Posts</h1>
+    <header>
+        <h2 class="p-name">Website Animation Reflection</h2>
 
-  
+        
+        
+        <div class="dt-published">
+            Created:
+            <time datetime="2026-09-09T00:00:00+00:00">
+                2026-09-09
+            </time>
 
-  <article class="h-entry post">
+            Last updated:
+            <time datetime="2026-09-09T04:09:00+00:00">
+                2026-09-09 04:09
+            </time>
+        </div>
+    </header>
 
-    <h2 class="p-name">
-      Obsidian Test
-    </h2>
+    <div class="e-content">
+        
 
-    
-    
-    <div class="dt-published">
-      Created:
-      <time datetime="2026-08-20T00:00:00+00:00">
-        2026-08-20
-      </time>
+        <p>The animated background in this website was built up slowly, and now there are swimming ducks! Below I will explain how I achieved this</p>
 
-      Last updated:
-      <time datetime="2026-09-09T04:09:00+00:00">
-        2026-09-09 04:09
-      </time>
+<!--more-->
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/swimming-duck-example.png" alt="swimming-duck-example.png" />
+    <figcaption>swimming-duck-example.png</figcaption>
+</figure>
+
+<p>The animation is done with CSS, JS and HTML. It is made up of the ‘water’ and the ducks themselves. JS then updates the position of the waves and the ducks to create the movement.</p>
+
+<p>Specifically, when looking at <a href="/journey/design/website-design/#how-does-this-website-work?">how this website works</a>, inside <code class="language-plaintext highlighter-rouge">site_src</code>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">assets/js/pond.js</code> has the movement logic</li>
+  <li><code class="language-plaintext highlighter-rouge">_includes/animated-background.html</code> has the template for the animation itself</li>
+  <li><code class="language-plaintext highlighter-rouge">assets/site-background/*.svg</code> has the duck collection</li>
+  <li><code class="language-plaintext highlighter-rouge">assets/css/animated-background.css</code> has the styling</li>
+  <li>10 wave elements are defined, with JS filling in their data each frame
+    <ul>
+      <li>This movement is achieved through <code class="language-plaintext highlighter-rouge">requestAnimationFrame()</code> see <a href="https://developer.mozilla.org/docs/Web/API/DedicatedWorkerGlobalScope/requestAnimationFrame">MDN Reference | requestAnimationFrame</a></li>
+    </ul>
+  </li>
+  <li>Key parts of this animation include:
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">time</code> attribute, provided by the browser via <code class="language-plaintext highlighter-rouge">requestAnimationFrame</code></li>
+      <li>The wave shape via trigonometry: <code class="language-plaintext highlighter-rouge">phase</code>, <code class="language-plaintext highlighter-rouge">wiggleSpeed</code>, and <code class="language-plaintext highlighter-rouge">wiggleAmplitude</code></li>
+      <li>A SVG path is built from those points using quadratic curves (<code class="language-plaintext highlighter-rouge">Q</code>)</li>
+      <li>JS fills in the data each frame - creation movement as the</li>
+    </ul>
+  </li>
+</ul>
+
+<p>The smoothness is done with tricks:</p>
+<ul>
+  <li>Waves and ducks begin and end outside the view window - moving downward</li>
+  <li>The wave oscillation created the up-down wobble that bends</li>
+  <li>As the wave bends it also moves downwards</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">animateDucks(time)</code> then moves the ducks, simulating gentle side-to-side movement and bobbing. A ripple periodically comes out the back of them - implying movement ontop of the water</p>
+
+<p>Finally there is a power toggle to pause the animation</p>
+
     </div>
 
-    <div class="p-summary">
-      <p>This is a note I produced using Obsidian - just focussing on the MarkDown Note</p>
-
-
-      <a class="u-url" href="/2026/08/20/obsidian-test/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Pagination Test
-    </h2>
-
-    
-    
-    <div class="dt-published">
-      Created:
-      <time datetime="2026-08-19T00:00:00+00:00">
-        2026-08-19
-      </time>
-
-      Last updated:
-      <time datetime="2026-09-09T04:09:00+00:00">
-        2026-09-09 04:09
-      </time>
-    </div>
-
-    <div class="p-summary">
-      <p>Hello, IndieWeb!</p>
-
-
-      <a class="u-url" href="/2026/08/19/pagination-test/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Hello World
-    </h2>
-
-    
-    
-    <div class="dt-published">
-      Created:
-      <time datetime="2026-08-19T00:00:00+00:00">
-        2026-08-19
-      </time>
-
-      Last updated:
-      <time datetime="2026-09-09T04:09:00+00:00">
-        2026-09-09 04:09
-      </time>
-    </div>
-
-    <div class="p-summary">
-      <p>Hello, IndieWeb!</p>
-
-
-      <a class="u-url" href="/2026/08/19/hello-world/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  
-
-  <nav class="pagination" aria-label="Posts pagination">
-
-    
-    <a href="/posts/page5/">
-      ← Newer posts
-    </a>
-    
-
-    <span>
-            Page 6 of 6
-        </span>
-
-    
-
-  </nav>
-
-  
-
-</div>
+</article>
     </main>
 
     <aside>
