@@ -53,12 +53,12 @@ image_popups:
   
   - image_vault: "assets/88x31/buttons-memes/oia-uia.gif"
     image_source: "https://knowyourmeme.com/memes/oo-ee-a-e-a-cat-remixes"
-    image_preview: "assets/image-popups/oia-uia-original.gif"
+    image_preview: "https://youtu.be/LYCYoSiqgqA"
     popup_blurb: "The Oo Ee A E A Meme associated with that viral sound"
     
   - image_vault: "assets/88x31/buttons-memes/maxwell-kocykvr.gif"
     image_source: "https://knowyourmeme.com/memes/maxwell-the-cat-spinning-cat"
-    image_preview: "assets/image-popups/maxwell-kocykvr-original.gif"
+    image_preview: "https://youtu.be/GACrYR3Vxbw?si=Z7Z7rJXmEzp4MiRt"
     popup_blurb: "You have acquired the CAT!"
 
 # This websites 88x31 button below
