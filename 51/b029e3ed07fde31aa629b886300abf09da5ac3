@@ -1,0 +1,14 @@
+scripts/version_control/cms_helper.py
+  h_1197a506f6c7d6 23,38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "51b029e3ed07fde31aa629b886300abf09da5ac3",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
