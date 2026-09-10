@@ -1,0 +1,17 @@
+assets/js/image_popups.js
+  h_1197a506f6c7d6 52,64,74-75,83-84,102,126-132
+assets/css/images.css
+  h_1197a506f6c7d6 68,76-116
+  h_1197a506f6c7d6 117-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "39c0bdaafa5ba80b0073f87959d86b9b383de8b3",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
