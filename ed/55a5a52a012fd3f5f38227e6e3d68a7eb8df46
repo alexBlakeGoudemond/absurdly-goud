@@ -1,0 +1,28 @@
+assets/css/style.css
+  h_1197a506f6c7d6 142-143,148,151,159,164,170-171,173
+  s_b3d0970d23d3a8::t_de9eba2412455a 144-147,149-150,152-158,160-163,165-169,172,174-184
+_includes/aside/aside-updates.html
+  s_b3d0970d23d3a8::t_92d3ba86e2eb94 1-2,4-8,10,12-13
+  h_1197a506f6c7d6 3,9,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ed55a5a52a012fd3f5f38227e6e3d68a7eb8df46",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b3d0970d23d3a8": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "543eefe9-3d36-4f2c-b810-310116809ad1",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
