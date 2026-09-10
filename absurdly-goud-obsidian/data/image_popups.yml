@@ -56,8 +56,12 @@ image_popups:
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
     
   - image_vault: "assets/88x31/buttons-indieweb/jelloeater.png"
-    image_source: "https://jelloeater.me/now/"
+    image_source: "https://jelloeater.me/"
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/ritual_1.png"
+    image_source: "https://ritual.sh/"
+    popup_blurb: "Found through the IndieWeb when learning about 88x31 buttons - via his Button Creator. Super cool site!"
 
 #  - image_vault: ""
 #    image_source: ""
