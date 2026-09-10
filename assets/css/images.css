@@ -65,11 +65,55 @@
 
 .image-popup-media {
     margin: 0 0 1rem;
+    position: relative;
 }
 
 .image-popup-media:empty {
     display: none;
     margin: 0;
+}
+
+.image-popup-media.is-loading {
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(99 11 11 / 0.25);
+    border-radius: 8px;
+}
+
+.image-popup-media.is-loading::after {
+    content: "";
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgb(99 11 11 / 0.2);
+    border-top-color: #630b0b;
+    border-radius: 50%;
+    animation: image-popup-spin 0.8s linear infinite;
+}
+
+@keyframes image-popup-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.image-popup-image,
+.image-popup-video,
+.image-popup-embed {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.image-popup-media.is-loading .image-popup-image,
+.image-popup-media.is-loading .image-popup-video,
+.image-popup-media.is-loading .image-popup-embed {
+    /* Rendered off-screen rather than display:none, so the browser still
+       loads it and fires the load/loadeddata event that clears is-loading —
+       display:none can pause that in some browsers (notably iframes). */
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .image-popup-image,

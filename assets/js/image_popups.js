@@ -49,7 +49,7 @@
         document.body.appendChild(backdrop);
     }
 
-    function buildMediaElement(previewType, src, alt) {
+    function buildMediaElement(previewType, src, alt, onReady) {
         if (previewType === 'youtube' || previewType === 'vimeo') {
             var iframe = document.createElement('iframe');
             iframe.className = 'image-popup-embed';
@@ -61,6 +61,7 @@
             );
             iframe.setAttribute('allowfullscreen', '');
             iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+            iframe.addEventListener('load', onReady, { once: true });
             return iframe;
         }
 
@@ -70,6 +71,8 @@
             video.src = src;
             video.controls = true;
             video.playsInline = true;
+            video.addEventListener('loadeddata', onReady, { once: true });
+            video.addEventListener('error', onReady, { once: true });
             return video;
         }
 
@@ -77,6 +80,8 @@
         image.className = 'image-popup-image';
         image.src = src;
         image.alt = alt || '';
+        image.addEventListener('load', onReady, { once: true });
+        image.addEventListener('error', onReady, { once: true }); // don't spin forever on a broken link
         return image;
     }
 
@@ -94,6 +99,7 @@
         var mediaContainer = document.querySelector('.image-popup-media');
         if (mediaContainer) {
             mediaContainer.innerHTML = '';
+            mediaContainer.classList.remove('is-loading');
         }
     }
 
@@ -117,7 +123,13 @@
 
         mediaContainer.innerHTML = '';
         if (popupImage) {
-            mediaContainer.appendChild(buildMediaElement(popupPreviewType, popupImage, triggerAlt));
+            mediaContainer.classList.add('is-loading');
+            var mediaElement = buildMediaElement(popupPreviewType, popupImage, triggerAlt, function () {
+                mediaContainer.classList.remove('is-loading');
+            });
+            mediaContainer.appendChild(mediaElement);
+        } else {
+            mediaContainer.classList.remove('is-loading');
         }
 
         text.textContent = popupBlurb;
