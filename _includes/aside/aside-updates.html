@@ -1,7 +1,7 @@
 <div class="aside-updates">
     {% if site.data.last_updated.last_commit_message %}
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong>
+        <strong>Recent Updates:</strong> <time>{{ site.data.last_updated.last_updated | date: "%Y-%m-%d %H:%M" }}</time>
         <p>{{ site.data.last_updated.last_commit_message }}</p>
     </div>
     {% endif %}
