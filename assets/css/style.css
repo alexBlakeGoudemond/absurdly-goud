@@ -140,3 +140,46 @@ div.highlighter-rouge pre.highlight {
     margin: 0;
     overflow-x: visible;
 }
+
+.aside-updates {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+    padding: 0.5rem;
+}
+
+.aside-updates-panel {
+    padding: 0.75rem 0.9rem;
+    border-radius: 12px;
+    border: 1px solid #7ca9e6;
+    background: #edf6ff;
+    color: #1c3558;
+}
+
+.aside-updates-panel strong {
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.aside-updates-panel p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.last-commit-message {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #dfeeff;
+    border-color: #5d8ee8;
+}
+
+.last-commit-message p {
+    margin: 0;
+}
+
+.aside-status {
+    background-color: #eef7ff;
+    border-color: #82aee9;
+}
