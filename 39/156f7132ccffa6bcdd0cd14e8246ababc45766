@@ -1,0 +1,28 @@
+scripts/parsing_markdown/markdown_images.py
+  h_1197a506f6c7d6 12-17,73,83-85,89,98,125,127,130,142-163,166-167,169,179,184
+  h_1197a506f6c7d6 164,230
+tests/parsing_markdown/test_image_popups.py
+  h_1197a506f6c7d6 12-14,94-144
+assets/css/images.css
+  h_1197a506f6c7d6 66-76,78,83-85,89-94
+scripts/parsing_markdown/image_popups.py
+  h_1197a506f6c7d6 19,25-60
+  h_1197a506f6c7d6 61,96
+_includes/image.html
+  h_1197a506f6c7d6 12,16,21,25
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 21-22,276-363
+assets/js/image_popups.js
+  h_1197a506f6c7d6 32-33,43,52-82,90-97,104,107,114,116,118,120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "39156f7132ccffa6bcdd0cd14e8246ababc45766",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
