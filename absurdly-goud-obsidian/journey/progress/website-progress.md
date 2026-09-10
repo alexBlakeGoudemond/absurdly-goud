@@ -2,6 +2,7 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] Like last quack - add component in aside for updates, drawing from last commit message
 - [ ] investigate:
 	- [ ] all pics in assets/images?
 - [ ] bugfix:
