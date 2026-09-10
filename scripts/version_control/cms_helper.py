@@ -20,7 +20,7 @@ def write_last_updated(repo_path, output_path, recreate_directory=False):
     }
     if recreate_directory:
         output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w") as f:
+    with open(output_path, "a") as f:
         yaml.dump(data, f, default_flow_style=False)
 
 def write_last_commit_message(repo_path, output_path, branch="main", recreate_directory=False):
@@ -32,9 +32,8 @@ def write_last_commit_message(repo_path, output_path, branch="main", recreate_di
 
     data = {
         "last_commit_message": commit_message,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
     }
     if recreate_directory:
         output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w") as f:
+    with open(output_path, "a") as f:
         yaml.dump(data, f, default_flow_style=False)
