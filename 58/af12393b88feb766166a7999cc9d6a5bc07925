@@ -1,0 +1,36 @@
+_includes/aside/aside-updates.html
+  h_1197a506f6c7d6 1-6
+scripts/version_control/cms_helper.py
+  s_ce1601d4b1daa0::t_26eff81e93fec5 21-22,38
+  h_1197a506f6c7d6 25-26,32,37
+  s_ce1601d4b1daa0::t_bd676a6eb9418a 39-40
+  h_1197a506f6c7d6 10,27-31,33-36
+scripts/obsidian_to_jekyll.py
+  s_ce1601d4b1daa0::t_d10d1b331ef8b9 287
+  s_ce1601d4b1daa0::t_97b1c82919a95a 286
+  s_ce1601d4b1daa0::t_0b592ab310eebc 288
+  h_1197a506f6c7d6 31
+_includes/aside.html
+  h_1197a506f6c7d6 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "58af12393b88feb766166a7999cc9d6a5bc07925",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ce1601d4b1daa0": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1789009395640",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
