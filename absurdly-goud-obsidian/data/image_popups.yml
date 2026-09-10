@@ -49,6 +49,12 @@ image_popups:
     image_preview: "assets/image-popups/calculating-puzzled-original.gif"
     popup_blurb: "The classic 'confused math lady' expression"
 
+# This websites 88x31 button below
+
+  - image_vault: "assets/88x31/buttons-indieweb/absurdlygoud-88x31.gif"
+    image_source: "https://absurdlygoud.com/"
+    popup_blurb: "This website's 88x31 button"
+
 # 88x31 indieweb buttons below
 
   - image_vault: "assets/88x31/buttons-indieweb/brennan-day-alt-optimized.gif"

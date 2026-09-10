@@ -10,6 +10,10 @@ Below is a kind of stickerboard for the ones I have so far - both ones I've made
 
 ![[free-real-estate.gif]] ![[calculating-puzzled.gif]] ![[good-news-everyone.gif]] ![[approved-sonic-knuckles.gif]] ![[this-is-fine-fire.gif]]
 
+## This Websites 88x31 Button
+
+![[absurdlygoud-88x31.gif]]
+
 ## Other 88x31 Buttons I like
 
 ![[brennan-day-alt-optimized.gif]]![[jelloeater.png]]![[ritual_1.gif]]
