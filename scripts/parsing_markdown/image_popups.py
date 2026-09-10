@@ -16,10 +16,48 @@ here simply gets no entry — the caller decides the fallback.
 """
 
 from pathlib import Path
+import re
 
 import yaml
 
 DEFAULT_POPUP_BLURB = "No details yet"
+
+# Deliberately permissive on query params (e.g. ?si=..., &t=30s) since real
+# links people paste in rarely come as bare watch?v=ID URLs.
+YOUTUBE_ID_PATTERN = re.compile(
+    r'(?:youtube(?:-nocookie)?\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/)|youtu\.be/)'
+    r'(?P<id>[A-Za-z0-9_-]{11})'
+)
+VIMEO_ID_PATTERN = re.compile(r'vimeo\.com/(?:video/)?(?P<id>\d+)')
+VIDEO_FILE_EXTENSIONS = {'.mp4', '.webm', '.mov', '.ogg', '.ogv'}
+
+
+def classify_preview_type(raw_value: str) -> str:
+    """Classifies a raw image_preview value (local vault path or URL) as
+    'youtube', 'vimeo', 'video' (a direct video file), or 'image' — the
+    default, covering plain image paths/URLs and anything unrecognized."""
+    lower_value = raw_value.lower()
+    if 'youtube.com' in lower_value or 'youtu.be' in lower_value:
+        return 'youtube'
+    if 'vimeo.com' in lower_value:
+        return 'vimeo'
+    if Path(raw_value).suffix.lower() in VIDEO_FILE_EXTENSIONS:
+        return 'video'
+    return 'image'
+
+
+def build_youtube_embed_url(raw_value: str) -> str | None:
+    """Extracts the video ID from any common YouTube URL shape and returns
+    a youtube-nocookie.com embed URL (fewer tracking cookies set before any
+    interaction). Returns None if no valid-looking ID is found, so the
+    caller can fall back gracefully rather than embedding a broken iframe."""
+    match = YOUTUBE_ID_PATTERN.search(raw_value)
+    return f'https://www.youtube-nocookie.com/embed/{match.group("id")}' if match else None
+
+
+def build_vimeo_embed_url(raw_value: str) -> str | None:
+    match = VIMEO_ID_PATTERN.search(raw_value)
+    return f'https://player.vimeo.com/video/{match.group("id")}' if match else None
 
 
 def load_image_popup_entries(data_path: Path) -> dict[str, dict]:

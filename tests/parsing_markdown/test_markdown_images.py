@@ -18,7 +18,8 @@ class TestCreateJekyllImageLayout(unittest.TestCase):
             'image.png', 'Alt text', is_inline=True)
         expected_syntax = (
             '{% include image.html src="image.png" alt="Alt text" title="Alt text" '
-            'popup_src="image.png" popup_blurb="No details yet" popup_preview="image.png" %}'
+            'popup_src="image.png" popup_blurb="No details yet" popup_preview="image.png" '
+            'popup_preview_type="image" %}'
         )
         self.assertEqual(dedent(expected_syntax), actual_syntax)
 
@@ -271,6 +272,94 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
         self.assertNotIn('popup_src', result)
         self.assertNotIn('popup_blurb', result)
         self.assertNotIn('popup_preview', result)
+
+    def test_youtube_preview_becomes_a_nocookie_embed_url_typed_as_youtube(self):
+        content = "check this out ![Alt](free-real-estate.gif) it's great"
+        image_lookup = {"free-real-estate.gif": "assets/88x31/free-real-estate.gif"}
+        popup_lookup = {
+            "free-real-estate.gif": {
+                "image_source": "https://knowyourmeme.com/memes/free-real-estate",
+                "image_preview": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                "popup_blurb": "A classic meme",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn(
+            'popup_preview="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"', result
+        )
+        self.assertIn('popup_preview_type="youtube"', result)
+
+    def test_vimeo_preview_becomes_a_player_embed_url_typed_as_vimeo(self):
+        content = "check this out ![Alt](free-real-estate.gif) it's great"
+        image_lookup = {"free-real-estate.gif": "assets/88x31/free-real-estate.gif"}
+        popup_lookup = {
+            "free-real-estate.gif": {
+                "image_source": "https://knowyourmeme.com/memes/free-real-estate",
+                "image_preview": "https://vimeo.com/123456789",
+                "popup_blurb": "A classic meme",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('popup_preview="https://player.vimeo.com/video/123456789"', result)
+        self.assertIn('popup_preview_type="vimeo"', result)
+
+    def test_local_video_preview_resolves_through_image_path_lookup_and_is_typed_as_video(self):
+        content = "have a look ![Alt](good-news-everyone.gif) huh"
+        image_lookup = {
+            "good-news-everyone.gif": "assets/88x31/good-news-everyone.gif",
+            "good-news-everyone-original.mp4": "assets/video-popups/good-news-everyone-original.mp4",
+        }
+        popup_lookup = {
+            "good-news-everyone.gif": {
+                "image_source": "https://example.com/futurama",
+                "image_preview": "assets/video-popups/good-news-everyone-original.mp4",
+                "popup_blurb": "Good news, everyone!",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn(
+            'popup_preview="assets/video-popups/good-news-everyone-original.mp4"', result
+        )
+        self.assertIn('popup_preview_type="video"', result)
+
+    def test_plain_image_preview_is_still_typed_as_image(self):
+        content = "check this out ![Alt](free-real-estate.gif) it's great"
+        image_lookup = {"free-real-estate.gif": "assets/88x31/free-real-estate.gif"}
+        popup_lookup = {
+            "free-real-estate.gif": {
+                "image_source": "https://knowyourmeme.com/memes/free-real-estate",
+                "image_preview": "https://example.com/original.jpg",
+                "popup_blurb": "A classic meme",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('popup_preview_type="image"', result)
+
+    def test_no_popup_entry_defaults_preview_type_to_image(self):
+        content = "have a look ![Alt](calculating-puzzled.gif) huh"
+        image_lookup = {"calculating-puzzled.gif": "assets/88x31/calculating-puzzled.gif"}
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, image_popup_lookup=None
+        )
+
+        self.assertIn('popup_preview_type="image"', result)
 
 
 class TestBuildImagePathLookup(unittest.TestCase):

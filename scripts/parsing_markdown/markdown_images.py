@@ -9,7 +9,12 @@ from pathlib import Path
 from textwrap import dedent
 
 from scripts.parsing_markdown.markdown_regions import apply_outside_code_blocks_and_code_spans
-from scripts.parsing_markdown.image_popups import DEFAULT_POPUP_BLURB
+from scripts.parsing_markdown.image_popups import (
+    DEFAULT_POPUP_BLURB,
+    classify_preview_type,
+    build_youtube_embed_url,
+    build_vimeo_embed_url,
+)
 
 MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 
@@ -65,7 +70,7 @@ def build_image_path_lookup(assets_path: Path) -> dict[str, str]:
 def convert_markdown_image_notation_to_jekyll_includes_image_notation(
         image_name: str, image_alt_text: str, is_inline: bool = True,
         popup_source: str | None = None, popup_blurb: str | None = None,
-        popup_preview: str | None = None,
+        popup_preview: str | None = None, popup_preview_type: str | None = None,
 ) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
@@ -75,11 +80,13 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
         # does) — falling back to a self-link (the image's own resolved
         # path) and a default blurb when there's no image_popups.yml entry
         # behind it, rather than omitting the popup attributes. The popup's
-        # preview image falls back to the displayed image itself when no
-        # separate original/bigger image is supplied.
+        # preview falls back to the displayed image itself (always a plain
+        # image, hence popup_preview_type defaults to 'image' too) when no
+        # separate original/bigger preview is supplied.
         resolved_popup_source = popup_source if popup_source is not None else image_name
         resolved_popup_blurb = popup_blurb if popup_blurb is not None else DEFAULT_POPUP_BLURB
         resolved_popup_preview = popup_preview if popup_preview is not None else image_name
+        resolved_popup_preview_type = popup_preview_type if popup_preview_type is not None else 'image'
 
         # Single line, no leading/trailing newlines — must sit inline with
         # surrounding prose without breaking the paragraph/list item or
@@ -88,7 +95,7 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
             f'{opening_brace} include image.html '
             f'src="{image_name}" alt="{image_alt_text}" title="{image_alt_text}" '
             f'popup_src="{resolved_popup_source}" popup_blurb="{resolved_popup_blurb}" '
-            f'popup_preview="{resolved_popup_preview}" '
+            f'popup_preview="{resolved_popup_preview}" popup_preview_type="{resolved_popup_preview_type}" '
             f'{closing_brace}'
         )
 
@@ -115,12 +122,12 @@ def replace_images_in_line(
     else:
         is_inline = False  # unused, no match to replace anyway
 
-    def resolve_popup(image_name: str) -> tuple[str | None, str | None, str | None]:
+    def resolve_popup(image_name: str) -> tuple[str | None, str | None, str | None, str | None]:
         if not image_popup_lookup:
-            return None, None, None
+            return None, None, None, None
         popup_entry = image_popup_lookup.get(Path(image_name).name)
         if not popup_entry:
-            return None, None, None
+            return None, None, None, None
 
         def resolve_local_or_external(raw_path: str | None) -> str | None:
             if not raw_path:
@@ -132,10 +139,34 @@ def replace_images_in_line(
             # landed post-build rather than its vault-relative path.
             return image_path_lookup.get(Path(raw_path).name, raw_path)
 
-        popup_source = resolve_local_or_external(popup_entry.get('image_source'))
-        popup_preview = resolve_local_or_external(popup_entry.get('image_preview'))
+        def resolve_preview(raw_preview: str | None) -> tuple[str | None, str | None]:
+            if not raw_preview:
+                return None, None
 
-        return popup_source, popup_entry.get('popup_blurb'), popup_preview
+            preview_type = classify_preview_type(raw_preview)
+            if preview_type == 'youtube':
+                embed_url = build_youtube_embed_url(raw_preview)
+                if embed_url:
+                    return embed_url, 'youtube'
+                # Looked like a YouTube link but no video ID could be
+                # extracted — fall back to treating it as a plain image
+                # rather than embedding a guaranteed-broken iframe.
+                return resolve_local_or_external(raw_preview), 'image'
+            if preview_type == 'vimeo':
+                embed_url = build_vimeo_embed_url(raw_preview)
+                if embed_url:
+                    return embed_url, 'vimeo'
+                return resolve_local_or_external(raw_preview), 'image'
+
+            # 'video' (a direct local/hosted file) and 'image' both go
+            # through the same local-vs-external resolution as image_source.
+            return resolve_local_or_external(raw_preview), preview_type
+
+        popup_source = resolve_local_or_external(popup_entry.get('image_source'))
+        popup_blurb = popup_entry.get('popup_blurb')
+        popup_preview, popup_preview_type = resolve_preview(popup_entry.get('image_preview'))
+
+        return popup_source, popup_blurb, popup_preview, popup_preview_type
 
     def replace(match: re.Match) -> str:
         image_alt_text = match.group(1)
@@ -145,12 +176,12 @@ def replace_images_in_line(
         else:
             image_src = image_path_lookup.get(Path(image_name).name, image_name)
 
-        popup_source, popup_blurb, popup_preview = resolve_popup(image_name)
+        popup_source, popup_blurb, popup_preview, popup_preview_type = resolve_popup(image_name)
 
         return convert_markdown_image_notation_to_jekyll_includes_image_notation(
             image_src, image_alt_text, is_inline=is_inline,
             popup_source=popup_source, popup_blurb=popup_blurb,
-            popup_preview=popup_preview,
+            popup_preview=popup_preview, popup_preview_type=popup_preview_type,
         )
 
     return MARKDOWN_IMAGE_PATTERN.sub(replace, line)

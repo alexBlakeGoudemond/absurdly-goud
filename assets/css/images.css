@@ -63,18 +63,35 @@
     color: #2b1b1b;
 }
 
-.image-popup-image {
+.image-popup-media {
+    margin: 0 0 1rem;
+}
+
+.image-popup-media:empty {
+    display: none;
+    margin: 0;
+}
+
+.image-popup-image,
+.image-popup-video {
     display: block;
+    width: 100%;
     max-width: 100%;
     height: auto;
-    margin: 0 0 1rem;
     border: 1px solid #630b0b;
     border-radius: 8px;
+}
+
+.image-popup-image {
     image-rendering: pixelated; /* keeps small gifs (88x31 buttons) crisp when scaled up */
 }
 
-.image-popup-image[hidden] {
-    display: none;
+.image-popup-embed {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid #630b0b;
+    border-radius: 8px;
 }
 
 .image-popup-body p {

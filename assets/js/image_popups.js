@@ -29,9 +29,8 @@
         var body = document.createElement('div');
         body.className = 'image-popup-body';
 
-        var previewImage = document.createElement('img');
-        previewImage.className = 'image-popup-image';
-        previewImage.alt = '';
+        var mediaContainer = document.createElement('div');
+        mediaContainer.className = 'image-popup-media';
 
         var text = document.createElement('p');
         text.className = 'image-popup-text';
@@ -41,13 +40,44 @@
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
 
-        body.appendChild(previewImage);
+        body.appendChild(mediaContainer);
         body.appendChild(text);
         body.appendChild(link);
         panel.appendChild(closeButton);
         panel.appendChild(body);
         backdrop.appendChild(panel);
         document.body.appendChild(backdrop);
+    }
+
+    function buildMediaElement(previewType, src, alt) {
+        if (previewType === 'youtube' || previewType === 'vimeo') {
+            var iframe = document.createElement('iframe');
+            iframe.className = 'image-popup-embed';
+            iframe.src = src;
+            iframe.title = alt || 'Video preview';
+            iframe.setAttribute(
+                'allow',
+                'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            );
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+            return iframe;
+        }
+
+        if (previewType === 'video') {
+            var video = document.createElement('video');
+            video.className = 'image-popup-video';
+            video.src = src;
+            video.controls = true;
+            video.playsInline = true;
+            return video;
+        }
+
+        var image = document.createElement('img');
+        image.className = 'image-popup-image';
+        image.src = src;
+        image.alt = alt || '';
+        return image;
     }
 
     function closePopup() {
@@ -57,31 +87,37 @@
         }
         backdrop.classList.remove('is-open');
         backdrop.setAttribute('aria-hidden', 'true');
+
+        // Removing (not just hiding) the media element is what actually
+        // stops a playing <video> or YouTube/Vimeo <iframe> — CSS display:
+        // none alone leaves audio/video running invisibly in the background.
+        var mediaContainer = document.querySelector('.image-popup-media');
+        if (mediaContainer) {
+            mediaContainer.innerHTML = '';
+        }
     }
 
     function openPopup(trigger) {
         ensurePopupMarkup();
 
         var backdrop = document.querySelector('.image-popup-backdrop');
-        var previewImage = document.querySelector('.image-popup-image');
+        var mediaContainer = document.querySelector('.image-popup-media');
         var text = document.querySelector('.image-popup-text');
         var link = document.querySelector('.image-popup-link');
-        if (!backdrop || !previewImage || !text || !link) {
+        if (!backdrop || !mediaContainer || !text || !link) {
             return;
         }
 
         var popupSrc = trigger.getAttribute('data-popup-src') || '';
         var popupBlurb = trigger.getAttribute('data-popup-blurb') || 'No details yet';
         var popupImage = trigger.getAttribute('data-popup-image') || '';
+        var popupPreviewType = trigger.getAttribute('data-popup-preview-type') || 'image';
         var triggerImage = trigger.querySelector('img');
+        var triggerAlt = triggerImage ? triggerImage.alt : '';
 
+        mediaContainer.innerHTML = '';
         if (popupImage) {
-            previewImage.src = popupImage;
-            previewImage.alt = triggerImage ? triggerImage.alt : '';
-            previewImage.hidden = false;
-        } else {
-            previewImage.removeAttribute('src');
-            previewImage.hidden = true;
+            mediaContainer.appendChild(buildMediaElement(popupPreviewType, popupImage, triggerAlt));
         }
 
         text.textContent = popupBlurb;
