@@ -9,6 +9,9 @@ from scripts.parsing_markdown.markdown_images import (
 from scripts.parsing_markdown.image_popups import (
     DEFAULT_POPUP_BLURB,
     load_image_popup_entries,
+    classify_preview_type,
+    build_youtube_embed_url,
+    build_vimeo_embed_url,
 )
 
 
@@ -86,6 +89,57 @@ class TestInlineImageWithoutYamlEntry(unittest.TestCase):
             'popup_src="assets/88x31/buttons-memes/this-is-fine-fire.gif"', actual_syntax
         )
         self.assertIn(f'popup_blurb="{DEFAULT_POPUP_BLURB}"', actual_syntax)
+
+
+class TestClassifyPreviewType(unittest.TestCase):
+
+    def test_youtube_watch_url_is_classified_as_youtube(self):
+        self.assertEqual(
+            classify_preview_type('https://www.youtube.com/watch?v=dQw4w9WgXcQ'), 'youtube'
+        )
+
+    def test_youtube_short_url_is_classified_as_youtube(self):
+        self.assertEqual(classify_preview_type('https://youtu.be/dQw4w9WgXcQ'), 'youtube')
+
+    def test_vimeo_url_is_classified_as_vimeo(self):
+        self.assertEqual(classify_preview_type('https://vimeo.com/123456789'), 'vimeo')
+
+    def test_local_mp4_is_classified_as_video(self):
+        self.assertEqual(classify_preview_type('assets/video-popups/clip.mp4'), 'video')
+
+    def test_external_webm_is_classified_as_video(self):
+        self.assertEqual(classify_preview_type('https://example.com/clip.webm'), 'video')
+
+    def test_plain_image_path_is_classified_as_image(self):
+        self.assertEqual(classify_preview_type('assets/88x31/free-real-estate.gif'), 'image')
+
+    def test_plain_image_url_is_classified_as_image(self):
+        self.assertEqual(classify_preview_type('https://example.com/photo.jpg'), 'image')
+
+
+class TestBuildEmbedUrls(unittest.TestCase):
+
+    def test_youtube_watch_url_extracts_id(self):
+        embed = build_youtube_embed_url('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        self.assertEqual(embed, 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ')
+
+    def test_youtube_short_url_extracts_id(self):
+        embed = build_youtube_embed_url('https://youtu.be/dQw4w9WgXcQ')
+        self.assertEqual(embed, 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ')
+
+    def test_youtube_url_with_extra_query_params_extracts_id(self):
+        embed = build_youtube_embed_url('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=30s')
+        self.assertEqual(embed, 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ')
+
+    def test_youtube_url_without_extractable_id_returns_none(self):
+        self.assertIsNone(build_youtube_embed_url('https://www.youtube.com/'))
+
+    def test_vimeo_url_extracts_id(self):
+        embed = build_vimeo_embed_url('https://vimeo.com/123456789')
+        self.assertEqual(embed, 'https://player.vimeo.com/video/123456789')
+
+    def test_vimeo_url_without_extractable_id_returns_none(self):
+        self.assertIsNone(build_vimeo_embed_url('https://vimeo.com/'))
 
 
 class TestLoadImagePopupEntries(unittest.TestCase):
