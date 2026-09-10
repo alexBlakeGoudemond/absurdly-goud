@@ -1,0 +1,28 @@
+absurdly-goud-obsidian/journey/progress/website-progress.md
+  h_1197a506f6c7d6 31-32
+_includes/aside/aside-updates.html
+  s_bf13f8897941b4::t_846a6b7ff73d8d 4
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 52-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "16e0d9f467c7f9dc3a1655386d084b89bc4015ad",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_bf13f8897941b4": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1789043235607",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
