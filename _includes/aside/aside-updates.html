@@ -1,6 +1,13 @@
-{% if site.data.last_updated.last_commit_message %}
-<div class="last-commit-message">
-    Recent Updates:
-    <p>{{ site.data.last_updated.last_commit_message }}</p>
+<div class="aside-updates">
+    {% if site.data.last_updated.last_commit_message %}
+    <div class="aside-updates-panel last-commit-message">
+        <strong>Recent Updates:</strong>
+        <p>{{ site.data.last_updated.last_commit_message }}</p>
+    </div>
+    {% endif %}
+
+    <div class="aside-updates-panel aside-status">
+        <strong>Site Notes</strong>
+        <p>Fresh updates from the obsidian vault are synced and published here.</p>
+    </div>
 </div>
-{% endif %}
