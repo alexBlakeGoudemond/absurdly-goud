@@ -47,7 +47,7 @@ I felt satisfied with that answer! And as an outcome: we will see if my friend j
 
 ## What's with the rubber ducks?
 
-It all started with [rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging) - I bought a rubber duck for my IT job and it has snowballed into a small obsession with finding them 'in the wild' and even building up my own small collection. When building this website, it organically grew into swimming ducks in the background - because why not! 
+It all started with [rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging) - I bought a rubber duck for my IT job and it has snowballed into a small obsession with finding them 'in the wild' and even building up my own small collection. When building this website, it organically grew into swimming ducks in the background - because why not! If interested, see [[2026-09-09 My Rubber Duck Collection|My Rubber Duck Collection]]
 
 ## Disclaimers
 ### AI Usage

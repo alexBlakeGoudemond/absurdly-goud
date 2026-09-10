@@ -10,6 +10,8 @@ What Jekyll does
 - `_includes/`, `_layouts/`: shared templates
 - `posts/`: archive pages using paginator
 
+> Important: Jekyll excludes any posts dated in the future by default
+
 ## Images & media
 
 - `assets/` stores images used by posts and more

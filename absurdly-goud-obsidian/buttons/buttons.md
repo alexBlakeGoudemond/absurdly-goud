@@ -8,7 +8,13 @@ Below is a kind of stickerboard for the ones I have so far - both ones I've made
 
 ## Custom 88x31 Memes
 
-![[free-real-estate.gif]] ![[calculating-puzzled.gif]] ![[good-news-everyone.gif]] ![[approved-sonic-knuckles.gif]] ![[this-is-fine-fire.gif]]
+![[free-real-estate.gif]] ![[calculating-puzzled.gif]] ![[good-news-everyone.gif]] ![[approved-sonic-knuckles.gif]] ![[this-is-fine-fire.gif]]![[oia-uia.gif]]![[maxwell-kocykvr.gif]]
+
+## This Websites 88x31 Button
+
+![[absurdlygoud-88x31.gif]]
 
 ## Other 88x31 Buttons I like
-![[brennan-day-alt-optimized.gif]]![[jelloeater.png]]
+
+![[brennan-day-alt-optimized.gif]]![[jelloeater.png]]![[ritual_1.gif]]
+

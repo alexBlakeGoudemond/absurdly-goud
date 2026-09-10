@@ -23,6 +23,8 @@
 # across the whole vault (see build_image_path_lookup). Use a distinguishing
 # name, e.g. "-original", for any locally-hosted bigger/original file.
 
+# memes
+
 image_popups:
   - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
     image_source: "https://knowyourmeme.com/memes/meme-approved-by-knuckles"
@@ -48,6 +50,22 @@ image_popups:
     image_source: "https://knowyourmeme.com/memes/confused-math-lady"
     image_preview: "assets/image-popups/calculating-puzzled-original.gif"
     popup_blurb: "The classic 'confused math lady' expression"
+  
+  - image_vault: "assets/88x31/buttons-memes/oia-uia.gif"
+    image_source: "https://knowyourmeme.com/memes/oo-ee-a-e-a-cat-remixes"
+    image_preview: "assets/image-popups/oia-uia-original.gif"
+    popup_blurb: "The Oo Ee A E A Meme associated with that viral sound"
+    
+  - image_vault: "assets/88x31/buttons-memes/maxwell-kocykvr.gif"
+    image_source: "https://knowyourmeme.com/memes/maxwell-the-cat-spinning-cat"
+    image_preview: "assets/image-popups/maxwell-kocykvr-original.gif"
+    popup_blurb: "You have acquired the CAT!"
+
+# This websites 88x31 button below
+
+  - image_vault: "assets/88x31/buttons-indieweb/absurdlygoud-88x31.gif"
+    image_source: "https://absurdlygoud.com/"
+    popup_blurb: "This website's 88x31 button"
 
 # 88x31 indieweb buttons below
 
@@ -56,8 +74,12 @@ image_popups:
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
     
   - image_vault: "assets/88x31/buttons-indieweb/jelloeater.png"
-    image_source: "https://jelloeater.me/now/"
+    image_source: "https://jelloeater.me/"
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/ritual_1.png"
+    image_source: "https://ritual.sh/"
+    popup_blurb: "Found through the IndieWeb when learning about 88x31 buttons - via his Button Creator. Super cool site!"
 
 #  - image_vault: ""
 #    image_source: ""
