@@ -23,6 +23,8 @@
 # across the whole vault (see build_image_path_lookup). Use a distinguishing
 # name, e.g. "-original", for any locally-hosted bigger/original file.
 
+# memes
+
 image_popups:
   - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
     image_source: "https://knowyourmeme.com/memes/meme-approved-by-knuckles"
@@ -48,6 +50,11 @@ image_popups:
     image_source: "https://knowyourmeme.com/memes/confused-math-lady"
     image_preview: "assets/image-popups/calculating-puzzled-original.gif"
     popup_blurb: "The classic 'confused math lady' expression"
+  
+  - image_vault: "assets/88x31/buttons-memes/oia-uia.gif"
+    image_source: "https://knowyourmeme.com/memes/oo-ee-a-e-a-cat-remixes"
+    image_preview: "assets/image-popups/oia-uia-original.gif"
+    popup_blurb: "The Oo Ee A E A Meme associated with that viral sound"
 
 # This websites 88x31 button below
 
