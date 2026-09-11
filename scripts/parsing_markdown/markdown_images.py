@@ -11,6 +11,7 @@ from textwrap import dedent
 from scripts.parsing_markdown.markdown_regions import apply_outside_code_blocks_and_code_spans
 from scripts.parsing_markdown.image_popups import (
     DEFAULT_POPUP_BLURB,
+    DEFAULT_POPUP_REDIRECT_TEXT,
     classify_preview_type,
     build_youtube_embed_url,
     build_vimeo_embed_url,
@@ -71,6 +72,7 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
         image_name: str, image_alt_text: str, is_inline: bool = True,
         popup_source: str | None = None, popup_blurb: str | None = None,
         popup_preview: str | None = None, popup_preview_type: str | None = None,
+        popup_redirect_text: str | None = None,
 ) -> str:
     opening_brace = '{%'
     closing_brace = '%}'
@@ -87,6 +89,9 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
         resolved_popup_blurb = popup_blurb if popup_blurb is not None else DEFAULT_POPUP_BLURB
         resolved_popup_preview = popup_preview if popup_preview is not None else image_name
         resolved_popup_preview_type = popup_preview_type if popup_preview_type is not None else 'image'
+        resolved_popup_redirect_text = (
+            popup_redirect_text if popup_redirect_text is not None else DEFAULT_POPUP_REDIRECT_TEXT
+        )
 
         # Single line, no leading/trailing newlines — must sit inline with
         # surrounding prose without breaking the paragraph/list item or
@@ -95,6 +100,7 @@ def convert_markdown_image_notation_to_jekyll_includes_image_notation(
             f'{opening_brace} include image.html '
             f'src="{image_name}" alt="{image_alt_text}" title="{image_alt_text}" '
             f'popup_src="{resolved_popup_source}" popup_blurb="{resolved_popup_blurb}" '
+            f'popup_redirect_text="{resolved_popup_redirect_text}" '
             f'popup_preview="{resolved_popup_preview}" popup_preview_type="{resolved_popup_preview_type}" '
             f'{closing_brace}'
         )
@@ -122,12 +128,12 @@ def replace_images_in_line(
     else:
         is_inline = False  # unused, no match to replace anyway
 
-    def resolve_popup(image_name: str) -> tuple[str | None, str | None, str | None, str | None]:
+    def resolve_popup(image_name: str) -> tuple[str | None, str | None, str | None, str | None, str | None]:
         if not image_popup_lookup:
-            return None, None, None, None
+            return None, None, None, None, None
         popup_entry = image_popup_lookup.get(Path(image_name).name)
         if not popup_entry:
-            return None, None, None, None
+            return None, None, None, None, None
 
         def resolve_local_or_external(raw_path: str | None) -> str | None:
             if not raw_path:
@@ -165,8 +171,9 @@ def replace_images_in_line(
         popup_source = resolve_local_or_external(popup_entry.get('image_source'))
         popup_blurb = popup_entry.get('popup_blurb')
         popup_preview, popup_preview_type = resolve_preview(popup_entry.get('image_preview'))
+        popup_redirect_text = popup_entry.get('popup_redirect_text') or DEFAULT_POPUP_REDIRECT_TEXT
 
-        return popup_source, popup_blurb, popup_preview, popup_preview_type
+        return popup_source, popup_blurb, popup_preview, popup_preview_type, popup_redirect_text
 
     def replace(match: re.Match) -> str:
         image_alt_text = match.group(1)
@@ -176,12 +183,13 @@ def replace_images_in_line(
         else:
             image_src = image_path_lookup.get(Path(image_name).name, image_name)
 
-        popup_source, popup_blurb, popup_preview, popup_preview_type = resolve_popup(image_name)
+        popup_source, popup_blurb, popup_preview, popup_preview_type, popup_redirect_text = resolve_popup(image_name)
 
         return convert_markdown_image_notation_to_jekyll_includes_image_notation(
             image_src, image_alt_text, is_inline=is_inline,
             popup_source=popup_source, popup_blurb=popup_blurb,
             popup_preview=popup_preview, popup_preview_type=popup_preview_type,
+            popup_redirect_text=popup_redirect_text,
         )
 
     return MARKDOWN_IMAGE_PATTERN.sub(replace, line)

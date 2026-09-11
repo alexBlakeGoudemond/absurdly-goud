@@ -21,6 +21,7 @@ import re
 import yaml
 
 DEFAULT_POPUP_BLURB = "No details yet"
+DEFAULT_POPUP_REDIRECT_TEXT = "Learn more"
 
 # Deliberately permissive on query params (e.g. ?si=..., &t=30s) since real
 # links people paste in rarely come as bare watch?v=ID URLs.
@@ -91,6 +92,7 @@ def load_image_popup_entries(data_path: Path) -> dict[str, dict]:
             "image_source": entry.get("image_source"),
             "image_preview": entry.get("image_preview"),
             "popup_blurb": entry.get("popup_blurb"),
+            "popup_redirect_text": entry.get("popup_redirect_text") or DEFAULT_POPUP_REDIRECT_TEXT,
         }
 
     return entries

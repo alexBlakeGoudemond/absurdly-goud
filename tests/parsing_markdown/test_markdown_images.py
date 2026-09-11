@@ -18,8 +18,8 @@ class TestCreateJekyllImageLayout(unittest.TestCase):
             'image.png', 'Alt text', is_inline=True)
         expected_syntax = (
             '{% include image.html src="image.png" alt="Alt text" title="Alt text" '
-            'popup_src="image.png" popup_blurb="No details yet" popup_preview="image.png" '
-            'popup_preview_type="image" %}'
+            'popup_src="image.png" popup_blurb="No details yet" popup_redirect_text="Learn more" '
+            'popup_preview="image.png" popup_preview_type="image" %}'
         )
         self.assertEqual(dedent(expected_syntax), actual_syntax)
 

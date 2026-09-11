@@ -8,6 +8,7 @@
 {%- if image_exists -%}
 {%- assign popup_src = include.popup_src | default: include.src -%}
 {%- assign popup_blurb = include.popup_blurb | default: "No details yet" -%}
+{%- assign popup_redirect_text = include.popup_redirect_text | default: "Learn more" -%}
 {%- assign popup_preview = include.popup_preview | default: include.src -%}
 {%- assign popup_preview_type = include.popup_preview_type | default: "image" -%}
 {%- if popup_src contains "://" -%}
@@ -21,8 +22,8 @@
 {%- assign popup_preview_href = "/" | append: popup_preview | relative_url -%}
 {%- endif -%}
 <button type="button" class="image-popup-trigger" data-popup-src="{{ popup_src_href | escape }}"
-        data-popup-blurb="{{ popup_blurb | escape }}" data-popup-image="{{ popup_preview_href | escape }}"
-        data-popup-preview-type="{{ popup_preview_type | escape }}"
+        data-popup-blurb="{{ popup_blurb | escape }}" data-popup-redirect-text="{{ popup_redirect_text | escape }}"
+        data-popup-image="{{ popup_preview_href | escape }}" data-popup-preview-type="{{ popup_preview_type | escape }}"
         aria-label="Open details for {{ include.alt | escape }}"><img
         class="u-photo-inline" src="{{ image_path | relative_url }}" alt="{{ include.alt }}"></button>{%- else -%}<p>
     File `{{ include.src }}` not found</p>{%- endif -%}

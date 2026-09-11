@@ -13,6 +13,8 @@
 #                path, same rules as image_source. Falls back to the
 #                displayed image (image_vault) if omitted.
 # popup_blurb:   short text shown in the popup alongside the image.
+# popup_redirect_text: optional text shown on the popup's action link. Defaults to
+#                    "Learn more" when not supplied.
 #
 # Any inline image NOT listed here still gets a popup — it just falls back
 # to a self-link (the displayed image itself, shown as its own preview too)
@@ -55,7 +57,7 @@ image_popups:
     image_source: "https://knowyourmeme.com/memes/oo-ee-a-e-a-cat-remixes"
     image_preview: "https://youtu.be/LYCYoSiqgqA"
     popup_blurb: "The Oo Ee A E A Meme associated with that viral sound"
-    
+
   - image_vault: "assets/88x31/buttons-memes/maxwell-kocykvr.gif"
     image_source: "https://knowyourmeme.com/memes/maxwell-the-cat-spinning-cat"
     image_preview: "https://youtu.be/GACrYR3Vxbw?si=Z7Z7rJXmEzp4MiRt"
@@ -72,14 +74,16 @@ image_popups:
   - image_vault: "assets/88x31/buttons-indieweb/brennan-day-alt-optimized.gif"
     image_source: "https://brennan.day/"
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
-    
+    popup_redirect_text: "Go To"
+
   - image_vault: "assets/88x31/buttons-indieweb/jelloeater.png"
     image_source: "https://jelloeater.me/"
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
-    
+
   - image_vault: "assets/88x31/buttons-indieweb/ritual_1.png"
     image_source: "https://ritual.sh/"
     popup_blurb: "Found through the IndieWeb when learning about 88x31 buttons - via his Button Creator. Super cool site!"
+    popup_redirect_text: "Go To"
 
 #  - image_vault: ""
 #    image_source: ""

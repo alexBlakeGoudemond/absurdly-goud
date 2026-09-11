@@ -28,6 +28,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [X] image popup: `go-to ->` instead of `learn more ->` or control this text outright (2026-09-11)
 - [X] Like last quack - add component in aside for updates, drawing from last commit message (2026-09-10)
 - [X] why cant link about to duck collection post? GitHub Actions error. A: Post was in the future: 2029-09-09, jekyll did not generate
 - [x] Include in footer: created (2026-09-08)

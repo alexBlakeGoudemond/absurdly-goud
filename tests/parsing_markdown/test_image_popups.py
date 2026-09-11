@@ -43,6 +43,7 @@ class TestInlineImageHasPopupBehaviour(unittest.TestCase):
 
         self.assertIn('popup_src=', actual_syntax)
         self.assertIn('popup_blurb=', actual_syntax)
+        self.assertIn('popup_redirect_text="Learn more"', actual_syntax)
         self.assertIn('{% include image.html', actual_syntax)
 
 
@@ -57,10 +58,12 @@ class TestInlineImageWithYamlEntry(unittest.TestCase):
             is_inline=True,
             popup_source='https://knowyourmeme.com/memes/free-real-estate',
             popup_blurb='A classic meme',
+            popup_redirect_text='Redirect',
         )
 
         self.assertIn('popup_src="https://knowyourmeme.com/memes/free-real-estate"', actual_syntax)
         self.assertIn('popup_blurb="A classic meme"', actual_syntax)
+        self.assertIn('popup_redirect_text="Redirect"', actual_syntax)
 
     def test_yaml_blurb_is_not_overridden_by_default(self):
         actual_syntax = convert_markdown_image_notation_to_jekyll_includes_image_notation(
@@ -167,6 +170,7 @@ class TestLoadImagePopupEntries(unittest.TestCase):
                 'image_source': 'https://knowyourmeme.com/memes/free-real-estate',
                 'image_preview': None,
                 'popup_blurb': 'A classic meme',
+                'popup_redirect_text': 'Learn more',
             },
         )
 
@@ -184,6 +188,19 @@ class TestLoadImagePopupEntries(unittest.TestCase):
         self.assertEqual(
             entries['free-real-estate.gif']['image_preview'], 'https://example.com/original.jpg'
         )
+
+    def test_custom_popup_redirect_text_is_loaded_when_present(self):
+        self.data_path.write_text(dedent("""\
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/oia-uia.gif"
+                image_source: "https://knowyourmeme.com/memes/oo-ee-a-e-a-cat-remixes"
+                popup_blurb: "The Oo Ee A E A Meme associated with that viral sound"
+                popup_redirect_text: "Redirect"
+            """), encoding='utf-8')
+
+        entries = load_image_popup_entries(self.data_path)
+
+        self.assertEqual(entries['oia-uia.gif']['popup_redirect_text'], 'Redirect')
 
     def test_local_vault_source_is_preserved_as_is(self):
         # A local vault path is stored verbatim here — resolving it to a
