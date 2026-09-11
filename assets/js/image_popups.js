@@ -116,6 +116,7 @@
 
         var popupSrc = trigger.getAttribute('data-popup-src') || '';
         var popupBlurb = trigger.getAttribute('data-popup-blurb') || 'No details yet';
+        var popupRedirectText = trigger.getAttribute('data-popup-redirect-text') || 'Learn more';
         var popupImage = trigger.getAttribute('data-popup-image') || '';
         var popupPreviewType = trigger.getAttribute('data-popup-preview-type') || 'image';
         var triggerImage = trigger.querySelector('img');
@@ -134,7 +135,7 @@
 
         text.textContent = popupBlurb;
         link.href = popupSrc;
-        link.textContent = popupSrc && popupSrc.indexOf('http') === 0 ? 'Learn more →' : 'View source →';
+        link.textContent = popupRedirectText + ' →';
 
         backdrop.classList.add('is-open');
         backdrop.setAttribute('aria-hidden', 'false');
