@@ -96,8 +96,8 @@ class ObsidianToJekyllConverter:
                              'favicon.svg']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md']
     SECTION_FOLDERS = ['journey']
-    IMAGE_ASSET_GLOBS = ('*.png', '*.svg', '*.gif')
-    IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '*.gif'}
+    IMAGE_ASSET_GLOBS = ('*.png', '*.jpg', '*.jpeg', '*.gif', '*.svg', '*.webp')
+    IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'}
     IMAGE_POPUPS_DATA_FILENAME = 'image_popups.yml'
 
     def __init__(self, obsidian_vault_location: Path, output_location: Path, source_location: Path):

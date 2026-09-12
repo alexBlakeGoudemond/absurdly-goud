@@ -79,10 +79,36 @@ image_popups:
   - image_vault: "assets/88x31/buttons-indieweb/jelloeater.png"
     image_source: "https://jelloeater.me/"
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
+    popup_redirect_text: "Go To"
 
   - image_vault: "assets/88x31/buttons-indieweb/ritual_1.png"
     image_source: "https://ritual.sh/"
     popup_blurb: "Found through the IndieWeb when learning about 88x31 buttons - via his Button Creator. Super cool site!"
+    popup_redirect_text: "Go To"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/chris-burnell-88x31.webp"
+    image_source: "https://chrisburnell.com/"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
+    popup_redirect_text: "Go To"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/exo-pet.gif"
+    image_source: "https://exo.pet/"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - super busy and fun"
+    popup_redirect_text: "Go To"
+
+  - image_vault: "assets/88x31/buttons-indieweb/tabitha.computer.gif"
+    image_source: "https://tabitha.computer/"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - super cool UI and CSS!"
+    popup_redirect_text: "Go To"
+  
+  - image_vault: "assets/88x31/buttons-indieweb/elles8831.webp"
+    image_source: "https://ellesho.me/"
+    popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - super cool UI and CSS!"
+    popup_redirect_text: "Go To"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/stargirlleebutton.gif"
+    image_source: "https://stargirllee.space/"
+    popup_blurb: "Found via a YouTube video! Liked the content and wanted to share her button!"
     popup_redirect_text: "Go To"
 
 #  - image_vault: ""

@@ -1,6 +1,6 @@
 disclaimer:
   - name: "Disclaimer AI assisted site"
-    image: "https://www.aihonestybadge.com/badges/ai-assisted.svg"
+    image: "assets/88x31/ai-assisted.svg"
     url: "/about#ai-usage/"
     alt: "Disclaimer AI assisted site"
 built_with:
@@ -17,11 +17,11 @@ built_with:
     url: "https://obsidian.md/"
     alt: "Built with Obsidian"
   - name: "Built with Microformats"
-    image: "https://indieweb.org/images/e/e6/microformats88x31-flat.png"
+    image: "/assets/88x31/microformats88x31-flat.png"
     url: "https://microformats.org/"
     alt: "Built with Microformats"
 part_of:
   - name: "Part of the IndieWeb"
-    image: "https://indieweb.org/images/4/42/indieweb88x31-flat.png"
+    image: "/assets/88x31/indieweb88x31-flat.png"
     url: "https://indieweb.org"
     alt: "Part of the IndieWeb"
