@@ -102,8 +102,13 @@ image_popups:
     popup_redirect_text: "Go To"
   
   - image_vault: "assets/88x31/buttons-indieweb/elles8831.webp"
-    image_source: "https://ellesho.me/page/"
+    image_source: "https://ellesho.me/"
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - super cool UI and CSS!"
+    popup_redirect_text: "Go To"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/stargirlleebutton.gif"
+    image_source: "https://stargirllee.space/"
+    popup_blurb: "Found via a YouTube video! Liked the content and wanted to share her button!"
     popup_redirect_text: "Go To"
 
 #  - image_vault: ""

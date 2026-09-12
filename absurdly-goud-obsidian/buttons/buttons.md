@@ -23,6 +23,6 @@ Rules of etiquette I follow
 
 ## Other 88x31 Buttons I like
 
-![[brennan-day-alt-optimized.gif]]![[jelloeater.png]]![[ritual_1.gif]]![[chris-burnell-88x31.webp]]![[exo-pet.gif]]![[tabitha.computer.gif]]![[elles8831.webp]]
+![[brennan-day-alt-optimized.gif]]![[jelloeater.png]]![[ritual_1.gif]]![[chris-burnell-88x31.webp]]![[exo-pet.gif]]![[tabitha.computer.gif]]![[elles8831.webp]]![[stargirlleebutton.gif]]
 
 
