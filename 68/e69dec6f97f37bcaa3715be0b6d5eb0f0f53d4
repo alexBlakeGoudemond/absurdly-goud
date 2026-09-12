@@ -1,0 +1,16 @@
+absurdly-goud-obsidian/data/badges.yml
+  h_1197a506f6c7d6 3,8,12,16,20,25
+absurdly-goud-obsidian/assets/88x31/buttons-aside/ai-assisted.svg
+  h_1197a506f6c7d6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "68e69dec6f97f37bcaa3715be0b6d5eb0f0f53d4",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
