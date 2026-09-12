@@ -25,7 +25,7 @@ MARKDOWN_IMAGE_PATTERN = re.compile(r'!\[([^\]]*)\]\(([^)]+)\)')
 # image) so a non-image embed, e.g. ![[SomeNote]] transclusion, is left alone
 # rather than silently mishandled here.
 WIKILINK_IMAGE_PATTERN = re.compile(
-    r'!\[\[(?P<name>[^\]|#]+\.(?:png|jpe?g|gif|svg))(?:\|[^\]]*)?\]\]',
+    r'!\[\[(?P<name>[^\]|#]+\.(?:png|jpe?g|gif|svg|webp))(?:\|[^\]]*)?\]\]',
     re.IGNORECASE,
 )
 
