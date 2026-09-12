@@ -41,7 +41,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-68" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-69" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-70" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+</svg><img class="pond-duck" id="pond-duck-76" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-77" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-78" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header>
     <nav>
@@ -77,6 +77,37 @@
   <article class="h-entry post">
 
     <h2 class="p-name">
+      Improve Asset Location Logic For Jekyll
+    </h2>
+
+    
+    
+    <div class="dt-published">
+      Created:
+      <time datetime="2026-08-30T00:00:00+00:00">
+        2026-08-30
+      </time>
+
+      Last updated:
+      <time datetime="2026-09-12T21:18:00+00:00">
+        2026-09-12 21:18
+      </time>
+    </div>
+
+    <div class="p-summary">
+      <p>I improved the Python script that prepares <code class="language-plaintext highlighter-rouge">site-src</code> to include the top-level obsidian vault directory for images. This allows us to later navigate to those locations to showcase the assets we have, if desired</p>
+
+
+      <a class="u-url" href="/2026/08/30/improve-asset-location-logic-for-jekyll/"><i>click me to continue reading ...</i></a>
+    </div>
+
+  </article>
+
+  
+
+  <article class="h-entry post">
+
+    <h2 class="p-name">
       Vision Whiteboard Showing
     </h2>
 
@@ -89,8 +120,8 @@
       </time>
 
       Last updated:
-      <time datetime="2026-09-11T07:18:00+00:00">
-        2026-09-11 07:18
+      <time datetime="2026-09-12T21:18:00+00:00">
+        2026-09-12 21:18
       </time>
     </div>
 
@@ -120,8 +151,8 @@
       </time>
 
       Last updated:
-      <time datetime="2026-09-11T07:18:00+00:00">
-        2026-09-11 07:18
+      <time datetime="2026-09-12T21:18:00+00:00">
+        2026-09-12 21:18
       </time>
     </div>
 
@@ -130,37 +161,6 @@
 
 
       <a class="u-url" href="/2026/08/27/testing-wikilink-images/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      Testing Wikilinks
-    </h2>
-
-    
-    
-    <div class="dt-published">
-      Created:
-      <time datetime="2026-08-25T00:00:00+00:00">
-        2026-08-25
-      </time>
-
-      Last updated:
-      <time datetime="2026-09-11T07:18:00+00:00">
-        2026-09-11 07:18
-      </time>
-    </div>
-
-    <div class="p-summary">
-      <p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
-
-
-      <a class="u-url" href="/2026/08/25/testing-wikilinks/"><i>click me to continue reading ...</i></a>
     </div>
 
   </article>
@@ -223,7 +223,7 @@
             </a>
             
             <a href="https://microformats.org/" target="_blank" rel="noopener">
-                <img src="https://indieweb.org/images/e/e6/microformats88x31-flat.png"
+                <img src="/assets/88x31/microformats88x31-flat.png"
                      alt="Built with Microformats"
                      class="badge-img">
             </a>
@@ -236,7 +236,7 @@
         <div class="badge-row">
             
             <a href="https://indieweb.org" target="_blank" rel="noopener">
-                <img src="https://indieweb.org/images/4/42/indieweb88x31-flat.png"
+                <img src="/assets/88x31/indieweb88x31-flat.png"
                      alt="Part of the IndieWeb"
                      class="badge-img">
             </a>
@@ -249,7 +249,7 @@
         <div class="badge-row">
             
             <a href="/about#ai-usage/" target="_blank" rel="noopener">
-                <img src="https://www.aihonestybadge.com/badges/ai-assisted.svg"
+                <img src="/assets/88x31/ai-assisted.svg"
                      alt="Disclaimer AI assisted site"
                      class="badge-img">
             </a>
@@ -268,10 +268,15 @@
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-11 09:17</time>
-        <p>Extend Image Popup _data YAML: can now control the redirect text, defaults to "Learn more"
+        <strong>Recent Updates:</strong> <time>2026-09-12 23:17</time>
+        <p>Task/20260912 additions (#41)
 
-<commit-msg hook> Co-authored-by: GitHub Copilot <ai@local></p>
+* Add new buttons: chrisBurnell, EllesHomepage, ExoPet, TabithaComputer, stargirl lee
+* Updates to website inspiration
+* Place all _data yaml in vault; bring all buttons to vault assets; 
+* add post on hotlinking; refine button etiquette
+* Support webp files
+* move indieweb image to vault</p>
     </div>
     
 
@@ -289,10 +294,10 @@
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789111103"></script>
-<script src="/assets/js/navigation.js?v=1789111103"></script>
-<script src="/assets/js/image_popups.js?v=1789111103" defer></script>
-<script src="/assets/js/callouts.js?v=1789111103" defer></script>
+<script src="/assets/js/pond.js?v=1789247890"></script>
+<script src="/assets/js/navigation.js?v=1789247890"></script>
+<script src="/assets/js/image_popups.js?v=1789247890" defer></script>
+<script src="/assets/js/callouts.js?v=1789247890" defer></script>
 
 </body>
 </html>
