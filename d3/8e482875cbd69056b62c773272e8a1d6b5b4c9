@@ -1,0 +1,26 @@
+scripts/parsing_markdown/markdown_images.py
+  s_f4ed72942cbf5b::t_14c275d9eb984f 28
+scripts/obsidian_to_jekyll.py
+  s_f4ed72942cbf5b::t_0bec3a0ac3a7ac 99-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d38e482875cbd69056b62c773272e8a1d6b5b4c9",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_f4ed72942cbf5b": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "befb708a-9a52-4cc4-bf8c-3ac119e5cfa0",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
