@@ -8,7 +8,7 @@ I now know that embedding a media file on a webpage by linking to its source URL
 - Silo Traps
 	- Using external URLs tied to corporate social networks (silos) defeats the core point of the IndieWeb, which is to pull your identity and content away from centralized entities
 
-With this in mind, I have revised my buttons and explicitly outlined the etiquette I am following on the [[buttons#Button Etiquette|buttons]] page
+With this in mind, I have revised my buttons and explicitly outlined the etiquette I am following on the [[buttons-and-cool-sites#Button Etiquette|buttons]] page
 
 > [!note]
 > Hotlinking YouTube videos is fine, as embedding a YouTube video does not steal the creator's bandwidth
