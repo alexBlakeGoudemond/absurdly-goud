@@ -1,0 +1,26 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 202
+absurdly-goud-obsidian/data/nav.yml
+  s_c56716a1eb8ce7::t_df00c46900fef2 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "229d65d3a3b2cd67f4ffb6b3cc55d5cbf6f6d6ab",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c56716a1eb8ce7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_c56716a1eb8ce7",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
