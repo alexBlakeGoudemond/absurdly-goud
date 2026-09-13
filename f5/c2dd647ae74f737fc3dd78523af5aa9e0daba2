@@ -1,0 +1,27 @@
+absurdly-goud-obsidian/buttons/buttons-and-cool-sites.md
+  s_55193fb9d90d3e::t_3baafd0b7392a2 24,29-45
+absurdly-goud-obsidian/data/nav.yml
+  s_55193fb9d90d3e::t_256d70154ba38d 21
+absurdly-goud-obsidian/journey/design/website-inspiration.md
+  s_55193fb9d90d3e::t_58ddbf109005b6 1-4,7-8,12-18
+"absurdly-goud-obsidian/posts/2026/08/31/2026-08-31 88x31 Exploration.md"
+  s_55193fb9d90d3e::t_70d72fa479bac9 9
+"absurdly-goud-obsidian/posts/2026/09/12/2026-09-12 88x31 Buttons and Hotlinking.md"
+  s_55193fb9d90d3e::t_f9754ae6c541b2 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f5c2dd647ae74f737fc3dd78523af5aa9e0daba2",
+  "prompts": {},
+  "sessions": {
+    "s_55193fb9d90d3e": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "s_55193fb9d90d3e",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
