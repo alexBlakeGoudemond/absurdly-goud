@@ -33,7 +33,15 @@ class TestEscapeMarkdownTablesForJekyll(unittest.TestCase):
 
         result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
 
-        self.assertEqual(result, content)
+        expected = dedent("""
+        
+        | Header 1 | Header 2 | Header 3 |
+        | :--- | :---: | ---: |
+        | Cell 1 | Cell 2 | Cell 3 |
+        | Alpha | Beta | Gamma |
+        
+        """)
+        self.assertEqual(result, expected)
 
     def test_markdown_link_with_pipe_inside_table_cell_is_escaped(self):
         content = dedent("""
@@ -45,10 +53,12 @@ class TestEscapeMarkdownTablesForJekyll(unittest.TestCase):
         result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
 
         expected = dedent(r"""
+        
         | Name | Link | Description |
         | --- | --- | --- |
         | Site | [Site \| Home](https://example.com) | Welcome |
-        """).strip()
+        
+        """)
         self.assertEqual(result, expected)
 
     def test_markdown_link_with_pipe_in_url_inside_table_cell_is_escaped(self):
@@ -61,10 +71,12 @@ class TestEscapeMarkdownTablesForJekyll(unittest.TestCase):
         result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
 
         expected = dedent(r"""
+        
         | Query | Link |
         | --- | --- |
         | Filter | [Search](https://example.com/search?a=1\|b=2) |
-        """).strip()
+        
+        """)
         self.assertEqual(result, expected)
 
     def test_already_escaped_pipe_in_table_cell_link_is_not_double_escaped(self):
@@ -76,7 +88,14 @@ class TestEscapeMarkdownTablesForJekyll(unittest.TestCase):
 
         result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
 
-        self.assertEqual(result, content)
+        expected = dedent(r"""
+        
+        | Name | Link |
+        | --- | --- |
+        | Guide | [User \| Manual](https://example.com) |
+        
+        """)
+        self.assertEqual(result, expected)
 
     def test_inline_code_span_with_pipes_inside_table_cell_is_not_escaped(self):
         content = dedent("""
@@ -88,7 +107,93 @@ class TestEscapeMarkdownTablesForJekyll(unittest.TestCase):
 
         result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
 
-        self.assertEqual(result, content)
+        expected = dedent("""
+        
+        | Feature | Syntax |
+        | --- | --- |
+        | Regex | `cat | dog` |
+        | Command | `ls -la | grep py` |
+        
+        """)
+        self.assertEqual(result, expected)
+
+    def test_single_row_table_without_newlines_around_it_have_newlines_added(self):
+        content = dedent("""
+        Tight text above
+        | Query | Link |
+        | --- | --- |
+        | Filter | [Search](https://example.com) |
+        Tight text below
+        """).strip()
+
+        result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
+
+        expected = dedent(r"""
+        Tight text above
+
+        | Query | Link |
+        | --- | --- |
+        | Filter | [Search](https://example.com) |
+
+        Tight text below
+        """).strip()
+        self.assertEqual(result, expected)
+        self.assertTrue(result.__contains__("\n\n| Query |"))
+        self.assertTrue(result.__contains__("| [Search](https://example.com) |\n\n"))
+
+    def test_multi_row_table_without_newlines_around_it_have_newlines_added(self):
+        content = dedent("""
+        Tight text above
+        | bob |
+        | --- |
+        | cat1 |
+        | cat2 |
+        | cat3 |
+        Tight text below
+        """).strip()
+
+        result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
+
+        expected = dedent(r"""
+        Tight text above
+
+        | bob |
+        | --- |
+        | cat1 |
+        | cat2 |
+        | cat3 |
+
+        Tight text below
+        """).strip()
+        self.assertEqual(result, expected)
+        self.assertTrue(result.__contains__("\n\n| bob |"))
+        self.assertTrue(result.__contains__("| cat3 |\n\n"))
+
+    def test_table_followed_by_paragraph_containing_piped_link_has_newlines_added(self):
+        content = dedent("""
+        a fish
+        | bob |
+        | --- |
+        | cat |
+        | cat |
+        A video popped into my feed that I liked, about guestbooks: [Veronika Explains | Guestbook](https://youtu.be/ZSBYO1BYrDM?si=TL2T-jEKnaiFY-sN).
+        """).strip()
+
+        result = escape_pipes_in_links_outside_code_blocks_and_code_spans(content)
+
+        expected = dedent(r"""
+        a fish
+
+        | bob |
+        | --- |
+        | cat |
+        | cat |
+
+        A video popped into my feed that I liked, about guestbooks: [Veronika Explains \| Guestbook](https://youtu.be/ZSBYO1BYrDM?si=TL2T-jEKnaiFY-sN).
+        """).strip()
+        self.assertEqual(result, expected)
+        self.assertTrue(result.__contains__("\n\n| bob |"))
+        self.assertTrue(result.__contains__("| cat |\n\n"))
 
 
 class TestMarkdownTablesWikilinks(unittest.TestCase):
