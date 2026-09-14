@@ -13,6 +13,10 @@ def escape_markdown_code_blocks_for_jekyll(content: str) -> str:
 
     for fenced_line in iter_fenced_lines(content):
         if fenced_line.fence_opened:
+            if output_lines and output_lines[-1] == '{% endraw %}':
+                output_lines.append('')
+                output_lines.append('<p></p>')
+                output_lines.append('')
             output_lines.append('{% raw %}')
             output_lines.append(fenced_line.line)
         elif fenced_line.fence_closed:
