@@ -21,6 +21,7 @@ exclude:
   - LICENSE
   - Makefile
   - README.md
+  - home/home.md
 
 plugins:
   - jekyll-paginate
