@@ -2,8 +2,6 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
-- [ ] bugfix:
-	- [ ] tables require empty newline before and after for jekyll
 - [ ] Add test pipeline before pushing
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
@@ -26,7 +24,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 # Achievements
 - [x] - [ ] bugfix:
 	- [x] 2 codeblocks right above and below one another are not split into 2 codeblocks (20260914)
-	- [ ] tables require empty newline before and after for jekyll (20290614)
+	- [x] tables require empty newline before and after for jekyll (20290614)
 - [x] investigate:
 	- [x] Light mode and Dark mode? - ignore - happy with current design (20260914)
 	- [x] all pics in assets/images? - nah, my way is fine and working (20260914)
