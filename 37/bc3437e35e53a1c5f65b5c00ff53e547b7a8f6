@@ -1,0 +1,30 @@
+absurdly-goud-obsidian/journey/design/website-design.md
+  h_1197a506f6c7d6 3-21
+absurdly-goud-obsidian/buttons/buttons-and-cool-sites.md
+  s_1f1f2dc4c576df::t_5f718a2adaf9d7 1
+absurdly-goud-obsidian/home/home.md
+  s_1f1f2dc4c576df::t_61effb5881fe05 1-11,16-21
+"absurdly-goud-obsidian/posts/2026/09/14/2026-09-14 Investigating Guestbooks.md"
+  s_1f1f2dc4c576df::t_f46ffc5491398a 1-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "37bc3437e35e53a1c5f65b5c00ff53e547b7a8f6",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1f1f2dc4c576df": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_1f1f2dc4c576df",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
