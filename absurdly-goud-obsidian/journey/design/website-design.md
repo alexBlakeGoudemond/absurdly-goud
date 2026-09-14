@@ -14,7 +14,7 @@ Different options exist when considering static websites.
 | **Git-based CMS**            | Decap CMS, Tina, etc.                  | Web editor               | Commits Markdown/files             | Git repo             | **You**                 |
 | **Micropub backend + SSG**   | IndieKit/Indiekit + Eleventy           | Any Micropub client      | Content → files → SSG → HTML       | **Your storage**     | **You**                 |
 
-## Jekyll + Obsidian
+## Jekyll and Obsidian
 
 This website has a homebrew solution, simply because that was how it grew. After the fact, templates and generators were
 researched and nothing seemed to offer a way to combine use Obsidian out the gate - so a custom solution was built up!

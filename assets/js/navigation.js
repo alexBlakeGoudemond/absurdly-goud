@@ -21,6 +21,13 @@ function loadNewPageContent(currentMainContent, nextMainContent, nextDocument, l
     // Update the page title.
     document.title = nextDocument.title;
     // Scroll to the top of the new page.
+    if (link.hash) {
+        const target = document.querySelector(link.hash);
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+            return;
+        }
+    }
     window.scrollTo({top: 0, behavior: "smooth"});
 }
 

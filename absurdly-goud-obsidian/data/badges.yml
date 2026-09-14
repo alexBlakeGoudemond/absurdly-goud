@@ -1,7 +1,7 @@
 disclaimer:
   - name: "Disclaimer AI assisted site"
     image: "assets/88x31/ai-assisted.svg"
-    url: "/about#ai-usage/"
+    url: "/about#ai-usage"
     alt: "Disclaimer AI assisted site"
 built_with:
   - name: "Built with Jekyll"
