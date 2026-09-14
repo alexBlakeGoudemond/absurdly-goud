@@ -1,0 +1,28 @@
+scripts/parsing_markdown/codeblock_escaping.py
+  h_1197a506f6c7d6 17-19
+  s_b0e3efc8ee7f07::t_63ae9b8f45ec6a 16
+tests/parsing_markdown/test_codeblock_escaping.py
+  h_1197a506f6c7d6 81,97,99-100,103,106,108,110,113-131
+  h_1197a506f6c7d6 98,101-102,104-105,107,109,111-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "db2f1da72178a2c7d7bf58244cda9ecfb24268d4",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b0e3efc8ee7f07": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1789398538760",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
