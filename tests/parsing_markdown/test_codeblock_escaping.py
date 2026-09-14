@@ -78,7 +78,7 @@ class TestEscapeMarkdownCodeblocksForJekyll(unittest.TestCase):
         self.assertIn("{% endraw %}", result)
         self.assertIn("after", result)
 
-    def test_multiple_fenced_blocks_each_get_wrapped(self):
+    def test_multiple_fenced_blocks_with_text_in_between_each_get_wrapped(self):
         content = dedent("""
         ```
         first
@@ -93,6 +93,41 @@ class TestEscapeMarkdownCodeblocksForJekyll(unittest.TestCase):
 
         self.assertEqual(result.count("{% raw %}"), 2)
         self.assertEqual(result.count("{% endraw %}"), 2)
+
+    def test_multiple_fenced_blocks_with_no_text_in_between_each_get_wrapped(self):
+        content = dedent("""
+            Text above
+            ```python
+            first
+            ```
+            ```java
+            second
+            ```
+            text after
+            """)
+
+        result = escape_markdown_code_blocks_for_jekyll(content)
+
+        self.assertEqual(result.count("{% raw %}"), 2)
+        self.assertEqual(result.count("{% endraw %}"), 2)
+
+    def test_multiple_fenced_blocks_with_no_text_in_between_gets_newline_between_blocks(self):
+        content = dedent("""
+            Text above
+            ```python
+            first
+            ```
+            ```java
+            second
+            ```
+            text after
+            """)
+
+        result = escape_markdown_code_blocks_for_jekyll(content)
+
+        self.assertEqual(result.count("{% raw %}"), 2)
+        self.assertEqual(result.count("{% endraw %}"), 2)
+        self.assertTrue(result.__contains__("{% endraw %}\n\n<p></p>\n\n{% raw %}"))
 
 
 if __name__ == '__main__':

@@ -2,13 +2,7 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
-- [ ] investigate:
-	- [ ] all pics in assets/images?
-- [ ] bugfix:
-	- [ ] 2 codeblocks right above and below one another are not split into 2 codeblocks
-	- [ ] tables require empty newline before and after for jekyll
 - [ ] Add test pipeline before pushing
-- [ ] Light mode and Dark mode?
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
 - [ ] Custom 404 Page
@@ -28,6 +22,12 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] - [ ] bugfix:
+	- [x] 2 codeblocks right above and below one another are not split into 2 codeblocks (20260914)
+	- [x] tables require empty newline before and after for jekyll (20290614)
+- [x] investigate:
+	- [x] Light mode and Dark mode? - ignore - happy with current design (20260914)
+	- [x] all pics in assets/images? - nah, my way is fine and working (20260914)
 - [X] image popup: `go-to ->` instead of `learn more ->` or control this text outright (2026-09-11)
 - [X] Like last quack - add component in aside for updates, drawing from last commit message (2026-09-10)
 - [X] why cant link about to duck collection post? GitHub Actions error. A: Post was in the future: 2029-09-09, jekyll did not generate
