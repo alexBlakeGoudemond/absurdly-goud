@@ -1,0 +1,16 @@
+absurdly-goud-obsidian/data/badges.yml
+  h_1197a506f6c7d6 4
+assets/js/navigation.js
+  h_1197a506f6c7d6 24-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8bf68dffc49e1d80510a4f32ee511ed03801c78c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
