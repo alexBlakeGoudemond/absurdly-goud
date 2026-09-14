@@ -20,6 +20,10 @@ built_with:
     image: "/assets/88x31/microformats88x31-flat.png"
     url: "https://microformats.org/"
     alt: "Built with Microformats"
+  - name: "Built with Python Scripts"
+    image: "/assets/88x31/python-button.svg"
+    url: "https://github.com/alexBlakeGoudemond/absurdly-goud/blob/main/scripts/obsidian_to_jekyll.py"
+    alt: "Built with Python Scripts"
 part_of:
   - name: "Part of the IndieWeb"
     image: "/assets/88x31/indieweb88x31-flat.png"
