@@ -1,5 +1,24 @@
 # How does this website work?
 
+Different options exist when considering static websites.
+
+| Approach                     | Examples                               | You write                | What happens                       | Where content lives  | Who controls rendering? |
+|------------------------------|----------------------------------------|--------------------------|------------------------------------|----------------------|-------------------------|
+| **Hand-written HTML**        | HTML/CSS                               | HTML                     | Browser serves it directly         | Your files           | **You**                 |
+| **Static Site Generator**    | Jekyll, Hugo, Eleventy, Pelican, Astro | Markdown + templates     | Build → HTML                       | Your repo/files      | **You**                 |
+| **Blog/CMS software**        | WordPress, Ghost, Drupal               | Markdown/rich editor     | Server dynamically generates pages | Database/server      | **Mostly you**          |
+| **Hosted blogging platform** | Bear Blog, Tumblr, Blogger             | Markdown/editor          | Service generates pages            | **Their server**     | **Mostly them**         |
+| **Hosted IndieWeb platform** | micro.blog                             | Editor/Markdown/Micropub | Service publishes site             | Their infrastructure | Shared                  |
+| **Notes → website**          | Obsidian + exporter, Quartz, etc.      | Notes/Markdown           | Notes → website                    | Your files           | **You**                 |
+| **Headless CMS**             | Contentful, Sanity, Strapi             | CMS/editor               | API → your frontend                | CMS database         | **You**                 |
+| **Git-based CMS**            | Decap CMS, Tina, etc.                  | Web editor               | Commits Markdown/files             | Git repo             | **You**                 |
+| **Micropub backend + SSG**   | IndieKit/Indiekit + Eleventy           | Any Micropub client      | Content → files → SSG → HTML       | **Your storage**     | **You**                 |
+
+## Jekyll + Obsidian
+
+This website has a homebrew solution, simply because that was how it grew. After the fact, templates and generators were
+researched and nothing seemed to offer a way to combine use Obsidian out the gate - so a custom solution was built up!
+
 This site uses [Jekyll](https://jekyllrb.com/) to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a `site` directory (browser-ready HTML) Jekyll uses [kramdown](https://kramdown.gettalong.org/quickref.html) as its default Markdown Processor
 
 On-top of this - this website uses [Obsidian](https://obsidian.md/) to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.

@@ -1,4 +1,4 @@
-I love the idea of 88x31 buttons and badges, as mention here: [[2026-08-31 88x31 Exploration]]
+I love the idea of 88x31 buttons and badges, as mentioned here: [[2026-08-31 88x31 Exploration]]
 
 Below is a kind of stickerboard for the ones I have so far - both ones I've made and ones I havent
 
