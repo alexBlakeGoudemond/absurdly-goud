@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Blockquotes And Markdown Notation | ABsurdly Goud</title>
+    <title>Investigating Guestbooks | ABsurdly Goud</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
@@ -71,14 +71,14 @@
         <article class="h-entry">
 
     <header>
-        <h2 class="p-name">Blockquotes And Markdown Notation</h2>
+        <h2 class="p-name">Investigating Guestbooks</h2>
 
         
         
         <div class="dt-published">
             Created:
-            <time datetime="2026-09-06T00:00:00+00:00">
-                2026-09-06
+            <time datetime="2026-09-14T00:00:00+00:00">
+                2026-09-14
             </time>
 
             Last updated:
@@ -91,113 +91,88 @@
     <div class="e-content">
         
 
-        <p>Obsidian has <a href="https://obsidian.md/help/callouts">callouts</a> notation which are the same as Markdown Blockquotes. Below are examples of the other kinds of Markdown that should be supported inside of them</p>
+        <p>A video popped into my feed that I liked, about guestbooks: <a href="https://youtu.be/ZSBYO1BYrDM?si=TL2T-jEKnaiFY-sN">Veronika Explains | Guestbook</a>. I have been seeing guestbooks on other websites, and something in Veronika’s video made me feel like I could achieve this on mine.</p>
 
 <!--more-->
 
-<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
-    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div class="callout-title-icon">
-            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
-        </div>
-        <div class="callout-title-inner">Note</div>
-    </div>
-    <div class="callout-content">
-        
-<p>This has a ‘note’ Style</p>
+<p>In terms of design, guestbooks at their core are about allowing other people to add content to your site. Two broad strategies exist:</p>
 
-    </div>
-</div>
+<ul>
+  <li><strong>Guestbook entries become part of the site’s resources/content</strong>, either immediately or after a delay
+    <ul>
+      <li>They can be saved, cached, generated, etc. and somehow <code class="language-plaintext highlighter-rouge">merged</code> into the site’s content</li>
+      <li>The merge can be delayed so that entries can be moderated before publication</li>
+    </ul>
+  </li>
+  <li><strong>Guestbook entries are stored somewhere else and loaded dynamically into the site via JavaScript</strong>
+    <ul>
+      <li>The site fetches the data and updates the DOM</li>
+      <li>The guestbook entries are therefore never part of the site’s statically generated content</li>
+    </ul>
+  </li>
+</ul>
 
-<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
-    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div class="callout-title-icon">
-            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
-        </div>
-        <div class="callout-title-inner">Note</div>
-    </div>
-    <div class="callout-content">
-        
-<p>This has a wikilink to another note: <a href="/2026/09/03/ducks-ducks-ducks/">2026-09-03 DUCKS DUCKS DUCKS</a></p>
+<p>In addition to these strategies, people have expressed how, in the early days of the web, guestbooks had several challenges:</p>
+<ul>
+  <li><strong>Security</strong> — incoming content is untrusted and needs to be handled safely. For example, allowing arbitrary HTML or JavaScript into a page could create security vulnerabilities.</li>
+  <li><strong>Bullying / abuse</strong> — people can bicker, be unpleasant, or use the guestbook to harass others because the platform accepts incoming content.</li>
+  <li><strong>Low-quality additions / spam</strong> — people can send multiple low-value comments such as <code class="language-plaintext highlighter-rouge">HI</code>, <code class="language-plaintext highlighter-rouge">HI</code>, <code class="language-plaintext highlighter-rouge">HI</code>.</li>
+</ul>
 
-    </div>
-</div>
+<p>Considering all of this, I am leaning towards a design that allows me to:</p>
+<ul>
+  <li>moderate content</li>
+  <li>control what data I want to add to my website</li>
+  <li>control when content is added to my site and by whom
+    <ul>
+      <li>as such, delay bringing additions into the published site</li>
+    </ul>
+  </li>
+  <li>maintain the system easily</li>
+  <li>keep the site itself static</li>
+</ul>
 
-<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
-    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div class="callout-title-icon">
-            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
-        </div>
-        <div class="callout-title-inner">Note</div>
-    </div>
-    <div class="callout-content">
-        
-<p>This has an embdedded image (should show as inline image): <button type="button" class="image-popup-trigger" data-popup-src="https://knowyourmeme.com/memes/its-free-real-estate" data-popup-blurb="Anyone can jump in - its free real estate!" data-popup-redirect-text="Learn more" data-popup-image="/assets/image-popups/free-real-estate-original.gif" data-popup-preview-type="image" aria-label="Open details for free-real-estate.gif"><img class="u-photo-inline" src="/assets/88x31/free-real-estate.gif" alt="free-real-estate.gif" /></button></p>
+<p>From my existing research, here is the flow I like:</p>
 
-    </div>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Visitor submits something
+        ↓
+It gets stored somewhere
+        ↓
+I review it later
+        ↓
+I approve/reject it
+        ↓
+Approved content becomes part of my site
+        ↓
+Jekyll rebuilds the static site
+</code></pre></div></div>
 
-<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
-    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div class="callout-title-icon">
-            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
-        </div>
-        <div class="callout-title-inner">Note</div>
-    </div>
-    <div class="callout-content">
-        
-<p>This has a image on its own line (should show as figure):
-<button type="button" class="image-popup-trigger" data-popup-src="https://knowyourmeme.com/memes/this-is-fine" data-popup-blurb="The internet, most days" data-popup-redirect-text="Learn more" data-popup-image="/assets/image-popups/this-is-fine-fire-original.gif" data-popup-preview-type="image" aria-label="Open details for this-is-fine-fire.gif"><img class="u-photo-inline" src="/assets/88x31/this-is-fine-fire.gif" alt="this-is-fine-fire.gif" /></button></p>
+<p>Options exist:</p>
+<ul>
+  <li><strong>Render</strong> — host a small API/application with a database that I interact with.</li>
+  <li><strong>Railway</strong> — similar: host a small API/application and database, with relatively little infrastructure to manage.</li>
+  <li><strong>Fly.io</strong> — similar, but with more infrastructure/control.</li>
+  <li><strong>AWS</strong> — similar capabilities, but with substantially more cloud infrastructure and concepts.</li>
+  <li><strong>DigitalOcean / Hetzner / Cloudflare / Netlify</strong> — alternatives for hosting applications, databases, serverless functions, or related infrastructure.</li>
+  <li><strong>Webmentions and Webmention.io</strong>
+    <ul>
+      <li><strong>Webmention</strong> as the protocol: a notification that a source URL mentions a target URL.</li>
+      <li><strong>Webmention.io</strong> as a hosted receiver that can receive, store, and expose Webmentions through an API.</li>
+    </ul>
+  </li>
+</ul>
 
-    </div>
-</div>
-
-<p>Also - something I have not tested as yet are tables - these should show in the site formatted like this:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Heading 1</th>
-      <th>Heading 2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Content 1</td>
-      <td>Content 2</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>and in a callout:</p>
-
-<div class="callout" data-callout="note" data-collapsible="false" data-initial-state="expanded">
-    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div class="callout-title-icon">
-            <img src="/assets/callout_icons/pencil.svg" alt="note callout icon" aria-hidden="true" />
-        </div>
-        <div class="callout-title-inner">Note</div>
-    </div>
-    <div class="callout-content">
-        
-<table>
-  <thead>
-    <tr>
-      <th>Heading 1</th>
-      <th>Heading 2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Content 1</td>
-      <td>Content 2</td>
-    </tr>
-  </tbody>
-</table>
-
-    </div>
-</div>
-
+<p>Before committing to anything, I need to investigate:</p>
+<ul>
+  <li>cost?</li>
+  <li>setup and maintenance?</li>
+  <li>does it actually work for my guestbook use case?</li>
+  <li>can I delay retrieval/processing?</li>
+  <li>does the service provide persistent storage, or would I need my own database?</li>
+  <li>how long is submitted data retained before I retrieve and ingest it into my site?</li>
+  <li>how does moderation work?</li>
+  <li>can I export/recover all of my data if I stop using the service?</li>
+</ul>
 
     </div>
 

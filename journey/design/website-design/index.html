@@ -113,9 +113,103 @@
     <div class="content-body">
         <h1 id="how-does-this-website-work">How does this website work?</h1>
 
-<p>This site uses <a href="https://jekyllrb.com/">Jekyll</a> to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a <code class="language-plaintext highlighter-rouge">site</code> directory (browser-ready HTML) Jekyll uses <a href="https://kramdown.gettalong.org/quickref.html">kramdown</a> as its default Markdown Processor</p>
+<p>Different options exist when considering static websites.</p>
 
 <!--more-->
+
+<table>
+  <thead>
+    <tr>
+      <th>Approach</th>
+      <th>Examples</th>
+      <th>You write</th>
+      <th>What happens</th>
+      <th>Where content lives</th>
+      <th>Who controls rendering?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Hand-written HTML</strong></td>
+      <td>HTML/CSS</td>
+      <td>HTML</td>
+      <td>Browser serves it directly</td>
+      <td>Your files</td>
+      <td><strong>You</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Static Site Generator</strong></td>
+      <td>Jekyll, Hugo, Eleventy, Pelican, Astro</td>
+      <td>Markdown + templates</td>
+      <td>Build → HTML</td>
+      <td>Your repo/files</td>
+      <td><strong>You</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Blog/CMS software</strong></td>
+      <td>WordPress, Ghost, Drupal</td>
+      <td>Markdown/rich editor</td>
+      <td>Server dynamically generates pages</td>
+      <td>Database/server</td>
+      <td><strong>Mostly you</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Hosted blogging platform</strong></td>
+      <td>Bear Blog, Tumblr, Blogger</td>
+      <td>Markdown/editor</td>
+      <td>Service generates pages</td>
+      <td><strong>Their server</strong></td>
+      <td><strong>Mostly them</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Hosted IndieWeb platform</strong></td>
+      <td>micro.blog</td>
+      <td>Editor/Markdown/Micropub</td>
+      <td>Service publishes site</td>
+      <td>Their infrastructure</td>
+      <td>Shared</td>
+    </tr>
+    <tr>
+      <td><strong>Notes → website</strong></td>
+      <td>Obsidian + exporter, Quartz, etc.</td>
+      <td>Notes/Markdown</td>
+      <td>Notes → website</td>
+      <td>Your files</td>
+      <td><strong>You</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Headless CMS</strong></td>
+      <td>Contentful, Sanity, Strapi</td>
+      <td>CMS/editor</td>
+      <td>API → your frontend</td>
+      <td>CMS database</td>
+      <td><strong>You</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Git-based CMS</strong></td>
+      <td>Decap CMS, Tina, etc.</td>
+      <td>Web editor</td>
+      <td>Commits Markdown/files</td>
+      <td>Git repo</td>
+      <td><strong>You</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Micropub backend + SSG</strong></td>
+      <td>IndieKit/Indiekit + Eleventy</td>
+      <td>Any Micropub client</td>
+      <td>Content → files → SSG → HTML</td>
+      <td><strong>Your storage</strong></td>
+      <td><strong>You</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="jekyll--obsidian">Jekyll + Obsidian</h2>
+
+<p>This website has a homebrew solution, simply because that was how it grew. After the fact, templates and generators were
+researched and nothing seemed to offer a way to combine use Obsidian out the gate - so a custom solution was built up!</p>
+
+<p>This site uses <a href="https://jekyllrb.com/">Jekyll</a> to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a <code class="language-plaintext highlighter-rouge">site</code> directory (browser-ready HTML) Jekyll uses <a href="https://kramdown.gettalong.org/quickref.html">kramdown</a> as its default Markdown Processor</p>
 
 <p>On-top of this - this website uses <a href="https://obsidian.md/">Obsidian</a> to produce and easily maintain notes. To get this working with Jekyll, some python scripts and GitHub Actions are used.</p>
 
@@ -352,8 +446,8 @@
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-13 06:55</time>
-        <p>bugfix: correct navigation for buttons-and-cool-sites
+        <strong>Recent Updates:</strong> <time>2026-09-14 08:59</time>
+        <p>Add post on investigating guestbooks, add meat to home and website design
 
 Co-authored-by: Claude</p>
     </div>
@@ -373,10 +467,10 @@ Co-authored-by: Claude</p>
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789275360"></script>
-<script src="/assets/js/navigation.js?v=1789275360"></script>
-<script src="/assets/js/image_popups.js?v=1789275360" defer></script>
-<script src="/assets/js/callouts.js?v=1789275360" defer></script>
+<script src="/assets/js/pond.js?v=1789369196"></script>
+<script src="/assets/js/navigation.js?v=1789369196"></script>
+<script src="/assets/js/image_popups.js?v=1789369196" defer></script>
+<script src="/assets/js/callouts.js?v=1789369196" defer></script>
 
 </body>
 </html>
