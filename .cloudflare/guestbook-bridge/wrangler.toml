@@ -17,5 +17,5 @@ limit = 5
 period = 60
 
 [vars]
-TARGET_URL = "https://alexblakegoudemond.com/guestbook/"
+TARGET_URL = "https://absurdlygoud.com/guestbook/"
 WEBMENTION_ENDPOINT = "https://webmention.io/alexblakegoudemond.com/webmention"
