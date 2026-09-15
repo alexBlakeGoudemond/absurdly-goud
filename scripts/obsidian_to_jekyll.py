@@ -93,7 +93,9 @@ class ObsidianToJekyllConverter:
                              '_layouts',
                              '_data',
                              'journey',
+                             'guestbook',
                              'favicon.svg']
+    PERMALINK_PAGES = ['about.md', 'buttons-and-cool-sites.md', 'guestbook.md']
     IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md']
     SECTION_FOLDERS = ['journey']
     IMAGE_ASSET_GLOBS = ('*.png', '*.jpg', '*.jpeg', '*.gif', '*.svg', '*.webp')
@@ -199,7 +201,7 @@ class ObsidianToJekyllConverter:
                                     file_layout='post',
                                     include_permalink=False,
                                     last_published=last_published)
-        elif dest_path.name in ['about.md', 'buttons-and-cool-sites.md']:
+        elif dest_path.name in self.PERMALINK_PAGES:
             add_frontmatter_to_file(dest_path,
                                     include_permalink=True,
                                     last_published=last_published)
