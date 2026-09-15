@@ -1,0 +1,21 @@
+name = "guestbook-bridge"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "GUESTBOOK_KV"
+id = "f83d093075ca4f90b30be93ff2511ad8"
+
+[[ratelimits]]
+name = "GUESTBOOK_RATE_LIMITER"
+# Just an account-unique integer you pick to identify this limiter's own
+# bucket — not a reference to any other resource, doesn't need to match anything.
+namespace_id = "1001"
+
+[ratelimits.simple]
+limit = 5
+period = 60
+
+[vars]
+TARGET_URL = "https://alexblakegoudemond.com/guestbook/"
+WEBMENTION_ENDPOINT = "https://webmention.io/alexblakegoudemond.com/webmention"

@@ -20,6 +20,8 @@
       url: /journey/whiteboard/website-whiteboard/
 - title: Buttons and Cool Sites
   url: /buttons-and-cool-sites/
+- title: Guestbook
+  url: /guestbook/
 #- title: Writing
 #  url: /writing/
 #  children:
@@ -34,8 +36,3 @@
 #      url: /playground/projects/
 #    - title: Fun Stuff
 #      url: /playground/fun-stuff/
-#- title: Community
-#  url: /community/
-#  children:
-#    - title: Guestbook
-#      url: /community/guestbook/

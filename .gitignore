@@ -20,3 +20,6 @@
 
 /temp/
 /.run/
+
+# Cloudflare Wrangler
+/.cloudflare/guestbook-bridge/.wrangler/

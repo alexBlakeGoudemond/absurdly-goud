@@ -106,7 +106,7 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
 
         line two
         ```
-        ![Alt](img.png)
+        ![Alt](example-screenshot-cloudflare-deploy.png)
         """)
 
         result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(content, {})
