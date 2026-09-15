@@ -75,7 +75,6 @@
 }
 
 .guestbook-toast {
-    display: flex;
     align-items: center;
     gap: 0.5rem;
     max-width: 34rem;
@@ -86,6 +85,10 @@
     border-radius: 8px;
     color: var(--gb-success-ink);
     animation: guestbook-toast-in 0.25s ease-out;
+}
+
+.guestbook-toast:not([hidden]) {
+    display: flex;
 }
 
 .guestbook-toast-icon {

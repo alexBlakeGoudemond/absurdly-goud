@@ -6,7 +6,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
 - [ ] Custom 404 Page
-- [ ] Guestbook
 - [ ] Consider a [Jekyll theme](https://jekyllrb.com/docs/themes/#installing-a-theme)
 - [ ] GitHub actions to leverage secrets where possible (e.g. CNAME)
 - [ ] Figure our what RSS is about
@@ -21,6 +20,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Guestbook (20260915)
 - [x] ignore:
 	- [x] hits in the aside - no opt in for data collection (2026-09-15)
 - [x] bugfix:

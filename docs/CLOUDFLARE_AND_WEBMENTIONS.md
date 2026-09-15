@@ -65,3 +65,7 @@ successfully:
 ![example-screenshot-cloudflare-guestbook-entry-microformats.png](media/example-screenshot-cloudflare-guestbook-entry-microformats.png)
 
 And that's the POC of it working!
+
+> IMPORTANT
+> 
+> If doing this yourself - check for hardcoded URLs in guestbook
