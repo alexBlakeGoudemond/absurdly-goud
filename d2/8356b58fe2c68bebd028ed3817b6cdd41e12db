@@ -1,0 +1,14 @@
+docs/CLOUDFLARE_AND_WEBMENTIONS.md
+  h_1197a506f6c7d6 11-13,29,53-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d28356b58fe2c68bebd028ed3817b6cdd41e12db",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
