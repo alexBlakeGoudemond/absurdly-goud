@@ -1,0 +1,31 @@
+assets/css/guestbook.css
+  h_1197a506f6c7d6 90-91,93
+  s_f91093e89b31a5::t_90945dded0194d 92
+docs/CLOUDFLARE_AND_WEBMENTIONS.md
+  h_1197a506f6c7d6 68-71
+absurdly-goud-obsidian/home/home.md
+  s_f91093e89b31a5::t_c7fa26060416e8 12
+absurdly-goud-obsidian/journey/progress/website-progress.md
+  s_f91093e89b31a5::t_6b9b00853d4bb6 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "485a6edf2698fdc338e8cfd81de5c23b5fb4124c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_f91093e89b31a5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_f91093e89b31a5",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
