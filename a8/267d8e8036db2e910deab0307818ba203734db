@@ -1,0 +1,28 @@
+.cloudflare/guestbook-bridge/wrangler.toml
+  h_1197a506f6c7d6 7,9-17
+  s_8cc889ea07d94d::t_2fee42267671bb 8,21
+.cloudflare/guestbook-bridge/src/index.js
+  h_1197a506f6c7d6 10,19-26
+  s_8cc889ea07d94d::t_1ed4c49bc6dbb8 79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a8267d8e8036db2e910deab0307818ba203734db",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_8cc889ea07d94d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_8cc889ea07d94d",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
