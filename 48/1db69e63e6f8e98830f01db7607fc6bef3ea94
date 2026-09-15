@@ -1,0 +1,19 @@
+"absurdly-goud-obsidian/posts/2026/09/15/2026-09-15 Implementing Guestbooks.md"
+  s_ca85c661428e5f::t_25f6deed84c166 48-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "481db69e63e6f8e98830f01db7607fc6bef3ea94",
+  "prompts": {},
+  "sessions": {
+    "s_ca85c661428e5f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_ca85c661428e5f",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
