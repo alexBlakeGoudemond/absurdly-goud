@@ -1,0 +1,44 @@
+_layouts/default.html
+  h_1197a506f6c7d6 9-11
+.cloudflare/guestbook-bridge/src/index.js
+  h_1197a506f6c7d6 1-73
+.cloudflare/guestbook-bridge/wrangler.toml
+  h_1197a506f6c7d6 1-11
+.cloudflare/README.md
+  h_1197a506f6c7d6 1-3
+docs/CLOUDFLARE_AND_WEBMENTIONS.md
+  h_1197a506f6c7d6 1-51
+tests/parsing_markdown/test_wikilinks.py
+  h_1197a506f6c7d6 67
+.gitignore
+  h_1197a506f6c7d6 23-25
+docs/README.md
+  h_1197a506f6c7d6 18
+tests/parsing_markdown/test_markdown_images.py
+  h_1197a506f6c7d6 109
+absurdly-goud-obsidian/journey/progress/website-progress.md
+  s_bb60c762ca0ba1::t_b272178be1b7ac 24-26
+"absurdly-goud-obsidian/posts/2026/09/15/2026-09-15 Implementing Guestbooks.md"
+  s_bb60c762ca0ba1::t_bbcf09395bcbd3 1-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cbfeffee9b6881d4fc271270952b99274af7b3a3",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_bb60c762ca0ba1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_bb60c762ca0ba1",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
