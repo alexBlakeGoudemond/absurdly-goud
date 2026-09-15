@@ -1,0 +1,31 @@
+assets/css/guestbook.css
+  h_1197a506f6c7d6 1-119
+_layouts/default.html
+  h_1197a506f6c7d6 18,42
+assets/js/guestbook.js
+  h_1197a506f6c7d6 1-10,12
+  s_72049c8b0383cc::t_6d3a33d9722ef2 11
+guestbook/guestbook.md
+  h_1197a506f6c7d6 6-10,12-15,17-20,22-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "37e3e3dcd9341fea79d3227298ebdf7306d89696",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_72049c8b0383cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_72049c8b0383cc",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
