@@ -14,6 +14,8 @@ In addition to these strategies, people have expressed how, in the early days of
 - **Bullying / abuse** — people can bicker, be unpleasant, or use the guestbook to harass others because the platform accepts incoming content.
 - **Low-quality additions / spam** — people can send multiple low-value comments such as `HI`, `HI`, `HI`.
 
+## Personal Preferences
+
 Considering all of this, I am leaning towards a design that allows me to:
 - moderate content
 - control what data I want to add to my website
@@ -38,6 +40,8 @@ Approved content becomes part of my site
 Jekyll rebuilds the static site
 ```
 
+## Vendor Options
+
 Options exist:
 - **Render** — host a small API/application with a database that I interact with.
 - **Railway** — similar: host a small API/application and database, with relatively little infrastructure to manage.
@@ -47,6 +51,8 @@ Options exist:
 - **Webmentions and Webmention.io**
     - **Webmention** as the protocol: a notification that a source URL mentions a target URL.
     - **Webmention.io** as a hosted receiver that can receive, store, and expose Webmentions through an API.
+
+## Research Questions
 
 Before committing to anything, I need to investigate:
 - cost?
