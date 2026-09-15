@@ -96,7 +96,7 @@ class ObsidianToJekyllConverter:
                              'guestbook',
                              'favicon.svg']
     PERMALINK_PAGES = ['about.md', 'buttons-and-cool-sites.md', 'guestbook.md']
-    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md']
+    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md', 'guestbook-blurb.md']
     SECTION_FOLDERS = ['journey']
     IMAGE_ASSET_GLOBS = ('*.png', '*.jpg', '*.jpeg', '*.gif', '*.svg', '*.webp')
     IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'}

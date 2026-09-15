@@ -1,0 +1,31 @@
+<svg id="custom-logo"
+     width="88"
+     height="31"
+     viewBox="0 0 88 31"
+     fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Original Source: https://www.svgrepo.com/svg/362284/webmention -->
+
+    <rect
+            width="88"
+            height="31"
+            fill="#AC6B37"
+            rx="7"
+    />
+
+    <g transform="translate(3 -1) scale(0.025)">
+        <path fill="#000000"
+              d="M857 216l-230 214h111l-85 368h-2l-120 -368h-144l-121 362h-2l-111 -476h-153l185 700h155l117 -363h2l118 363h153l157 -586h113z"/>
+    </g>
+
+    <!-- wordmark -->
+    <text x="26"
+          y="19"
+          font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+          font-size="8"
+          font-weight="700"
+          fill="#FFF8E7">Webmention.io
+    </text>
+
+</svg>

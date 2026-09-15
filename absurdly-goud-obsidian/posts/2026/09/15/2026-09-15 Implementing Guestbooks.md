@@ -46,3 +46,25 @@ I'm going to pursue Cloudflare Workers because:
 - **Rate limiting**: built-in Rate Limiting Rules you can attach directly to your Worker's route — a few clicks, no separate service to wire up. Genuinely useful for a public form endpoint like yours.
 - **Ease of use**: no server, no OS, no scaling config, no cold-start tuning. `wrangler deploy` and you're live. KV storage (what the entry pages live in) is likewise zero-ops.
 - **Cheap**: free tier is 100,000 requests/day, which is wildly more than a personal guestbook will ever see. You will not pay anything for this use case.
+
+## Answers to Research Questions
+I asked questions in [[2026-09-14 Investigating Guestbooks#Research Questions|Investigating Guestbooks Research Questions]], below are the answers:
+- cost? 
+	- With Cloudflare Workers: Free Tier cost $0 per month, with up to 100_000 daily requests
+- setup and maintenance?
+	- Setup and maintain in the IDE with [Wrangler](https://developers.cloudflare.com/workers/wrangler/) (in the GitHub Repository) else in the browser
+- does it actually work for my guestbook use case?
+	- YES! With Webmentions.io
+- can I delay retrieval/processing?
+	- YES, Webmention.io hold onto the updates for me
+- does the service provide persistent storage, or would I need my own database?
+	- Webmention.io offers storage
+- how long is submitted data retained before I retrieve and 
+	- Webmention.io from my research, indefinitely by default
+- ingest it into my site?
+	- I can do this manually / via a script in time
+- how does moderation work?
+	- I control it! Bringing content into the site is in my control
+- can I export/recover all of my data if I stop using the service?
+	- There is a Webmention.io API - so I could. But IndieWeb conventions is about owning my data - so I would prefer to move the posts to my own website as and when I have them
+

@@ -3,6 +3,8 @@ layout: default
 title: "Guestbook"
 ---
 
+{% include_relative guestbook-blurb.md %}
+
 <form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
   <div class="guestbook-field">
     <label for="gb-name">Name</label>

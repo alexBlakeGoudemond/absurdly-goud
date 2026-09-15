@@ -22,6 +22,7 @@ exclude:
   - Makefile
   - README.md
   - home/home.md
+  - guestbook/guestbook-blurb.md
 
 plugins:
   - jekyll-paginate
