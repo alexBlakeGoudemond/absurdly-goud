@@ -1,0 +1,11 @@
+name = "guestbook-bridge"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "GUESTBOOK_KV"
+id = "f83d093075ca4f90b30be93ff2511ad8"   # paste your full id here, no quotes truncated
+
+[vars]
+TARGET_URL = "https://alexblakegoudemond.com/guestbook/"
+WEBMENTION_ENDPOINT = "https://webmention.io/alexblakegoudemond.com/webmention"

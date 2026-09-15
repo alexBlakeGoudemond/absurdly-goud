@@ -11,7 +11,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] GitHub actions to leverage secrets where possible (e.g. CNAME)
 - [ ] Figure our what RSS is about
 - [ ] consider a Notebook section
-- [ ] hits in the aside?
 - [ ] projects tab?
 - [ ] parallax background?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
@@ -22,7 +21,9 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
-- [x] - [ ] bugfix:
+- [x] ignore:
+	- [x] hits in the aside - no opt in for data collection (2026-09-15)
+- [x] bugfix:
 	- [x] 2 codeblocks right above and below one another are not split into 2 codeblocks (20260914)
 	- [x] tables require empty newline before and after for jekyll (20290614)
 - [x] investigate:

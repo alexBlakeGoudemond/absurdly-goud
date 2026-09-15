@@ -64,7 +64,7 @@ class TestBuildNotePathLookup(unittest.TestCase):
 
     def test_non_markdown_manifest_entries_are_ignored(self):
         manifest = {
-            "/vault/img.png": manifest_entry("/vault/img.png", str(self.output_location / "assets" / "img.png")),
+            "/vault/example-screenshot-cloudflare-deploy.png": manifest_entry("/vault/example-screenshot-cloudflare-deploy.png", str(self.output_location / "assets" / "example-screenshot-cloudflare-deploy.png")),
             "/vault/Note.md": manifest_entry("/vault/Note.md", str(self.output_location / "Note.md")),
         }
 
