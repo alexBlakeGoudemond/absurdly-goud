@@ -7,9 +7,7 @@ export default {
         if (request.method === "GET" && url.pathname.startsWith("/entry/")) {
             const id = url.pathname.split("/entry/")[1];
             const entry = await env.GUESTBOOK_KV.get(id);
-            if (!entry){
-              return new Response("Not found", {status: 404});
-            }
+            if (!entry) return new Response("Not found", {status: 404});
             return new Response(entry, {
                 headers: {"content-type": "text/html; charset=utf-8"},
             });
@@ -18,6 +16,14 @@ export default {
         // Accepts the guestbook form POST, publishes an entry page,
         // then sends the actual webmention.
         if (request.method === "POST" && url.pathname === "/submit") {
+            const ip = request.headers.get("cf-connecting-ip") || "unknown";
+            const {success} = await env.GUESTBOOK_RATE_LIMITER.limit({key: ip});
+            if (!success) {
+                return new Response("Too many submissions — please try again in a minute.", {
+                    status: 429,
+                });
+            }
+
             const form = await request.formData();
             const name = (form.get("name") || "Anonymous").toString().slice(0, 100);
             const message = (form.get("message") || "").toString().slice(0, 1000);
