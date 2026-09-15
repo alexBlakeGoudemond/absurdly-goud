@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Testing Wikilinks | ABsurdly Goud</title>
+    <title>Implementing Guestbooks | ABsurdly Goud</title>
 
     <link rel="webmention" href="https://webmention.io/alexblakegoudemond.com/webmention" />
     <link rel="pingback" href="https://webmention.io/alexblakegoudemond.com/xmlrpc" />
@@ -77,14 +77,14 @@
         <article class="h-entry">
 
     <header>
-        <h2 class="p-name">Testing Wikilinks</h2>
+        <h2 class="p-name">Implementing Guestbooks</h2>
 
         
         
         <div class="dt-published">
             Created:
-            <time datetime="2026-08-25T00:00:00+00:00">
-                2026-08-25
+            <time datetime="2026-09-15T00:00:00+00:00">
+                2026-09-15
             </time>
 
             Last updated:
@@ -97,25 +97,58 @@
     <div class="e-content">
         
 
-        <p>In Obsidian I am using wikilinks like this <code class="language-plaintext highlighter-rouge">[[...]]</code> and it should now just work with Jekyll due to the conversion script!</p>
+        <p>I planned Guestbook work in <a href="/2026/09/14/investigating-guestbooks/">2026-09-14 Investigating Guestbooks</a> and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed.</p>
 
 <!--more-->
 
-<p>If I have a wikilink like this:</p>
+<p>Webmention.io’s API endpoint does not receive the JSON Payload in an HTTP POST - it accepts 2 URLS (Source and Destination) and then the API fetches the content itself</p>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[Note#Sub Section|Alt Text]]
+<p>A request like this should be sent to webmentions.io:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">POST https://webmention.io/alexblakegoudemond.com/webmention
+source=https://some-url/entry/123
+target=https://alexblakegoudemond.com/guestbook/
+</span></code></pre></div></div>
+
+<p>There’s no <code class="language-plaintext highlighter-rouge">message</code> or <code class="language-plaintext highlighter-rouge">name</code> field in that payload at all. Webmention.io takes those two URLs, then makes its own outbound HTTP request to <code class="language-plaintext highlighter-rouge">source</code>, and:</p>
+
+<ol>
+  <li>Confirms the fetched page actually contains a link to <code class="language-plaintext highlighter-rouge">target</code> (proof you’re not making up a mention for a page you don’t control)</li>
+  <li>Parses that page’s HTML for microformats2 markup (<code class="language-plaintext highlighter-rouge">h-entry</code>, <code class="language-plaintext highlighter-rouge">p-author</code>, <code class="language-plaintext highlighter-rouge">p-content</code>, etc.) to extract the actual message/author/content</li>
+</ol>
+
+<p>It’s an API for <em>registering that a link exists</em>, not for <em>submitting data</em>. The content has to already be sitting at a fetchable URL before you ever call the endpoint, because webmention.io’s whole verification model is “I don’t trust what you tell me, I’ll go look for myself.”</p>
+
+<p>That’s a deliberate anti-spoofing property of the Webmention spec itself (not a webmention.io quirk) — without the fetch-and-verify step, anyone could POST a fake mention claiming any page said anything about any target, with no proof at all.</p>
+
+<h2 id="desired-flow">Desired Flow</h2>
+
+<p>What I would love is this flow:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>visitor submits guestbook entry 
+→ Worker publishes entry + sends webmention 
+→ webmention.io stores it
+    ↓
+(sits in webmentions.io, invisible to site visitors)
+    ↓
+I fetch mentions via API whenever I choose
+    ↓
+I moderate each one
+    ↓
+approved ones I bring into the site via git commits
+→ _data/guestbook.yml → commit
+→ makes public content
+    ↓
+Jekyll rebuilds, now it's live
 </code></pre></div></div>
 
-<p>Then the script should convert it into a form that Jekyll requires -  a redirect syntax called a link like this:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nv">Alt Text</span><span class="p">](</span><span class="sx">{%</span> link path/to/Note.md %}#sub-section)
-</code></pre></div></div>
-
-<p>Testing between posts - this should link <a href="/2026/08/24/aside-and-buttons/">2026-08-24-aside-and-buttons</a></p>
-
-<p>Testing between posts and about - this should link <a href="/about/#ai-usage">AI Usage</a></p>
-
-<p>Testing hyperlinks: <a href="https://jekyllrb.com/">Jekyll</a></p>
+<p>I’m going to pursue Cloudflare Workers because:</p>
+<ul>
+  <li><strong>DDoS prevention</strong>: this isn’t a bolt-on feature, it’s Cloudflare’s core business — Workers run on the same edge network that absorbs some of the largest DDoS attacks on the internet. You get this automatically, no configuration.</li>
+  <li><strong>Rate limiting</strong>: built-in Rate Limiting Rules you can attach directly to your Worker’s route — a few clicks, no separate service to wire up. Genuinely useful for a public form endpoint like yours.</li>
+  <li><strong>Ease of use</strong>: no server, no OS, no scaling config, no cold-start tuning. <code class="language-plaintext highlighter-rouge">wrangler deploy</code> and you’re live. KV storage (what the entry pages live in) is likewise zero-ops.</li>
+  <li><strong>Cheap</strong>: free tier is 100,000 requests/day, which is wildly more than a personal guestbook will ever see. You will not pay anything for this use case.</li>
+</ul>
 
     </div>
 
