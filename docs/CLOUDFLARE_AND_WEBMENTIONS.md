@@ -8,7 +8,9 @@ A worker is needed as Webmentions.io needs to verify that the the SOURCE URL and
 ingest the content. At a later point, the author can then GET the data from Webmentions.io and choose what to do with
 it.
 
-## Setup and Login
+## Cloudflare Workers
+
+### Setup and Login
 
 Setup on local machine only:
 
@@ -24,7 +26,7 @@ Login and authorize in browser:
 wrangler login
 ```
 
-## Publish
+### Publish
 
 In Powershell, CD into `.cloudflare/guestbook-bridge` and run:
 
@@ -49,3 +51,17 @@ wrangler deploy
 If successful, you should see this in Cloudflare Workers
 
 ![example-screenshot-cloudflare-deploy.png](media/example-screenshot-cloudflare-deploy.png)
+
+## Webmentions.io
+
+Once you have your guestbook form, and the cloudflare worker receives the submission - it will prepare the Payload and
+send it to webmentions.io:
+
+![example-screenshot-webmentions-dashboard.png](media/example-screenshot-webmentions-dashboard.png)
+
+We can also see the page that Cloudflare Workers created with correct microformats for the webmentions.io to parse
+successfully:
+
+![example-screenshot-cloudflare-guestbook-entry-microformats.png](media/example-screenshot-cloudflare-guestbook-entry-microformats.png)
+
+And that's the POC of it working!
