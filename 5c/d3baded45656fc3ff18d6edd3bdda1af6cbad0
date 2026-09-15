@@ -1,0 +1,30 @@
+absurdly-goud-obsidian/assets/88x31/buttons-aside/cloudflare-worker-button.svg
+  h_1197a506f6c7d6 1-42
+absurdly-goud-obsidian/assets/88x31/buttons-aside/webmention-io-button.svg
+  h_1197a506f6c7d6 1-31
+absurdly-goud-obsidian/assets/88x31/buttons-aside/python-button.svg
+  h_1197a506f6c7d6 8,105,113
+absurdly-goud-obsidian/data/badges.yml
+  s_cb12fb751e0a7a::t_2adf006ad4d912 27-30,36-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5cd3baded45656fc3ff18d6edd3bdda1af6cbad0",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_cb12fb751e0a7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_cb12fb751e0a7a",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
