@@ -1,0 +1,32 @@
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 99
+_config.yml
+  h_1197a506f6c7d6 25
+guestbook/guestbook.md
+  h_1197a506f6c7d6 6-7
+absurdly-goud-obsidian/guestbook/guestbook-blurb.md
+  s_0ed36c83ef6af5::t_19cffcf2ae3e9a 1-12
+"absurdly-goud-obsidian/posts/2026/09/14/2026-09-14 Investigating Guestbooks.md"
+  s_0ed36c83ef6af5::t_e658f918db9482 17-18,43-44,55-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "45293f21a7455c95a0b2d0912228acac66ce0d39",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0ed36c83ef6af5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_0ed36c83ef6af5",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
