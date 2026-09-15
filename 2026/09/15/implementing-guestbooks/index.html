@@ -45,7 +45,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-79" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-80" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-81" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+</svg><img class="pond-duck" id="pond-duck-81" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-82" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-83" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header>
     <nav>
@@ -88,8 +88,8 @@
             </time>
 
             Last updated:
-            <time datetime="2026-09-15T05:01:00+00:00">
-                2026-09-15 05:01
+            <time datetime="2026-09-15T10:54:00+00:00">
+                2026-09-15 10:54
             </time>
         </div>
     </header>
@@ -150,6 +150,57 @@ Jekyll rebuilds, now it's live
   <li><strong>Cheap</strong>: free tier is 100,000 requests/day, which is wildly more than a personal guestbook will ever see. You will not pay anything for this use case.</li>
 </ul>
 
+<h2 id="answers-to-research-questions">Answers to Research Questions</h2>
+<p>I asked questions in <a href="/2026/09/14/investigating-guestbooks/#research-questions">Investigating Guestbooks Research Questions</a>, below are the answers:</p>
+<ul>
+  <li>cost?
+    <ul>
+      <li>With Cloudflare Workers: Free Tier cost $0 per month, with up to 100_000 daily requests</li>
+    </ul>
+  </li>
+  <li>setup and maintenance?
+    <ul>
+      <li>Setup and maintain in the IDE with <a href="https://developers.cloudflare.com/workers/wrangler/">Wrangler</a> (in the GitHub Repository) else in the browser</li>
+    </ul>
+  </li>
+  <li>does it actually work for my guestbook use case?
+    <ul>
+      <li>YES! With Webmentions.io</li>
+    </ul>
+  </li>
+  <li>can I delay retrieval/processing?
+    <ul>
+      <li>YES, Webmention.io hold onto the updates for me</li>
+    </ul>
+  </li>
+  <li>does the service provide persistent storage, or would I need my own database?
+    <ul>
+      <li>Webmention.io offers storage</li>
+    </ul>
+  </li>
+  <li>how long is submitted data retained before I retrieve and
+    <ul>
+      <li>Webmention.io from my research, indefinitely by default</li>
+    </ul>
+  </li>
+  <li>ingest it into my site?
+    <ul>
+      <li>I can do this manually / via a script in time</li>
+    </ul>
+  </li>
+  <li>how does moderation work?
+    <ul>
+      <li>I control it! Bringing content into the site is in my control</li>
+    </ul>
+  </li>
+  <li>can I export/recover all of my data if I stop using the service?
+    <ul>
+      <li>There is a Webmention.io API - so I could. But IndieWeb conventions is about owning my data - so I would prefer to move the posts to my own website as and when I have them</li>
+    </ul>
+  </li>
+</ul>
+
+
     </div>
 
 </article>
@@ -195,6 +246,12 @@ Jekyll rebuilds, now it's live
                      class="badge-img">
             </a>
             
+            <a href="https://www.cloudflare.com/products/workers/" target="_blank" rel="noopener">
+                <img src="/assets/88x31/cloudflare-worker-button.svg"
+                     alt="Built with Cloudflare Workers"
+                     class="badge-img">
+            </a>
+            
         </div>
     </div>
 
@@ -205,6 +262,12 @@ Jekyll rebuilds, now it's live
             <a href="https://indieweb.org" target="_blank" rel="noopener">
                 <img src="/assets/88x31/indieweb88x31-flat.png"
                      alt="Part of the IndieWeb"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://indieweb.org/webmention.io" target="_blank" rel="noopener">
+                <img src="/assets/88x31/webmention-io-button.svg"
+                     alt="Uses Webmention.io"
                      class="badge-img">
             </a>
             
@@ -235,10 +298,10 @@ Jekyll rebuilds, now it's live
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-15 07:01</time>
-        <p>Feature/implement guestbook (#43)
+        <strong>Recent Updates:</strong> <time>2026-09-15 12:53</time>
+        <p>Bugfix/guestbook redirect to absurdlygoud (#44)
 
-Add Guestbook feature; wired via Cloudflare Workers and Webmentions.io; Update notes and docs to explain; Co-author: Claude</p>
+correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and Cloudflare Workers; update notes and add guestbook blurb; Co-authored-by: Claude</p>
     </div>
     
 
@@ -256,11 +319,11 @@ Add Guestbook feature; wired via Cloudflare Workers and Webmentions.io; Update n
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789448495"></script>
-<script src="/assets/js/navigation.js?v=1789448495"></script>
-<script src="/assets/js/image_popups.js?v=1789448495" defer></script>
-<script src="/assets/js/callouts.js?v=1789448495" defer></script>
-<script src="/assets/js/guestbook.js?v=1789448495" defer></script>
+<script src="/assets/js/pond.js?v=1789469663"></script>
+<script src="/assets/js/navigation.js?v=1789469663"></script>
+<script src="/assets/js/image_popups.js?v=1789469663" defer></script>
+<script src="/assets/js/callouts.js?v=1789469663" defer></script>
+<script src="/assets/js/guestbook.js?v=1789469663" defer></script>
 
 </body>
 </html>
