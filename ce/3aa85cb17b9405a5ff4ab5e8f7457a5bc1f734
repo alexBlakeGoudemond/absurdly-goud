@@ -1,0 +1,23 @@
+requirements.txt
+  s_5b275805bc6317::t_2a36c3a546a5b4 1-8
+docs/LOCAL_TESTING.md
+  s_5b275805bc6317::t_b849df63410f92 18
+.github/workflows/convert-build-deploy.yml
+  s_5b275805bc6317::t_d0833c400faa3a 47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ce3aa85cb17b9405a5ff4ab5e8f7457a5bc1f734",
+  "prompts": {},
+  "sessions": {
+    "s_5b275805bc6317": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1789528540255",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
