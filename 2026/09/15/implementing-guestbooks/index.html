@@ -45,7 +45,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-81" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-82" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-83" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+</svg><img class="pond-duck" id="pond-duck-88" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-89" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-90" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header>
     <nav>
@@ -88,8 +88,8 @@
             </time>
 
             Last updated:
-            <time datetime="2026-09-15T10:54:00+00:00">
-                2026-09-15 10:54
+            <time datetime="2026-09-16T04:22:00+00:00">
+                2026-09-16 04:22
             </time>
         </div>
     </header>
@@ -97,11 +97,9 @@
     <div class="e-content">
         
 
-        <p>I planned Guestbook work in <a href="/2026/09/14/investigating-guestbooks/">2026-09-14 Investigating Guestbooks</a> and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed.</p>
+        <p>I planned Guestbook work in <a href="/2026/09/14/investigating-guestbooks/">2026-09-14 Investigating Guestbooks</a> and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed. <code class="language-plaintext highlighter-rouge">Webmention.io's</code> API endpoint does not receive the JSON Payload in an HTTP POST - it accepts 2 URLS (Source and Destination) and then the API fetches the content itself</p>
 
 <!--more-->
-
-<p>Webmention.io’s API endpoint does not receive the JSON Payload in an HTTP POST - it accepts 2 URLS (Source and Destination) and then the API fetches the content itself</p>
 
 <p>A request like this should be sent to webmentions.io:</p>
 
@@ -200,6 +198,59 @@ Jekyll rebuilds, now it's live
   </li>
 </ul>
 
+<h2 id="working-proof">Working Proof</h2>
+
+<div class="callout" data-callout="info" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/info.svg" alt="info callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Info</div>
+    </div>
+    <div class="callout-content">
+        
+<p>See <a href="/journey/design/website-design/#cloudflare-workers-and-webmention">Cloudflare Workers and Webmention</a> for technical overview</p>
+
+    </div>
+</div>
+
+<p>Guestbook entry like this is sent to the Cloudflare Worker:</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-website-guestbook-form.png" alt="screenshot-website-guestbook-form.png" />
+    <figcaption>screenshot-website-guestbook-form.png</figcaption>
+</figure>
+
+<p>The Cloudflare Worker then produces this HTML:</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-cloudflare-worker-generated-html-guestbook-entry.png" alt="screenshot-cloudflare-worker-generated-html-guestbook-entry.png" />
+    <figcaption>screenshot-cloudflare-worker-generated-html-guestbook-entry.png</figcaption>
+</figure>
+
+<p>And the mention is registered with Webmention.io’s API:</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-webmention-io-registered-mention.png" alt="screenshot-webmention-io-registered-mention.png" />
+    <figcaption>screenshot-webmention-io-registered-mention.png</figcaption>
+</figure>
+
+<p>Event handled! At any point in the future, I can access Webmention.io and see Guestbook entries!</p>
 
     </div>
 
@@ -298,10 +349,10 @@ Jekyll rebuilds, now it's live
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-15 12:53</time>
-        <p>Bugfix/guestbook redirect to absurdlygoud (#44)
+        <strong>Recent Updates:</strong> <time>2026-09-16 06:22</time>
+        <p>Task/expand on guestbooks 20260916 (#45)
 
-correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and Cloudflare Workers; update notes and add guestbook blurb; Co-authored-by: Claude</p>
+Add notes on CloudFlare Workers, Webmentions.io and the pipeline to achieve the Guesbook feature; Improve Guestbook tooltip: pulsing animation and way to remove the tooltip; add requirements.txt to improve dependencies; Co-authored-by: JetBrains Junie</p>
     </div>
     
 
@@ -319,11 +370,11 @@ correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and 
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789469663"></script>
-<script src="/assets/js/navigation.js?v=1789469663"></script>
-<script src="/assets/js/image_popups.js?v=1789469663" defer></script>
-<script src="/assets/js/callouts.js?v=1789469663" defer></script>
-<script src="/assets/js/guestbook.js?v=1789469663" defer></script>
+<script src="/assets/js/pond.js?v=1789532556"></script>
+<script src="/assets/js/navigation.js?v=1789532556"></script>
+<script src="/assets/js/image_popups.js?v=1789532556" defer></script>
+<script src="/assets/js/callouts.js?v=1789532556" defer></script>
+<script src="/assets/js/guestbook.js?v=1789532556" defer></script>
 
 </body>
 </html>

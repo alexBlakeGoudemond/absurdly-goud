@@ -45,7 +45,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-81" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-82" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-83" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+</svg><img class="pond-duck" id="pond-duck-88" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-89" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-90" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header>
     <nav>
@@ -375,6 +375,56 @@ researched and nothing seemed to offer a way to combine use Obsidian out the gat
     </div>
 </div>
 
+<h2 id="cloudflare-workers-and-webmention">Cloudflare Workers and Webmention</h2>
+<p>As mentioned in <a href="/2026/09/14/investigating-guestbooks/">2026-09-14 Investigating Guestbooks</a> and <a href="/2026/09/15/implementing-guestbooks/">2026-09-15 Implementing Guestbooks</a>, this site uses Cloudflare Workers and Webmention.io to handle Guestbook entries. 
+Guestbook posts are submitted to the cloudflare worker. The Cloudflare worker then prepares and stores the post as a dedicated html page, with microformats.</p>
+
+<div class="callout" data-callout="info" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/info.svg" alt="info callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Info</div>
+    </div>
+    <div class="callout-content">
+        
+<p>The Cloudflare Worker uses a map <code class="language-plaintext highlighter-rouge">env.GUESTBOOK_KV</code> to store the page with the  <code class="language-plaintext highlighter-rouge">key : value = randomUUID : html</code></p>
+
+    </div>
+</div>
+
+<p>The Cloudflare worker then interacts with the Webmention.io API, providing the source URL (<code class="language-plaintext highlighter-rouge">https://guestbook-bridge.&lt;subdomain&gt;.workers.dev/entry/123e4567-e89b-...</code>) and target URL (<code class="language-plaintext highlighter-rouge">https://absurdlygoud.com/guestbook/</code>). The point of this is to <strong><em>REGISTER</em></strong> that a ‘mention’ exists.</p>
+
+<p>Webmention.io then stores the mention for retrieval. At the time of writing, the model is deliberately manual - I periodically check for Guestbook entries and moderate before bringing into the site</p>
+
+<div class="callout" data-callout="info" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/info.svg" alt="info callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Info</div>
+    </div>
+    <div class="callout-content">
+        
+<p><a href="/2026/09/15/implementing-guestbooks/#working-proof">Guestbook Working Proof</a> shows screenshots of the website, the generate HTML produced by the Cloudflare Worker and the Webmention.io dashboard of the mention</p>
+
+    </div>
+</div>
+
+<div class="callout" data-callout="info" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/info.svg" alt="info callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Info</div>
+    </div>
+    <div class="callout-content">
+        
+<p>For an insight into what Cloudflare Worker looks like, see <a href="/2026/09/16/cloudflare-worker-observability/">2026-09-16 Cloudflare Worker Observability</a></p>
+
+    </div>
+</div>
+
 
     </div>
 </div>
@@ -472,10 +522,10 @@ researched and nothing seemed to offer a way to combine use Obsidian out the gat
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-15 12:53</time>
-        <p>Bugfix/guestbook redirect to absurdlygoud (#44)
+        <strong>Recent Updates:</strong> <time>2026-09-16 06:22</time>
+        <p>Task/expand on guestbooks 20260916 (#45)
 
-correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and Cloudflare Workers; update notes and add guestbook blurb; Co-authored-by: Claude</p>
+Add notes on CloudFlare Workers, Webmentions.io and the pipeline to achieve the Guesbook feature; Improve Guestbook tooltip: pulsing animation and way to remove the tooltip; add requirements.txt to improve dependencies; Co-authored-by: JetBrains Junie</p>
     </div>
     
 
@@ -493,11 +543,11 @@ correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and 
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789469663"></script>
-<script src="/assets/js/navigation.js?v=1789469663"></script>
-<script src="/assets/js/image_popups.js?v=1789469663" defer></script>
-<script src="/assets/js/callouts.js?v=1789469663" defer></script>
-<script src="/assets/js/guestbook.js?v=1789469663" defer></script>
+<script src="/assets/js/pond.js?v=1789532556"></script>
+<script src="/assets/js/navigation.js?v=1789532556"></script>
+<script src="/assets/js/image_popups.js?v=1789532556" defer></script>
+<script src="/assets/js/callouts.js?v=1789532556" defer></script>
+<script src="/assets/js/guestbook.js?v=1789532556" defer></script>
 
 </body>
 </html>

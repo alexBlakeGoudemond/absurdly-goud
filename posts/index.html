@@ -45,7 +45,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-81" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-82" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-83" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+</svg><img class="pond-duck" id="pond-duck-88" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-89" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-90" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header>
     <nav>
@@ -83,6 +83,37 @@
   <article class="h-entry post">
 
     <h2 class="p-name">
+      Cloudflare Worker Observability
+    </h2>
+
+    
+    
+    <div class="dt-published">
+      Created:
+      <time datetime="2026-09-16T00:00:00+00:00">
+        2026-09-16
+      </time>
+
+      Last updated:
+      <time datetime="2026-09-16T04:22:00+00:00">
+        2026-09-16 04:22
+      </time>
+    </div>
+
+    <div class="p-summary">
+      <p>As shown in <a href="/2026/09/15/implementing-guestbooks/">2026-09-15 Implementing Guestbooks</a>, Guestbook entries are working! In this post I am going to focus on the pipeline from website -&gt; Cloudflare Worker and explore the User Interface of the Cloudflare Worker User Interface.</p>
+
+
+      <a class="u-url" href="/2026/09/16/cloudflare-worker-observability/"><i>click me to continue reading ...</i></a>
+    </div>
+
+  </article>
+
+  
+
+  <article class="h-entry post">
+
+    <h2 class="p-name">
       Implementing Guestbooks
     </h2>
 
@@ -95,13 +126,13 @@
       </time>
 
       Last updated:
-      <time datetime="2026-09-15T10:54:00+00:00">
-        2026-09-15 10:54
+      <time datetime="2026-09-16T04:22:00+00:00">
+        2026-09-16 04:22
       </time>
     </div>
 
     <div class="p-summary">
-      <p>I planned Guestbook work in <a href="/2026/09/14/investigating-guestbooks/">2026-09-14 Investigating Guestbooks</a> and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed.</p>
+      <p>I planned Guestbook work in <a href="/2026/09/14/investigating-guestbooks/">2026-09-14 Investigating Guestbooks</a> and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed. <code class="language-plaintext highlighter-rouge">Webmention.io's</code> API endpoint does not receive the JSON Payload in an HTTP POST - it accepts 2 URLS (Source and Destination) and then the API fetches the content itself</p>
 
 
       <a class="u-url" href="/2026/09/15/implementing-guestbooks/"><i>click me to continue reading ...</i></a>
@@ -126,8 +157,8 @@
       </time>
 
       Last updated:
-      <time datetime="2026-09-15T10:54:00+00:00">
-        2026-09-15 10:54
+      <time datetime="2026-09-16T04:22:00+00:00">
+        2026-09-16 04:22
       </time>
     </div>
 
@@ -136,37 +167,6 @@
 
 
       <a class="u-url" href="/2026/09/14/investigating-guestbooks/"><i>click me to continue reading ...</i></a>
-    </div>
-
-  </article>
-
-  
-
-  <article class="h-entry post">
-
-    <h2 class="p-name">
-      88X31 Buttons And Hotlinking
-    </h2>
-
-    
-    
-    <div class="dt-published">
-      Created:
-      <time datetime="2026-09-12T00:00:00+00:00">
-        2026-09-12
-      </time>
-
-      Last updated:
-      <time datetime="2026-09-15T10:54:00+00:00">
-        2026-09-15 10:54
-      </time>
-    </div>
-
-    <div class="p-summary">
-      <p>This YouTube video - <a href="https://youtu.be/0Wzl__xxpwc?si=9W7AobuV0KRtsY04">Stargirl Lee | Create retro web graphics</a> - popped into my feed, and one of the things I learned was <a href="https://simple.wikipedia.org/wiki/Hotlinking">Hotlinking</a>. This impacts the way I will be using 88x31 buttons and badges</p>
-
-
-      <a class="u-url" href="/2026/09/12/88x31-buttons-and-hotlinking/"><i>click me to continue reading ...</i></a>
     </div>
 
   </article>
@@ -288,10 +288,10 @@
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-15 12:53</time>
-        <p>Bugfix/guestbook redirect to absurdlygoud (#44)
+        <strong>Recent Updates:</strong> <time>2026-09-16 06:22</time>
+        <p>Task/expand on guestbooks 20260916 (#45)
 
-correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and Cloudflare Workers; update notes and add guestbook blurb; Co-authored-by: Claude</p>
+Add notes on CloudFlare Workers, Webmentions.io and the pipeline to achieve the Guesbook feature; Improve Guestbook tooltip: pulsing animation and way to remove the tooltip; add requirements.txt to improve dependencies; Co-authored-by: JetBrains Junie</p>
     </div>
     
 
@@ -309,11 +309,11 @@ correct Target URL to absurdlygoud.com; add aside buttons for Webmention.io and 
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789469663"></script>
-<script src="/assets/js/navigation.js?v=1789469663"></script>
-<script src="/assets/js/image_popups.js?v=1789469663" defer></script>
-<script src="/assets/js/callouts.js?v=1789469663" defer></script>
-<script src="/assets/js/guestbook.js?v=1789469663" defer></script>
+<script src="/assets/js/pond.js?v=1789532556"></script>
+<script src="/assets/js/navigation.js?v=1789532556"></script>
+<script src="/assets/js/image_popups.js?v=1789532556" defer></script>
+<script src="/assets/js/callouts.js?v=1789532556" defer></script>
+<script src="/assets/js/guestbook.js?v=1789532556" defer></script>
 
 </body>
 </html>

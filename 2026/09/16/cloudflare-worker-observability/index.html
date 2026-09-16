@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Caching Test | ABsurdly Goud</title>
+    <title>Cloudflare Worker Observability | ABsurdly Goud</title>
 
     <link rel="webmention" href="https://webmention.io/alexblakegoudemond.com/webmention" />
     <link rel="pingback" href="https://webmention.io/alexblakegoudemond.com/xmlrpc" />
@@ -77,14 +77,14 @@
         <article class="h-entry">
 
     <header>
-        <h2 class="p-name">Caching Test</h2>
+        <h2 class="p-name">Cloudflare Worker Observability</h2>
 
         
         
         <div class="dt-published">
             Created:
-            <time datetime="2026-08-23T00:00:00+00:00">
-                2026-08-23
+            <time datetime="2026-09-16T00:00:00+00:00">
+                2026-09-16
             </time>
 
             Last updated:
@@ -97,15 +97,99 @@
     <div class="e-content">
         
 
-        <p>I am working on doing a build cache via a Manifest file to improve publication</p>
+        <p>As shown in <a href="/2026/09/15/implementing-guestbooks/">2026-09-15 Implementing Guestbooks</a>, Guestbook entries are working! In this post I am going to focus on the pipeline from website -&gt; Cloudflare Worker and explore the User Interface of the Cloudflare Worker User Interface.</p>
 
 <!--more-->
 
-<p>Instead of deleting the entire <code class="language-plaintext highlighter-rouge">site_src</code> directory and then re-copying, I am instead using a cache strategy. If the
-<code class="language-plaintext highlighter-rouge">sha256</code> of a file changed, the <code class="language-plaintext highlighter-rouge">name</code> of the file changed or the file was deleted - only then should it be updated in
-the remote destination - the rest remains as is. Right now this benefits Local Development only as GitHub-hosted Actions
-runners are <strong>ephemeral</strong> — nothing persists between workflow runs unless explicitly cached. Can always bring this in
-later to GitHub Pages</p>
+<p>Cloudflare is doing an important job: creating the HTML page for the mention (as the SOURCE URL) and then providing that SOURCE URL and the TARGET URL to the Webmention.io API.</p>
+
+<p>Take this example mention:</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-website-guestbook-form.png" alt="screenshot-website-guestbook-form.png" />
+    <figcaption>screenshot-website-guestbook-form.png</figcaption>
+</figure>
+
+<p>We can find that interaction on CloudFlare:</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-cloudflare-worker-guestbook-bridge.png" alt="screenshot-cloudflare-worker-guestbook-bridge.png" />
+    <figcaption>screenshot-cloudflare-worker-guestbook-bridge.png</figcaption>
+</figure>
+
+<p><code class="language-plaintext highlighter-rouge">guestbook-bridge</code> &gt; <code class="language-plaintext highlighter-rouge">Observability</code> &gt; <code class="language-plaintext highlighter-rouge">Traces</code> shows a great visualisation of each operation</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-cloudflare-worker-observability-trace-example.png" alt="screenshot-cloudflare-worker-observability-trace-example.png" />
+    <figcaption>screenshot-cloudflare-worker-observability-trace-example.png</figcaption>
+</figure>
+
+<p>Clicking on that POST Trace:</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-cloudflare-worker-trace-example.png" alt="screenshot-cloudflare-worker-trace-example.png" />
+    <figcaption>screenshot-cloudflare-worker-trace-example.png</figcaption>
+</figure>
+
+<p>In that figure, we see how much time was spent to achieve each nested unit of work - making up the full request time at the top. The top time of 1.33s can also be represented by adding up all the subtasks’ times (0ms + 468ms + 866ms)</p>
+
+<p>In that figure, <code class="language-plaintext highlighter-rouge">kv</code> represents the <code class="language-plaintext highlighter-rouge">Key-Value</code> map of <code class="language-plaintext highlighter-rouge">(RandomID, HTML)</code>. It took 468ms to place the generated HTML into the map</p>
+
+<p>Also in that figure, the interaction with the Webmention.io API took 866ms</p>
+
+<p>We can look inside the <code class="language-plaintext highlighter-rouge">kv put</code> unit of work and identify the entry:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">cloudflare.kv.query.keys="3c1b9867-ea00-4109-a5db-d0289bd0d5a2"</span>
+</code></pre></div></div>
+
+<p>… and because we know that the Cloudflare Worker uses that random UUID as the map key - we can search for that in webmention.io!</p>
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/screenshot-webmention-io-dashboard-showing-specific-mention.png" alt="screenshot-webmention-io-dashboard-showing-specific-mention.png" />
+    <figcaption>screenshot-webmention-io-dashboard-showing-specific-mention.png</figcaption>
+</figure>
+
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>Cloudflare Workers omit the payloads by design.</p>
+
+<p>This is done for privacy, security, and PII protection (e.g., preventing sensitive user input, tokens, or personal messages from being stored unredacted in logging systems)</p>
+
+    </div>
+</div>
+
 
     </div>
 
