@@ -9,7 +9,7 @@ You can start anywhere on my site! Some examples:
 - You can read my posts, perhaps [[2026-09-09 My Rubber Duck Collection|my rubber duck collection]]
 - You can see [[website-design#Jekyll and Obsidian|how this website was built with Obsidian and Jekyll]] and even look at [[website-whiteboard.excalidraw|my excalidraw whiteboard]]
 - You can explore [[buttons-and-cool-sites|my button and cool site collection]]
-- Sign my <a href="/guestbook">guestbook</a> if you would like
+- Sign my <a href="/community/guestbook">guestbook</a> if you would like
 
 ## AI Usage
 
