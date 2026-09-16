@@ -137,3 +137,6 @@ Webmention.io then stores the mention for retrieval. At the time of writing, the
 > [!info]
 > [[2026-09-15 Implementing Guestbooks#Working Proof|Guestbook Working Proof]] shows screenshots of the website, the generate HTML produced by the Cloudflare Worker and the Webmention.io dashboard of the mention
 
+> [!info]
+> For an insight into what Cloudflare Worker looks like, see [[2026-09-16 Cloudflare Worker Observability]]
+
