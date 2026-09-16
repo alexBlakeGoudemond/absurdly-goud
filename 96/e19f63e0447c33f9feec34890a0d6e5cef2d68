@@ -1,0 +1,26 @@
+absurdly-goud-obsidian/community/guestbook/guestbook.md
+  h_1197a506f6c7d6 1-12,38
+  h_1197a506f6c7d6 13-36
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 96,100-101
+  h_1197a506f6c7d6 99
+absurdly-goud-obsidian/home/home.md
+  h_1197a506f6c7d6 12
+community/community.md
+  h_1197a506f6c7d6 1-10
+absurdly-goud-obsidian/community/mentions/mentions.md
+  h_1197a506f6c7d6 1
+absurdly-goud-obsidian/data/nav.yml
+  h_1197a506f6c7d6 23-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "96e19f63e0447c33f9feec34890a0d6e5cef2d68",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
