@@ -7,11 +7,11 @@ In terms of design, guestbooks at their core are about allowing other people to 
     - The merge can be delayed so that entries can be moderated before publication
 - **Guestbook entries are stored somewhere else and loaded dynamically into the site via JavaScript**
     - The site fetches the data and updates the DOM
-    - The guestbook entries are therefore never part of the site's statically generated content
+    - The community entries are therefore never part of the site's statically generated content
 
 In addition to these strategies, people have expressed how, in the early days of the web, guestbooks had several challenges:
 - **Security** — incoming content is untrusted and needs to be handled safely. For example, allowing arbitrary HTML or JavaScript into a page could create security vulnerabilities.
-- **Bullying / abuse** — people can bicker, be unpleasant, or use the guestbook to harass others because the platform accepts incoming content.
+- **Bullying / abuse** — people can bicker, be unpleasant, or use the community to harass others because the platform accepts incoming content.
 - **Low-quality additions / spam** — people can send multiple low-value comments such as `HI`, `HI`, `HI`.
 
 ## Personal Preferences
@@ -57,7 +57,7 @@ Options exist:
 Before committing to anything, I need to investigate:
 - cost?
 - setup and maintenance?
-- does it actually work for my guestbook use case?
+- does it actually work for my community use case?
 - can I delay retrieval/processing?
 - does the service provide persistent storage, or would I need my own database?
 - how long is submitted data retained before I retrieve and ingest it into my site?
