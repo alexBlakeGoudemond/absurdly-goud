@@ -1,0 +1,20 @@
+tests/webmention/test_webmention_pull.py
+  h_1197a506f6c7d6 1-68
+.gitignore
+  h_1197a506f6c7d6 26-28
+scripts/webmention/webmention_pull.py
+  h_1197a506f6c7d6 1-209
+requirements.txt
+  h_1197a506f6c7d6 9-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9f0019df9969fbd37795a6ec471e6e9acbd68084",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
