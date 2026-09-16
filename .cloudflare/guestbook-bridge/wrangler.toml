@@ -2,6 +2,7 @@ name = "guestbook-bridge"
 main = "src/index.js"
 compatibility_date = "2026-09-01"
 
+# KV == Key-Value
 [[kv_namespaces]]
 binding = "GUESTBOOK_KV"
 id = "f83d093075ca4f90b30be93ff2511ad8"
@@ -19,3 +20,21 @@ period = 60
 [vars]
 TARGET_URL = "https://absurdlygoud.com/guestbook/"
 WEBMENTION_ENDPOINT = "https://webmention.io/alexblakegoudemond.com/webmention"
+
+# https://developers.cloudflare.com/workers/wrangler/configuration/#observability
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+# https://developers.cloudflare.com/workers/observability/logs/workers-logs/
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
+persist = true
+
+# https://developers.cloudflare.com/workers/observability/traces/
+[observability.traces]
+enabled = true
+head_sampling_rate = 1
+persist = true

@@ -5,6 +5,12 @@ title: "Guestbook"
 
 {% include_relative guestbook-blurb.md %}
 
+<div id="guestbook-toast" class="guestbook-toast" hidden>
+  <span class="guestbook-toast-icon">✓</span>
+  <span>Captured! Your message is in the queue in webmentions.io. The author will review and bring in when he can!</span>
+  <button type="button" id="guestbook-toast-close" class="guestbook-toast-close" aria-label="Close notification">×</button>
+</div>
+<p></p>
 <form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
   <div class="guestbook-field">
     <label for="gb-name">Name</label>
@@ -24,7 +30,3 @@ title: "Guestbook"
 <button type="submit" class="guestbook-submit">Sign the guestbook ✎</button>
 </form>
 
-<div id="guestbook-toast" class="guestbook-toast" hidden>
-  <span class="guestbook-toast-icon">✓</span>
-  <span>Captured! Your message is in the queue.</span>
-</div>
