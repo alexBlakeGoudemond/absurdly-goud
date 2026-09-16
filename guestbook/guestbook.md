@@ -10,7 +10,7 @@ title: "Guestbook"
   <span>Captured! Your message is in the queue in webmentions.io. The author will review and bring in when he can!</span>
   <button type="button" id="guestbook-toast-close" class="guestbook-toast-close" aria-label="Close notification">×</button>
 </div>
-
+<p></p>
 <form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
   <div class="guestbook-field">
     <label for="gb-name">Name</label>
