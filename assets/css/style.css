@@ -123,10 +123,123 @@ figcaption {
     color: #666;
 }
 
-header,
-footer {
+body > header,
+body > footer,
+.site-header,
+.site-footer,
+.subnav {
     position: relative;
     z-index: 20;
+    background: rgb(216 255 249 / 0.8);
+}
+
+body > header,
+.site-header {
+    border-bottom: 1px solid #630b0b;
+    padding: 0.75rem 2rem;
+}
+
+body > header nav,
+.site-header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.subnav {
+    border: 1px solid #630b0b;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.nav-item,
+.subnav-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #630b0b;
+    border-radius: 6px;
+    background: #ffffff;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.nav-item:hover,
+.subnav-item:hover,
+.nav-item:focus-within,
+.subnav-item:focus-within {
+    background: #eafaf6;
+    transform: translateY(-1px);
+}
+
+.nav-item a,
+.subnav-item a,
+.nav-link,
+.subnav-link {
+    color: #16302e;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-item.active,
+.subnav-item.active {
+    background: #eafaf6;
+    border-color: #630b0b;
+}
+
+.nav-item.active a,
+.nav-link.active,
+.subnav-item.active a,
+.subnav-link.active {
+    font-weight: 600;
+    color: #630b0b;
+}
+
+.nav-item.nav-logo a {
+    padding: 0.25rem 0.5rem;
+}
+
+.nav-item.nav-logo img {
+    display: block;
+}
+
+body > footer,
+.site-footer {
+    border-top: 1px solid #630b0b;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+body > footer p,
+.site-footer p {
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    body > header,
+    body > footer,
+    .site-header,
+    .site-footer {
+        padding: 0.75rem 1rem;
+    }
+
+    body > header nav,
+    .site-header nav,
+    .subnav {
+        gap: 0.5rem;
+    }
 }
 
 div.highlighter-rouge,

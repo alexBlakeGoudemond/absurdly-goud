@@ -13,16 +13,35 @@ function modifierKeyIsPressed(event) {
         event.altKey;
 }
 
-function loadNewPageContent(currentMainContent, nextMainContent, nextDocument, link) {
-    // Replace only the main content.
+function loadNewPageContent(currentMainContent, nextMainContent, nextDocument, link, updateHistory = true) {
+    // Replace the main content.
     currentMainContent.innerHTML = nextMainContent.innerHTML;
+
+    // Update the header navigation so the active state updates immediately.
+    const currentHeader = document.querySelector("header.site-header, header");
+    const nextHeader = nextDocument.querySelector("header.site-header, header");
+    if (currentHeader && nextHeader) {
+        currentHeader.innerHTML = nextHeader.innerHTML;
+    }
+
+    // Update the aside if present.
+    const currentAside = document.querySelector(".page-wrapper aside");
+    const nextAside = nextDocument.querySelector(".page-wrapper aside");
+    if (currentAside && nextAside) {
+        currentAside.innerHTML = nextAside.innerHTML;
+    }
+
+    const url = typeof link === "string" ? new URL(link, window.location.origin) : link;
+
     // Update the browser URL.
-    history.pushState({}, "", link.href);
+    if (updateHistory) {
+        history.pushState({}, "", url.href);
+    }
     // Update the page title.
     document.title = nextDocument.title;
     // Scroll to the top of the new page.
-    if (link.hash) {
-        const target = document.querySelector(link.hash);
+    if (url.hash) {
+        const target = document.querySelector(url.hash);
         if (target) {
             target.scrollIntoView({ behavior: "smooth" });
             return;
@@ -94,7 +113,7 @@ window.addEventListener(
                 return;
             }
 
-            loadNewPageContent(currentMainContent, nextMainContent, nextDocument, link);
+            loadNewPageContent(currentMainContent, nextMainContent, nextDocument, window.location, false);
         } catch (error) {
             console.error("Back/forward navigation failed:", error);
             window.location.reload();
