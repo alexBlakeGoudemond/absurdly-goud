@@ -123,3 +123,17 @@ This script runs when I test locally via docker as well as in GitHub Actions for
 > [!Important]
 > A community plugin for Excalidraw is being used in this obsidian vault. A setting to export the changes to an SVG is also turned on - which allows the SVG to be used in the website generation
 
+## Cloudflare Workers and Webmention
+As mentioned in [[2026-09-14 Investigating Guestbooks]] and [[2026-09-15 Implementing Guestbooks]], this site uses Cloudflare Workers and Webmention.io to handle Guestbook entries. 
+Guestbook posts are submitted to the cloudflare worker. The Cloudflare worker then prepares and stores the post as a dedicated html page, with microformats. 
+
+> [!info]
+> The Cloudflare Worker uses a map `env.GUESTBOOK_KV` to store the page with the  `key : value = randomUUID : html`
+
+The Cloudflare worker then interacts with the Webmention.io API, providing the source URL (`https://guestbook-bridge.<subdomain>.workers.dev/entry/123e4567-e89b-...`) and target URL (`https://absurdlygoud.com/guestbook/`). The point of this is to ***REGISTER*** that a 'mention' exists. 
+
+Webmention.io then stores the mention for retrieval. At the time of writing, the model is deliberately manual - I periodically check for Guestbook entries and moderate before bringing into the site
+
+> [!info]
+> [[2026-09-15 Implementing Guestbooks#Working Proof|Guestbook Working Proof]] shows screenshots of the website, the generate HTML produced by the Cloudflare Worker and the Webmention.io dashboard of the mention
+

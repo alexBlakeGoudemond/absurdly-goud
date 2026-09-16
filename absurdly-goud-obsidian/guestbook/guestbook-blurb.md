@@ -1,5 +1,6 @@
 > [!info]
-> This website uses Cloudflare Workers to publish guestbook entries to Webmention.io
+> This website uses Cloudflare Workers to publish guestbook entries to Webmention.io.
+> See [[2026-09-15 Implementing Guestbooks#Working Proof|Guestbook Working Proof]] for screenshots of how this works
 
 > [!important]
 > 

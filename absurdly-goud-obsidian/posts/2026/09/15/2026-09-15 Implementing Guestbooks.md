@@ -1,6 +1,4 @@
-I planned Guestbook work in [[2026-09-14 Investigating Guestbooks]] and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed. 
-
-Webmention.io's API endpoint does not receive the JSON Payload in an HTTP POST - it accepts 2 URLS (Source and Destination) and then the API fetches the content itself
+I planned Guestbook work in [[2026-09-14 Investigating Guestbooks]] and had 1 unseen assumption; webmentions.io is all I need. This is not the case - a middleman / worker is still needed. `Webmention.io's` API endpoint does not receive the JSON Payload in an HTTP POST - it accepts 2 URLS (Source and Destination) and then the API fetches the content itself
 
 A request like this should be sent to webmentions.io:
 
@@ -68,3 +66,21 @@ I asked questions in [[2026-09-14 Investigating Guestbooks#Research Questions|In
 - can I export/recover all of my data if I stop using the service?
 	- There is a Webmention.io API - so I could. But IndieWeb conventions is about owning my data - so I would prefer to move the posts to my own website as and when I have them
 
+## Working Proof
+
+> [!info]
+> See [[website-design#Cloudflare Workers and Webmention|Cloudflare Workers and Webmention]] for technical overview
+
+Guestbook entry like this is sent to the Cloudflare Worker:
+
+![[screenshot-website-guestbook-form.png]]
+
+The Cloudflare Worker then produces this HTML:
+
+![[screenshot-cloudflare-worker-generated-html-guestbook-entry.png]]
+
+And the mention is registered with Webmention.io's API:
+
+![[screenshot-webmention-io-registered-mention.png]]
+
+Event handled! At any point in the future, I can access Webmention.io and see Guestbook entries!
