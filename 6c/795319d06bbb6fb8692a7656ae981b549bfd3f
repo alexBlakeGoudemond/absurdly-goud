@@ -1,0 +1,15 @@
+.cloudflare/guestbook-bridge/wrangler.toml
+  h_1197a506f6c7d6 22-39
+  h_1197a506f6c7d6 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6c795319d06bbb6fb8692a7656ae981b549bfd3f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
