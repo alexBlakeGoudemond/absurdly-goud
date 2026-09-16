@@ -8,6 +8,7 @@ title: "Guestbook"
 <div id="guestbook-toast" class="guestbook-toast" hidden>
   <span class="guestbook-toast-icon">✓</span>
   <span>Captured! Your message is in the queue in webmentions.io. The author will review and bring in when he can!</span>
+  <button type="button" id="guestbook-toast-close" class="guestbook-toast-close" aria-label="Close notification">×</button>
 </div>
 
 <form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
