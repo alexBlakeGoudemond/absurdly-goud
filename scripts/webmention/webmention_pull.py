@@ -14,7 +14,7 @@ USAGE
 -----
     # Token resolution order (first one found wins):
     #   1. --token flag
-    #   2. WEBMENTION_IO_TOKEN in a local .env file (see .env.example)
+    #   2. WEBMENTION_IO_TOKEN in the file given by --env-file (default: .env)
     #   3. WEBMENTION_IO_TOKEN environment variable
 
     # Everything since Sep 1st, printed to stdout
@@ -29,12 +29,17 @@ USAGE
     # Pass the token explicitly instead of using .env / the environment
     python pull_webmentions.py --from 2026-09-01 --token xxxxxxxx
 
+    # Use a differently-named/located env file
+    python pull_webmentions.py --from 2026-09-01 --env-file .env/webmentions.io.env
+
 PARAMETERS (all easy to change — see the argparse block below)
 ----------------------------------------------------------------
     --from      Start of window. ISO-8601 or plain YYYY-MM-DD. REQUIRED.
     --to        End of window. ISO-8601. Defaults to now().
     --domain    webmention.io domain filter (optional).
     --token     API token. See resolution order above.
+    --env-file  Path to a dotenv file to load WEBMENTION_IO_TOKEN from
+                (default: .env in the current directory).
     --per-page  API page size (default 100).
     --out       Path to merge/write YAML into. Prints to stdout if omitted.
     --status    Moderation status stamped on newly pulled entries
@@ -53,22 +58,22 @@ import yaml
 
 try:
     from dotenv import load_dotenv
-    load_dotenv()  # quietly no-ops if there's no .env file present
+    HAVE_DOTENV = True
 except ImportError:
-    pass  # python-dotenv not installed — .env just won't be read; env vars/--token still work
+    HAVE_DOTENV = False  # python-dotenv not installed — --env-file just won't be read
 
 API_URL = "https://webmention.io/api/mentions.jf2"
 
 
-def parse_date(date):
+def parse_dt(s):
     """Accepts 'YYYY-MM-DD', or full ISO-8601 (with or without a 'Z')."""
-    if date is None:
+    if s is None:
         return None
-    date = date.strip()
-    if len(date) == 10:  # bare date
-        date += "T00:00:00+00:00"
-    date = date.replace("Z", "+00:00")
-    dt = datetime.fromisoformat(date)
+    s = s.strip()
+    if len(s) == 10:  # bare date
+        s += "T00:00:00+00:00"
+    s = s.replace("Z", "+00:00")
+    dt = datetime.fromisoformat(s)
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return dt
@@ -108,7 +113,7 @@ def in_window(entry, start, end):
     if not raw:
         return True  # keep undated entries rather than silently dropping them
     try:
-        dt = parse_date(raw)
+        dt = parse_dt(raw)
     except ValueError:
         return True
     if start and dt < start:
@@ -156,8 +161,10 @@ def main():
     ap.add_argument("--to", dest="to_time", default=None,
                     help="End of window: ISO-8601 (default: now)")
     ap.add_argument("--domain", default=None, help="webmention.io domain filter")
-    ap.add_argument("--token", default=os.environ.get("WEBMENTION_IO_TOKEN"),
-                    help="API token (or set WEBMENTION_IO_TOKEN)")
+    ap.add_argument("--token", default=None,
+                    help="API token. Overrides --env-file / WEBMENTION_IO_TOKEN env var.")
+    ap.add_argument("--env-file", default=".env",
+                    help="Path to a dotenv file holding WEBMENTION_IO_TOKEN (default: .env)")
     ap.add_argument("--per-page", type=int, default=100)
     ap.add_argument("--out", default=None,
                     help="Path to merge/write YAML (e.g. data/guestbook.yml). "
@@ -166,17 +173,26 @@ def main():
                     help="Status stamped on newly pulled entries")
     args = ap.parse_args()
 
-    if not args.token:
-        sys.exit("No API token provided. Pass --token or set WEBMENTION_IO_TOKEN.")
+    if HAVE_DOTENV and os.path.exists(args.env_file):
+        load_dotenv(args.env_file)
 
-    start = parse_date(args.from_time)
-    end = parse_date(args.to_time) if args.to_time else datetime.now(timezone.utc)
+    token = args.token or os.environ.get("WEBMENTION_IO_TOKEN")
+    if not token:
+        sys.exit(
+            "No API token found. Provide one of:\n"
+            "  --token xxxxxxxx\n"
+            f"  WEBMENTION_IO_TOKEN=xxxxxxxx in {args.env_file}\n"
+            "  export WEBMENTION_IO_TOKEN=xxxxxxxx"
+        )
+
+    start = parse_dt(args.from_time)
+    end = parse_dt(args.to_time) if args.to_time else datetime.now(timezone.utc)
 
     if end < start:
         sys.exit("--to is earlier than --from — check your window.")
 
     since_iso = start.isoformat()
-    raw_entries = fetch_all(args.token, since_iso, domain=args.domain, per_page=args.per_page)
+    raw_entries = fetch_all(token, since_iso, domain=args.domain, per_page=args.per_page)
     windowed = [e for e in raw_entries if in_window(e, start, end)]
 
     existing = load_existing(args.out)

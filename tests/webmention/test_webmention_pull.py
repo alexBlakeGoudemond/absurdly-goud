@@ -1,68 +1,84 @@
-#!/usr/bin/env python3
-"""
-test_webmention_api.py
-
-Smoke test: proves your token works and you can talk to the
-webmention.io API before wiring up the full pull script.
-
-USAGE
------
-    # Token resolution order (first one found wins):
-    #   1. --token flag
-    #   2. WEBMENTION_IO_TOKEN in a local .env file (see .env.example)
-    #   3. WEBMENTION_IO_TOKEN environment variable
-
-    python test_webmention_api.py
-    python test_webmention_api.py --token xxxxxxxx
-"""
-
-import argparse
-import json
 import os
-import sys
+import unittest
+from pathlib import Path
 
 import requests
 
 try:
     from dotenv import load_dotenv
-    load_dotenv()
 except ImportError:
-    pass
+    load_dotenv = None
+
+from scripts.webmention.webmention_pull import API_URL
+
+# Anchored to this file's location (tests/webmention/ -> repo root is two
+# levels up) rather than a bare relative path, so this resolves correctly
+# no matter what directory you invoke pytest/unittest from.
+_THIS_DIR = Path(__file__).resolve().parent
+_REPO_ROOT = _THIS_DIR.parent.parent
+DEFAULT_ENV_FILE = _REPO_ROOT / '.env' / 'webmentions.io.env'
 
 
-def main():
-    ap = argparse.ArgumentParser(description="Smoke test for the webmention.io API.")
-    ap.add_argument("--token", default=os.environ.get("WEBMENTION_IO_TOKEN"),
-                    help="API token (or set WEBMENTION_IO_TOKEN via .env / env var)")
-    args = ap.parse_args()
+def _resolve_token():
+    """Loads WEBMENTION_IO_TOKEN the same way webmention_pull.py does
+    (dotenv file, utf-8-sig safe for a BOM'd file, falls back to a real
+    env var), so this test never drifts out of sync with the real script."""
+    env_file = os.environ.get('WEBMENTION_ENV_FILE', str(DEFAULT_ENV_FILE))
+    if load_dotenv is not None and os.path.exists(env_file):
+        load_dotenv(env_file, encoding='utf-8-sig')
 
-    token = args.token
-    if not token:
-        sys.exit(
-            "No token found. Either:\n"
-            "  --token xxxxxxxx\n"
-            "  or put WEBMENTION_IO_TOKEN=xxxxxxxx in a .env file\n"
-            "  or export WEBMENTION_IO_TOKEN=xxxxxxxx"
+    token = os.environ.get('WEBMENTION_IO_TOKEN')
+    return token.strip().strip('"').strip("'") if token else None
+
+
+class TestWebmentionIOAPIConnectivity(unittest.TestCase):
+    """Live sanity check against the real webmention.io API -- not a unit
+    test. Requires a real WEBMENTION_IO_TOKEN (.env/webmentions.io.env or
+    the environment); skips itself automatically when none is configured,
+    so it never fails CI or a machine without credentials set up.
+
+    Run on its own for a quick manual check:
+        python -m unittest tests.webmention.test_webmention_api -v
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.token = _resolve_token()
+        if not cls.token:
+            raise unittest.SkipTest(
+                'No WEBMENTION_IO_TOKEN configured (.env/webmentions.io.env '
+                'or environment) -- skipping live API sanity check.'
+            )
+
+    def test_api_responds_with_200(self):
+        response = requests.get(
+            API_URL, params={'token': self.token, 'per-page': 1}, timeout=15
         )
 
-    resp = requests.get(
-        "https://webmention.io/api/mentions.jf2",
-        params={"token": token, "per-page": 1},
-        timeout=15,
-    )
-    print("HTTP status:", resp.status_code)
-    resp.raise_for_status()
+        self.assertEqual(response.status_code, 200)
 
-    data = resp.json()
-    children = data.get("children", [])
-    print(f"Connected OK. Feed type: {data.get('type')!r}, entries returned: {len(children)}")
+    def test_response_is_a_valid_jf2_feed(self):
+        response = requests.get(
+            API_URL, params={'token': self.token, 'per-page': 1}, timeout=15
+        )
+        data = response.json()
 
-    if children:
-        print("\nMost recent mention (raw JF2):")
-        print(json.dumps(children[0], indent=2)[:1000])
-    else:
-        print("\nNo mentions on the account yet, but the token + request worked.")
+        self.assertIn('type', data)
+        self.assertIn('children', data)
+        self.assertIsInstance(data['children'], list)
+
+    def test_bad_token_is_rejected(self):
+        # Confirms failures look like failures rather than silently
+        # returning an empty-but-200 feed -- catches the exact bug we hit
+        # when the token was accidentally the full feed URL, not the token.
+        response = requests.get(
+            API_URL,
+            params={'token': 'definitely-not-a-real-token', 'per-page': 1},
+            timeout=15,
+        )
+
+        self.assertNotEqual(response.status_code, 200)
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    unittest.main()
