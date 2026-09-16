@@ -3,10 +3,12 @@
     {% if item.title == current_section and item.children %}
         <nav class="subnav">
             {% for child in item.children %}
-            <a href="{{ child.url | relative_url }}"
-               class="subnav-link {% if page.url == child.url %}active{% endif %}">
-                {{ child.title }}
-            </a>
+                <div class="subnav-item {% if page.url == child.url %}active{% endif %}">
+                    <a href="{{ child.url | relative_url }}"
+                       class="subnav-link {% if page.url == child.url %}active{% endif %}">
+                        {{ child.title }}
+                    </a>
+                </div>
             {% endfor %}
         </nav>
     {% endif %}

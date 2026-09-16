@@ -2,7 +2,6 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
-- [ ] Add test pipeline before pushing
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
 - [ ] Custom 404 Page
@@ -20,6 +19,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Add test pipeline before pushing - part of GitHub Actions (20260916)
 - [x] Guestbook (20260915)
 - [x] ignore:
 	- [x] hits in the aside - no opt in for data collection (2026-09-15)

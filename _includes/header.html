@@ -1,14 +1,28 @@
-<header>
+<header class="site-header">
     <nav>
-        <a href="{{ '/' | relative_url }}">
-            <img src="{{ '/favicon.svg' | relative_url }}"
-                 alt="Home"
-                 width="40"
-                 height="40">
-        </a>
+        <div class="nav-item nav-logo">
+            <a href="{{ '/' | relative_url }}">
+                <img src="{{ '/favicon.svg' | relative_url }}"
+                     alt="Home"
+                     width="40"
+                     height="40">
+            </a>
+        </div>
 
         {% for item in site.data.nav %}
-            <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            {% assign is_active = false %}
+            {% if item.url == '/' %}
+                {% if page.url == '/' or page.url == '/index.html' %}
+                    {% assign is_active = true %}
+                {% endif %}
+            {% else %}
+                {% if page.url == item.url or page.url contains item.url or page.section == item.title %}
+                    {% assign is_active = true %}
+                {% endif %}
+            {% endif %}
+            <div class="nav-item {% if is_active %}active{% endif %}">
+                <a href="{{ item.url | relative_url }}" class="nav-link {% if is_active %}active{% endif %}">{{ item.title }}</a>
+            </div>
         {% endfor %}
     </nav>
 </header>
