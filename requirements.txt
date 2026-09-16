@@ -6,3 +6,6 @@ Pillow>=10.0.0
 
 # Testing
 pytest>=8.0.0
+
+# API Interactions
+requests>=2.31
