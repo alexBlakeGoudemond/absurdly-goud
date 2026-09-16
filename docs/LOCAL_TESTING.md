@@ -15,8 +15,7 @@ python -m venv .venv
 ```
 
 ```bash
-.\.venv\Scripts\python.exe -m pip install Pillow
-.\.venv\Scripts\python.exe -m pip install pyyaml
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 ## Running

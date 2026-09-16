@@ -1,0 +1,8 @@
+# Markdown & YAML Parsing
+PyYAML>=6.0
+
+# Image Processing (88x31 button generator)
+Pillow>=10.0.0
+
+# Testing
+pytest>=8.0.0
