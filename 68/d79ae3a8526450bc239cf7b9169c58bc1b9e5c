@@ -1,0 +1,20 @@
+"absurdly-goud-obsidian/posts/2026/09/15/2026-09-15 Implementing Guestbooks.md"
+  h_1197a506f6c7d6 8,25,36,46,54,76,80
+"absurdly-goud-obsidian/posts/2026/09/16/2026-09-16 Cloudflare Worker Observability.md"
+  h_1197a506f6c7d6 7,11,13
+docs/CLOUDFLARE_AND_WEBMENTIONS.md
+  h_1197a506f6c7d6 3,5,31,57,65,71
+"absurdly-goud-obsidian/posts/2026/09/14/2026-09-14 Investigating Guestbooks.md"
+  h_1197a506f6c7d6 10,14,60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "68d79ae3a8526450bc239cf7b9169c58bc1b9e5c",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
