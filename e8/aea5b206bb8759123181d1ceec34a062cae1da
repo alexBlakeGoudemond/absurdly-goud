@@ -1,0 +1,30 @@
+scripts/webmention/webmention_pull.py
+  h_1197a506f6c7d6 17,32-34,41-42,61,63,68,70,72-76,116,164-167,176-180,182-185,188-189,195
+  s_ddb74697f738f2::t_8a77a219dd216e 181,186
+tests/webmention/test_webmention_pull.py
+  h_1197a506f6c7d6 2-3,10-55,58,60-62,64-78,80,83-84
+  s_ddb74697f738f2::t_85793d3736095b 63
+requirements.txt
+  h_1197a506f6c7d6 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e8aea5b206bb8759123181d1ceec34a062cae1da",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ddb74697f738f2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_ddb74697f738f2",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
