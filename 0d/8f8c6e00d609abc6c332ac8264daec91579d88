@@ -1,0 +1,14 @@
+guestbook/guestbook.md
+  h_1197a506f6c7d6 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0d8f8c6e00d609abc6c332ac8264daec91579d88",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
