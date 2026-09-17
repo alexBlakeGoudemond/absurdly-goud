@@ -1,0 +1,16 @@
+assets/js/guestbook.js
+  h_1197a506f6c7d6 20-55
+assets/css/guestbook.css
+  h_1197a506f6c7d6 37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b13adc6c22df9ed65ff9d0bd09664b4e377b6ced",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
