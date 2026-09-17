@@ -1,0 +1,14 @@
+- id: '2032990'
+  status: approved
+  type: in-reply-to
+  author:
+    name: Alex Blake-Goudemond
+    url: https://absurdlygoud.com
+    photo: ''
+  message_origin: guestbook
+  target: https://absurdlygoud.com/guestbook/
+  source: https://guestbook-bridge.alexblakegoudemond.workers.dev/entry/ee82ab8e-5c95-453a-8e72-2c98aa0ab277
+  content: 'Testing the guestbook feature! This message should show, and additional links should be present:
+    https://absurdlygoud.com/about'
+  published: null
+  received: '2026-09-17T03:40:48Z'
