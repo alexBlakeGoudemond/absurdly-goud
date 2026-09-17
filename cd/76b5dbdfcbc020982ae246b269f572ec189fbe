@@ -1,0 +1,27 @@
+scripts/webmention/webmention_pull.py
+  h_1197a506f6c7d6 35-38,52-58,137-138,141-146,150,156-157,193-201,204-215,218-219,241-250
+  s_5362d1600b026e::t_3cc8c0af85b187 41-51
+Makefile
+  h_1197a506f6c7d6 2-5,24-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cd76b5dbdfcbc020982ae246b269f572ec189fbe",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5362d1600b026e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_5362d1600b026e",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
