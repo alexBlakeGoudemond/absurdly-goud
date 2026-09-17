@@ -1,0 +1,14 @@
+absurdly-goud-obsidian/data/guestbook.yml
+  h_1197a506f6c7d6 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "790f1fa63ac16f0a3c2f528318333ca7602c5e26",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
