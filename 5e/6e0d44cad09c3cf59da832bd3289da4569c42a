@@ -1,0 +1,27 @@
+assets/css/navigation.css
+  h_1197a506f6c7d6 10,16,24,35,46,54,66,72,80,84,88,98,104,112
+  s_406da5c971d262::t_f22642e9011b27 1-9,11-15,17-23,25-34,36-45,47-53,55-65,67-71,73-79,81-83,85-87,89-97,99-103,105-111,113-118
+_layouts/default.html
+  s_406da5c971d262::t_3a9a38f02b8f1d 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5e6e0d44cad09c3cf59da832bd3289da4569c42a",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_406da5c971d262": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1789589092097",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
