@@ -9,6 +9,13 @@
     --gb-success-ink: #1c5a34;
 }
 
+.guestbook-layout,
+.guestbook-layout *,
+.guestbook-layout *::before,
+.guestbook-layout *::after {
+    box-sizing: border-box;
+}
+
 .guestbook-layout {
     display: flex;
     align-items: flex-start; /* form's height must stay intrinsic -- see guestbook.js */
@@ -58,6 +65,7 @@
     gap: 0.85rem;
     overflow-y: auto; /* the scrollbar that keeps the panel's shape fixed */
     min-height: 0;
+    flex: 1 1 auto;
 }
 
 .guestbook-entry {
