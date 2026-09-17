@@ -34,6 +34,7 @@
     flex: 1 1 50%;
     min-width: 0;
     min-height: 0; /* lets the inner list actually scroll instead of overflowing the flex box */
+    max-height: 24rem; /* fallback cap if JS hasn't run yet / is disabled; JS sets an exact px height that overrides this */
     padding: 1.5rem;
     background: var(--gb-bg);
     border: 2px dashed var(--gb-border);
