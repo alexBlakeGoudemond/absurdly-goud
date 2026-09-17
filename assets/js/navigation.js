@@ -44,10 +44,12 @@ function loadNewPageContent(currentMainContent, nextMainContent, nextDocument, l
         const target = document.querySelector(url.hash);
         if (target) {
             target.scrollIntoView({ behavior: "smooth" });
+            document.dispatchEvent(new CustomEvent("navigation:loaded", { detail: { url } }));
             return;
         }
     }
     window.scrollTo({top: 0, behavior: "smooth"});
+    document.dispatchEvent(new CustomEvent("navigation:loaded", { detail: { url } }));
 }
 
 document.addEventListener("click", async event => {

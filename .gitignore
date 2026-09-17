@@ -23,3 +23,6 @@
 
 # Cloudflare Wrangler
 /.cloudflare/guestbook-bridge/.wrangler/
+
+# Environment Variables
+/.env/

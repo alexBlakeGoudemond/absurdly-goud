@@ -1,8 +1,8 @@
 # Cloudflare and Webmentions
 
-This site sends guestbook data to a worker / middleman hosted
+This site sends community data to a worker / middleman hosted
 on [Cloudflare Workers](https://www.cloudflare.com/products/workers/). The worker interacts with
-the [Webmentions.io](https://webmention.io/) API to achieve the feature of a guestbook
+the [Webmentions.io](https://webmention.io/) API to achieve the feature of a community
 
 A worker is needed as Webmentions.io needs to verify that the the SOURCE URL and TARGET URL exist, so it can parse and
 ingest the content. At a later point, the author can then GET the data from Webmentions.io and choose what to do with
@@ -28,7 +28,7 @@ wrangler login
 
 ### Publish
 
-In Powershell, CD into `.cloudflare/guestbook-bridge` and run:
+In Powershell, CD into `.cloudflare/community-bridge` and run:
 
 ```bash
 wrangler kv namespace create GUESTBOOK_KV
@@ -54,7 +54,7 @@ If successful, you should see this in Cloudflare Workers
 
 ## Webmentions.io
 
-Once you have your guestbook form, and the cloudflare worker receives the submission - it will prepare the Payload and
+Once you have your community form, and the cloudflare worker receives the submission - it will prepare the Payload and
 send it to webmentions.io:
 
 ![example-screenshot-webmentions-dashboard.png](media/example-screenshot-webmentions-dashboard.png)
@@ -62,10 +62,10 @@ send it to webmentions.io:
 We can also see the page that Cloudflare Workers created with correct microformats for the webmentions.io to parse
 successfully:
 
-![example-screenshot-cloudflare-guestbook-entry-microformats.png](media/example-screenshot-cloudflare-guestbook-entry-microformats.png)
+![example-screenshot-cloudflare-community-entry-microformats.png](media/example-screenshot-cloudflare-guestbook-entry-microformats.png)
 
 And that's the POC of it working!
 
 > IMPORTANT
 > 
-> If doing this yourself - check for hardcoded URLs in guestbook
+> If doing this yourself - check for hardcoded URLs in community

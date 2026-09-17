@@ -5,7 +5,7 @@ A request like this should be sent to webmentions.io:
 ```http
 POST https://webmention.io/alexblakegoudemond.com/webmention
 source=https://some-url/entry/123
-target=https://alexblakegoudemond.com/guestbook/
+target=https://alexblakegoudemond.com/community/
 ```
 
 There's no `message` or `name` field in that payload at all. Webmention.io takes those two URLs, then makes its own outbound HTTP request to `source`, and:
@@ -22,7 +22,7 @@ That's a deliberate anti-spoofing property of the Webmention spec itself (not a 
 What I would love is this flow:
 
 ```
-visitor submits guestbook entry 
+visitor submits community entry 
 → Worker publishes entry + sends webmention 
 → webmention.io stores it
     ↓
@@ -33,7 +33,7 @@ I fetch mentions via API whenever I choose
 I moderate each one
     ↓
 approved ones I bring into the site via git commits
-→ _data/guestbook.yml → commit
+→ _data/community.yml → commit
 → makes public content
     ↓
 Jekyll rebuilds, now it's live
@@ -43,7 +43,7 @@ I'm going to pursue Cloudflare Workers because:
 - **DDoS prevention**: this isn't a bolt-on feature, it's Cloudflare's core business — Workers run on the same edge network that absorbs some of the largest DDoS attacks on the internet. You get this automatically, no configuration.
 - **Rate limiting**: built-in Rate Limiting Rules you can attach directly to your Worker's route — a few clicks, no separate service to wire up. Genuinely useful for a public form endpoint like yours.
 - **Ease of use**: no server, no OS, no scaling config, no cold-start tuning. `wrangler deploy` and you're live. KV storage (what the entry pages live in) is likewise zero-ops.
-- **Cheap**: free tier is 100,000 requests/day, which is wildly more than a personal guestbook will ever see. You will not pay anything for this use case.
+- **Cheap**: free tier is 100,000 requests/day, which is wildly more than a personal community will ever see. You will not pay anything for this use case.
 
 ## Answers to Research Questions
 I asked questions in [[2026-09-14 Investigating Guestbooks#Research Questions|Investigating Guestbooks Research Questions]], below are the answers:
@@ -51,7 +51,7 @@ I asked questions in [[2026-09-14 Investigating Guestbooks#Research Questions|In
 	- With Cloudflare Workers: Free Tier cost $0 per month, with up to 100_000 daily requests
 - setup and maintenance?
 	- Setup and maintain in the IDE with [Wrangler](https://developers.cloudflare.com/workers/wrangler/) (in the GitHub Repository) else in the browser
-- does it actually work for my guestbook use case?
+- does it actually work for my community use case?
 	- YES! With Webmentions.io
 - can I delay retrieval/processing?
 	- YES, Webmention.io hold onto the updates for me
@@ -73,11 +73,11 @@ I asked questions in [[2026-09-14 Investigating Guestbooks#Research Questions|In
 
 Guestbook entry like this is sent to the Cloudflare Worker:
 
-![[screenshot-website-guestbook-form.png]]
+![[screenshot-website-community-form.png]]
 
 The Cloudflare Worker then produces this HTML:
 
-![[screenshot-cloudflare-worker-generated-html-guestbook-entry.png]]
+![[screenshot-cloudflare-worker-generated-html-community-entry.png]]
 
 And the mention is registered with Webmention.io's API:
 

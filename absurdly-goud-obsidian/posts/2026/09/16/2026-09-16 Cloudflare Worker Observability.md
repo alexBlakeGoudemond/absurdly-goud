@@ -4,13 +4,13 @@ Cloudflare is doing an important job: creating the HTML page for the mention (as
 
 Take this example mention:
 
-![[screenshot-website-guestbook-form.png]]
+![[screenshot-website-community-form.png]]
 
 We can find that interaction on CloudFlare:
 
-![[screenshot-cloudflare-worker-guestbook-bridge.png]]
+![[screenshot-cloudflare-worker-community-bridge.png]]
 
-`guestbook-bridge` > `Observability` > `Traces` shows a great visualisation of each operation
+`community-bridge` > `Observability` > `Traces` shows a great visualisation of each operation
 
 ![[screenshot-cloudflare-worker-observability-trace-example.png]]
 
