@@ -1,4 +1,8 @@
 
+# ----------------------------------
+# Local Dev commands below
+# ----------------------------------
+
 compose-build:
 	docker compose -f docker/compose.yaml -p absurdly-goud build
 
@@ -17,3 +21,10 @@ compose-rebuild-cache:
 
 obsidian-to-jekyll:
 	python -m scripts.obsidian_to_jekyll --vault .\absurdly-goud-obsidian\
+
+# ----------------------------------
+# Webmention.io commands below
+# ----------------------------------
+
+webmentions_io_fetch_all:
+	python .\scripts\webmention\webmention_pull.py --from 2026-09-15 --env-file .env/webmentions.io.env --target-guestbook-pattern https://absurdlygoud.com/guestbook/
