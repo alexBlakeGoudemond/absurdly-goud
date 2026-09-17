@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Vision Whiteboard Showing | ABsurdly Goud</title>
+    <title>Guestbook | ABsurdly Goud</title>
 
     <link rel="webmention" href="https://webmention.io/alexblakegoudemond.com/webmention" />
     <link rel="pingback" href="https://webmention.io/alexblakegoudemond.com/xmlrpc" />
@@ -92,8 +92,8 @@
         
             
             
-            <div class="nav-item ">
-                <a href="/community/" class="nav-link ">Community</a>
+            <div class="nav-item active">
+                <a href="/community/" class="nav-link active">Community</a>
             </div>
         
     </nav>
@@ -101,40 +101,143 @@
 
 <div class="page-wrapper">
     <main>
-        <article class="h-entry">
+        <div class="content">
+    
 
-    <header>
-        <h2 class="p-name">Vision Whiteboard Showing</h2>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+        <nav class="subnav">
+            
+                <div class="subnav-item ">
+                    <a href="/community/"
+                       class="subnav-link ">
+                        Community Home
+                    </a>
+                </div>
+            
+                <div class="subnav-item active">
+                    <a href="/community/guestbook/"
+                       class="subnav-link active">
+                        Guestbook
+                    </a>
+                </div>
+            
+                <div class="subnav-item ">
+                    <a href="/community/mentions/"
+                       class="subnav-link ">
+                        Mentions
+                    </a>
+                </div>
+            
+        </nav>
+    
+
+    <div class="content-body">
         
-        
-        <div class="dt-published">
-            Created:
-            <time datetime="2026-08-27T00:00:00+00:00">
-                2026-08-27
-            </time>
-
-            Last updated:
-            <time datetime="2026-09-17T05:02:00+00:00">
-                2026-09-17 05:02
-            </time>
+<div class="callout" data-callout="info" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/info.svg" alt="info callout icon" aria-hidden="true" />
         </div>
-    </header>
-
-    <div class="e-content">
+        <div class="callout-title-inner">Info</div>
+    </div>
+    <div class="callout-content">
         
+<p>This website uses Cloudflare Workers to publish community entries to Webmention.io.
+See <a href="/2026/09/15/implementing-guestbooks/#working-proof">Guestbook Working Proof</a> for screenshots of how this works</p>
 
-        <p>Today I confirmed that Excalidraw files can be prepared as SVGs and displayed in the site</p>
+    </div>
+</div>
 
 <!--more-->
 
-<p>This is a win for me as I can now see the whiteboard from any device! And because the SVG is generated via an Obsidian setting <code class="language-plaintext highlighter-rouge">Auto-export Excalidraw</code> - any time I save changes to the <code class="language-plaintext highlighter-rouge">.excalidraw</code> file - the SVG is updated in the vault!</p>
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>The Author periodically checks Webmention.io for updates, they are <strong>NOT</strong> added to this site automatically.</p>
 
-<p>See <a href="/journey/whiteboard/website-whiteboard/">website-whiteboard.excalidraw</a> in action!</p>
+<p><em>Come back later to see your entry!</em></p>
+
+<p>For more information see <a href="/2026/09/14/investigating-guestbooks/#personal-preferences">community personal preferences</a></p>
 
     </div>
+</div>
 
-</article>
+<div id="guestbook-toast" class="guestbook-toast" hidden="">
+    <span class="guestbook-toast-icon">✓</span>
+    <span>Captured! Your message is in the queue in webmentions.io. The author will review and bring in when he can!</span>
+    <button type="button" id="guestbook-toast-close" class="guestbook-toast-close" aria-label="Close notification">×</button>
+</div>
+<p></p>
+<div class="guestbook-layout">
+    <form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
+        <div class="guestbook-field">
+            <label for="gb-name">Name</label>
+            <input type="text" id="gb-name" name="name" required="" maxlength="100" />
+        </div>
+
+        <div class="guestbook-field">
+            <label for="gb-url">Your site <span class="optional">(optional)</span></label>
+            <input type="url" id="gb-url" name="url" maxlength="300" placeholder="https://" />
+        </div>
+
+        <div class="guestbook-field guestbook-field--message">
+            <label for="gb-message">Message</label>
+            <textarea id="gb-message" name="message" required="" maxlength="1000" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="guestbook-submit">Sign the guestbook ✎</button>
+    </form>
+
+    <div class="guestbook-entries" aria-label="Guestbook entries">
+        <h3 class="guestbook-entries-title">Guestbook entries</h3>
+
+        
+        
+
+        
+        <ol class="guestbook-entries-list">
+            
+            <li class="guestbook-entry">
+                <div class="guestbook-entry-header">
+                    
+                    <div class="guestbook-entry-byline">
+                        
+                        <a class="guestbook-entry-name" href="https://absurdlygoud.com" rel="ugc nofollow" target="_blank">Alex Blake-Goudemond</a>
+                        
+                        
+                        <time class="guestbook-entry-date" datetime="2026-09-17T03:40:48Z">Sep
+                            17, 2026
+                        </time>
+                        
+                    </div>
+                </div>
+                <p class="guestbook-entry-content">Testing the guestbook feature! This message should show, and additional links should be present: https://absurdlygoud.com/about</p>
+            </li>
+            
+        </ol>
+        
+    </div>
+</div>
+
+
+    </div>
+</div>
     </main>
 
     <aside>

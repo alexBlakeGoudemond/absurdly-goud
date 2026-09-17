@@ -12,6 +12,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/navigation.css">
     <link rel="stylesheet" href="/assets/css/animated-background.css">
     <link rel="stylesheet" href="/assets/css/syntax-highlighting.css">
     <link rel="stylesheet" href="/assets/css/callouts.css">
@@ -45,7 +46,7 @@
      viewBox="0 0 1000 1000"
      preserveAspectRatio="none">
     <g id="duck-ripples"></g>
-</svg><img class="pond-duck" id="pond-duck-88" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-89" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-90" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+</svg><img class="pond-duck" id="pond-duck-89" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-90" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-91" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
 
 <header class="site-header">
     <nav>
@@ -92,7 +93,7 @@
             
             
             <div class="nav-item ">
-                <a href="/guestbook/" class="nav-link ">Guestbook</a>
+                <a href="/community/" class="nav-link ">Community</a>
             </div>
         
     </nav>
@@ -114,8 +115,8 @@
             </time>
 
             Last updated:
-            <time datetime="2026-09-16T06:56:00+00:00">
-                2026-09-16 06:56
+            <time datetime="2026-09-17T05:02:00+00:00">
+                2026-09-17 05:02
             </time>
         </div>
     </header>
@@ -131,7 +132,7 @@
 
 <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">POST https://webmention.io/alexblakegoudemond.com/webmention
 source=https://some-url/entry/123
-target=https://alexblakegoudemond.com/guestbook/
+target=https://alexblakegoudemond.com/community/
 </span></code></pre></div></div>
 
 <p>There’s no <code class="language-plaintext highlighter-rouge">message</code> or <code class="language-plaintext highlighter-rouge">name</code> field in that payload at all. Webmention.io takes those two URLs, then makes its own outbound HTTP request to <code class="language-plaintext highlighter-rouge">source</code>, and:</p>
@@ -149,7 +150,7 @@ target=https://alexblakegoudemond.com/guestbook/
 
 <p>What I would love is this flow:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>visitor submits guestbook entry 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>visitor submits community entry 
 → Worker publishes entry + sends webmention 
 → webmention.io stores it
     ↓
@@ -160,7 +161,7 @@ I fetch mentions via API whenever I choose
 I moderate each one
     ↓
 approved ones I bring into the site via git commits
-→ _data/guestbook.yml → commit
+→ _data/community.yml → commit
 → makes public content
     ↓
 Jekyll rebuilds, now it's live
@@ -171,7 +172,7 @@ Jekyll rebuilds, now it's live
   <li><strong>DDoS prevention</strong>: this isn’t a bolt-on feature, it’s Cloudflare’s core business — Workers run on the same edge network that absorbs some of the largest DDoS attacks on the internet. You get this automatically, no configuration.</li>
   <li><strong>Rate limiting</strong>: built-in Rate Limiting Rules you can attach directly to your Worker’s route — a few clicks, no separate service to wire up. Genuinely useful for a public form endpoint like yours.</li>
   <li><strong>Ease of use</strong>: no server, no OS, no scaling config, no cold-start tuning. <code class="language-plaintext highlighter-rouge">wrangler deploy</code> and you’re live. KV storage (what the entry pages live in) is likewise zero-ops.</li>
-  <li><strong>Cheap</strong>: free tier is 100,000 requests/day, which is wildly more than a personal guestbook will ever see. You will not pay anything for this use case.</li>
+  <li><strong>Cheap</strong>: free tier is 100,000 requests/day, which is wildly more than a personal community will ever see. You will not pay anything for this use case.</li>
 </ul>
 
 <h2 id="answers-to-research-questions">Answers to Research Questions</h2>
@@ -187,7 +188,7 @@ Jekyll rebuilds, now it's live
       <li>Setup and maintain in the IDE with <a href="https://developers.cloudflare.com/workers/wrangler/">Wrangler</a> (in the GitHub Repository) else in the browser</li>
     </ul>
   </li>
-  <li>does it actually work for my guestbook use case?
+  <li>does it actually work for my community use case?
     <ul>
       <li>YES! With Webmentions.io</li>
     </ul>
@@ -247,10 +248,7 @@ Jekyll rebuilds, now it's live
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-<figure>
-    <img class="u-photo" src="/assets/posts/screenshot-website-guestbook-form.png" alt="screenshot-website-guestbook-form.png" />
-    <figcaption>screenshot-website-guestbook-form.png</figcaption>
-</figure>
+<p>File `screenshot-website-community-form.png` not found</p>
 
 <p>The Cloudflare Worker then produces this HTML:</p>
 
@@ -259,10 +257,7 @@ Jekyll rebuilds, now it's live
     changing the HTML indentation can cause Kramdown to treat
     the code as a codeblock and escape
 -->
-<figure>
-    <img class="u-photo" src="/assets/posts/screenshot-cloudflare-worker-generated-html-guestbook-entry.png" alt="screenshot-cloudflare-worker-generated-html-guestbook-entry.png" />
-    <figcaption>screenshot-cloudflare-worker-generated-html-guestbook-entry.png</figcaption>
-</figure>
+<p>File `screenshot-cloudflare-worker-generated-html-community-entry.png` not found</p>
 
 <p>And the mention is registered with Webmention.io’s API:</p>
 
@@ -375,10 +370,10 @@ Jekyll rebuilds, now it's live
     <div class="aside-updates">
     
     <div class="aside-updates-panel last-commit-message">
-        <strong>Recent Updates:</strong> <time>2026-09-16 08:55</time>
-        <p>Fix whiteboard (blown out svg took over real estate)
+        <strong>Recent Updates:</strong> <time>2026-09-17 07:02</time>
+        <p>Task/display mentions (#46)
 
-Co-authored-by: JetBrains Junie</p>
+place guestbook under community; add section for guestbook entries add post on guestbooks vs mentions extract navigation styles into own css file; Co-authored-by: JetBrains Junie, Claude</p>
     </div>
     
 
@@ -396,11 +391,11 @@ Co-authored-by: JetBrains Junie</p>
   </p>
 </footer>
 
-<script src="/assets/js/pond.js?v=1789541764"></script>
-<script src="/assets/js/navigation.js?v=1789541764"></script>
-<script src="/assets/js/image_popups.js?v=1789541764" defer></script>
-<script src="/assets/js/callouts.js?v=1789541764" defer></script>
-<script src="/assets/js/guestbook.js?v=1789541764" defer></script>
+<script src="/assets/js/pond.js?v=1789621362"></script>
+<script src="/assets/js/navigation.js?v=1789621362"></script>
+<script src="/assets/js/image_popups.js?v=1789621362" defer></script>
+<script src="/assets/js/callouts.js?v=1789621362" defer></script>
+<script src="/assets/js/guestbook.js?v=1789621362" defer></script>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Vision Whiteboard Showing | ABsurdly Goud</title>
+    <title>Webmention Vs Guestbook | ABsurdly Goud</title>
 
     <link rel="webmention" href="https://webmention.io/alexblakegoudemond.com/webmention" />
     <link rel="pingback" href="https://webmention.io/alexblakegoudemond.com/xmlrpc" />
@@ -104,14 +104,14 @@
         <article class="h-entry">
 
     <header>
-        <h2 class="p-name">Vision Whiteboard Showing</h2>
+        <h2 class="p-name">Webmention Vs Guestbook</h2>
 
         
         
         <div class="dt-published">
             Created:
-            <time datetime="2026-08-27T00:00:00+00:00">
-                2026-08-27
+            <time datetime="2026-09-16T00:00:00+00:00">
+                2026-09-16
             </time>
 
             Last updated:
@@ -124,13 +124,23 @@
     <div class="e-content">
         
 
-        <p>Today I confirmed that Excalidraw files can be prepared as SVGs and displayed in the site</p>
+        <p>While pursuing a Guestbook on this site, I stumbled upon explanations of Webmention Publishers and Webmention Receivers. The distinction landed for me when I thought about Guestbooks vs Chat Forums: particularly <strong>where the source mention lives</strong>.</p>
 
 <!--more-->
 
-<p>This is a win for me as I can now see the whiteboard from any device! And because the SVG is generated via an Obsidian setting <code class="language-plaintext highlighter-rouge">Auto-export Excalidraw</code> - any time I save changes to the <code class="language-plaintext highlighter-rouge">.excalidraw</code> file - the SVG is updated in the vault!</p>
+<p><a href="https://indieweb.org/guestbook">Guestbooks</a> are journals that allow other people to leave notes when visiting your site. They are a tradition present to this day at weddings, funerals, museums, etc. Through their usage, other people can read the content, including the author. On the web, I argue, we can achieve a similar thing by allowing an individual to add a message directly on the site, where that message stays on the site. In my case, the Guestbook is therefore a localised ledger of people who have visited and left a note.</p>
 
-<p>See <a href="/journey/whiteboard/website-whiteboard/">website-whiteboard.excalidraw</a> in action!</p>
+<p>A Guestbook <strong>can use Webmentions</strong>, but it doesn’t have to. In my implementation, I use a Webmention Receiver as part of the machinery behind the Guestbook.</p>
+
+<p>Chat Forums, on the other hand, have a different strategy. They allow people to publish messages in a shared space and continue a conversation back and forth. When one of those messages contains a link to another website, the authoring site can act as a <strong>Webmention Sender</strong>, notifying the linked website’s Webmention Receiver.</p>
+
+<p>The distinction is important as I am trying to adhere to the protocol with my own site!</p>
+
+<p>I want messages posted on the Guestbook to remain part of my Guestbook. Where appropriate, my site can also use Webmention to notify my own Webmention Receiver about those entries.</p>
+
+<p>Separately, I want other sites mentioning my website to be able to send Webmentions to my Webmention Receiver. And when I publish something that links to someone else’s website, I want my site to act as a Webmention Sender and notify their Webmention Receiver.</p>
+
+<p>This is what I am trying to achieve on the site! <button type="button" class="image-popup-trigger" data-popup-src="https://knowyourmeme.com/memes/confused-math-lady" data-popup-blurb="The classic &#39;confused math lady&#39; expression" data-popup-redirect-text="Learn more" data-popup-image="/assets/image-popups/calculating-puzzled-original.gif" data-popup-preview-type="image" aria-label="Open details for calculating-puzzled.gif"><img class="u-photo-inline" src="/assets/88x31/calculating-puzzled.gif" alt="calculating-puzzled.gif" /></button></p>
 
     </div>
 

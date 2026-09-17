@@ -9,15 +9,147 @@
     --gb-success-ink: #1c5a34;
 }
 
+.guestbook-layout,
+.guestbook-layout *,
+.guestbook-layout *::before,
+.guestbook-layout *::after {
+    box-sizing: border-box;
+}
+
+.guestbook-layout {
+    display: flex;
+    align-items: flex-start; /* form's height must stay intrinsic -- see guestbook.js */
+    gap: 1.5rem;
+    /* No max-width here on purpose: the two panels should always split
+       whatever width the actual parent container provides, 50/50 -- not
+       cap out and leave dead space once the container gets wide. */
+}
+
 .guestbook-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-width: 34rem;
+    flex: 1 1 50%;
+    min-width: 0;
     padding: 1.5rem;
     background: var(--gb-bg);
     border: 2px dashed var(--gb-border);
     border-radius: 10px;
+}
+
+.guestbook-entries {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+    min-width: 0;
+    min-height: 0; /* lets the inner list actually scroll instead of overflowing the flex box */
+    max-height: 24rem; /* fallback cap if JS hasn't run yet / is disabled; JS sets an exact px height that overrides this */
+    padding: 1.5rem;
+    background: var(--gb-bg);
+    border: 2px dashed var(--gb-border);
+    border-radius: 10px;
+}
+
+.guestbook-entries-title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    color: var(--gb-ink);
+}
+
+.guestbook-entries-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    overflow-y: auto; /* the scrollbar that keeps the panel's shape fixed */
+    min-height: 0;
+    flex: 1 1 auto;
+}
+
+.guestbook-entry {
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--gb-border);
+}
+
+.guestbook-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.guestbook-entry-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+
+.guestbook-entry-avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.guestbook-entry-byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.guestbook-entry-name {
+    font-weight: 600;
+    color: var(--gb-ink);
+    text-decoration: none;
+}
+
+.guestbook-entry-name[href]:hover,
+.guestbook-entry-name[href]:focus-visible {
+    text-decoration: underline;
+}
+
+.guestbook-entry-date {
+    font-size: 0.8rem;
+    color: #5c7d78;
+}
+
+.guestbook-entry-content {
+    margin: 0;
+    color: var(--gb-ink);
+    overflow-wrap: break-word;
+}
+
+.guestbook-entries-empty {
+    margin: 0;
+    color: #5c7d78;
+    font-style: italic;
+}
+
+@media (max-width: 700px) {
+    .guestbook-layout {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 34rem;
+    }
+
+    .guestbook-form,
+    .guestbook-entries {
+        flex-basis: auto;
+    }
+
+    /* Once stacked, there's no form height to inherit, so the entries
+       panel needs its own cap to keep the scrollbar (rather than the
+       page) doing the growing. */
+    .guestbook-entries {
+        max-height: 20rem;
+    }
+
+    .guestbook-entries-list {
+        max-height: 100%;
+    }
 }
 
 .guestbook-field {

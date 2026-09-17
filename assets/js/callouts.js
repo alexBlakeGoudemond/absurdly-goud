@@ -108,4 +108,6 @@
     } else {
         decorateCollapsibleCallouts();
     }
+
+    document.addEventListener('navigation:loaded', decorateCollapsibleCallouts);
 })();
