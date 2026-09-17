@@ -4,21 +4,61 @@
     <button type="button" id="guestbook-toast-close" class="guestbook-toast-close" aria-label="Close notification">×</button>
 </div>
 <p></p>
-<form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
-    <div class="guestbook-field">
-        <label for="gb-name">Name</label>
-        <input type="text" id="gb-name" name="name" required maxlength="100">
-    </div>
+<div class="guestbook-layout">
+    <form class="guestbook-form" method="POST" action="https://guestbook-bridge.alexblakegoudemond.workers.dev/submit">
+        <div class="guestbook-field">
+            <label for="gb-name">Name</label>
+            <input type="text" id="gb-name" name="name" required maxlength="100">
+        </div>
 
-    <div class="guestbook-field">
-        <label for="gb-url">Your site <span class="optional">(optional)</span></label>
-        <input type="url" id="gb-url" name="url" maxlength="300" placeholder="https://">
-    </div>
+        <div class="guestbook-field">
+            <label for="gb-url">Your site <span class="optional">(optional)</span></label>
+            <input type="url" id="gb-url" name="url" maxlength="300" placeholder="https://">
+        </div>
 
-    <div class="guestbook-field guestbook-field--message">
-        <label for="gb-message">Message</label>
-        <textarea id="gb-message" name="message" required maxlength="1000" rows="3"></textarea>
-    </div>
+        <div class="guestbook-field guestbook-field--message">
+            <label for="gb-message">Message</label>
+            <textarea id="gb-message" name="message" required maxlength="1000" rows="3"></textarea>
+        </div>
 
-    <button type="submit" class="guestbook-submit">Sign the guestbook ✎</button>
-</form>
+        <button type="submit" class="guestbook-submit">Sign the guestbook ✎</button>
+    </form>
+
+    <div class="guestbook-entries" aria-label="Guestbook entries">
+        <h3 class="guestbook-entries-title">Guestbook entries</h3>
+
+        {% assign gb_entries = site.data.guestbook | where: "message_origin", "guestbook" | where: "status", "approved"
+        %}
+        {% assign gb_entries = gb_entries | sort: "received" | reverse %}
+
+        {% if gb_entries.size > 0 %}
+        <ol class="guestbook-entries-list">
+            {% for entry in gb_entries %}
+            <li class="guestbook-entry">
+                <div class="guestbook-entry-header">
+                    {% if entry.author.photo and entry.author.photo != "" %}
+                    <img class="guestbook-entry-avatar" src="{{ entry.author.photo }}" alt="" loading="lazy">
+                    {% endif %}
+                    <div class="guestbook-entry-byline">
+                        {% if entry.author.url and entry.author.url != "" %}
+                        <a class="guestbook-entry-name" href="{{ entry.author.url }}" rel="ugc nofollow"
+                           target="_blank">{{ entry.author.name | default: "Anonymous" }}</a>
+                        {% else %}
+                        <span class="guestbook-entry-name">{{ entry.author.name | default: "Anonymous" }}</span>
+                        {% endif %}
+                        {% if entry.received %}
+                        <time class="guestbook-entry-date" datetime="{{ entry.received }}">{{ entry.received | date: "%b
+                            %-d, %Y" }}
+                        </time>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="guestbook-entry-content">{{ entry.content }}</p>
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <p class="guestbook-entries-empty">No entries yet — be the first to sign!</p>
+        {% endif %}
+    </div>
+</div>
