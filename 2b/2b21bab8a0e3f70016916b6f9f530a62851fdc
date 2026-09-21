@@ -1,0 +1,17 @@
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 118-127
+  h_1197a506f6c7d6 117
+absurdly-goud-obsidian/assets/image-popups/puns-and-tidbits/418-im-a-teapot.svg
+  h_1197a506f6c7d6 1-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2b2b21bab8a0e3f70016916b6f9f530a62851fdc",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
