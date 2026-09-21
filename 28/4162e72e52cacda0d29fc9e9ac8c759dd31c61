@@ -1,0 +1,30 @@
+absurdly-goud-obsidian/data/nav.yml
+  s_d836b786abd26c::t_6e8b03fa4fdbd8 39-45
+playground/playground.md
+  s_d836b786abd26c::t_cbe9d0f0a52b85 1-10
+scripts/obsidian_to_jekyll.py
+  s_d836b786abd26c::t_bffddb02b2ebc6 97,101-102
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  s_d836b786abd26c::t_43f854b2b9d6a3 63-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "284162e72e52cacda0d29fc9e9ac8c759dd31c61",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d836b786abd26c": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1790017869273",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
