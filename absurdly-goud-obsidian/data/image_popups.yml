@@ -115,3 +115,13 @@ image_popups:
 #    image_source: ""
 #    image_preview: ""
 #    popup_blurb: ""
+
+  #---------------------------
+  # Puns Below
+  #---------------------------
+  
+  - image_vault: "assets/image-popups/puns-and-tidbits/418-im-a-teapot.svg"
+  - image_source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/418"
+  - pun_alt_text: "418 I'm a teapot"
+  - popup_blurb: "Some april fools jokes introduced HTTP Status Code 418 as part of RFC 2324 and RFC 9110. 'computists want to make coffee ... Networked coffee pots
+   require a control protocol if they are to be controlled'. 418 indicates that the server refuses to brew coffee because it is, permanently, a teapot. This HTTP Status Code is unused in practice (RFC 9110)"
