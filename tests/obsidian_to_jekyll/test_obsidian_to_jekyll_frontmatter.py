@@ -60,6 +60,21 @@ class TestAddFrontmatterToMarkdownFiles(unittest.TestCase):
         self.assertIn("section: Journey", result)
         self.assertIn("permalink: /journey/design/website-design/", result)
 
+    def test_playground_section_file_gets_section_layout_and_frontmatter(self):
+        section_dir = self.converter.output_location / "playground"
+        section_dir.mkdir(parents=True)
+        dest = section_dir / "puns-and-tidbits.md"
+        dest.write_text("Puns and tidbits content", encoding="utf-8")
+        register_synced_file(self.converter, dest)
+        self.converter.site_sync.changed_dest_paths = [dest]
+
+        self.converter.parse_markdown_files_for_jekyll(self.note_lookup, self.image_lookup)
+
+        result = dest.read_text(encoding="utf-8")
+        self.assertIn("layout: section", result)
+        self.assertIn("section: Playground", result)
+        self.assertIn("permalink: /playground/puns-and-tidbits/", result)
+
     def test_permalink_omitted_by_default(self):
         md_file = self.tmp_path / "post.md"
         md_file.write_text("Post body", encoding="utf-8")
