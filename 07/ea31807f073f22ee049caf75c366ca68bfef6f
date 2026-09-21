@@ -1,0 +1,27 @@
+tests/parsing_markdown/test_image_popups.py
+  s_d836b786abd26c::t_5c85072b9e3d12 292-309
+  s_d836b786abd26c::t_1040cead8962c8 262-283
+tests/parsing_markdown/test_markdown_images.py
+  s_d836b786abd26c::t_21e40d24c67ba2 365-391
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "07ea31807f073f22ee049caf75c366ca68bfef6f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d836b786abd26c": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1790017869273",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
