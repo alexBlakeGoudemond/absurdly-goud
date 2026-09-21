@@ -362,6 +362,33 @@ class TestConvertImagesOutsideCode(unittest.TestCase):
         self.assertIn('popup_preview_type="image"', result)
 
 
+    def test_sonic_knuckles_inline_image_resolves_popup_attributes(self):
+        content = "Look at this ![Seal of approval](approved-sonic-knuckles.gif) right here"
+        image_lookup = {
+            "approved-sonic-knuckles.gif": "assets/88x31/buttons-memes/approved-sonic-knuckles.gif",
+            "approved-sonic-knuckles-original.gif": "assets/image-popups/approved-sonic-knuckles-original.gif",
+        }
+        popup_lookup = {
+            "approved-sonic-knuckles.gif": {
+                "image_source": "https://knowyourmeme.com/memes/meme-approved-by-knuckles",
+                "image_preview": "assets/image-popups/approved-sonic-knuckles-original.gif",
+                "popup_blurb": "Knuckles giving his seal of approval",
+                "popup_redirect_text": "Learn more",
+            }
+        }
+
+        result = convert_markdown_image_embeds_outside_code_blocks_and_code_spans(
+            content, image_lookup, popup_lookup
+        )
+
+        self.assertIn('src="assets/88x31/buttons-memes/approved-sonic-knuckles.gif"', result)
+        self.assertIn('popup_src="https://knowyourmeme.com/memes/meme-approved-by-knuckles"', result)
+        self.assertIn('popup_preview="assets/image-popups/approved-sonic-knuckles-original.gif"', result)
+        self.assertIn('popup_preview_type="image"', result)
+        self.assertIn('popup_blurb="Knuckles giving his seal of approval"', result)
+        self.assertIn('popup_redirect_text="Learn more"', result)
+
+
 class TestBuildImagePathLookup(unittest.TestCase):
 
     def setUp(self):
