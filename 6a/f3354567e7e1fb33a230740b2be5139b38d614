@@ -1,0 +1,16 @@
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 33,38,43,48,53,68,137,141
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6af3354567e7e1fb33a230740b2be5139b38d614",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
