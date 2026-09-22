@@ -117,14 +117,27 @@ image_popups:
 #    popup_blurb: ""
 
   #---------------------------
-  # Puns Below
+  # Tidbits Below
   #---------------------------
   
-  - image_vault: "assets/image-popups/puns-and-tidbits/java-bean-and-jar.svg"
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-java-bean-and-jar.svg"
     pun_alt_text: "Java, Bean, Jar, CafeBabe"
     popup_blurb: "The programming language called Java has many puns: Plain Old Java Objects (POJO) are called BEANs; once compiled, the zipped folder is called a JAR; The bytes themselves begin with a security check: 0xCAFEBABE. This means that beans are stored in jars, to make coffee, babe!"
   
-  - image_vault: "assets/image-popups/puns-and-tidbits/418-im-a-teapot.svg"
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-418-im-a-teapot.svg"
     image_source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/418"
     pun_alt_text: "418 I'm a teapot"
     popup_blurb: "Some april fools jokes introduced HTTP Status Code 418 as part of RFC 2324 and RFC 9110. 'computists want to make coffee ... Networked coffee pots require a control protocol if they are to be controlled'. 418 indicates that the server refuses to brew coffee because it is, permanently, a teapot. This HTTP Status Code is unused in practice (RFC 9110)"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-jekyll-markdown-to-markup.svg"
+    pun_alt_text: "Python vs Anaconda"
+    popup_blurb: "Python is a programming language. Anaconda is the heavy-duty toolbox built around that engine (named after a bigger snake because it packs in way more packages)"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-python-anaconda.svg"
+    pun_alt_text: "Jekyll and Markdown vs Markup"
+    popup_blurb: "markup comes from the publishing world, where editors literally 'marked up' paper manuscripts with formatting instructions. 'Markdown' was named as a clever, ironic pun—it strips away the heavy code to simplify writing. HTML is an example of something with verbose formatting instructions. i.e. Markup signals adding value or complexity, while markdown means reducing or simplifying it. Jekyll (like the story or Jekyll and Hyde) takes your polite, clean Markdown files and programmatically transforms them into a massive, complex 'monster' of raw HTML for the web browser to read"
+  
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-git-meaning.svg"
+    image_source: "https://www.youtube.com/shorts/rLxjsk3NAKM"
+    pun_alt_text: "Meaning of GIT"
+    popup_blurb: "Git as a version control system is used by developers all over the world. What does it mean? The very first commit mentions: mispronunciation of 'get'; an insult from common slang (stupid etc); Global Information Tracker when it works for you; Goddam Idiotic Truckload of SH!T when it breaks"
