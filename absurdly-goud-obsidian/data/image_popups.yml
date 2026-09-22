@@ -30,27 +30,27 @@
 image_popups:
   - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
     image_source: "https://knowyourmeme.com/memes/meme-approved-by-knuckles"
-    image_preview: "assets/image-popups/approved-sonic-knuckles-original.gif"
+    image_preview: "assets/memes/approved-sonic-knuckles-original.gif"
     popup_blurb: "Knuckles giving his seal of approval"
 
   - image_vault: "assets/88x31/buttons-memes/free-real-estate.gif"
     image_source: "https://knowyourmeme.com/memes/its-free-real-estate"
-    image_preview: "assets/image-popups/free-real-estate-original.gif"
+    image_preview: "assets/memes/free-real-estate-original.gif"
     popup_blurb: "Anyone can jump in - its free real estate!"
 
   - image_vault: "assets/88x31/buttons-memes/this-is-fine-fire.gif"
     image_source: "https://knowyourmeme.com/memes/this-is-fine"
-    image_preview: "assets/image-popups/this-is-fine-fire-original.gif"
+    image_preview: "assets/memes/this-is-fine-fire-original.gif"
     popup_blurb: "The internet, most days"
 
   - image_vault: "assets/88x31/buttons-memes/good-news-everyone.gif"
     image_source: "https://knowyourmeme.com/sensitive/memes/good-news-everyone"
-    image_preview: "assets/image-popups/good-news-everyone-original.gif"
+    image_preview: "assets/memes/good-news-everyone-original.gif"
     popup_blurb: "Professor Farnsworth's catchphrase from Futurama - often read in his voice"
 
   - image_vault: "assets/88x31/buttons-memes/calculating-puzzled.gif"
     image_source: "https://knowyourmeme.com/memes/confused-math-lady"
-    image_preview: "assets/image-popups/calculating-puzzled-original.gif"
+    image_preview: "assets/memes/calculating-puzzled-original.gif"
     popup_blurb: "The classic 'confused math lady' expression"
   
   - image_vault: "assets/88x31/buttons-memes/oia-uia.gif"
@@ -65,6 +65,7 @@ image_popups:
     
   - image_vault: "assets/88x31/buttons-indieweb/excited-ah.gif"
     popup_blurb: "So excited!"
+    image_preview: "assets/memes/excited-ah-original.gif"
     popup_redirect_text: "Open image in browser"
 
 # This websites 88x31 button below
@@ -133,11 +134,11 @@ image_popups:
     pun_alt_text: "418 I'm a teapot"
     popup_blurb: "Some april fools jokes introduced HTTP Status Code 418 as part of RFC 2324 and RFC 9110. 'computists want to make coffee ... Networked coffee pots require a control protocol if they are to be controlled'. 418 indicates that the server refuses to brew coffee because it is, permanently, a teapot. This HTTP Status Code is unused in practice (RFC 9110)"
     
-  - image_vault: "assets/88x31/buttons-tidbits/tidbit-jekyll-markdown-to-markup.svg"
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-python-anaconda.svg"
     pun_alt_text: "Python vs Anaconda"
     popup_blurb: "Python is a programming language. Anaconda is the heavy-duty toolbox built around that engine (named after a bigger snake because it packs in way more packages)"
     
-  - image_vault: "assets/88x31/buttons-tidbits/tidbit-python-anaconda.svg"
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-jekyll-markdown-to-markup.svg"
     pun_alt_text: "Jekyll and Markdown vs Markup"
     popup_blurb: "markup comes from the publishing world, where editors literally 'marked up' paper manuscripts with formatting instructions. 'Markdown' was named as a clever, ironic pun—it strips away the heavy code to simplify writing. HTML is an example of something with verbose formatting instructions. i.e. Markup signals adding value or complexity, while markdown means reducing or simplifying it. Jekyll (like the story or Jekyll and Hyde) takes your polite, clean Markdown files and programmatically transforms them into a massive, complex 'monster' of raw HTML for the web browser to read"
   

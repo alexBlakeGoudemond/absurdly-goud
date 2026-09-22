@@ -11,7 +11,7 @@ Extending [[buttons-and-cool-sites]], below is a kind of stickerboard for the pu
 > [!tip] 
 > Try clicking the images!
 
-## Puns
+## Puns and Tidbits
 
 ![[tidbit-java-bean-and-jar.svg]] ![[tidbit-418-im-a-teapot.svg]] ![[tidbit-python-anaconda.svg]] ![[tidbit-jekyll-markdown-to-markup.svg]] ![[tidbit-git-meaning.svg]]
 
