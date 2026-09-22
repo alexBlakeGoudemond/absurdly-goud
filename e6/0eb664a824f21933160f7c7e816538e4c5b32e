@@ -1,0 +1,19 @@
+tests/parsing_markdown/test_image_popups.py
+  s_d836b786abd26c::t_e2a0edb70fd16b 306-308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e60eb664a824f21933160f7c7e816538e4c5b32e",
+  "prompts": {},
+  "sessions": {
+    "s_d836b786abd26c": {
+      "agent_id": {
+        "tool": "junie",
+        "id": "1790017869273",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
