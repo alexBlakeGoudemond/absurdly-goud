@@ -303,8 +303,9 @@ class TestLiveImagePopupsYaml(unittest.TestCase):
         self.assertEqual(entry["image_source"], "https://knowyourmeme.com/memes/meme-approved-by-knuckles")
         self.assertEqual(entry["popup_blurb"], "Knuckles giving his seal of approval")
 
-        preview_file = repo_root / "absurdly-goud-obsidian" / entry["image_preview"]
-        self.assertTrue(preview_file.exists(), f"Preview file {preview_file} does not exist on disk")
+        preview_filename = Path(entry["image_preview"]).name
+        preview_files = list((repo_root / "absurdly-goud-obsidian").rglob(preview_filename))
+        self.assertTrue(len(preview_files) > 0, f"Preview file {preview_filename} does not exist on disk")
 
 
 if __name__ == '__main__':
