@@ -1,0 +1,23 @@
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-git-meaning.svg
+  h_1197a506f6c7d6 1-41
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 123,127
+  h_1197a506f6c7d6 120,131-143
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-jekyll-markdown-to-markup.svg
+  h_1197a506f6c7d6 1-133
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-python-anaconda.svg
+  h_1197a506f6c7d6 1-204
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 5-7,16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "087b20d33db3aee95aae2a13e00e2e590c0b976a",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
