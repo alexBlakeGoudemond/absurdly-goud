@@ -1,6 +1,6 @@
 I love the idea of 88x31 buttons and badges, as mentioned here: [[2026-08-31 88x31 Exploration]]
 
-Below is a kind of stickerboard for the ones I have so far - both ones I've made and ones I havent
+Below is a kind of stickerboard for the ones I have so far - both ones I've made and ones I havent. If you enjoy this, consider also [[puns-and-tidbits]]
 
 
 > [!tip] 
@@ -15,7 +15,7 @@ Rules of etiquette I follow
 
 ## Custom 88x31 Memes
 
-![[free-real-estate.gif]] ![[calculating-puzzled.gif]] ![[good-news-everyone.gif]] ![[approved-sonic-knuckles.gif]] ![[this-is-fine-fire.gif]]![[oia-uia.gif]]![[maxwell-kocykvr.gif]]
+![[free-real-estate.gif]] ![[calculating-puzzled.gif]] ![[good-news-everyone.gif]] ![[approved-sonic-knuckles.gif]] ![[this-is-fine-fire.gif]] ![[oia-uia.gif]] ![[maxwell-kocykvr.gif]]
 
 ## This Websites 88x31 Button
 
@@ -23,7 +23,7 @@ Rules of etiquette I follow
 
 ## Other Peoples' 88x31 Buttons
 
-![[brennan-day-alt-optimized.gif]]![[jelloeater.png]]![[ritual_1.gif]]![[chris-burnell-88x31.webp]]![[exo-pet.gif]]![[tabitha.computer.gif]]![[elles8831.webp]]![[stargirlleebutton.gif]]
+![[brennan-day-alt-optimized.gif]] ![[jelloeater.png]] ![[ritual_1.gif]] ![[chris-burnell-88x31.webp]] ![[exo-pet.gif]] ![[tabitha.computer.gif]] ![[elles8831.webp]] ![[stargirlleebutton.gif]]
 
 
 ## Cool Websites without Buttons
