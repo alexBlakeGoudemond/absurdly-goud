@@ -62,6 +62,10 @@ image_popups:
     image_source: "https://knowyourmeme.com/memes/maxwell-the-cat-spinning-cat"
     image_preview: "https://youtu.be/GACrYR3Vxbw?si=Z7Z7rJXmEzp4MiRt"
     popup_blurb: "You have acquired the CAT!"
+    
+  - image_vault: "assets/88x31/buttons-indieweb/excited-ah.gif"
+    popup_blurb: "So excited!"
+    popup_redirect_text: "Open image in browser"
 
 # This websites 88x31 button below
 
