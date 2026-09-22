@@ -2,6 +2,9 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] Consider moving hosting over to cloudflare
+- [ ] Webmention:
+	- [ ] Design Webmention Sender via a Cloudflare Worker and site metadata to perform registering of webmentions to other people's site+
 - [ ] Add conveniences for using Obsidian vault to play nice with jekyll:
 	- [ ] table of contents from headers
 - [ ] Custom 404 Page

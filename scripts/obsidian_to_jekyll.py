@@ -94,11 +94,12 @@ class ObsidianToJekyllConverter:
                              '_data',
                              'journey',
                              'community',
+                             'playground',
                              'guestbook',
                              'favicon.svg']
     PERMALINK_PAGES = ['about.md', 'buttons-and-cool-sites.md']
-    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md', 'community.md']
-    SECTION_FOLDERS = ['journey', 'community']
+    IGNORED_FRONTMATTER_FILES = ['index.md', 'home.md', 'journey.md', 'community.md', 'playground.md']
+    SECTION_FOLDERS = ['journey', 'community', 'playground']
     IMAGE_ASSET_GLOBS = ('*.png', '*.jpg', '*.jpeg', '*.gif', '*.svg', '*.webp')
     IMAGE_SUFFIXES = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'}
     IMAGE_POPUPS_DATA_FILENAME = 'image_popups.yml'

@@ -115,3 +115,16 @@ image_popups:
 #    image_source: ""
 #    image_preview: ""
 #    popup_blurb: ""
+
+  #---------------------------
+  # Puns Below
+  #---------------------------
+  
+  - image_vault: "assets/image-popups/puns-and-tidbits/java-bean-and-jar.svg"
+    pun_alt_text: "Java, Bean, Jar, CafeBabe"
+    popup_blurb: "The programming language called Java has many puns: Plain Old Java Objects (POJO) are called BEANs; once compiled, the zipped folder is called a JAR; The bytes themselves begin with a security check: 0xCAFEBABE. This means that beans are stored in jars, to make coffee, babe!"
+  
+  - image_vault: "assets/image-popups/puns-and-tidbits/418-im-a-teapot.svg"
+    image_source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/418"
+    pun_alt_text: "418 I'm a teapot"
+    popup_blurb: "Some april fools jokes introduced HTTP Status Code 418 as part of RFC 2324 and RFC 9110. 'computists want to make coffee ... Networked coffee pots require a control protocol if they are to be controlled'. 418 indicates that the server refuses to brew coffee because it is, permanently, a teapot. This HTTP Status Code is unused in practice (RFC 9110)"

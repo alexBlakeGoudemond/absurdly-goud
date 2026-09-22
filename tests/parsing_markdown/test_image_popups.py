@@ -259,12 +259,52 @@ class TestLoadImagePopupEntries(unittest.TestCase):
 
         self.assertEqual(entries, {})
 
+    def test_approved_sonic_knuckles_entry_loads_correctly(self):
+        self.data_path.write_text(dedent("""\
+            image_popups:
+              - image_vault: "assets/88x31/buttons-memes/approved-sonic-knuckles.gif"
+                image_source: "https://knowyourmeme.com/memes/meme-approved-by-knuckles"
+                image_preview: "assets/image-popups/approved-sonic-knuckles-original.gif"
+                popup_blurb: "Knuckles giving his seal of approval"
+            """), encoding='utf-8')
+
+        entries = load_image_popup_entries(self.data_path)
+
+        self.assertIn('approved-sonic-knuckles.gif', entries)
+        self.assertEqual(
+            entries['approved-sonic-knuckles.gif'],
+            {
+                'image_source': 'https://knowyourmeme.com/memes/meme-approved-by-knuckles',
+                'image_preview': 'assets/image-popups/approved-sonic-knuckles-original.gif',
+                'popup_blurb': 'Knuckles giving his seal of approval',
+                'popup_redirect_text': 'Learn more',
+            },
+        )
+
     def test_empty_file_returns_empty_dict(self):
         self.data_path.write_text("", encoding='utf-8')
 
         entries = load_image_popup_entries(self.data_path)
 
         self.assertEqual(entries, {})
+
+
+class TestLiveImagePopupsYaml(unittest.TestCase):
+
+    def test_live_yaml_contains_approved_sonic_knuckles_entry(self):
+        repo_root = Path(__file__).resolve().parents[2]
+        live_yaml_path = repo_root / "absurdly-goud-obsidian" / "data" / "image_popups.yml"
+
+        self.assertTrue(live_yaml_path.exists(), "image_popups.yml must exist")
+        entries = load_image_popup_entries(live_yaml_path)
+
+        self.assertIn("approved-sonic-knuckles.gif", entries)
+        entry = entries["approved-sonic-knuckles.gif"]
+        self.assertEqual(entry["image_source"], "https://knowyourmeme.com/memes/meme-approved-by-knuckles")
+        self.assertEqual(entry["popup_blurb"], "Knuckles giving his seal of approval")
+
+        preview_file = repo_root / "absurdly-goud-obsidian" / entry["image_preview"]
+        self.assertTrue(preview_file.exists(), f"Preview file {preview_file} does not exist on disk")
 
 
 if __name__ == '__main__':

@@ -36,10 +36,10 @@
 #      url: /writing/posts/
 #    - title: Notebook
 #      url: /writing/notebook/
-#- title: Playground
-#  url: /playground/
-#  children:
-#    - title: Projects
-#      url: /playground/projects/
-#    - title: Fun Stuff
-#      url: /playground/fun-stuff/
+- title: Playground
+  url: /playground/
+  children:
+    - title: Playground Home
+      url: /playground/
+    - title: Puns and Tidbits
+      url: /playground/puns-and-tidbits/
