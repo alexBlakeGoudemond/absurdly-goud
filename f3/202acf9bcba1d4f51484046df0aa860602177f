@@ -1,0 +1,41 @@
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/cucumber-name-origin.svg
+  h_1197a506f6c7d6 341-343
+  h_1197a506f6c7d6 13,16-331,346-347,373
+absurdly-goud-obsidian/assets/88x31/buttons-aside/inkscape-button.svg
+  h_1197a506f6c7d6 1-658
+  h_1197a506f6c7d6 659-688
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/vertical-slice-explained.svg
+  h_1197a506f6c7d6 1-254
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/rouge-syntax-highlighter.svg
+  h_1197a506f6c7d6 1-75
+  h_1197a506f6c7d6 76-521
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-418-im-a-teapot.svg
+  h_1197a506f6c7d6 1-38,41-68,70-148,150-157,159-166,168
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 77-83
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-git-meaning.svg
+  h_1197a506f6c7d6 1-37,40-72,75
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-java-bean-and-jar.svg
+  h_1197a506f6c7d6 1-36,39-189
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-jekyll-markdown-to-markup.svg
+  h_1197a506f6c7d6 1-37,40-43,46-116,120-158,162-180
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-python-anaconda.svg
+  h_1197a506f6c7d6 1-37,40-116
+absurdly-goud-obsidian/data/badges.yml
+  h_1197a506f6c7d6 31-34
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 130,140,142,145,147,158-167
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 3,9,16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f3202acf9bcba1d4f51484046df0aa860602177f",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
