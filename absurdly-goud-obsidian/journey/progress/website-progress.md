@@ -2,6 +2,7 @@
 
 Below are quick blocks of text tracking what I am working towards as I think of something:
 
+- [ ] Add socials
 - [ ] Consider moving hosting over to cloudflare
 - [ ] Webmention:
 	- [ ] Design Webmention Sender via a Cloudflare Worker and site metadata to perform registering of webmentions to other people's site+
@@ -12,7 +13,6 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] GitHub actions to leverage secrets where possible (e.g. CNAME)
 - [ ] Figure our what RSS is about
 - [ ] consider a Notebook section
-- [ ] projects tab?
 - [ ] parallax background?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
 - [ ] caching:
@@ -22,6 +22,7 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] projects tab? - Puns (2026-09-22)
 - [x] Add test pipeline before pushing - part of GitHub Actions (20260916)
 - [x] Guestbook (20260915)
 - [x] ignore:

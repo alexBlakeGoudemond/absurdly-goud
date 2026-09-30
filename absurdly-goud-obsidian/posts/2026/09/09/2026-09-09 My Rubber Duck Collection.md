@@ -2,6 +2,9 @@ Look upon my rubber duck collection and be inspired to make your own!
 
 This contributes to my excitement when we got [[2026-09-03 DUCKS DUCKS DUCKS]] working
 
+> [!info]
+> See [[about#What's with the rubber ducks?|What's with the rubber ducks?]]
+
 All of my current duck shelf-tems:
 
 ![[20260909-all-ducks.png]]

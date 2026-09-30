@@ -64,8 +64,9 @@ image_popups:
     popup_blurb: "You have acquired the CAT!"
     
   - image_vault: "assets/88x31/buttons-indieweb/excited-ah.gif"
-    popup_blurb: "So excited!"
+    image_source: "https://absurdlygoud.com/assets/88x31/excited-ah-original.gif"
     image_preview: "assets/memes/excited-ah-original.gif"
+    popup_blurb: "So excited!"
     popup_redirect_text: "Open image in browser"
 
 # This websites 88x31 button below
@@ -86,7 +87,7 @@ image_popups:
     popup_blurb: "Found through the IndieWeb by clicking 'Visit a random site'. Love the effort that has gone into this site - influenced some of my website!"
     popup_redirect_text: "Go To"
 
-  - image_vault: "assets/88x31/buttons-indieweb/ritual_1.png"
+  - image_vault: "assets/88x31/buttons-indieweb/ritual_1.gif"
     image_source: "https://ritual.sh/"
     popup_blurb: "Found through the IndieWeb when learning about 88x31 buttons - via his Button Creator. Super cool site!"
     popup_redirect_text: "Go To"
@@ -140,7 +141,7 @@ image_popups:
     
   - image_vault: "assets/88x31/buttons-tidbits/tidbit-jekyll-markdown-to-markup.svg"
     pun_alt_text: "Jekyll and Markdown vs Markup"
-    popup_blurb: "markup comes from the publishing world, where editors literally 'marked up' paper manuscripts with formatting instructions. 'Markdown' was named as a clever, ironic pun—it strips away the heavy code to simplify writing. HTML is an example of something with verbose formatting instructions. i.e. Markup signals adding value or complexity, while markdown means reducing or simplifying it. Jekyll (like the story or Jekyll and Hyde) takes your polite, clean Markdown files and programmatically transforms them into a massive, complex 'monster' of raw HTML for the web browser to read"
+    popup_blurb: "Markup comes from the publishing world, where editors literally 'marked up' paper manuscripts with formatting instructions. 'Markdown' was named as a clever, ironic pun—it strips away the heavy code to simplify writing. HTML is an example of something with verbose formatting instructions. i.e. Markup signals adding value or complexity, while markdown means reducing or simplifying it. Jekyll (like the story or Jekyll and Hyde) takes your polite, clean Markdown files and programmatically transforms them into a massive, complex 'monster' of raw HTML for the web browser to read"
   
   - image_vault: "assets/88x31/buttons-tidbits/tidbit-git-meaning.svg"
     image_source: "https://www.youtube.com/shorts/rLxjsk3NAKM"

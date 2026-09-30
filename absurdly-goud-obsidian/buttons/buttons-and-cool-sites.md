@@ -43,3 +43,14 @@ Other Cool websites I've seen, where I haven't yet found a button:
 These appear to be websites to discover others:
 - [Internet Phonebook](https://internetphonebook.net/#dial-a-site) - As of 2026-09-13 the largest number is `737`
 - [Pixel Area](https://pxlarea.com/)
+
+TBC:
+- https://jlopes.eu/
+- https://rewildtheweb.org/
+- https://georgealexgrant.com/
+- https://e0nbreak.com/
+- https://nenrikido.neocities.org/
+- https://diaduck.xyz/
+- https://lostletters.neocities.org/afternoontea/
+- https://lazer-bunny.neocities.org/about
+- https://heyloura.com/

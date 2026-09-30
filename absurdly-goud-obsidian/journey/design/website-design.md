@@ -17,7 +17,7 @@ Different options exist when considering static websites.
 ## Jekyll and Obsidian
 
 This website has a homebrew solution, simply because that was how it grew. After the fact, templates and generators were
-researched and nothing seemed to offer a way to combine use Obsidian out the gate - so a custom solution was built up!
+researched and nothing seemed to offer a way to combine using Obsidian out the gate - so a custom solution was built up!
 
 This site uses [Jekyll](https://jekyllrb.com/) to produce a ready-to-serve static website. It does this by taking Markdown and HTML, alongside templates to package the resources into a `site` directory (browser-ready HTML) Jekyll uses [kramdown](https://kramdown.gettalong.org/quickref.html) as its default Markdown Processor
 
@@ -93,7 +93,7 @@ Note that site-design concepts can also be used with Jekyll and Liquid, controll
 - `breadcrumbs`
 
 > [!Important]
-> Front Matter `tags` and `categories` are part of Jekyll's posts system and so the Liquid variables `{{ site.tags.about }}` may not contain the about.md page
+> Front Matter `tags` and `categories` are part of Jekyll's posts system and so the Liquid variables `\{\{ site.tags.about \}\}` may not contain the about.md page
 
 > [!Note] Helpful Insights 
 > [Front Matter Defaults](https://jekyllrb.com/docs/configuration/front-matter-defaults/) can also be setup in `_config.yaml`
