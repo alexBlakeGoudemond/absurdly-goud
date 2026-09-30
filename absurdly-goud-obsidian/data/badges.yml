@@ -28,6 +28,10 @@ built_with:
     image: "/assets/88x31/cloudflare-worker-button.svg"
     url: "https://absurdlygoud.com/journey/design/website-design/#cloudflare-workers-and-webmention"
     alt: "Built with Cloudflare Workers"
+  - name: "Graphics Built with Inkscape"
+    image: "/assets/88x31/inkscape-button.svg"
+    url: "https://inkscape.org/"
+    alt: "Graphics Built with Inkscape"
 part_of:
   - name: "Part of the IndieWeb"
     image: "/assets/88x31/indieweb88x31-flat.png"

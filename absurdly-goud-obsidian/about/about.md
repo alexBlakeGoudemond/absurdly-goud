@@ -74,6 +74,13 @@ I use AI to do the following:
 - Help me learn and onboard with tools I am not familiar with (Jekyll, GitHub Pages, etc)
 - Help me debug when I am tired of squeezing my rubber duck(s)
 - Help me fast-track boilerplate tasks that I know I could do myself - and want done faster
+#### What I do not use AI for
+
+I do not use AI to:
+- Write
+- Make pictures / media - like the buttons and memes used in this site
+	- I do use a script where needed to produce the 88x31 memes-as-buttons
+	- If not editing the SVG raw -  use Inkscape to create the other 88x31 buttons
 
 #### Specific AI Tools
 The AI tools I have used so far:
