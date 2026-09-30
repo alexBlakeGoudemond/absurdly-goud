@@ -1,0 +1,40 @@
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 67,69,90,144
+"absurdly-goud-obsidian/posts/2026/09/09/2026-09-09 My Rubber Duck Collection.md"
+  h_1197a506f6c7d6 5-7
+"absurdly-goud-obsidian/posts/2026/09/03/2026-09-03 DUCKS DUCKS DUCKS.md"
+  s_c8d8c95c3c7ede::t_1da6c70b57e592 3-8
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 12,81
+absurdly-goud-obsidian/buttons/buttons-and-cool-sites.md
+  h_1197a506f6c7d6 45-56
+absurdly-goud-obsidian/data/badges.yml
+  h_1197a506f6c7d6 9,13,17,29,38
+absurdly-goud-obsidian/journey/design/website-design.md
+  h_1197a506f6c7d6 20,96
+absurdly-goud-obsidian/journey/progress/website-progress.md
+  h_1197a506f6c7d6 5,25
+absurdly-goud-obsidian/posts/2026/09/30/sourdough-discard-unicorn.md
+  h_1197a506f6c7d6 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9a8389287a69a7ed59f9f5e6d282b00391a64dbf",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c8d8c95c3c7ede": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "356c7d19-5ab4-494f-b918-e66dca5da599",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
