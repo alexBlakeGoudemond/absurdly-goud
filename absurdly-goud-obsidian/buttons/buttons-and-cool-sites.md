@@ -16,10 +16,11 @@ Rules of etiquette I follow
 ## Custom 88x31 Memes
 
 ![[free-real-estate.gif]] ![[calculating-puzzled.gif]] ![[good-news-everyone.gif]] ![[approved-sonic-knuckles.gif]] ![[this-is-fine-fire.gif]] ![[oia-uia.gif]] ![[maxwell-kocykvr.gif]]
-![[excited-ah.gif]] 
+![[excited-ah.gif]] _tbc_
+
 ## This Websites 88x31 Button
 
-![[absurdlygoud-88x31.gif]]
+Click Me: ![[absurdlygoud-88x31.gif]] (Or copy from here)
 
 ## Other Peoples' 88x31 Buttons
 

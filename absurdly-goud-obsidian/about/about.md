@@ -9,7 +9,7 @@
 	- Together - could mean: `this is strange, but I like it` or any other interpretation you may have!
 - A domain like `alexBlakeGoudemond.com` is then focussed on Identity and (more-so?) Professionalism
 - It also reminds me to not be serious all the time 🧐😏
-- All-in-all - I just like it, so it is `ABsurdlyGoud.com!` ![[excited-ah.gif]]
+- All-in-all - I just like it ![[excited-ah.gif]] so it is `ABsurdlyGoud.com!`
 
 ## Website Purpose?
 
