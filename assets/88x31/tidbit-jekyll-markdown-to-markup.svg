@@ -1,133 +1,180 @@
-<svg xmlns="http://www.w3.org/2000/svg"
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="88"
+   height="31"
+   viewBox="0 0 88 31"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="tidbit-jekyll-markdown-to-markup.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="7.1232973"
+     inkscape:cx="48.151858"
+     inkscape:cy="10.037486"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <!-- Background -->
+  <rect
+     x="0"
+     y="0"
      width="88"
      height="31"
-     viewBox="0 0 88 31">
-
-    <!-- Background -->
-    <rect
-            x="0"
-            y="0"
-            width="88"
-            height="31"
-            rx="7"
-            fill="#1c1c1c"/>
-
-    <!-- =========================================================
+     rx="7"
+     fill="#1c1c1c"
+     id="rect1" />
+  <!-- =========================================================
          JEKYLL TEST TUBE
          ========================================================= -->
-    <g transform="translate(4 3)">
-
-        <g transform="rotate(18 8 12)">
-
-            <!-- Glass -->
-            <path
-                    d="M3 2
-                   H13
-                   V19
-                   A5 5 0 0 1 3 19
-                   Z"
-                    fill="#f4f4f4"
-                    stroke="#999"
-                    stroke-width="0.8"/>
-
-            <!-- Liquid -->
-            <path
-                    d="M3 11
-                   H13
-                   V19
-                   A5 5 0 0 1 3 19
-                   Z"
-                    fill="#c81111"/>
-
-            <!-- Liquid surface -->
-            <ellipse
-                    cx="8"
-                    cy="11"
-                    rx="5"
-                    ry="1.1"
-                    fill="#9c0f0f"/>
-
-            <!-- Rim -->
-            <ellipse
-                    cx="8"
-                    cy="2"
-                    rx="5"
-                    ry="1.5"
-                    fill="#dedede"
-                    stroke="#888"
-                    stroke-width="0.8"/>
-
-            <ellipse
-                    cx="8"
-                    cy="1.8"
-                    rx="3"
-                    ry="0.7"
-                    fill="#333"/>
-
-            <!-- Bubbles -->
-            <circle cx="6.5" cy="15" r="0.8"
-                    fill="#fff" opacity="0.45"/>
-            <circle cx="9.5" cy="17" r="0.55"
-                    fill="#fff" opacity="0.4"/>
-
-            <!-- Highlight -->
-            <path
-                    d="M5 4 V17"
-                    stroke="#fff"
-                    stroke-width="0.9"
-                    stroke-linecap="round"
-                    opacity="0.55"/>
-        </g>
-    </g>
-
-
-    <!-- =========================================================
+  <g
+     id="g11">
+    <path
+       d="M 10.334887,3.9443499 19.845453,7.0345198 14.592164,23.202481 A 5.0000002,5.0000002 0 0 1 5.0815985,20.112311 Z"
+       fill="#f4f4f4"
+       stroke="#999999"
+       stroke-width="0.8"
+       id="path1" />
+    <path
+       d="M 7.5537344,12.503859 17.0643,15.594028 14.592164,23.202481 A 5.0000002,5.0000002 0 0 1 5.0815985,20.112311 Z"
+       fill="#c81111"
+       id="path2" />
+    <circle
+       cx="16.957558"
+       cy="10.83989"
+       r="0.55000001"
+       fill="#ffffff"
+       opacity="0.4"
+       id="circle5-5"
+       transform="rotate(18)" />
+    <ellipse
+       cx="16.047934"
+       cy="9.5576439"
+       rx="5"
+       ry="1.1"
+       fill="#9c0f0f"
+       id="ellipse2"
+       transform="rotate(18)" />
+    <ellipse
+       cx="16.047934"
+       cy="0.55764383"
+       rx="5"
+       ry="1.5"
+       fill="#dedede"
+       stroke="#888888"
+       stroke-width="0.8"
+       id="ellipse3"
+       transform="rotate(18)" />
+    <ellipse
+       cx="16.047934"
+       cy="0.35764375"
+       rx="3"
+       ry="0.69999999"
+       fill="#333333"
+       id="ellipse4"
+       transform="rotate(18)" />
+    <circle
+       cx="14.547934"
+       cy="13.557644"
+       r="0.80000001"
+       fill="#ffffff"
+       opacity="0.45"
+       id="circle4"
+       transform="rotate(18)" />
+    <circle
+       cx="17.547934"
+       cy="15.557644"
+       r="0.55000001"
+       fill="#ffffff"
+       opacity="0.4"
+       id="circle5"
+       transform="rotate(18)" />
+    <path
+       d="M 11.618966,6.4644969 7.6017455,18.828232"
+       stroke="#ffffff"
+       stroke-width="0.9"
+       stroke-linecap="round"
+       opacity="0.55"
+       id="path5" />
+  </g>
+  <!-- =========================================================
          MARKDOWN ICON 1
          M + DOWN ARROW
          ========================================================= -->
-
-    <!-- M -->
-    <g transform="translate(0 3)" fill="#ffffff">
-        <rect
-                x="23"
-                y="3.5"
-                width="26"
-                height="18"
-                rx="3"
-                stroke="#FFFFFF"
-                stroke-width="1"
-                fill="none"/>
-        <path d="M25 7 H28 L31.5 12 L35 7 H38 V18 H35 V11 L31.5 16 L28 11 V18 H25 Z"/>
-    </g>
-
-    <!-- Down arrow -->
-    <g transform="translate(1 2)" fill="#ffffff">
-        <rect
-                x="53"
-                y="4.5"
-                width="26"
-                height="18"
-                rx="3"
-                stroke="#FFFFFF"
-                stroke-width="1"
-                fill="none"/>
-        <path d="M41 8 H44 V14 H47 L42.5 19 L38 14 H41 Z"/>
-    </g>
-
-
-    <!-- =========================================================
+  <!-- M -->
+  <g
+     transform="translate(0 3)"
+     fill="#ffffff"
+     id="g7">
+    <rect
+       x="23"
+       y="3.5"
+       width="26"
+       height="18"
+       rx="3"
+       stroke="#FFFFFF"
+       stroke-width="1"
+       fill="none"
+       id="rect6" />
+    <path
+       d="M25 7 H28 L31.5 12 L35 7 H38 V18 H35 V11 L31.5 16 L28 11 V18 H25 Z"
+       id="path6" />
+  </g>
+  <!-- Down arrow -->
+  <g
+     transform="translate(1 2)"
+     fill="#ffffff"
+     id="g8">
+    <rect
+       x="53"
+       y="4.5"
+       width="26"
+       height="18"
+       rx="3"
+       stroke="#FFFFFF"
+       stroke-width="1"
+       fill="none"
+       id="rect7" />
+    <path
+       d="M41 8 H44 V14 H47 L42.5 19 L38 14 H41 Z"
+       id="path7" />
+  </g>
+  <!-- =========================================================
          MARKDOWN ICON 2
          M + DOWN ARROW
          ========================================================= -->
-
-    <!-- M -->
-    <g transform="translate(3 3)" fill="#ffffff">
-        <path d="M53 7 H56 L59.5 12 L63 7 H66 V18 H63 V11 L59.5 16 L56 11 V18 H53 Z"/>
-    </g>
-
-    <!-- Down arrow -->
-    <g transform="translate(32 2)" fill="#ffffff">
-        <path d="M41 19 H44 V13 H47 L42.5 8 L38 13 H41 Z"/>
-    </g>
-
+  <!-- M -->
+  <g
+     transform="translate(3 3)"
+     fill="#ffffff"
+     id="g9">
+    <path
+       d="M53 7 H56 L59.5 12 L63 7 H66 V18 H63 V11 L59.5 16 L56 11 V18 H53 Z"
+       id="path8" />
+  </g>
+  <!-- Down arrow -->
+  <g
+     transform="translate(32 2)"
+     fill="#ffffff"
+     id="g10">
+    <path
+       d="M41 19 H44 V13 H47 L42.5 8 L38 13 H41 Z"
+       id="path9" />
+  </g>
 </svg>
