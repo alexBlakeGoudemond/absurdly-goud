@@ -147,3 +147,8 @@ image_popups:
     image_source: "https://www.youtube.com/shorts/rLxjsk3NAKM"
     pun_alt_text: "Meaning of GIT"
     popup_blurb: "Git as a version control system is used by developers all over the world. What does it mean? The very first commit mentions: mispronunciation of 'get'; an insult from common slang (stupid etc); Global Information Tracker when it works for you; Goddam Idiotic Truckload of SH!T when it breaks"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/cucumber-name-origin.svg"
+    image_source: "https://www.quora.com/Why-is-the-Cucumber-tool-for-BDD-named-as-such"
+    pun_alt_text: "Cucumber name origin"
+    popup_blurb: "Cucumber is a programming tool that supports Behaviour-Driven Design (BDD) and uses a syntax that is also food themed: Gherkin! Why is called this? The author's then-fiance recommended it! This [... catchy, non-geeky sounding name] stuck!"

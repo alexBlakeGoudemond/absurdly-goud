@@ -13,5 +13,5 @@ Extending [[buttons-and-cool-sites]], below is a kind of stickerboard for the pu
 
 ## Puns and Tidbits
 
-![[tidbit-java-bean-and-jar.svg]] ![[tidbit-418-im-a-teapot.svg]] ![[tidbit-python-anaconda.svg]] ![[tidbit-jekyll-markdown-to-markup.svg]] ![[tidbit-git-meaning.svg]]
+![[tidbit-java-bean-and-jar.svg]] ![[tidbit-418-im-a-teapot.svg]] ![[tidbit-python-anaconda.svg]] ![[tidbit-jekyll-markdown-to-markup.svg]] ![[tidbit-git-meaning.svg]] ![[cucumber-name-origin.svg]]
 
