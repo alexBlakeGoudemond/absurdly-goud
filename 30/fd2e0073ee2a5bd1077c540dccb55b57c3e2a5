@@ -1,0 +1,32 @@
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 170,172
+  s_a879603e98acc6::t_2150a9cb7d3bf9 171
+  h_1197a506f6c7d6 67,162,168-169
+absurdly-goud-obsidian/about/about.md
+  h_1197a506f6c7d6 77,85
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/blender-name-origin.svg
+  h_1197a506f6c7d6 1-408
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "30fd2e0073ee2a5bd1077c540dccb55b57c3e2a5",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a879603e98acc6": {
+      "agent_id": {
+        "tool": "github-copilot-jetbrains",
+        "id": "1790869893860",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
