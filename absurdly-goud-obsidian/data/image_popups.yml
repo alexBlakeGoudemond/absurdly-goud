@@ -64,7 +64,7 @@ image_popups:
     popup_blurb: "You have acquired the CAT!"
     
   - image_vault: "assets/88x31/buttons-indieweb/excited-ah.gif"
-    image_source: "https://absurdlygoud.com/assets/88x31/excited-ah-original.gif"
+    image_source: "https://absurdlygoud.com/assets/memes/excited-ah-original.gif"
     image_preview: "assets/memes/excited-ah-original.gif"
     popup_blurb: "So excited!"
     popup_redirect_text: "Open image in browser"
@@ -159,9 +159,14 @@ image_popups:
   - image_vault: "assets/88x31/buttons-tidbits/vertical-slice-explained.svg"
     image_source: "https://dev.to/adrianbailador/vertical-slice-architecture-in-net-k80"
     pun_alt_text: "Vertical Slice Explained"
-    popup_blurb: "When thinking about horizontal vs vertical architecture we can imagine a layered cake. Horizontal Architecture (traditional) cuts the cake sideways along the layers — Presentation, Business Logic, Data Access. Vertical Architecture cuts it upwards - each slice contains the parts needed to do one thing. Links nicely to Behaviour-Driven Design, especially if your tool can do frontend and backend onetime (like .NET)"
+    popup_blurb: "When thinking about horizontal vs vertical architecture we can imagine a layered cake. Horizontal Architecture (traditional) cuts the cake sideways along the layers — Presentation, Business Logic, Data Access. Vertical Architecture cuts it upwards - each slice contains the parts needed to do one thing. Links nicely to Behaviour-Driven Design, especially if your tool can do frontend and backend onetime (like .NET). If you were receiving a slice of cake - would you prefer only 1 layer (icing), or some of each layer?"
     
   - image_vault: "assets/88x31/buttons-tidbits/rouge-syntax-highlighter.svg"
     image_source: "https://github.com/rouge-ruby/rouge/blob/main/rouge.gemspec"
     pun_alt_text: "Ruby and Rouge explained"
     popup_blurb: "Rouge is a code highlighter, similar to another popular tool written in python called pygments. To continue with the colour theme - 'rouge' (French for RED) fits nicely as it is also written in the programming language called ruby! The rouge.gemspec on GitHub mentions this. Why is Ruby called that? Well, the author of Ruby wanted to make a superior language to 'Perl'! And Perl was named by its author after 'pearl of great price' from the Gospel of Matthew"
+
+  - image_vault: "assets/88x31/buttons-tidbits/blender-name-origin.svg"
+    image_source: "https://www.blender.org/about/history/"
+    pun_alt_text: "Blender name origin"
+    popup_blurb: "Blender is a 3D computer graphics software that is widely used for creating animated films, visual effects, and interactive applications. You may think that the name 'Blender' comes from the idea of combining different elements together, much like a kitchen blender combines ingredients. In reality though, its just named after a song! (Swiss band Yello's 1985 song 'Blender' from the album 'Stella'). The song was used in a demo of the software at a computer graphics conference, and the name stuck! The song itself is almost a surreal comedy about a fancy kitchen blender"
