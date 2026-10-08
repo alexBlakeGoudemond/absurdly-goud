@@ -13,5 +13,5 @@ Extending [[buttons-and-cool-sites]], below is a kind of stickerboard for the ti
 
 ## Puns and Tidbits
 
-![[tidbit-java-bean-and-jar.svg]] ![[tidbit-418-im-a-teapot.svg]] ![[tidbit-python-anaconda.svg]] ![[tidbit-jekyll-markdown-to-markup.svg]] ![[tidbit-git-meaning.svg]] ![[cucumber-name-origin.svg]] ![[vertical-slice-explained.svg]] ![[rouge-syntax-highlighter.svg]] ![[blender-name-origin.svg]] ![[ms-azure-and-red-dog.svg]] _come back later for more!_
+![[tidbit-java-bean-and-jar.svg]] ![[tidbit-418-im-a-teapot.svg]] ![[tidbit-python-anaconda.svg]] ![[tidbit-jekyll-markdown-to-markup.svg]] ![[tidbit-git-meaning.svg]] ![[tidbit-cucumber-name-origin.svg]] ![[tidbit-vertical-slice-explained.svg]] ![[tidbit-rouge-syntax-highlighter.svg]] ![[tidbit-blender-name-origin.svg]] ![[tidbit-ms-azure-and-red-dog.svg]] _come back later for more!_
 

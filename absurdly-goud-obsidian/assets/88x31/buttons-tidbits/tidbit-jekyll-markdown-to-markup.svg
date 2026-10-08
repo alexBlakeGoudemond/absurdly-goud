@@ -9,10 +9,33 @@
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs10" />
+     id="defs10">
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#1c1c1c;stop-opacity:1;"
+         offset="0.24930748"
+         id="stop1" />
+      <stop
+         style="stop-color:#c81111;stop-opacity:1;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="linearGradient2"
+       x1="0"
+       y1="15.5"
+       x2="88"
+       y2="15.5"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <sodipodi:namedview
      id="namedview10"
      pagecolor="#505050"
@@ -23,7 +46,7 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      inkscape:zoom="7.1232973"
-     inkscape:cx="48.151858"
+     inkscape:cx="48.292242"
      inkscape:cy="10.037486"
      inkscape:window-width="1920"
      inkscape:window-height="991"
@@ -39,7 +62,8 @@
      height="31"
      rx="7"
      fill="#1c1c1c"
-     id="rect1" />
+     id="rect1"
+     style="fill:url(#linearGradient2)" />
   <!-- =========================================================
          JEKYLL TEST TUBE
          ========================================================= -->
