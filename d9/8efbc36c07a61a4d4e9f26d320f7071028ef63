@@ -1,0 +1,20 @@
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/ms-azure-and-red-dog.svg
+  h_1197a506f6c7d6 1-127
+absurdly-goud-obsidian/buttons/buttons-and-cool-sites.md
+  h_1197a506f6c7d6 25,35-37
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 167,172-177
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d98efbc36c07a61a4d4e9f26d320f7071028ef63",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
