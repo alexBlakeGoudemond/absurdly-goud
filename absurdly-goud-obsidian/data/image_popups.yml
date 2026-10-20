@@ -175,3 +175,13 @@ image_popups:
     image_source: "https://www.zdnet.com/article/microsoft-red-dog-a-pink-poodle-in-disguise/"
     pun_alt_text: "MS Azure vs internal name red dog"
     popup_blurb: "Microsoft Azure has been created as clever branding, hoping to be associated with the blue colour of a clear sky; hoping to symbolize open space, infinite scalability, and the sky-and-cloud connection. But more interestingly, Initially the project was known as 'Project Red Dog'. This originates from this team passing a strip club in California called 'the pink poodle'! Dave Cutler joked about naming it after the club, and they settled instead on 'Red Dog'!"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-java-and-indonesia-island.svg"
+    image_source: "https://www.reddit.com/r/java/comments/1tglq9n/why_is_stuff_in_java_named_after_indonesian_places/"
+    pun_alt_text: "Java and the Indonesian Islands"
+    popup_blurb: "Java Programming Tools and the country of Indonesia is a running omage to Javanese coffee beans. Originally the name 'java' was used as the team drank coffee beans from Indonesia (Other names like 'Oak' and Silk where considered). People realised there were other places in Indonesia to continue the island-naming-theme and so additional tools exist to continue with this. For example: Apache Batik, Kopi Compiler, Apache Wayang, IBM Semeru, the Sumatra project of OpenJDK, Lombok, Spring Jakarta. Jakarta is particularly memorable, being the capital of Indonesia and has a memorable National Monument: Monas"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-javascript-originall-called-mocha.svg"
+    image_source: "https://piyush-dubey.medium.com/the-journey-of-javascript-from-mocha-to-a-web-powerhouse-63e4ee533b53"
+    pun_alt_text: "Javascript originally called Mocha"
+    popup_blurb: "Brendan Eich, while working at Netscape, created the language in 1995 in 10 days. The name changed over the next few months in 1995: Mocha (May) --> LiveScript (September) --> JavaScript (December). JavaScript rode the wave of the trendy and popular 'Java' - so borrowing that for its name was purely to grab peoples attention - it is very different to the Java programming language! Imagine a world where frontend devs drank and worked with Mocha, and the backend devs Java coffee!"
