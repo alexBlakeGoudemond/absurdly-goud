@@ -185,3 +185,13 @@ image_popups:
     image_source: "https://piyush-dubey.medium.com/the-journey-of-javascript-from-mocha-to-a-web-powerhouse-63e4ee533b53"
     pun_alt_text: "Javascript originally called Mocha"
     popup_blurb: "Brendan Eich, while working at Netscape, created the language in 1995 in 10 days. The name changed over the next few months in 1995: Mocha (May) --> LiveScript (September) --> JavaScript (December). JavaScript rode the wave of the trendy and popular 'Java' - so borrowing that for its name was purely to grab peoples attention - it is very different to the Java programming language! Imagine a world where frontend devs drank and worked with Mocha, and the backend devs Java coffee!"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-graalvm-and-holy-grail.svg"
+    image_source: "https://dzone.com/articles/graalvm-features-and-future"
+    pun_alt_text: "GraalVM and the Holy Grail"
+    popup_blurb: "GraalVM (Oracle JDK) comes from the 'Holy Grail' of CompSci: a just-in-time compiler that can optimize a language. This ultimate prize for virtual-machine performance and language interoperability was exactly like the Holy Grail of legend. In some English legends (though not conventional), the Grail was hidden underground like a truffle! Knowing that GraalVM has a tool called Truffle (Language Implementation Framework) - we desire a double-pun. And in our dreams, we could have even proposed a triple-pun if only their JVM (Java Virtual Machine) was called communionVM - but alas, it was instead called Espresso..."
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-kotlin-and-russian-island.svg"
+    image_source: "https://en.wikipedia.org/wiki/Kotlin"
+    pun_alt_text: "Kotlin and the Russian Island"
+    popup_blurb: "Kotlin, like Java, is named after an island! The JetBrains team decided to continue the island theme and chose an island close to their headquarters in Russia: Kotlin island. The fact that the JetBrains team was mostly in St Petersburg, they chose an island close to home (literally)."
