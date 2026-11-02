@@ -194,4 +194,19 @@ image_popups:
   - image_vault: "assets/88x31/buttons-tidbits/tidbit-kotlin-and-russian-island.svg"
     image_source: "https://en.wikipedia.org/wiki/Kotlin"
     pun_alt_text: "Kotlin and the Russian Island"
-    popup_blurb: "Kotlin, like Java, is named after an island! The JetBrains team decided to continue the island theme and chose an island close to their headquarters in Russia: Kotlin island. The fact that the JetBrains team was mostly in St Petersburg, they chose an island close to home (literally)."
+    popup_blurb: "Kotlin, like Java, is named after an island! The JetBrains team decided to continue the island theme and chose an island close to their headquarters in Russia: Kotlin island. The fact that the JetBrains team was mostly in St Petersburg, they chose an island close to home (literally). Intersetingly, Kotlin Island has a real cathedral: the Naval Cathedral of St. Nicholas in Kronstadt. It's a monumental Russian Orthodox cathedral built between 1903 and 1913, dedicated to fallen sailors of the Russian Navy"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-assertj-and-lotr.svg"
+    image_source: "https://www.javadoc.io/doc/org.assertj/assertj-core/3.2.0/org/assertj/core/api/AbstractIterableAssert.html"
+    pun_alt_text: "AssertJ and Lord of the Rings"
+    popup_blurb: "AssertJ heavily utilizes The Lord of the Rings domain data across its code and official Javadoc to provide fun, recognizable examples. Examples include 'isSubsetOf', which mentions the 'List<Ring> ringsOfPower = newArrayList(oneRing, vilya, nenya, narya, dwarfRing, manRing);' and gives examples of how to use it!"
+
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-git-rerere-and-jojo.svg"
+    image_source: "https://www.youtube.com/watch?v=nYMDFv5cKaA"
+    pun_alt_text: "Git rerere and JoJo's bizarre adventure"
+    popup_blurb: "I admit that this is very specific, silly and personal experience - I haven't actually seen anyone else on the internet mentions this as yet. The command 'git rerere' stands for 'reuse recorded resolution' and is very helpful when doing software development. However, my eyes see 'rerere' and my brain HEARS Noriaki Kakyoin from JoJo's bizarre adventures tongue-clicking sound ('RERO RERO RERO RERO') while he aggressively eats cherries in Stardust Crusaders. I find this hilarious and have thus included it as one of my tidbits. YMMV"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-kali-linux-and-hindu-goddess.svg"
+    image_source: "https://medium.com/@kavib/the-mystic-kali-linux-9f0d8e3031db"
+    pun_alt_text: "Kali Linux and Hindu Goddess"
+    popup_blurb: "The name Kali Linux shares a phonetic connection with the Hindu goddess. Offensive Security officially named it 'Kali Linux' from a rewrite focused on '_K_ernel _A_uditing _Li_nux'. Many people, however, see the connection (whether accidental or not) to the Hindu goddess Kali: a being who destroys illusion and tears down the old to make way for the new. Apt for an Operating System aimed at exposing security flaws!"
