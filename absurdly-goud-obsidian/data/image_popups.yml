@@ -210,3 +210,8 @@ image_popups:
     image_source: "https://medium.com/@kavib/the-mystic-kali-linux-9f0d8e3031db"
     pun_alt_text: "Kali Linux and Hindu Goddess"
     popup_blurb: "The name Kali Linux shares a phonetic connection with the Hindu goddess. Offensive Security officially named it 'Kali Linux' from a rewrite focused on '_K_ernel _A_uditing _Li_nux'. Many people, however, see the connection (whether accidental or not) to the Hindu goddess Kali: a being who destroys illusion and tears down the old to make way for the new. Apt for an Operating System aimed at exposing security flaws!"
+    
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-apache-maven-and-feather-then-leaf.svg"
+    image_source: "https://news.apache.org/foundation/entry/evolving-the-asf-brand?utm_source=chatgpt.com"
+    pun_alt_text: "Apache Maven and Feather then leaf"
+    popup_blurb: "Coming from Yiddish, Maven means 'accumulator of knowledge'. The Apache Software Foundation (ASF) created maven as a spin off of the Jakarta Turbine Project (which later evolved into Jakarta ee with the Eclipse Foundation). Because it was core to the project's build process - it adopted the ASF's logo - a feather! In 2025 this was rebranded to an oak leaf. The new logo is meant to represent longevity, growth, resilience and community"
