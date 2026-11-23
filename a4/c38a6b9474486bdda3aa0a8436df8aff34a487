@@ -1,0 +1,24 @@
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-assertj-and-lotr.svg
+  h_1197a506f6c7d6 1-118
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-git-rerere-and-jojo.svg
+  h_1197a506f6c7d6 1-6329
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-graalvm-and-holy-grail.svg
+  h_1197a506f6c7d6 27,30,74-75,78-79,137
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-kali-linux-and-hindu-goddess.svg
+  h_1197a506f6c7d6 1-385
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 197-212
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a4c38a6b9474486bdda3aa0a8436df8aff34a487",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
