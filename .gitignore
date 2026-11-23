@@ -26,3 +26,4 @@
 
 # Environment Variables
 /.env/
+/scripts/webmention/.env
