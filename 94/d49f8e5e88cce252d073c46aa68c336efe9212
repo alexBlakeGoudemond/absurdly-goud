@@ -1,0 +1,22 @@
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-graalvm-and-holy-grail.svg
+  h_1197a506f6c7d6 1-178
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-javascript-originall-called-mocha.svg
+  h_1197a506f6c7d6 16-21,76-78,109-111,113,116-118,120-122,124,127-129,189-192
+absurdly-goud-obsidian/assets/88x31/buttons-tidbits/tidbit-kotlin-and-russian-island.svg
+  h_1197a506f6c7d6 1-178
+absurdly-goud-obsidian/data/image_popups.yml
+  h_1197a506f6c7d6 188-197
+absurdly-goud-obsidian/playground/puns-and-tidbits.md
+  h_1197a506f6c7d6 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "94d49f8e5e88cce252d073c46aa68c336efe9212",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
