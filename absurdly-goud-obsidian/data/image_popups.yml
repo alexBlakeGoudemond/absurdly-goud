@@ -215,3 +215,8 @@ image_popups:
     image_source: "https://news.apache.org/foundation/entry/evolving-the-asf-brand?utm_source=chatgpt.com"
     pun_alt_text: "Apache Maven and Feather then leaf"
     popup_blurb: "Coming from Yiddish, Maven means 'accumulator of knowledge'. The Apache Software Foundation (ASF) created maven as a spin off of the Jakarta Turbine Project (which later evolved into Jakarta ee with the Eclipse Foundation). Because it was core to the project's build process - it adopted the ASF's logo - a feather! In 2025 this was rebranded to an oak leaf. The new logo is meant to represent longevity, growth, resilience and community"
+
+  - image_vault: "assets/88x31/buttons-tidbits/tidbit-develocity-and-gradle-icon.svg"
+    image_source: "https://blog.gradle.org/the-company-formerly-known-as-gradle"
+    pun_alt_text: "Develocity and Gradle Icon"
+    popup_blurb: "In June 2026, the company that maintains Gradle renamed itself Develocity to more clearly distinguish between the a company and a tool. Gradle remains a key tool they support, as does the Gradlephant icon! I am unable to find a source about an elephant stomping on a feather (referring to the other popular build automation choice Apache Maven) - so there is likely an arbitrary reason why the elephant was chosen. With a motto 'build happiness' - be sure to type good build scripts; for a Gradlephant never forgets!"
