@@ -27,7 +27,7 @@ jobs:
           ruby-version: '3.3'
 
       - name: Cache Ruby gems
-        uses: actions/cache@v4
+        uses: actions/cache@v6.1.0
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile.lock') }}
@@ -50,7 +50,7 @@ jobs:
         run: python -m pytest tests/ -q
 
       - name: Restore generated site cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6.1.0
         with:
           path: site_src
           key: ${{ runner.os }}-site-src-${{ hashFiles('absurdly-goud-obsidian/**', 'scripts/**', '_includes/**', '_layouts/**', '_config.yml') }}
@@ -94,17 +94,3 @@ jobs:
           publish_dir: ./_site
           publish_branch: gh-pages
           allow_empty_commit: false
-
-# Achieve same result as in the settings - only NEEDED to be done once
-#      - name: Configure GitHub Pages to use gh-pages branch
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: |
-#          echo "Configuring Pages to use gh-pages branch"
-#          OWNER=${GITHUB_REPOSITORY%/*}
-#          REPO=${GITHUB_REPOSITORY#*/}
-#          curl -s -X PUT \
-#            -H "Authorization: Bearer $GITHUB_TOKEN" \
-#            -H "Accept: application/vnd.github+json" \
-#            https://api.github.com/repos/$OWNER/$REPO/pages \
-#            -d '{"source":{"branch":"gh-pages","path":"/"}}'
