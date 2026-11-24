@@ -1,0 +1,14 @@
+.github/workflows/convert-build-deploy.yml
+  h_1197a506f6c7d6 68-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "90b26988bd0b3594450e86260c8f4964f724ba9e",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
