@@ -1,0 +1,17 @@
+docs/CI_GITHUB_PAGES.md
+  h_1197a506f6c7d6 14-15
+.github/workflows/convert-build-deploy.yml
+  h_1197a506f6c7d6 52
+  h_1197a506f6c7d6 53-59,62-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "36351f73d6dc36cd1d1c8dc995831fc58c1ec721",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
