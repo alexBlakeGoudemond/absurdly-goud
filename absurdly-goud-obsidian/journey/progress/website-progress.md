@@ -15,13 +15,12 @@ Below are quick blocks of text tracking what I am working towards as I think of 
 - [ ] consider a Notebook section
 - [ ] parallax background?
 - [ ] what makes this website an IndieWeb site? (h-ref?)
-- [ ] caching:
-	- [ ] screenshots always show as changed in cache
-	- [ ] Get GitHub Pages to use caching?
 - [ ] Animated background
 	- [ ] More convincing water texture
 
 # Achievements
+- [x] Caching:
+	- [x] Get GitHub Pages to use caching (2026-11-24)
 - [x] projects tab? - Puns (2026-09-22)
 - [x] Add test pipeline before pushing - part of GitHub Actions (20260916)
 - [x] Guestbook (20260915)
