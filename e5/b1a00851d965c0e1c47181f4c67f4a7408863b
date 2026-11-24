@@ -1,0 +1,14 @@
+docker/ruby/Dockerfile
+  h_1197a506f6c7d6 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e5b1a00851d965c0e1c47181f4c67f4a7408863b",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
