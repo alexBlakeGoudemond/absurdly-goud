@@ -12,6 +12,8 @@ import argparse
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from scripts.parsing_markdown.callouts import convert_obsidian_callouts_to_jekyll_includes
 from scripts.parsing_markdown.codeblock_escaping import escape_markdown_code_blocks_for_jekyll
 from scripts.parsing_markdown.excalidraw_embeds import is_excalidraw_note, swap_excalidraw_note_with_image_embed
@@ -127,6 +129,7 @@ class ObsidianToJekyllConverter:
         self.copy_vault_resources()
         self.copy_jekyll_resources()
         self.copy_vault_images_into_assets_directory()
+        self.validate_jekyll_data_yaml()
 
         # Built AFTER all copying so it reflects the final output tree
         # (e.g. posts/ -> _posts/), and covers every note, not just
@@ -143,6 +146,19 @@ class ObsidianToJekyllConverter:
         self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup, image_popup_lookup)
         self.site_sync.prune_stale_files()
         self.site_sync.save()
+
+    def validate_jekyll_data_yaml(self) -> None:
+        """Fail early when a Jekyll _data YAML file cannot be parsed."""
+        data_dir = self.output_location / '_data'
+        if not data_dir.exists():
+            return
+
+        for data_file in sorted(data_dir.glob('*')):
+            if data_file.is_file() and data_file.suffix.lower() in {'.yml', '.yaml'}:
+                try:
+                    yaml.safe_load(data_file.read_text(encoding='utf-8'))
+                except yaml.YAMLError as exc:
+                    raise RuntimeError(f"Invalid Jekyll data YAML: '{data_file}'") from exc
 
     def copy_vault_images_into_assets_directory(self) -> None:
         assets_root = self.output_location / 'assets'

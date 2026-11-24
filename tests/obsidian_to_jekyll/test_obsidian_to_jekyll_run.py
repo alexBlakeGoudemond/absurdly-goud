@@ -143,6 +143,19 @@ class TestRunEndToEnd(unittest.TestCase):
 
         self.assertFalse(self.output.exists())
 
+    def test_malformed_jekyll_data_yaml_fails_with_file_name(self):
+        data_dir = self.vault / "data"
+        data_dir.mkdir()
+        (data_dir / "guestbook.yml").write_text(
+            "- id: '123'\n  status: approved\n - id: '456'\n",
+            encoding="utf-8",
+        )
+
+        converter = ObsidianToJekyllConverter(self.vault, self.output, self.source)
+
+        with self.assertRaisesRegex(RuntimeError, r"Invalid Jekyll data YAML.*guestbook\.yml"):
+            converter.run()
+
     def test_data_folder_is_renamed_to_underscore_data(self):
         # Jekyll only reads data collections from _data/ — same underscore
         # rename as posts/ -> _posts/, filenames left as-is (not slugified).
