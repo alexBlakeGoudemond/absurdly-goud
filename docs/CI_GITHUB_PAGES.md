@@ -11,6 +11,8 @@ workflow at `.github/workflows/convert-build-deploy.yml` does the following on p
 Notes:
 
 - Do NOT commit generated `site_src/` or `site/` — the workflow generates them in CI
+- The Github Actions restores a cache of `site_src` - which is what enables the manifest to be helpful for production
+  deploys
 - If you need pagination or other site behavior changes, update `_config.yml` and templates, and verify locally before
   pushing
 

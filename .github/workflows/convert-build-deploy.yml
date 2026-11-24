@@ -49,10 +49,18 @@ jobs:
       - name: Run Python tests
         run: python -m pytest tests/ -q
 
+      - name: Restore generated site cache
+        uses: actions/cache@v4
+        with:
+          path: site_src
+          key: ${{ runner.os }}-site-src-${{ hashFiles('absurdly-goud-obsidian/**', 'scripts/**', '_includes/**', '_layouts/**', '_config.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-site-src-
+
       - name: Prepare site_src (run converter or use committed site_src)
         run: |
-          echo "Repository root files:"
-          ls -la
+#          echo "Repository root files:"
+#          ls -la
           if [ -d absurdly-goud-obsidian ]; then
             echo "Found vault 'absurdly-goud-obsidian' — running converter..."
             python -m scripts.obsidian_to_jekyll --vault absurdly-goud-obsidian --out-dir site_src
