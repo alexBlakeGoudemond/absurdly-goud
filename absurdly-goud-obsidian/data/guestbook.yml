@@ -19,10 +19,10 @@
     name: Suraj Kumar
     url: https://hiberchat.com
     photo: ''
-  message_origin: webmention
+  message_origin: guestbook
   target: https://absurdlygoud.com/guestbook/
   source: https://guestbook-bridge.alexblakegoudemond.workers.dev/entry/7f04b8f2-7024-4e75-8470-abfb15a61850
-  content: 'I''m reaching out to introduce HiberChat, an AI-powered customer chat and communication platform
+  content: 'I'm reaching out to introduce HiberChat, an AI-powered customer chat and communication platform
     designed to help businesses automate website conversations and improve customer support and get more
     customers landing to your website. With HiberChat, your business can: • Automatically answer customer
     questions using AI trained on your website content. • Provide instant customer support 24/7. • Capture
