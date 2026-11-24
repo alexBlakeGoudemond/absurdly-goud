@@ -1,4 +1,4 @@
-FROM ruby:3.3
+FROM ruby:3.3.14
 
 # Install Python (for the Obsidian converter), image libs, and basic utilities
 RUN apt-get update \
