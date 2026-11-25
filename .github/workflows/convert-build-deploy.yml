@@ -49,7 +49,7 @@ jobs:
       - name: Run Python tests
         run: python -m pytest tests/ -q
 
-      - name: Restore generated site cache
+      - name: Restore generated site_src cache
         uses: actions/cache@v6.1.0
         with:
           path: site_src
@@ -70,6 +70,16 @@ jobs:
             exit 1
           fi
 
+      - name: Restore Jekyll build cache
+        uses: actions/cache@v6.1.0
+        with:
+          path: |
+            .jekyll-cache
+            .jekyll-metadata
+          key: ${{ runner.os }}-jekyll-${{ hashFiles('Gemfile.lock', '_config.yml') }}-${{ hashFiles('site_src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-jekyll-
+
       - name: Generate syntax highlighting CSS via Rouge
         run: |
           echo "Checking if syntax highlighting CSS exists"
@@ -81,7 +91,7 @@ jobs:
           fi
 
       - name: Build site with Jekyll
-        run: bundle exec jekyll build --source site_src --config _config.yml --destination _site
+        run: bundle exec jekyll build --source site_src --config _config.yml --destination _site --incremental
 
       - name: Write CNAME into built site
         run: |
