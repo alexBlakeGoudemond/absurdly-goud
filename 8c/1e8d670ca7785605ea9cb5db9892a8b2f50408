@@ -1,0 +1,21 @@
+tests/gif_to_88x31/test_gif_to_88x31.py
+  s_d3e683cb5641c6::t_3ef04c349a3499 26
+tests/parsing_markdown/test_website_manifest.py
+  s_d3e683cb5641c6::t_96c217b0f35131 168-172,193
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8c1e8d670ca7785605ea9cb5db9892a8b2f50408",
+  "prompts": {},
+  "sessions": {
+    "s_d3e683cb5641c6": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5c28b4b0-31e9-4238-b0e1-67eb13c7c006",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
