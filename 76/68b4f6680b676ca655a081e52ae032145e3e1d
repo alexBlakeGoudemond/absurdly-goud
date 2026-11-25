@@ -1,0 +1,32 @@
+scripts/parsing_markdown/site_sync.py
+  h_1197a506f6c7d6 28,36
+tests/gif_to_88x31/test_gif_to_88x31.py
+  h_1197a506f6c7d6 26
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_markdown_excerpt.py
+  h_1197a506f6c7d6 188
+tests/parsing_markdown/test_site_sync.py
+  h_1197a506f6c7d6 11,18-19
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_frontmatter.py
+  h_1197a506f6c7d6 19
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_excalidraw.py
+  h_1197a506f6c7d6 17
+scripts/obsidian_to_jekyll.py
+  h_1197a506f6c7d6 115,119,127,148
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_images.py
+  h_1197a506f6c7d6 19
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_generating_site_src.py
+  h_1197a506f6c7d6 14-15,26,86,226
+tests/obsidian_to_jekyll/test_obsidian_to_jekyll_file_conversion.py
+  h_1197a506f6c7d6 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7668b4f6680b676ca655a081e52ae032145e3e1d",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
