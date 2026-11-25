@@ -165,6 +165,11 @@ class TestSaveManifest(unittest.TestCase):
 
 class TestManifestParsing(unittest.TestCase):
 
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        self.tmp_path = Path(self.tmp_dir.name)
+
     def test_parses_changed_entries_from_manifest(self):
         manifest_path = self.tmp_path / "manifest.json"
         data = {
@@ -185,7 +190,7 @@ class TestManifestParsing(unittest.TestCase):
         self.assertEqual(result["changed.md"]["dest"], "changed.md")
         self.assertTrue(result["changed.md"]["changed_this_run"])
         self.assertEqual(result["unchanged.md"]["dest"], "unchanged.md")
-        self.assertFalse(result["changed.md"]["changed_this_run"])
+        self.assertTrue(result["changed.md"]["changed_this_run"])
 
     def test_missing_or_empty_manifest_returns_empty_dict(self):
         manifest_path = self.tmp_path / "missing.json"

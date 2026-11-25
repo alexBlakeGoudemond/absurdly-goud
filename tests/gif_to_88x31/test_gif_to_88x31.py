@@ -23,7 +23,7 @@ def make_frame(width: int, height: int, color=(255, 0, 0)) -> Image.Image:
 
 
 def write_gif(path: Path, frames: list, durations: list, loop: int = 0) -> None:
-    frames[0].update_manifest(
+    frames[0].save(
         path,
         save_all=True,
         append_images=frames[1:],
