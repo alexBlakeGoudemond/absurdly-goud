@@ -112,11 +112,11 @@ class ObsidianToJekyllConverter:
         self.source_location = source_location
         self.site_sync = SiteSync(output_location / MANIFEST_FILENAME)
 
-    def begin_run(self) -> None:
+    def prepare_manifest_for_new_run(self) -> None:
         """Reset per-run sync tracking state (loads the on-disk manifest).
         Called at the start of run(), and reusable directly in tests to
         simulate a second, separate invocation of the converter."""
-        self.site_sync.begin_run()
+        self.site_sync.load_previous_manifest_and_reset_state()
 
     def run(self) -> None:
         if not self.obsidian_vault_location.exists():
@@ -124,7 +124,7 @@ class ObsidianToJekyllConverter:
             return
 
         self.output_location.mkdir(parents=True, exist_ok=True)
-        self.begin_run()
+        self.prepare_manifest_for_new_run()
 
         self.copy_vault_resources()
         self.copy_jekyll_resources()
@@ -145,7 +145,7 @@ class ObsidianToJekyllConverter:
 
         self.parse_markdown_files_for_jekyll(note_path_lookup, image_path_lookup, image_popup_lookup)
         self.site_sync.prune_stale_files()
-        self.site_sync.save()
+        self.site_sync.update_manifest()
 
     def validate_jekyll_data_yaml(self) -> None:
         """Fail early when a Jekyll _data YAML file cannot be parsed."""

@@ -25,7 +25,7 @@ class SiteSync:
         self.new_manifest: dict = {}
         self.changed_dest_paths: list[Path] = []
 
-    def begin_run(self) -> None:
+    def load_previous_manifest_and_reset_state(self) -> None:
         """Load the on-disk manifest and reset per-run tracking state.
         Call at the start of a run, or reuse directly in tests to simulate a
         second, separate invocation of the sync."""
@@ -33,7 +33,7 @@ class SiteSync:
         self.new_manifest = {}
         self.changed_dest_paths = []
 
-    def save(self) -> None:
+    def update_manifest(self) -> None:
         """Persist this run's manifest to disk, so the next run can diff against it."""
         save_manifest(self.manifest_path, self.new_manifest)
 
@@ -54,6 +54,7 @@ class SiteSync:
 
         # are the contents unchanged?
         if old_entry and old_entry["sha256"] == current_hash and dest_path.exists():
+            old_entry.pop("changed_this_run", None)
             self.new_manifest[source_key] = old_entry
             return
 

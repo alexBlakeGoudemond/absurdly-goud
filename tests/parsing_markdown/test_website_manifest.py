@@ -7,7 +7,8 @@ from scripts.parsing_markdown.website_manifest import (
     sha256,
     create_manifest_entry,
     load_manifest,
-    save_manifest
+    save_manifest,
+    filter_changed_entries
 )
 
 
@@ -19,7 +20,7 @@ class ManifestCreation(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
 
     def test_can_calculate_sha256_of_file(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         expected_hash = "dffd6021bb2bd5b0af676290809ec3a53191dd81c7f70a4b28688a362182986f"
@@ -28,12 +29,12 @@ class ManifestCreation(unittest.TestCase):
         self.assertEqual(calculated_hash, expected_hash)
 
     def test_renaming_file_does_not_change_sha256(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         original_hash = sha256(test_file)
 
-        new_location = self.tmp_path / "renamed_test.txt"
+        new_location = self.tmp_path / "renamed_test.json"
         test_file.rename(new_location)
 
         renamed_hash = sha256(new_location)
@@ -41,7 +42,7 @@ class ManifestCreation(unittest.TestCase):
         self.assertEqual(original_hash, renamed_hash)
 
     def test_modifying_file_changes_sha256(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         original_hash = sha256(test_file)
@@ -56,13 +57,13 @@ class ManifestCreation(unittest.TestCase):
         # Documents current behaviour: sha256 does not swallow a missing
         # source file, it propagates FileNotFoundError from open(). Callers
         # syncing a file that vanished mid-run should expect this to raise.
-        missing_file = self.tmp_path / "does_not_exist.txt"
+        missing_file = self.tmp_path / "does_not_exist.json"
 
         with self.assertRaises(FileNotFoundError):
             sha256(missing_file)
 
     def test_creating_manifest_entry_should_return_correct_structure(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         manifest_entry = create_manifest_entry(test_file, test_file)
@@ -70,6 +71,7 @@ class ManifestCreation(unittest.TestCase):
         self.assertIn("source", manifest_entry)
         self.assertIn("dest", manifest_entry)
         self.assertIn("sha256", manifest_entry)
+        self.assertIn("changed_this_run", manifest_entry)
 
 
 class TestLoadManifest(unittest.TestCase):
@@ -161,6 +163,73 @@ class TestSaveManifest(unittest.TestCase):
 
         self.assertEqual(json.loads(manifest_path.read_text(encoding="utf-8")), {})
 
+class TestManifestParsing(unittest.TestCase):
+
+    def setUp(self):
+        self.tmp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp_dir.cleanup)
+        self.tmp_path = Path(self.tmp_dir.name)
+
+    def test_parses_changed_entries_from_manifest(self):
+        manifest_path = self.tmp_path / "manifest.json"
+        data = {
+            "changed.md": {
+                "dest": "changed.md",
+                "sha256": "123",
+                "changed_this_run": True,
+            },
+            "unchanged.md": {
+                "dest": "unchanged.md",
+                "sha256": "456",
+            },
+        }
+        manifest_path.write_text(json.dumps(data), encoding="utf-8")
+
+        result = load_manifest(manifest_path)
+
+        self.assertEqual(result["changed.md"]["dest"], "changed.md")
+        self.assertTrue(result["changed.md"]["changed_this_run"])
+        self.assertEqual(result["unchanged.md"]["dest"], "unchanged.md")
+        self.assertTrue(result["changed.md"]["changed_this_run"])
+
+    def test_missing_or_empty_manifest_returns_empty_dict(self):
+        manifest_path = self.tmp_path / "missing.json"
+
+        self.assertEqual(load_manifest(manifest_path), {})
+
+    def test_filters_entries_whose_changed_this_run_is_true(self):
+        manifest = {
+            "new.md": {"changed_this_run": True},
+            "updated.md": {"changed_this_run": True},
+            "unchanged.md": {},
+        }
+
+        result = filter_changed_entries(manifest)
+
+        self.assertEqual(set(result), {"new.md", "updated.md"})
+
+    def test_changed_filter_requires_true_not_truthy(self):
+        manifest = {
+            "string.md": {"changed_this_run": "true"},
+            "missing.md": {},
+        }
+
+        self.assertEqual(filter_changed_entries(manifest), {})
+
+    def test_filter_retains_all_manifest_entry_attributes(self):
+        manifest = {
+            "file.md": {
+                "dest": "file.md",
+                "sha256": "abc123",
+                "changed_this_run": True,
+            }
+        }
+
+        result = filter_changed_entries(manifest)
+
+        self.assertEqual(result["file.md"]["dest"], "file.md")
+        self.assertEqual(result["file.md"]["sha256"], "abc123")
+        self.assertTrue(result["file.md"]["changed_this_run"])
 
 if __name__ == '__main__':
     unittest.main()

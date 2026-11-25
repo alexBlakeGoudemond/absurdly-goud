@@ -6,3 +6,10 @@ Example of the Github Actions CI during a deploy
 
 > [!info]
 > The warnings have also been addressed FYI ![[good-news-everyone.gif]]
+
+
+Update (2026-11-25): The manifest should not include an attribute `changed_this_run` if it is different between this and the previous manifest. Ideally, I should be able to quickly see what is new just by looking at the manifest! Can be shown nicely here:
+
+![[2026-11-24 Testing Prod Manifest File docker.webp]]
+
+![[2026-11-24 Testing Prod Manifest File json.webp]]
