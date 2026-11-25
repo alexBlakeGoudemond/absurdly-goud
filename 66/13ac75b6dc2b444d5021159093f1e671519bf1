@@ -1,0 +1,17 @@
+scripts/parsing_markdown/website_manifest.py
+  h_1197a506f6c7d6 56-62
+tests/parsing_markdown/test_website_manifest.py
+  h_1197a506f6c7d6 10-11,166-212,214-227
+  h_1197a506f6c7d6 213
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6613ac75b6dc2b444d5021159093f1e671519bf1",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
