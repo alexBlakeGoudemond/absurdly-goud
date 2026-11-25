@@ -89,7 +89,7 @@ jobs:
           fi
 
       - name: Build site with Jekyll
-        run: bundle exec jekyll build --source site_src --config _config.yml --destination _site --incremental
+        run: bundle exec jekyll build --source site_src --config _config.yml --destination _site
 
       - name: Write CNAME into built site
         run: |
