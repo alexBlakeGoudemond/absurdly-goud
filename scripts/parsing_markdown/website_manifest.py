@@ -53,3 +53,10 @@ def save_manifest(manifest_path: Path, manifest: dict) -> None:
     tmp_path = manifest_path.with_suffix(".tmp")
     tmp_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     tmp_path.replace(manifest_path)
+
+def filter_changed_entries(manifest: dict) -> dict:
+    return {
+        source: entry
+        for source, entry in manifest.items()
+        if entry.get("changed_this_run") is True
+    }

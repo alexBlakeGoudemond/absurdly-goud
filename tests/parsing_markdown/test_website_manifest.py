@@ -7,7 +7,8 @@ from scripts.parsing_markdown.website_manifest import (
     sha256,
     create_manifest_entry,
     load_manifest,
-    save_manifest
+    save_manifest,
+    filter_changed_entries
 )
 
 
@@ -162,6 +163,68 @@ class TestSaveManifest(unittest.TestCase):
 
         self.assertEqual(json.loads(manifest_path.read_text(encoding="utf-8")), {})
 
+class TestManifestParsing(unittest.TestCase):
+
+    def test_parses_changed_entries_from_manifest(self):
+        manifest_path = self.tmp_path / "manifest.json"
+        data = {
+            "changed.md": {
+                "dest": "changed.md",
+                "sha256": "123",
+                "changed_this_run": True,
+            },
+            "unchanged.md": {
+                "dest": "unchanged.md",
+                "sha256": "456",
+            },
+        }
+        manifest_path.write_text(json.dumps(data), encoding="utf-8")
+
+        result = load_manifest(manifest_path)
+
+        self.assertEqual(result["changed.md"]["dest"], "changed.md")
+        self.assertTrue(result["changed.md"]["changed_this_run"])
+        self.assertEqual(result["unchanged.md"]["dest"], "unchanged.md")
+        self.assertFalse(result["changed.md"]["changed_this_run"])
+
+    def test_missing_or_empty_manifest_returns_empty_dict(self):
+        manifest_path = self.tmp_path / "missing.json"
+
+        self.assertEqual(load_manifest(manifest_path), {})
+
+    def test_filters_entries_whose_changed_this_run_is_true(self):
+        manifest = {
+            "new.md": {"changed_this_run": True},
+            "updated.md": {"changed_this_run": True},
+            "unchanged.md": {},
+        }
+
+        result = filter_changed_entries(manifest)
+
+        self.assertEqual(set(result), {"new.md", "updated.md"})
+
+    def test_changed_filter_requires_true_not_truthy(self):
+        manifest = {
+            "string.md": {"changed_this_run": "true"},
+            "missing.md": {},
+        }
+
+        self.assertEqual(filter_changed_entries(manifest), {})
+
+    def test_filter_retains_all_manifest_entry_attributes(self):
+        manifest = {
+            "file.md": {
+                "dest": "file.md",
+                "sha256": "abc123",
+                "changed_this_run": True,
+            }
+        }
+
+        result = filter_changed_entries(manifest)
+
+        self.assertEqual(result["file.md"]["dest"], "file.md")
+        self.assertEqual(result["file.md"]["sha256"], "abc123")
+        self.assertTrue(result["file.md"]["changed_this_run"])
 
 if __name__ == '__main__':
     unittest.main()
