@@ -54,6 +54,7 @@ class SiteSync:
 
         # are the contents unchanged?
         if old_entry and old_entry["sha256"] == current_hash and dest_path.exists():
+            old_entry.pop("changed_this_run", None)
             self.new_manifest[source_key] = old_entry
             return
 

@@ -19,7 +19,7 @@ class ManifestCreation(unittest.TestCase):
         self.tmp_path = Path(self.tmp_dir.name)
 
     def test_can_calculate_sha256_of_file(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         expected_hash = "dffd6021bb2bd5b0af676290809ec3a53191dd81c7f70a4b28688a362182986f"
@@ -28,12 +28,12 @@ class ManifestCreation(unittest.TestCase):
         self.assertEqual(calculated_hash, expected_hash)
 
     def test_renaming_file_does_not_change_sha256(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         original_hash = sha256(test_file)
 
-        new_location = self.tmp_path / "renamed_test.txt"
+        new_location = self.tmp_path / "renamed_test.json"
         test_file.rename(new_location)
 
         renamed_hash = sha256(new_location)
@@ -41,7 +41,7 @@ class ManifestCreation(unittest.TestCase):
         self.assertEqual(original_hash, renamed_hash)
 
     def test_modifying_file_changes_sha256(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         original_hash = sha256(test_file)
@@ -56,13 +56,13 @@ class ManifestCreation(unittest.TestCase):
         # Documents current behaviour: sha256 does not swallow a missing
         # source file, it propagates FileNotFoundError from open(). Callers
         # syncing a file that vanished mid-run should expect this to raise.
-        missing_file = self.tmp_path / "does_not_exist.txt"
+        missing_file = self.tmp_path / "does_not_exist.json"
 
         with self.assertRaises(FileNotFoundError):
             sha256(missing_file)
 
     def test_creating_manifest_entry_should_return_correct_structure(self):
-        test_file = self.tmp_path / "test.txt"
+        test_file = self.tmp_path / "test.json"
         test_file.write_text("Hello, World!", encoding="utf-8")
 
         manifest_entry = create_manifest_entry(test_file, test_file)
@@ -70,6 +70,7 @@ class ManifestCreation(unittest.TestCase):
         self.assertIn("source", manifest_entry)
         self.assertIn("dest", manifest_entry)
         self.assertIn("sha256", manifest_entry)
+        self.assertIn("changed_this_run", manifest_entry)
 
 
 class TestLoadManifest(unittest.TestCase):

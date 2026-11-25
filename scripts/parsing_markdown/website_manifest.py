@@ -26,6 +26,7 @@ def create_manifest_entry(source_path: Path, dest_path: Path) -> dict:
         "dest": str(dest_path),
         "sha256": sha256(source_path),
         "last_published": (get_timestamp()),
+        "changed_this_run": True,
     }
 
 

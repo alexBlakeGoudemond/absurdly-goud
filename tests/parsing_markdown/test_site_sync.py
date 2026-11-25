@@ -94,6 +94,47 @@ class TestSyncFile(unittest.TestCase):
 
         self.assertTrue(new_dest.exists())
 
+    def test_new_file_is_flagged_as_changed_this_run(self):
+        source = self.tmp_path / "note.md"
+        source.write_text("hello", encoding="utf-8")
+        dest = self.tmp_path / "out" / "note.md"
+
+        self.sync.sync_file(source, dest)
+
+        entry = self.sync.new_manifest[str(source)]
+        self.assertTrue(entry["changed_this_run"])
+
+    def test_changed_file_is_flagged_as_changed_this_run(self):
+        source = self.tmp_path / "note.md"
+        source.write_text("hello", encoding="utf-8")
+        dest = self.tmp_path / "out" / "note.md"
+        self.sync.sync_file(source, dest)
+
+        start_next_run(self.sync)
+
+        # sync again to simulate the manifest does not have "changed_this_run" flag
+        self.sync.sync_file(source, dest)
+        entry = self.sync.new_manifest[str(source)]
+        self.assertNotIn("changed_this_run", entry)
+
+        source.write_text("updated", encoding="utf-8")
+
+        self.sync.sync_file(source, dest)
+
+        entry = self.sync.new_manifest[str(source)]
+        self.assertTrue(entry["changed_this_run"])
+
+    def test_unchanged_file_is_not_flagged_as_changed_this_run(self):
+        source = self.tmp_path / "note.md"
+        source.write_text("hello", encoding="utf-8")
+        dest = self.tmp_path / "out" / "note.md"
+        self.sync.sync_file(source, dest)
+
+        start_next_run(self.sync)
+        self.sync.sync_file(source, dest)
+
+        entry = self.sync.new_manifest[str(source)]
+        self.assertNotIn("changed_this_run", entry)
 
 class TestSyncTree(unittest.TestCase):
 
