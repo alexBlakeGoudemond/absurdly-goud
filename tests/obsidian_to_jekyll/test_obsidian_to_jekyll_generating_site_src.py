@@ -11,8 +11,8 @@ from scripts.obsidian_to_jekyll import (
 def start_next_run(converter: ObsidianToJekyllConverter) -> None:
     """Persist whatever this run produced, then begin a fresh run —
     mirrors exactly what a second real invocation of the script would see."""
-    converter.site_sync.save()
-    converter.begin_run()
+    converter.site_sync.update_manifest()
+    converter.prepare_manifest_for_new_run()
 
 
 class TestCopyJekyllResources(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestCopyJekyllResources(unittest.TestCase):
         self.tmp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp_dir.cleanup)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()  # first-time setup: empty old_manifest, no disk state yet
+        self.converter.prepare_manifest_for_new_run()  # first-time setup: empty old_manifest, no disk state yet
 
     def test_included_file_is_copied(self):
         (self.converter.source_location / "CNAME").write_text("example.com", encoding="utf-8")
@@ -83,7 +83,7 @@ class TestCopyVaultResources(unittest.TestCase):
         self.tmp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp_dir.cleanup)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
+        self.converter.prepare_manifest_for_new_run()
 
     def test_posts_directory_is_renamed_to_underscore_posts(self):
         posts_dir = self.converter.obsidian_vault_location / "posts"
@@ -223,7 +223,7 @@ class TestCopyVaultImagesIntoAssetsDirectory(unittest.TestCase):
         self.tmp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp_dir.cleanup)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
+        self.converter.prepare_manifest_for_new_run()
 
     def test_image_is_bucketed_by_top_level_vault_directory(self):
         buttons_dir = self.converter.obsidian_vault_location / "88x31" / "memes-as-buttons"

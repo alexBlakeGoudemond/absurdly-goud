@@ -8,15 +8,15 @@ from scripts.parsing_markdown.site_sync import SiteSync
 def make_site_sync(tmp_path: Path) -> SiteSync:
     manifest_path = tmp_path / ".manifest.json"
     sync = SiteSync(manifest_path)
-    sync.begin_run()
+    sync.load_previous_manifest_and_reset_state()
     return sync
 
 
 def start_next_run(sync: SiteSync) -> None:
     """Persist whatever this run produced, then begin a fresh run —
     mirrors exactly what a second real invocation would see."""
-    sync.save()
-    sync.begin_run()
+    sync.update_manifest()
+    sync.load_previous_manifest_and_reset_state()
 
 
 class TestSyncFile(unittest.TestCase):

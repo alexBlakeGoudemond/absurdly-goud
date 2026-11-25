@@ -185,7 +185,7 @@ class TestAddExcerptMarkerToMarkdownFiles(unittest.TestCase):
         self.tmp_dir = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp_dir.cleanup)
         self.converter = test_helpers.make_converter(Path(self.tmp_dir.name))
-        self.converter.begin_run()
+        self.converter.prepare_manifest_for_new_run()
         self.note_lookup = {}
         self.image_lookup = {}
 
