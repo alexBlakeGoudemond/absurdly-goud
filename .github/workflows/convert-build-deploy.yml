@@ -73,10 +73,8 @@ jobs:
       - name: Restore Jekyll build cache
         uses: actions/cache@v6.1.0
         with:
-          path: |
-            .jekyll-cache
-            .jekyll-metadata
-          key: ${{ runner.os }}-jekyll-${{ hashFiles('Gemfile.lock', '_config.yml') }}-${{ hashFiles('site_src/**') }}
+          path: site_src/.jekyll-metadata
+          key: ${{ runner.os }}-jekyll-${{ hashFiles('Gemfile.lock', '_config.yml') }}
           restore-keys: |
             ${{ runner.os }}-jekyll-
 
