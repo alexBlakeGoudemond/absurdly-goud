@@ -42,10 +42,18 @@ wrangler kv namespace create GUESTBOOK_KV
 > GUESTBOOK_KV is just a chosen name that tells this one Worker "when your code says env.GUESTBOOK_KV,
 > point it at that namespace." It's defined in `wrangler.toml`
 
-later:
+### Deploy
+
+If you need to set secrets:
 
 ```bash
-wrangler deploy
+npx wrangler secret bulk .\.env\cloudflare.env --config .\.cloudflare\guestbook-bridge\wrangler.toml
+```
+
+> NOTE: ensure `GUESTBOOK_BEARER_TOKEN` is set here
+
+```bash
+npx wrangler deploy --config .\.cloudflare\guestbook-bridge\wrangler.toml
 ```
 
 If successful, you should see this in Cloudflare Workers
@@ -69,3 +77,8 @@ And that's the POC of it working!
 > IMPORTANT
 > 
 > If doing this yourself - check for hardcoded URLs in community
+
+> NOTE
+>
+> Bearer Tokens are used when submitting a Guestbook entry. This value is NOT in the wrangler.toml file for security
+> reasons. It is added manually to cloudflare

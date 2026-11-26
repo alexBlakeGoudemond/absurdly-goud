@@ -16,6 +16,11 @@ export default {
         // Accepts the guestbook form POST, publishes an entry page,
         // then sends the actual webmention.
         if (request.method === "POST" && url.pathname === "/submit") {
+            const origin = request.headers.get("origin");
+            if (origin && origin !== env.ALLOWED_ORIGIN) {
+                return new Response("Forbidden", {status: 403});
+            }
+
             const ip = request.headers.get("cf-connecting-ip") || "unknown";
             const {success} = await env.GUESTBOOK_RATE_LIMITER.limit({key: ip});
             if (!success) {

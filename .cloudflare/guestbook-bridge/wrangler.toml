@@ -18,6 +18,7 @@ limit = 5
 period = 60
 
 [vars]
+ALLOWED_ORIGIN = "https://absurdlygoud.com"
 TARGET_URL = "https://absurdlygoud.com/guestbook/"
 WEBMENTION_ENDPOINT = "https://webmention.io/alexblakegoudemond.com/webmention"
 
