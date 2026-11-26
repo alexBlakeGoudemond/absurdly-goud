@@ -13,7 +13,7 @@ export default {
             });
         }
 
-        // Accepts the guestbook form POST, publishes an entry page,
+        // Accepts the public guestbook form POST, publishes an entry page,
         // then sends the actual webmention.
         if (request.method === "POST" && url.pathname === "/submit") {
             const origin = request.headers.get("origin");
