@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Caching Jekyll Metadata | ABsurdly Goud</title>
+
+    <link rel="webmention" href="https://webmention.io/alexblakegoudemond.com/webmention" />
+    <link rel="pingback" href="https://webmention.io/alexblakegoudemond.com/xmlrpc" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/navigation.css">
+    <link rel="stylesheet" href="/assets/css/animated-background.css">
+    <link rel="stylesheet" href="/assets/css/syntax-highlighting.css">
+    <link rel="stylesheet" href="/assets/css/callouts.css">
+    <link rel="stylesheet" href="/assets/css/guestbook.css">
+    <link rel="stylesheet" href="/assets/css/images.css">
+</head>
+
+<body>
+
+<svg class="water-background"
+     viewBox="0 0 1000 1000"
+     preserveAspectRatio="none">
+
+    <g id="waves">
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+        <path class="wave"></path>
+    </g>
+</svg>
+
+
+<!-- Duck ripples -->
+<svg class="ripple-background"
+     viewBox="0 0 1000 1000"
+     preserveAspectRatio="none">
+    <g id="duck-ripples"></g>
+</svg><img class="pond-duck" id="pond-duck-123" src="/assets/site-background/logo-rubber-duck-abg.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-124" src="/assets/site-background/logo-rubber-duck-dragon-mom.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-125" src="/assets/site-background/logo-rubber-duck-emily-and-lyra.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-126" src="/assets/site-background/logo-rubber-duck-luke.svg" alt="" aria-hidden="true"><img class="pond-duck" id="pond-duck-127" src="/assets/site-background/logo-rubber-duck-octavia.svg" alt="" aria-hidden="true">
+
+<header class="site-header">
+    <nav>
+        <div class="nav-item nav-logo">
+            <a href="/">
+                <img src="/favicon.svg"
+                     alt="Home"
+                     width="40"
+                     height="40">
+            </a>
+        </div>
+
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/" class="nav-link ">Home</a>
+            </div>
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/about/" class="nav-link ">About</a>
+            </div>
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/posts/" class="nav-link ">Posts</a>
+            </div>
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/journey/" class="nav-link ">Journey</a>
+            </div>
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/buttons-and-cool-sites/" class="nav-link ">Buttons and Cool Sites</a>
+            </div>
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/community/" class="nav-link ">Community</a>
+            </div>
+        
+            
+            
+            <div class="nav-item ">
+                <a href="/playground/" class="nav-link ">Playground</a>
+            </div>
+        
+    </nav>
+</header>
+
+<div class="page-wrapper">
+    <main>
+        <article class="h-entry">
+
+    <header>
+        <h2 class="p-name">Caching Jekyll Metadata</h2>
+
+        
+        
+        <div class="dt-published">
+            Created:
+            <time datetime="2026-11-26T00:00:00+00:00">
+                2026-11-26
+            </time>
+
+            Last updated:
+            <time datetime="2026-11-26T03:21:00+00:00">
+                2026-11-26 03:21
+            </time>
+        </div>
+    </header>
+
+    <div class="e-content">
+        
+
+        <p>Exploring caching with GitHub Actions further - I went on to add Jekyll’s metadata cache (CSS etc). This Github Actions step yielded this result</p>
+
+<!--more-->
+
+<!--
+    NOTE - indentation matters with liquid and kramdown here -
+    changing the HTML indentation can cause Kramdown to treat
+    the code as a codeblock and escape
+-->
+<figure>
+    <img class="u-photo" src="/assets/posts/2026-11-26%20Caching%20Jekyll%20Metadata.webp" alt="2026-11-26 Caching Jekyll Metadata.webp" />
+    <figcaption>2026-11-26 Caching Jekyll Metadata.webp</figcaption>
+</figure>
+
+<p>Insights:</p>
+<ul>
+  <li>Restore Step: runs on startup and tries to find the Jekyll primary key</li>
+  <li>Post Restore Jekyll build cache: automatically runs after job; save the cache contents</li>
+  <li><code class="language-plaintext highlighter-rouge">Cache not found</code> normal on first run</li>
+  <li><code class="language-plaintext highlighter-rouge">Cache hit occurred ... not saving cache</code> - the cache did not change, nothing to save</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /... / Sent-style logs</code> come from the GitHub cache service HTTP API
+    <ul>
+      <li>First log: cache version accepted and cache uploaded</li>
+      <li>Second log: hit and download</li>
+      <li>Third log: hit, but no upload because the primary key already matched</li>
+      <li>FYI: <code class="language-plaintext highlighter-rouge">21757952 of 32506581</code> is a fraction of the progress bar - hence <code class="language-plaintext highlighter-rouge">66.9%</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="callout" data-callout="important" data-collapsible="false" data-initial-state="expanded">
+    <div class="callout-title" style="display: flex; align-items: center; gap: 0.5rem;">
+        <div class="callout-title-icon">
+            <img src="/assets/callout_icons/flame.svg" alt="important callout icon" aria-hidden="true" />
+        </div>
+        <div class="callout-title-inner">Important</div>
+    </div>
+    <div class="callout-content">
+        
+<p>However - this currently does not load the templates like <code class="language-plaintext highlighter-rouge">_include</code> <button type="button" class="image-popup-trigger" data-popup-src="https://knowyourmeme.com/memes/this-is-fine" data-popup-blurb="The internet, most days" data-popup-redirect-text="Learn more" data-popup-image="/assets/memes/this-is-fine-fire-original.gif" data-popup-preview-type="image" aria-label="Open details for this-is-fine-fire.gif"><img class="u-photo-inline" src="/assets/88x31/this-is-fine-fire.gif" alt="this-is-fine-fire.gif" /></button> Meaning the site doesnt load - just the background… So I chose to remove the <code class="language-plaintext highlighter-rouge">-incremental</code> flag. This means we are not actually taking advantage of the caching - but will keep it in anyway!</p>
+
+    </div>
+</div>
+
+
+    </div>
+
+</article>
+    </main>
+
+    <aside>
+    
+        <!-- render nothing -->
+    
+    <div class="badges">
+
+    <div class="badge-section">
+        <p>This site was built with the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://absurdlygoud.com/journey/design/website-design/#jekyll-and-obsidian" target="_blank" rel="noopener">
+                <img src="/assets/88x31/jekyll-button.svg"
+                     alt="Built with Jekyll"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://absurdlygoud.com/journey/design/website-design/#github-pages" target="_blank" rel="noopener">
+                <img src="/assets/88x31/github-pages-button.svg"
+                     alt="Built with GitHub Pages"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://absurdlygoud.com/journey/design/website-design/#jekyll-and-obsidian" target="_blank" rel="noopener">
+                <img src="/assets/88x31/obsidian-button.svg"
+                     alt="Built with Obsidian"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://microformats.org/" target="_blank" rel="noopener">
+                <img src="/assets/88x31/microformats88x31-flat.png"
+                     alt="Built with Microformats"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://github.com/alexBlakeGoudemond/absurdly-goud/blob/main/scripts/obsidian_to_jekyll.py" target="_blank" rel="noopener">
+                <img src="/assets/88x31/python-button.svg"
+                     alt="Built with Python Scripts"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://absurdlygoud.com/journey/design/website-design/#cloudflare-workers-and-webmention" target="_blank" rel="noopener">
+                <img src="/assets/88x31/cloudflare-worker-button.svg"
+                     alt="Built with Cloudflare Workers"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://inkscape.org/" target="_blank" rel="noopener">
+                <img src="/assets/88x31/inkscape-button.svg"
+                     alt="Graphics Built with Inkscape"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>This site is part of the following:</p>
+        <div class="badge-row">
+            
+            <a href="https://indieweb.org" target="_blank" rel="noopener">
+                <img src="/assets/88x31/indieweb88x31-flat.png"
+                     alt="Part of the IndieWeb"
+                     class="badge-img">
+            </a>
+            
+            <a href="https://absurdlygoud.com/2026/09/16/webmention-vs-guestbook/" target="_blank" rel="noopener">
+                <img src="/assets/88x31/webmention-io-button.svg"
+                     alt="Uses Webmention.io"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="badge-section">
+        <p>Disclaimer:</p>
+        <div class="badge-row">
+            
+            <a href="/about#ai-usage" target="_blank" rel="noopener">
+                <img src="/assets/88x31/ai-assisted.svg"
+                     alt="Disclaimer AI assisted site"
+                     class="badge-img">
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="animations-freeze">
+        <label for="background-animation-toggle">
+            <input id="background-animation-toggle" type="checkbox" aria-label="Pause background animation">
+            Pause background animation
+        </label>
+    </div>
+
+</div>
+    <div class="aside-updates">
+    
+    <div class="aside-updates-panel last-commit-message">
+        <strong>Recent Updates:</strong> <time>2026-11-26 05:20</time>
+        <p>Update note on Jekyll metadata caching</p>
+    </div>
+    
+
+    <div class="aside-updates-panel aside-status">
+        <strong>Site Notes</strong>
+        <p>Fresh updates from the obsidian vault are synced and published here.</p>
+    </div>
+</div>
+</aside>
+</div>
+
+<footer class="site-footer">
+  <p>
+    &copy; 2026 ABsurdly Goud. All rights reserved.
+  </p>
+</footer>
+
+<script src="/assets/js/pond.js?v=1795663266"></script>
+<script src="/assets/js/navigation.js?v=1795663266"></script>
+<script src="/assets/js/image_popups.js?v=1795663266" defer></script>
+<script src="/assets/js/callouts.js?v=1795663266" defer></script>
+<script src="/assets/js/guestbook.js?v=1795663266" defer></script>
+
+</body>
+</html>
