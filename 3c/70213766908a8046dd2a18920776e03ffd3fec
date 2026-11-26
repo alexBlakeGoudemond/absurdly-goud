@@ -1,0 +1,26 @@
+.cloudflare/guestbook-bridge/src/index.js
+  s_d3e683cb5641c6::t_739024e09e5d3e 16
+.cloudflare/guestbook-bridge/wrangler.toml
+  h_1197a506f6c7d6 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3c70213766908a8046dd2a18920776e03ffd3fec",
+  "prompts": {},
+  "humans": {
+    "h_1197a506f6c7d6": {
+      "author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d3e683cb5641c6": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5c28b4b0-31e9-4238-b0e1-67eb13c7c006",
+        "model": "unknown"
+      },
+      "human_author": "Alex Blake-Goudemond <alexgoudemond@gmail.com>"
+    }
+  }
+}
